@@ -1,0 +1,1032 @@
+{
+ "info": {
+  "곧은 131 (지금)": {
+   "dm_g": -0.00409999999997912,
+   "pos_mm": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "arm_g": 124.69000000000003,
+   "base_arm_g": 124.6941
+  },
+  "팔꿈치 110+110": {
+   "dm_g": 95.42193053435119,
+   "pos_mm": [
+    32.69303382753341,
+    -47.45975789589174,
+    -120.07056761332677
+   ],
+   "arm_g": 220.11603053435118,
+   "base_arm_g": 124.6941
+  },
+  "팔꿈치 120+120": {
+   "dm_g": 102.21429694656491,
+   "pos_mm": [
+    35.50998178457259,
+    -47.69501482449555,
+    -131.40088000749319
+   ],
+   "arm_g": 226.90839694656492,
+   "base_arm_g": 124.6941
+  }
+ },
+ "rows": [
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.05
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 3.462987025321336,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.06
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": -0.09830250598980017,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.07
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 3.311101984823983,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.08
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.05229105049830984,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.09
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.022659831272170416,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.1
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.02948337841826576,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.11
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.1167569031665372,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.05
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.05919173719820536,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.06
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.14104839842576933,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.07
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.002393016409224513,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.08
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.04281823713223054,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.09
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.042208977563462646,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.1
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.10804539467626495,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.11
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.17725916980187995,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "push",
+    "dir": "+x",
+    "F": 4
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 3.670257285753431,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "push",
+    "dir": "+x",
+    "F": 6
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.21478628118044157,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "push",
+    "dir": "+x",
+    "F": 8
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.11205105352907196,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "push",
+    "dir": "+x",
+    "F": 10
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.11381520915973442,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "push",
+    "dir": "+x",
+    "F": 12
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.11471119741768288,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "push",
+    "dir": "+x",
+    "F": 14
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.11337425080035907,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "push",
+    "dir": "+y",
+    "F": 4
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.0994797408420435,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "push",
+    "dir": "+y",
+    "F": 6
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.0871140404026631,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "push",
+    "dir": "+y",
+    "F": 8
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.08339673165151315,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "push",
+    "dir": "+y",
+    "F": 10
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.08256823387232243,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "push",
+    "dir": "+y",
+    "F": 12
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.08340074115099905,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "곧은 131 (지금)",
+    "test": "push",
+    "dir": "+y",
+    "F": 14
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.07732013752668326,
+   "mass_kg": 3.092265492
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.05
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 3.6520834141889615,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.06
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 3.3931972495057083,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.07
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 2.5362472409514725,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.08
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.051137589097888236,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.09
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.032412770964024284,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.1
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.11500999775165832,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.11
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.12715819983208365,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.05
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": -0.004282010278321147,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.06
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.15410087885223134,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.07
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.0010069756951197606,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.08
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.05434144162257126,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.09
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.046799107448980415,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.1
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.12183199150592183,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.11
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.15486415530922837,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "push",
+    "dir": "+x",
+    "F": 4
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 3.7028258444400803,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "push",
+    "dir": "+x",
+    "F": 6
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 1.7043414576726894,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "push",
+    "dir": "+x",
+    "F": 8
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.12103421205524739,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "push",
+    "dir": "+x",
+    "F": 10
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.11955320904527555,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "push",
+    "dir": "+x",
+    "F": 12
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.123401926982937,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "push",
+    "dir": "+x",
+    "F": 14
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.12625481208182465,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "push",
+    "dir": "+y",
+    "F": 4
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.1018133946971457,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "push",
+    "dir": "+y",
+    "F": 6
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.09149299845586864,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "push",
+    "dir": "+y",
+    "F": 8
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.08310892634749018,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "push",
+    "dir": "+y",
+    "F": 10
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.08976347498299009,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "push",
+    "dir": "+y",
+    "F": 12
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.08220649920496342,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 110+110",
+    "test": "push",
+    "dir": "+y",
+    "F": 14
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.08621721779338704,
+   "mass_kg": 3.2831093530687028
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.05
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 2.1532231385076455,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.06
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 3.513514271006768,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.07
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": -0.09462075797114777,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.08
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.023721822446420848,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.09
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.027548216484235555,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.1
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.11507660192802693,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.45,
+    "Td": 0.2,
+    "stride": 0.11
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.08582970058693129,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.05
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": -0.022319023941884744,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.06
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.1617899639581033,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.07
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.018342090820397394,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.08
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.05546783618036455,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.09
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.048903309138134676,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.1
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.12068367039505534,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "walk",
+    "Ts": 0.38,
+    "Td": 0.15,
+    "stride": 0.11
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.17799225446674116,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "push",
+    "dir": "+x",
+    "F": 4
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 3.731396185629607,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "push",
+    "dir": "+x",
+    "F": 6
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 1.8711756354136966,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "push",
+    "dir": "+x",
+    "F": 8
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.11738587294250064,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "push",
+    "dir": "+x",
+    "F": 10
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.13127404153498445,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "push",
+    "dir": "+x",
+    "F": 12
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.12054461549353135,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "push",
+    "dir": "+x",
+    "F": 14
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.12352908371138227,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "push",
+    "dir": "+y",
+    "F": 4
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.10046303270840051,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "push",
+    "dir": "+y",
+    "F": 6
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.09041355520444244,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "push",
+    "dir": "+y",
+    "F": 8
+   },
+   "fallen": false,
+   "error": null,
+   "cop_min": 0.08691380410291022,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "push",
+    "dir": "+y",
+    "F": 10
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.08872754601874089,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "push",
+    "dir": "+y",
+    "F": 12
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.09058457184179386,
+   "mass_kg": 3.2966940858931295
+  },
+  {
+   "meta": {
+    "arm": "팔꿈치 120+120",
+    "test": "push",
+    "dir": "+y",
+    "F": 14
+   },
+   "fallen": true,
+   "error": null,
+   "cop_min": 0.08522186063512557,
+   "mass_kg": 3.2966940858931295
+  }
+ ],
+ "roll_out_deg": {
+  "곧은 131 (지금)": {
+   "fallen": false,
+   "R_out": 9.953868342610795,
+   "L_out": 11.969109664056411
+  },
+  "팔꿈치 110+110": {
+   "fallen": false,
+   "R_out": 9.752127969224253,
+   "L_out": 11.762486925200147
+  },
+  "팔꿈치 120+120": {
+   "fallen": false,
+   "R_out": 9.74938204236751,
+   "L_out": 11.753357472686993
+  }
+ },
+ "fold_deg": -90.0
+}

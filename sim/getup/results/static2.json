@@ -1,0 +1,74 @@
+[
+ {
+  "hip_min_deg": -80,
+  "knee_max_deg": 100,
+  "side": "back",
+  "shoulder_h_mm": 279.35718892775884,
+  "K_deg": 75.0,
+  "A_deg": -50.0,
+  "H_deg": 28.0,
+  "torso_lean_deg": -53.0,
+  "leg_body_mm": 45.67259386749128,
+  "com_x_rel_mm": -55.7680003351608
+ },
+ {
+  "hip_min_deg": -80,
+  "knee_max_deg": 100,
+  "side": "front",
+  "shoulder_h_mm": 291.52039548600055,
+  "K_deg": 0.0,
+  "A_deg": 18.0,
+  "H_deg": -80.0,
+  "torso_lean_deg": 62.0,
+  "leg_body_mm": 41.957819415326746,
+  "com_x_rel_mm": 53.012776859212515
+ },
+ {
+  "hip_min_deg": -115,
+  "knee_max_deg": 100,
+  "side": "back",
+  "shoulder_h_mm": 283.7993058432518,
+  "K_deg": 75.0,
+  "A_deg": -50.0,
+  "H_deg": 26.0,
+  "torso_lean_deg": -51.0,
+  "leg_body_mm": 45.89371379453519,
+  "com_x_rel_mm": -53.46406085774466
+ },
+ {
+  "hip_min_deg": -115,
+  "knee_max_deg": 100,
+  "side": "front",
+  "shoulder_h_mm": 213.36435469919374,
+  "K_deg": 5.0,
+  "A_deg": 22.0,
+  "H_deg": -115.0,
+  "torso_lean_deg": 88.0,
+  "leg_body_mm": 8.300701432489156,
+  "com_x_rel_mm": 51.47208642091386
+ },
+ {
+  "hip_min_deg": -115,
+  "knee_max_deg": 115,
+  "side": "back",
+  "shoulder_h_mm": 270.5266422032051,
+  "K_deg": 115.0,
+  "A_deg": -14.0,
+  "H_deg": -100.0,
+  "torso_lean_deg": -1.0000000000000047,
+  "leg_body_mm": 25.722589526761013,
+  "com_x_rel_mm": -52.388825843731105
+ },
+ {
+  "hip_min_deg": -115,
+  "knee_max_deg": 115,
+  "side": "front",
+  "shoulder_h_mm": 213.36435469919374,
+  "K_deg": 5.0,
+  "A_deg": 22.0,
+  "H_deg": -115.0,
+  "torso_lean_deg": 88.0,
+  "leg_body_mm": 8.300701432489156,
+  "com_x_rel_mm": 51.47208642091386
+ }
+]

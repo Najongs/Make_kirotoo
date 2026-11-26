@@ -136,7 +136,7 @@ if __name__ == "__main__":
     starts = os.environ.get("STARTS", "prone,supine").split(",")
     out = cem(names, starts, iters=iters, pop=pop, seed=int(os.environ.get("SEED", "0")), procs=int(os.environ.get("PROCS", "40")))
     for r in out:
-        r.update(hip_min_deg=math.degrees(HIP_MIN), knee_max_deg=math.degrees(KNEE_MAX), arm_max_deg=math.degrees(ARM_MAX))
+        r.update(hip_min_deg=math.degrees(HIP_MIN), knee_max_deg=math.degrees(KNEE_MAX), arm_max_deg=math.degrees(ARM_MAX), selfcol=bool(os.environ.get("SELFCOL")))
     jdump(out, os.path.join(RES, f"{tag}.json"))
 
 
@@ -146,6 +146,10 @@ def replay(r, render=None):
     hm = math.radians(r["hip_min_deg"]) if "hip_min_deg" in r else -1.396
     km = math.radians(r["knee_max_deg"]) if "knee_max_deg" in r else 1.745
     global NK
+    if r.get("selfcol"):                         # 다리 ↔ 몸통 · 머리 충돌을 켜고 찾은 묶음(h115*)
+        os.environ["SELFCOL"] = "1"
+    else:
+        os.environ.pop("SELFCOL", None)
     am = math.radians(r.get("arm_max_deg", 120)); LO["arm"] = -min(am, 2.094); HI["arm"] = min(am, 2.094)
     LO["hip"] = hm; HI["knee"] = km; NK = len(r["best_x"]) // (1 + len(JN))
     S = Sim(ARMS[r["arm"]], knee_max=max(km, 1.745), hip_min=min(hm, -1.396))

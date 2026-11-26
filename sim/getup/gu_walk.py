@@ -30,10 +30,17 @@ def roll_out(name, Ts=0.45, Td=0.20, stride=0.07):
     return dict(fallen=o["fallen"], R_out=float(-q[w, ix.act.index("R_hip_roll")].min()), L_out=float(q[w, ix.act.index("L_hip_roll")].max()))
 
 
+FOLD = float(os.environ.get("FOLD_DEG", "0"))      # 팔꿈치를 접은 각(°, − = 아래팔 앞으로) — 걷기용 접은 팔의 무게중심
+
+
 def arm_delta(name):
     """원래 팔(v18 메시, XL 로 바꾼 질량) 대비 새 팔의 질량 차이와 그 자리(팔 body 좌표, 오른쪽): 점 질량 하나로 무게중심을 맞춤"""
     def sub(m):
-        d = mujoco.MjData(m); d.qpos[:] = m.qpos0; mujoco.mj_forward(m, d)
+        d = mujoco.MjData(m); d.qpos[:] = m.qpos0
+        je = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_JOINT, "R_elbow")
+        if je >= 0:
+            d.qpos[m.jnt_qposadr[je]] = math.radians(FOLD)
+        mujoco.mj_forward(m, d)
         b = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, "R_arm")
         R = d.xmat[b].reshape(3, 3); return float(m.body_subtreemass[b]), R.T @ (d.subtree_com[b] - d.xpos[b])
     m0, c0 = sub(build(None, kp=0)[0]); m1, c1 = sub(build(ARMS[name], kp=0)[0])
@@ -50,6 +57,8 @@ def cfg(name):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        CASES = sys.argv[1:]
     jobs = []
     info = {}
     for n in CASES:
@@ -66,9 +75,10 @@ if __name__ == "__main__":
     rows = run_jobs(jobs, procs=32)
     out = [dict(meta=mt, fallen=o.get("fallen"), error=o.get("error"), cop_min=(o.get("cop_margin_mm") or {}).get("min"), mass_kg=o.get("mass_kg"))
            for mt, c, o in rows]
-    rolls = {n: roll_out(n) for n in ("곧은 131 (지금)", "팔꿈치 140+140 · XM")}
+    tag = os.environ.get("TAG", "walk")
+    rolls = {n: roll_out(n) for n in (("곧은 131 (지금)", "팔꿈치 140+140 · XM") if tag == "walk" else CASES)}
     print("고관절 롤 바깥 최대 °", rolls)
-    jdump(dict(info=info, rows=out, roll_out_deg=rolls), os.path.join(RES, "walk.json"))
+    jdump(dict(info=info, rows=out, roll_out_deg=rolls, fold_deg=FOLD), os.path.join(RES, f"{tag}.json"))
     for n in CASES:
         ok_w = {(r["meta"]["Ts"], r["meta"]["stride"]): not r["fallen"] for r in out if r["meta"]["arm"] == n and r["meta"]["test"] == "walk"}
         mx = {ts: max([s for (t, s), v in ok_w.items() if t == ts and v], default=0) for ts in (0.45, 0.38)}

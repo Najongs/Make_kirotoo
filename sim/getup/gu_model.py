@@ -43,6 +43,7 @@ ARMS = {
     "팔꿈치 110+110": dict(kind="elbow", L1=0.110, L2=0.110),
     "팔꿈치 90+130": dict(kind="elbow", L1=0.090, L2=0.130),
     "팔꿈치 140+140": dict(kind="elbow", L1=0.140, L2=0.140),
+    "팔꿈치 120+120": dict(kind="elbow", L1=0.120, L2=0.120),
     "꺾은 120+80 (40°)": dict(kind="bent", L1=0.120, L2=0.080, beta=math.radians(40)),
     "꺾은 130+100 (60°)": dict(kind="bent", L1=0.130, L2=0.100, beta=math.radians(60)),
 }
@@ -146,9 +147,22 @@ def build(arm, knee_max=1.745, hip_min=-1.396, ext=LEG_EXT, kp=2.0):
         m, spec = build_model2(hip_roll=hrA(0.0405), servo_map=sm, extra_bodies=lambda sp: (wd(sp), am and am(sp)))
     finally:
         SEG.update(thigh=0.0, shank=0.0, mass=False, servo=None)
+    if os.environ.get("SELFCOL"):
+        selfcol(m)
     if kp:
         scale_kp(m, kp)
     return m, spec
+
+
+def selfcol(m):
+    """다리(허벅지 · 정강이 · 발목 · 발) ↔ 몸통 · 머리 충돌을 켬(원래 모델은 계산 안 함). 고관절을 −115° 까지 굽히면 몸통 앞 아래와 닿을 수 있어서.
+    몸통 · 머리 geom 의 conaffinity 에 비트 4 를 더하고, 허벅지 geom 의 contype 에 비트 4 를 더한다(정강이 · 발목 · 발은 이미 비트 4)."""
+    for i in range(m.ngeom):
+        b = m.body(m.geom_bodyid[i]).name
+        if b in ("torso", "head") and m.geom_contype[i] and "arm_" not in (m.geom(i).name or ""):
+            m.geom_conaffinity[i] |= 4
+        if b.endswith("_thigh") and m.geom_contype[i]:
+            m.geom_contype[i] |= 4
 
 
 def place(m, d, R):
