@@ -11,7 +11,23 @@ from gu_model import ARMS, build, RES, jdump, arm_mass_g
 from sp_common import CUR, hrA, run_jobs
 from run_tests import push_t
 
-CASES = ["곧은 131 (지금)", "곧은 220", "팔꿈치 110+110", "팔꿈치 140+140"]
+CASES = ["곧은 131 (지금)", "곧은 220", "팔꿈치 110+110", "팔꿈치 140+140", "팔꿈치 140+140 · XM"]
+
+
+def roll_out(name, Ts=0.45, Td=0.20, stride=0.07):
+    """걷는 동안 고관절 롤이 바깥으로 벌어진 최대 각(°, 측정 관절각, 걷기 시작 뒤) — 팔과 다리 틈(gu_clear) 과 견줄 값"""
+    import kw_sim
+    from sp_common import SEG, Idx2
+    from run_tests import BASE
+    c = dict(BASE); c.update(cfg(name)); c.update(Ts=Ts, Td=Td, stride=stride); seg = c.pop("seg")
+    SEG.update(thigh=seg[0], shank=seg[1], mass=True, servo=c.get("servo_map"))
+    try:
+        o, R, m = kw_sim.run(**c)
+    finally:
+        SEG.update(thigh=0.0, shank=0.0, mass=False, servo=None)
+    ix = Idx2(m); q = np.degrees(np.asarray(R["qmeas"])); t = np.asarray(R["t"])
+    w = t > 2.3
+    return dict(fallen=o["fallen"], R_out=float(-q[w, ix.act.index("R_hip_roll")].min()), L_out=float(q[w, ix.act.index("L_hip_roll")].max()))
 
 
 def arm_delta(name):
@@ -50,7 +66,9 @@ if __name__ == "__main__":
     rows = run_jobs(jobs, procs=32)
     out = [dict(meta=mt, fallen=o.get("fallen"), error=o.get("error"), cop_min=(o.get("cop_margin_mm") or {}).get("min"), mass_kg=o.get("mass_kg"))
            for mt, c, o in rows]
-    jdump(dict(info=info, rows=out), os.path.join(RES, "walk.json"))
+    rolls = {n: roll_out(n) for n in ("곧은 131 (지금)", "팔꿈치 140+140 · XM")}
+    print("고관절 롤 바깥 최대 °", rolls)
+    jdump(dict(info=info, rows=out, roll_out_deg=rolls), os.path.join(RES, "walk.json"))
     for n in CASES:
         ok_w = {(r["meta"]["Ts"], r["meta"]["stride"]): not r["fallen"] for r in out if r["meta"]["arm"] == n and r["meta"]["test"] == "walk"}
         mx = {ts: max([s for (t, s), v in ok_w.items() if t == ts and v], default=0) for ts in (0.45, 0.38)}
