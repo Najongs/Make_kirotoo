@@ -7,7 +7,7 @@
 ## 자료 위치
 - 설계 코드 `code_v17/` (최신 `build18.py`, 빌드 체인이 쓰는 파일만 남김), 최신 결과 `out18/` (조립 STEP, 출력 부품 54개, 가이드)
 - MuJoCo `sim/` (uv 환경, mujoco 4.0.1): 모델 `sim/model/kitoru_v18.xml`, 검토 `sim/REVIEW_mujoco_v17.md` (7절이 v18)
-- 공차 시험편 `print_tests/fit_coupon_v1.stp`, 참고 STEP · 사진 `references/` (git 제외), 인계 문서 `키토루_인계_v17.md`
+- 공차 시험편 `print_tests/fit_coupon_v2.stl` (3단계, 125x114 mm), 참고 STEP · 사진 `references/` (git 제외), 인계 문서 `키토루_인계_v17.md`
 
 ## 할 일
 1. ~~MuJoCo 모델 · 점검~~ ✓ 2026-11-26 · 2. ~~검사 7개~~ ✓ 2026-11-26 · 3. ~~검토 문서~~ ✓ 2026-11-26

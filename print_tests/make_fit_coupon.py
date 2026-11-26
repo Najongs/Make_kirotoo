@@ -1,7 +1,7 @@
 """큐비콘 PLA 공차 시험편 (STEP).
 
-서보 칸 고리: X430 케이스 단면 두 가지(28.5x34, 34x46.5)에 한쪽 여유 c = 0.10/0.15/0.20/0.25 mm.
-고리 윗면 바깥 돌기 개수 = 단계(1개 0.10 … 4개 0.25). 높이 6 mm, 벽 2.4 mm, 서포트 없음.
+서보 칸 고리: X430 케이스 단면 두 가지(28.5x34, 34x46.5)에 한쪽 여유 c = 0.10/0.15/0.20 mm (v2: 0.25 뺌, 소유자 2026-11-26).
+고리 윗면 바깥 돌기 개수 = 단계(1개 0.10, 2개 0.15, 3개 0.20). 판 전체 약 126x111 mm (작은 베드용). 높이 6 mm, 벽 2.4 mm, 서포트 없음.
 나사 구멍 판: M2 통과 2.2/2.4/2.6, M2.5 통과 2.7/2.9/3.1 (왼쪽부터 커짐).
 usage: cd sim && uv run python ../print_tests/make_fit_coupon.py
 """
@@ -11,7 +11,8 @@ sys.path.insert(0, os.path.join(HERE, "..", "code_v17"))
 from stepwriter import StepWriter
 
 CASE = {"A_28.5x34": (28.5, 34.0), "B_34x46.5": (34.0, 46.5)}   # X430 케이스 (공식 STEP 치수)
-CLR = [0.10, 0.15, 0.20, 0.25]
+CLR = [0.10, 0.15, 0.20]
+GAP = 4.0
 H, WALL, R_IN = 6.0, 2.4, 0.5
 GREY = (0.6, 0.6, 0.65)
 
@@ -30,14 +31,14 @@ for name, (a, b) in CASE.items():
             sol.append(("box", (3.0 + 3.0 * n, 4.5 + 3.0 * n, -1.2, 0.0, H - 2.0, H), GREY))
         part = w.part(f"servo_fit_{name}_c{c:.2f}", sol)
         children.append((part, (x0, y0, 0.0)))
-        x0 += oa + 6.0
-    y0 += b + 2 * WALL + 10.0
+        x0 += oa + GAP
+    y0 += b + 2 * WALL + GAP + 1.2
 
 holes = [(6 + 9 * i, 6, d / 2) for i, d in enumerate([2.2, 2.4, 2.6, 2.7, 2.9, 3.1])]
 plate = w.part("screw_hole_plate_M2_2.2-2.6_M2.5_2.7-3.1",
                [("rprism", ("z", 0.0, 4.0, [(0, 0, 2), (57, 0, 2), (57, 12, 2), (0, 12, 2)], [], holes), GREY)])
 children.append((plate, (0.0, y0, 0.0)))
 w.assembly("fit_coupon", children)
-out = os.path.join(HERE, "fit_coupon_v1.stp")
+out = os.path.join(HERE, "fit_coupon_v2.stp")
 open(out, "w").write(w.text())
 print("wrote", out, "entities", w.n)
