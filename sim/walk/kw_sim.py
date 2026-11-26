@@ -69,6 +69,7 @@ def run(**kw):
     torso_sub = None
     wall0 = time.time()
     a_crank = ix.aid["nod_crank"]
+    soft_done = False; soft_t = None
     for k in range(n):
         t = k * m.opt.timestep
         if k % nsub == 0:
@@ -94,6 +95,9 @@ def run(**kw):
         tilt = math.degrees(math.acos(np.clip(R3[2, 2], -1, 1)))
         if fall_t is None and (tilt > 35 or d.subtree_com[tb][2] < 0.13):
             fall_t = t
+        # 넘어짐 감지 → 토크 줄이기(PWM Limit 을 낮춘 것과 같게 forcerange 배수): fall_soft = (기울기 °, 배수)
+        if cfg.get("fall_soft") and not soft_done and tilt > cfg["fall_soft"][0]:
+            m.actuator_forcerange[:] = m.actuator_forcerange * cfg["fall_soft"][1]; soft_done = True; soft_t = t
         if cfg["record"] and (fall_t is None or cfg["record_fall"]) and k % 5 == 0:
             cop, mg, Fz = true_cop_margin(m, d, ix)
             fs, u, sat = utilisation(m, d, ix)
@@ -126,6 +130,7 @@ def run(**kw):
     R["support"] = rec["support"]; R["phase"] = rec["phase"]
     out = summarize(m, ix, cfg, plan, R, fall_t, T_end)
     out["wall_s"] = time.time() - wall0
+    out["soft_t"] = soft_t
     return out, R, m
 
 

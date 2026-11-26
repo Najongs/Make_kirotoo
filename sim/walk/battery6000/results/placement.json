@@ -1,0 +1,274 @@
+{
+ "pack_mm": [
+  60.0,
+  40.0,
+  70.0
+ ],
+ "clearance_mm": 2.0,
+ "voxel_mm": 2.0,
+ "inside": {
+  "몸통 안: 지금 배치에서 두 배터리만 뺌": {
+   "removed": [
+    "battery_LB012",
+    "battery_jetson_2S_1500"
+   ],
+   "fits": [],
+   "free_volume_cm3": 2138.248
+  },
+  "몸통 안: 두 배터리 + 해치 · 자석 뺌(바닥을 새로)": {
+   "removed": [
+    "battery_LB012",
+    "battery_jetson_2S_1500",
+    "pelvis_hatch",
+    "hatch_magnets_6x3"
+   ],
+   "fits": [],
+   "free_volume_cm3": 2146.28
+  },
+  "몸통 안: 두 배터리 + Jetson · 팬 · 강압 모듈 다시 배치": {
+   "removed": [
+    "battery_LB012",
+    "battery_jetson_2S_1500",
+    "jetson_nano_2gb_devkit",
+    "jetson_fan_40mm_5V",
+    "buck_5V_3A_jetson"
+   ],
+   "fits": [
+    {
+     "orient_xyz": [
+      70.0,
+      60.0,
+      40.0
+     ],
+     "n_positions": 921,
+     "best_center_mm": [
+      5.0,
+      0.0,
+      302.0
+     ],
+     "x_range": [
+      1.0,
+      31.0
+     ],
+     "z_range": [
+      302.0,
+      308.0
+     ]
+    },
+    {
+     "orient_xyz": [
+      60.0,
+      70.0,
+      40.0
+     ],
+     "n_positions": 918,
+     "best_center_mm": [
+      0.0,
+      -1.0,
+      302.0
+     ],
+     "x_range": [
+      0.0,
+      34.0
+     ],
+     "z_range": [
+      302.0,
+      308.0
+     ]
+    }
+   ],
+   "free_volume_cm3": 2387.312
+  },
+  "몸통 안: 두 배터리 + 선반 · 핀 · Jetson · 팬 · 강압 모듈 다시 배치": {
+   "removed": [
+    "battery_LB012",
+    "battery_jetson_2S_1500",
+    "jetson_nano_2gb_devkit",
+    "jetson_fan_40mm_5V",
+    "buck_5V_3A_jetson",
+    "electronics_shelf",
+    "shelf_pins"
+   ],
+   "fits": [
+    {
+     "orient_xyz": [
+      70.0,
+      60.0,
+      40.0
+     ],
+     "n_positions": 921,
+     "best_center_mm": [
+      5.0,
+      0.0,
+      302.0
+     ],
+     "x_range": [
+      1.0,
+      31.0
+     ],
+     "z_range": [
+      302.0,
+      308.0
+     ]
+    },
+    {
+     "orient_xyz": [
+      40.0,
+      70.0,
+      60.0
+     ],
+     "n_positions": 1243,
+     "best_center_mm": [
+      34.0,
+      -1.0,
+      266.0
+     ],
+     "x_range": [
+      34.0,
+      46.0
+     ],
+     "z_range": [
+      266.0,
+      304.0
+     ]
+    },
+    {
+     "orient_xyz": [
+      40.0,
+      60.0,
+      70.0
+     ],
+     "n_positions": 1325,
+     "best_center_mm": [
+      34.0,
+      0.0,
+      271.0
+     ],
+     "x_range": [
+      34.0,
+      46.0
+     ],
+     "z_range": [
+      271.0,
+      299.0
+     ]
+    },
+    {
+     "orient_xyz": [
+      60.0,
+      70.0,
+      40.0
+     ],
+     "n_positions": 918,
+     "best_center_mm": [
+      0.0,
+      -1.0,
+      302.0
+     ],
+     "x_range": [
+      0.0,
+      34.0
+     ],
+     "z_range": [
+      302.0,
+      308.0
+     ]
+    }
+   ],
+   "free_volume_cm3": 2418.064
+  }
+ },
+ "inside_largest_box_after_removing_batteries_mm": null,
+ "outside": {
+  "등 뒤 배낭형(세로 70)": {
+   "dims_xyz": [
+    40.0,
+    60.0,
+    70.0
+   ],
+   "center_mm": [
+    -117.0,
+    0.0,
+    280.0
+   ],
+   "ok": true,
+   "note": "머리 끄덕임 −25 ~ +33°(형상 한계까지), 팔 ±180° 와 안 겹침. OpenCR(뒤 x −83 ~ −63)의 포트를 가림"
+  },
+  "등 뒤 배낭형(가로 70)": {
+   "dims_xyz": [
+    40.0,
+    70.0,
+    60.0
+   ],
+   "center_mm": [
+    -117.0,
+    0.0,
+    280.0
+   ],
+   "ok": true,
+   "note": "머리 끄덕임 −25 ~ +33°(형상 한계까지), 팔 ±180° 와 안 겹침. OpenCR(뒤 x −83 ~ −63)의 포트를 가림"
+  },
+  "골반 아래 해치(두 다리 사이)": {
+   "(40.0, 40.0, 60.0)": {
+    "center": [
+     -10.0,
+     0.0,
+     189.0
+    ],
+    "hits": 1116,
+    "first": [
+     "R",
+     -20,
+     -80,
+     -11.5,
+     555
+    ]
+   },
+   "(60.0, 40.0, 70.0)": {
+    "center": [
+     -10.0,
+     0.0,
+     184.0
+    ],
+    "hits": 2043,
+    "first": [
+     "R",
+     -20,
+     -80,
+     -11.5,
+     865
+    ]
+   },
+   "(70.0, 40.0, 60.0)": {
+    "center": [
+     -10.0,
+     0.0,
+     189.0
+    ],
+    "hits": 1498,
+    "first": [
+     "R",
+     -20,
+     -80,
+     -11.5,
+     885
+    ]
+   },
+   "(40.0, 60.0, 70.0)": {
+    "center": [
+     -10.0,
+     0.0,
+     184.0
+    ],
+    "hits": 3988,
+    "first": [
+     "R",
+     -20,
+     -80,
+     -11.5,
+     2747
+    ]
+   }
+  }
+ }
+}

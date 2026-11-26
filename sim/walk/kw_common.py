@@ -221,8 +221,8 @@ class Idx:
         # 정지토크 · 무부하속도: 액추에이터 forcerange 로 서보 종류를 알아냄(고관절 롤을 XC 로 바꾼 변형도 맞게)
         W0 = {3.8: 4.5, 1.75: 6.81, 1.4: 5.45, 2.8: 5.45}
         self.stall = np.array([float(m.actuator_forcerange[i, 1]) for i in range(m.nu)])
-        self.w0 = np.array([W0[round(float(m.actuator_forcerange[i, 1]), 2)] for i in range(m.nu)])
-        self.servo = [{3.8: "XM430-W350", 1.75: "XC430-W240", 1.4: "XL430-W250", 2.8: "2xXL430"}[round(float(m.actuator_forcerange[i, 1]), 2)] for i in range(m.nu)]
+        self.w0 = np.array([W0.get(round(float(m.actuator_forcerange[i, 1]), 2), 5.0) for i in range(m.nu)])   # 토크를 줄인 변형은 근사값
+        self.servo = [{3.8: "XM430-W350", 1.75: "XC430-W240", 1.4: "XL430-W250", 2.8: "2xXL430"}.get(round(float(m.actuator_forcerange[i, 1]), 2), "scaled") for i in range(m.nu)]
 
 
 # ---------------------------------------------------------------- 센서: 제어기가 받는 것은 이것뿐
