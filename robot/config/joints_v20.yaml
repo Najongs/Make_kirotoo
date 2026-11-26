@@ -1,0 +1,176 @@
+# 키토루 v20 서보 관절 표 (실제로 서보가 도는 관절 15개: 다리 12, 팔 2, 머리 크랭크 1).
+# 2026-11-26 에 out20/joints.csv(모델 · 설계 범위)와 sim/walk/ranges/joint_ranges_v19.csv(소프트웨어 한계 ·
+# 작업 범위 초안)에서 만들었다. 한계는 두 표가 겹치는 곳(더 좁은 쪽)이다.
+#
+# - id · direction · zero_offset 은 조립 후 정하는 값이다. 지금은 자리표시다.
+# - 각도는 라디안, 로봇 기준(방향 · 영점 적용 뒤). 변환: raw = 2048 + zero_offset + direction · θ · 4096/(2π)
+# - soft_limit_rad: 명령을 여기로 자른다. null 이면 그 관절은 명령을 거부한다.
+# - work_limit_rad: 정상 운용 범위. 정책 출력은 기본으로 여기로 자른다(PolicyIO clip_to_work).
+# - bus 는 직렬 포트 하나(OpenCR). connector 는 배선 단자 이름일 뿐이다 — OpenCR 의 TTL 단자 셋은
+#   한 Dynamixel 포트(Serial3)에 나란히 붙는 것으로 본다 [확인 필요: 공식 문서에 문장은 없음].
+#   그래서 ID 15개는 모두 달라야 한다.
+# - 수동 관절(head_nod · 귀 · 손 날개 · nod_rod)은 서보가 없어서 여기 없다.
+
+require_soft_limits: true
+
+buses:
+  opencr:
+    port: /dev/ttyACM0   # Jetson 은 README 의 udev 규칙으로 /dev/kitoru_opencr 고정 이름을 쓸 수 있다
+    baud: 1000000        # 서보 Baud Rate(8) 와 같아야 한다
+
+safety:
+  fall_tilt_deg: 25        # BATTERY_6000.md: 몸통 기울기 25° 넘으면
+  fall_goal_pwm: 265       # 885 × 0.3, Goal PWM(100) 으로 (PWM Limit(36) 은 EEPROM 이라 토크 켠 채 못 씀)
+  normal_goal_pwm: 885
+  low_voltage_stop_v: 10.8 # 셀당 3.6 V
+  low_voltage_warn_v: 11.1 # [추정] 경고만
+  voltage_debounce: 3      # 연속 3번 낮을 때만 정지 (걷는 중 순간 처짐 거르기)
+  full_charge_v: 12.6      # Max Voltage Limit(32) 이 이보다 낮으면 경고 (XL430 기본 14.0 V)
+  temp_warn_margin_c: 10   # Temperature Limit(31) − 10 °C 에서 경고 (XL430 72 → 62 °C)
+  temp_stop_margin_c: 3    # 한계 − 3 °C 에서 정지 (서보가 스스로 꺼지기 전에)
+
+# 짝 관절 제한: lo <= coef[0]·q[a] + coef[1]·q[b] <= hi. 관절 하나 한계로는 못 거는 충돌용.
+pair_limits:
+  - name: hip_yaw_pair
+    a: R_hip_yaw
+    b: L_hip_yaw
+    coef: [1.0, -1.0]          # [확인 필요] 부호 · 값 — v20 짝 관절 지도(JOINT_RANGES.md 2절)에서
+    range_rad: [-0.6981, 0.6981] # ±40° 자리표시
+    enabled: false
+
+joints:
+  R_hip_yaw:
+    id: 1  # [조립 후 확정] 자리표시
+    model: XL430-W250
+    bus: opencr
+    connector: TTL1
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [-0.33161, 0.34907]  # -19.0 ~ 20.0 deg = v19 소프트웨어 한계 -19.0~21.1 ∩ v20 joints.csv -20.0~20.0
+    work_limit_rad: [-0.24435, 0.28100]  # -14.0 ~ 16.1 deg = v19 작업 범위 -14.0~16.1 ∩ 위 한계
+  R_hip_roll:
+    id: 2  # [조립 후 확정] 자리표시
+    model: XM430-W350
+    bus: opencr
+    connector: TTL1
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: null  # [v20 후 채움] out20 범위 검사 전 (joints.csv 설계 -18~2 deg). null 이면 명령 거부
+    work_limit_rad: null  # [v20 후 채움]
+  R_hip_pitch:
+    id: 3  # [조립 후 확정] 자리표시
+    model: XM430-W350
+    bus: opencr
+    connector: TTL1
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [-1.39626, 0.19199]  # -80.0 ~ 11.0 deg = v19 소프트웨어 한계 -81.6~85.5 ∩ v20 joints.csv -80.0~11.0 [v20 후 채움] v20 은 롤 서보 때문에 뒤로 젖히기가 줄어 v19 표(+85.5)가 안 맞음, out20 범위 검사로 다시
+    work_limit_rad: [-1.33692, 0.19199]  # -76.6 ~ 11.0 deg = v19 작업 범위 -76.6~80.5 ∩ 위 한계
+  R_knee:
+    id: 4  # [조립 후 확정] 자리표시
+    model: XM430-W350
+    bus: opencr
+    connector: TTL1
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [0.00000, 1.71391]  # 0.0 ~ 98.2 deg = v19 소프트웨어 한계 -29.0~98.2 ∩ v20 joints.csv 0.0~100.0
+    work_limit_rad: [0.00000, 1.62665]  # 0.0 ~ 93.2 deg = v19 작업 범위 0.0~93.2 ∩ 위 한계
+  R_ankle_pitch:
+    id: 5  # [조립 후 확정] 자리표시
+    model: XC430-W240
+    bus: opencr
+    connector: TTL1
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [-0.87266, 0.36303]  # -50.0 ~ 20.8 deg = v19 소프트웨어 한계 -67.5~20.8 ∩ v20 joints.csv -50.0~22.0
+    work_limit_rad: [-0.87266, 0.27576]  # -50.0 ~ 15.8 deg = v19 작업 범위 -62.5~15.8 ∩ 위 한계
+  R_ankle_roll:
+    id: 6  # [조립 후 확정] 자리표시
+    model: XM430-W350
+    bus: opencr
+    connector: TTL1
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [-0.30718, 0.30718]  # -17.6 ~ 17.6 deg = v19 소프트웨어 한계 -17.6~17.6 ∩ v20 joints.csv -20.0~20.0
+    work_limit_rad: [-0.21991, 0.21991]  # -12.6 ~ 12.6 deg = v19 작업 범위 -12.6~12.6 ∩ 위 한계
+  L_hip_yaw:
+    id: 7  # [조립 후 확정] 자리표시
+    model: XL430-W250
+    bus: opencr
+    connector: TTL2
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [-0.34907, 0.31765]  # -20.0 ~ 18.2 deg = v19 소프트웨어 한계 -21.2~18.2 ∩ v20 joints.csv -20.0~20.0
+    work_limit_rad: [-0.28274, 0.23038]  # -16.2 ~ 13.2 deg = v19 작업 범위 -16.2~13.2 ∩ 위 한계
+  L_hip_roll:
+    id: 8  # [조립 후 확정] 자리표시
+    model: XM430-W350
+    bus: opencr
+    connector: TTL2
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: null  # [v20 후 채움] out20 범위 검사 전 (joints.csv 설계 -2~18 deg). null 이면 명령 거부
+    work_limit_rad: null  # [v20 후 채움]
+  L_hip_pitch:
+    id: 9  # [조립 후 확정] 자리표시
+    model: XM430-W350
+    bus: opencr
+    connector: TTL2
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [-1.39626, 0.19199]  # -80.0 ~ 11.0 deg = v19 소프트웨어 한계 -81.6~85.5 ∩ v20 joints.csv -80.0~11.0 [v20 후 채움] v20 은 롤 서보 때문에 뒤로 젖히기가 줄어 v19 표(+85.5)가 안 맞음, out20 범위 검사로 다시
+    work_limit_rad: [-1.33692, 0.19199]  # -76.6 ~ 11.0 deg = v19 작업 범위 -76.6~80.5 ∩ 위 한계
+  L_knee:
+    id: 10  # [조립 후 확정] 자리표시
+    model: XM430-W350
+    bus: opencr
+    connector: TTL2
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [0.00000, 1.71391]  # 0.0 ~ 98.2 deg = v19 소프트웨어 한계 -29.0~98.2 ∩ v20 joints.csv 0.0~100.0
+    work_limit_rad: [0.00000, 1.62665]  # 0.0 ~ 93.2 deg = v19 작업 범위 0.0~93.2 ∩ 위 한계
+  L_ankle_pitch:
+    id: 11  # [조립 후 확정] 자리표시
+    model: XC430-W240
+    bus: opencr
+    connector: TTL2
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [-0.87266, 0.36303]  # -50.0 ~ 20.8 deg = v19 소프트웨어 한계 -67.5~20.8 ∩ v20 joints.csv -50.0~22.0
+    work_limit_rad: [-0.87266, 0.27576]  # -50.0 ~ 15.8 deg = v19 작업 범위 -62.5~15.8 ∩ 위 한계
+  L_ankle_roll:
+    id: 12  # [조립 후 확정] 자리표시
+    model: XM430-W350
+    bus: opencr
+    connector: TTL2
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [-0.30718, 0.30718]  # -17.6 ~ 17.6 deg = v19 소프트웨어 한계 -17.6~17.6 ∩ v20 joints.csv -20.0~20.0
+    work_limit_rad: [-0.21991, 0.21991]  # -12.6 ~ 12.6 deg = v19 작업 범위 -12.6~12.6 ∩ 위 한계
+  R_arm_swing:
+    id: 13  # [조립 후 확정] 자리표시
+    model: XL430-W250
+    bus: opencr
+    connector: TTL3
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [-2.09440, 2.09440]  # -120.0 ~ 120.0 deg = v19 소프트웨어 한계 -132.6~126.8 ∩ v20 joints.csv -120.0~120.0
+    work_limit_rad: [-2.09440, 2.09440]  # -120.0 ~ 120.0 deg = v19 작업 범위 -127.6~121.8 ∩ 위 한계
+  L_arm_swing:
+    id: 14  # [조립 후 확정] 자리표시
+    model: XL430-W250
+    bus: opencr
+    connector: TTL3
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [-2.09440, 2.09440]  # -120.0 ~ 120.0 deg = v19 소프트웨어 한계 -132.6~126.8 ∩ v20 joints.csv -120.0~120.0
+    work_limit_rad: [-2.09440, 2.09440]  # -120.0 ~ 120.0 deg = v19 작업 범위 -127.6~121.8 ∩ 위 한계
+  nod_crank:
+    id: 15  # [조립 후 확정] 자리표시
+    model: XL430-W250
+    bus: opencr
+    connector: TTL3
+    direction: 1  # [조립 후 확정] 자리표시
+    zero_offset: 0  # [조립 후 확정] tick, tools/record_zero.py --save 가 씀
+    soft_limit_rad: [-1.22173, 0.69813]  # -70 ~ 40 deg = v20 joints.csv 크랭크 범위 [확인 필요] 머리 각(head_nod −20.8~28) → 크랭크 각 변환 안 함
+    work_limit_rad: null  # [확인 필요]

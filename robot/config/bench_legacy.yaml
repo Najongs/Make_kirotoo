@@ -1,0 +1,22 @@
+# legacy/XL430_robot_base.py 의 시험대 설정과 똑같이: XL430 세 개(ID 6 · 7 · 12), 영점 2048, 방향 +1,
+# 소프트웨어 한계 없음(서보의 Min/Max Position Limit 만 검사). 링크를 달기 전 빈 서보 시험용.
+require_soft_limits: false
+
+buses:
+  opencr:
+    port: COM3          # 원본 기본값. Linux 는 --port /dev/ttyACM0
+    baud: 1000000
+
+joints:
+  joint_6:
+    id: 6
+    model: XL430-W250
+    zero_offset: 0
+  joint_7:
+    id: 7
+    model: XL430-W250
+    zero_offset: 0
+  joint_12:
+    id: 12
+    model: XL430-W250
+    zero_offset: 0
