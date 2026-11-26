@@ -1,0 +1,7 @@
+legs: 140 runs, 101 fell, 0 errors, 51s
+push: 228 runs, 92 fell, 0 errors, 95s
+servo: 245 runs, 161 fell, 0 errors, 86s
+legs_rep: 324 runs, 183 fell, 0 errors, 122s
+servo_rep: 864 runs, 405 fell, 0 errors, 425s
+seg: 1728 runs, 1101 fell, 0 errors, 852s
+seg_push: 480 runs, 158 fell, 0 errors, 257s

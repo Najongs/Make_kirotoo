@@ -1,0 +1,126 @@
+지금 (늘림 40.5 mm)              a=0.3 p=0.0 half=False flight=  1.0ms rise=   2.2 vto=0.020751321422950057 took=0.16100000000000003 tilt=1.3590563113750678 wknee=1.00 whip=0.52 wank=0.36 up=True
+지금 (늘림 40.5 mm)              a=0.3 p=0.0 half=True  flight=  1.0ms rise=   4.3 vto=0.008829722751688498 took=0.2549999999999999 tilt=3.3541481702872598 wknee=0.95 whip=0.57 wank=0.27 up=True
+지금 (늘림 40.5 mm)              a=0.3 p=0.2 half=False flight= 23.0ms rise=   8.0 vto=-0.06019058979335144 took=0.2509999999999999 tilt=7.017759952061914 wknee=1.06 whip=0.54 wank=0.53 up=False
+지금 (늘림 40.5 mm)              a=0.3 p=0.2 half=True  flight=  0.0ms rise=   5.6 vto=None took=None tilt=None wknee=0.95 whip=0.54 wank=0.35 up=False
+지금 (늘림 40.5 mm)              a=0.3 p=0.35 half=False flight= 12.0ms rise=   9.8 vto=0.00039576563319490587 took=0.2569999999999999 tilt=7.956347028177151 wknee=1.07 whip=0.54 wank=0.57 up=False
+지금 (늘림 40.5 mm)              a=0.3 p=0.35 half=True  flight=  1.0ms rise=   5.4 vto=0.02859008344224132 took=0.19499999999999984 tilt=1.1656856872260621 wknee=0.82 whip=0.48 wank=0.25 up=False
+지금 (늘림 40.5 mm)              a=0.5 p=0.0 half=False flight=  7.0ms rise=   0.7 vto=0.04714068581969476 took=0.18100000000000005 tilt=1.4181010434070331 wknee=1.00 whip=0.51 wank=0.36 up=True
+지금 (늘림 40.5 mm)              a=0.5 p=0.0 half=True  flight=  0.0ms rise=   5.6 vto=None took=None tilt=None wknee=1.05 whip=0.58 wank=0.34 up=True
+지금 (늘림 40.5 mm)              a=0.5 p=0.2 half=False flight=  9.0ms rise=   3.4 vto=-0.24930476606645766 took=0.34299999999999997 tilt=11.980675011814022 wknee=1.09 whip=0.57 wank=0.57 up=False
+지금 (늘림 40.5 mm)              a=0.5 p=0.2 half=True  flight=  0.0ms rise=   6.6 vto=None took=None tilt=None wknee=1.04 whip=0.59 wank=0.36 up=False
+지금 (늘림 40.5 mm)              a=0.5 p=0.35 half=False flight= 59.0ms rise=   6.0 vto=-0.02839927473548573 took=0.31999999999999984 tilt=12.183310814449593 wknee=1.09 whip=0.56 wank=0.61 up=False
+지금 (늘림 40.5 mm)              a=0.5 p=0.35 half=True  flight=  0.0ms rise=   5.8 vto=None took=None tilt=None wknee=1.04 whip=0.59 wank=0.37 up=False
+지금 (늘림 40.5 mm)              a=0.7 p=0.0 half=False flight=  1.0ms rise=   2.2 vto=0.07658628714726501 took=0.26 tilt=0.19558646272639435 wknee=0.99 whip=0.54 wank=0.39 up=True
+지금 (늘림 40.5 mm)              a=0.7 p=0.0 half=True  flight=  1.0ms rise=   5.7 vto=0.011833046092887699 took=0.496 tilt=5.783705438201806 wknee=1.07 whip=0.56 wank=0.38 up=True
+지금 (늘림 40.5 mm)              a=0.7 p=0.2 half=False flight=  1.0ms rise=  -2.4 vto=-0.07771737604523807 took=0.33299999999999996 tilt=8.927784725570728 wknee=1.07 whip=0.55 wank=0.50 up=False
+지금 (늘림 40.5 mm)              a=0.7 p=0.2 half=True  flight=  0.0ms rise=   7.0 vto=None took=None tilt=None wknee=1.07 whip=0.58 wank=0.40 up=False
+지금 (늘림 40.5 mm)              a=0.7 p=0.35 half=False flight=  9.0ms rise=   2.2 vto=-0.20515505349722768 took=0.397 tilt=18.518160212097182 wknee=1.08 whip=0.55 wank=0.58 up=False
+지금 (늘림 40.5 mm)              a=0.7 p=0.35 half=True  flight=  0.0ms rise=   6.5 vto=None took=None tilt=None wknee=1.07 whip=0.58 wank=0.40 up=False
+지금 (늘림 0 mm)                 a=0.3 p=0.0 half=False flight=  0.0ms rise=   2.4 vto=None took=None tilt=None wknee=1.02 whip=0.53 wank=0.39 up=True
+지금 (늘림 0 mm)                 a=0.3 p=0.0 half=True  flight=  0.0ms rise=   3.9 vto=None took=None tilt=None wknee=0.94 whip=0.53 wank=0.32 up=True
+지금 (늘림 0 mm)                 a=0.3 p=0.2 half=False flight= 27.0ms rise=   5.8 vto=-0.0805766682197087 took=0.25 tilt=8.814980178334812 wknee=1.06 whip=0.53 wank=0.53 up=False
+지금 (늘림 0 mm)                 a=0.3 p=0.2 half=True  flight=  0.0ms rise=   5.3 vto=None took=None tilt=None wknee=0.94 whip=0.49 wank=0.39 up=False
+지금 (늘림 0 mm)                 a=0.3 p=0.35 half=False flight= 23.0ms rise=   7.1 vto=-0.028157560559541783 took=0.2569999999999999 tilt=10.153620246185593 wknee=1.06 whip=0.52 wank=0.58 up=False
+지금 (늘림 0 mm)                 a=0.3 p=0.35 half=True  flight=  0.0ms rise=   5.0 vto=None took=None tilt=None wknee=0.94 whip=0.47 wank=0.37 up=False
+지금 (늘림 0 mm)                 a=0.5 p=0.0 half=False flight=  1.0ms rise=   1.2 vto=0.03831814050801887 took=0.16700000000000004 tilt=0.9113895562937652 wknee=0.97 whip=0.51 wank=0.34 up=True
+지금 (늘림 0 mm)                 a=0.5 p=0.0 half=True  flight=  0.0ms rise=   4.2 vto=None took=None tilt=None wknee=1.03 whip=0.57 wank=0.37 up=True
+지금 (늘림 0 mm)                 a=0.5 p=0.2 half=False flight=  0.0ms rise=   2.1 vto=None took=None tilt=None wknee=1.08 whip=0.54 wank=0.56 up=False
+지금 (늘림 0 mm)                 a=0.5 p=0.2 half=True  flight=  1.0ms rise=   5.5 vto=0.028953283962359116 took=0.33099999999999996 tilt=3.4547475064212443 wknee=0.97 whip=0.54 wank=0.34 up=False
+지금 (늘림 0 mm)                 a=0.5 p=0.35 half=False flight= 31.0ms rise=   3.0 vto=-0.05111437370742472 took=0.2749999999999999 tilt=8.608740194964136 wknee=1.08 whip=0.55 wank=0.62 up=False
+지금 (늘림 0 mm)                 a=0.5 p=0.35 half=True  flight=  0.0ms rise=   5.3 vto=None took=None tilt=None wknee=1.01 whip=0.54 wank=0.41 up=False
+지금 (늘림 0 mm)                 a=0.7 p=0.0 half=False flight=  0.0ms rise=   1.9 vto=None took=None tilt=None wknee=1.04 whip=0.53 wank=0.38 up=True
+지금 (늘림 0 mm)                 a=0.7 p=0.0 half=True  flight=  0.0ms rise=   3.6 vto=None took=None tilt=None wknee=1.04 whip=0.55 wank=0.43 up=True
+지금 (늘림 0 mm)                 a=0.7 p=0.2 half=False flight=  5.0ms rise=  -2.4 vto=0.025010625516893325 took=0.24499999999999988 tilt=4.436461587986978 wknee=1.02 whip=0.53 wank=0.47 up=False
+지금 (늘림 0 mm)                 a=0.7 p=0.2 half=True  flight=  0.0ms rise=   5.1 vto=None took=None tilt=None wknee=1.04 whip=0.55 wank=0.44 up=False
+지금 (늘림 0 mm)                 a=0.7 p=0.35 half=False flight=  0.0ms rise=  -1.1 vto=None took=None tilt=None wknee=1.07 whip=0.56 wank=0.65 up=False
+지금 (늘림 0 mm)                 a=0.7 p=0.35 half=True  flight=  1.0ms rise=   4.7 vto=0.05830446626909872 took=0.40200000000000014 tilt=3.7911470141429535 wknee=0.95 whip=0.51 wank=0.38 up=False
+고관절 피치 · 무릎 W210             a=0.3 p=0.0 half=False flight= 17.0ms rise=   4.9 vto=-0.0622613556194973 took=0.20699999999999985 tilt=1.7473791472045372 wknee=0.97 whip=0.46 wank=0.50 up=True
+고관절 피치 · 무릎 W210             a=0.3 p=0.0 half=True  flight=  0.0ms rise=   6.1 vto=None took=None tilt=None wknee=0.82 whip=0.47 wank=0.36 up=True
+고관절 피치 · 무릎 W210             a=0.3 p=0.2 half=False flight= 16.0ms rise=   9.7 vto=0.03336567542572933 took=0.127 tilt=0.736351909100261 wknee=1.01 whip=0.59 wank=0.52 up=False
+고관절 피치 · 무릎 W210             a=0.3 p=0.2 half=True  flight=  1.0ms rise=  10.7 vto=0.039751309541375464 took=0.19399999999999995 tilt=3.1029652673284676 wknee=0.76 whip=0.41 wank=0.31 up=False
+고관절 피치 · 무릎 W210             a=0.3 p=0.35 half=False flight= 31.0ms rise=  13.9 vto=0.03665689531783964 took=0.125 tilt=0.7141854140210985 wknee=1.01 whip=0.59 wank=0.51 up=False
+고관절 피치 · 무릎 W210             a=0.3 p=0.35 half=True  flight=  1.0ms rise=  13.8 vto=0.04088712067063295 took=0.18999999999999995 tilt=2.699881276088222 wknee=0.75 whip=0.40 wank=0.32 up=False
+고관절 피치 · 무릎 W210             a=0.5 p=0.0 half=False flight=  3.0ms rise=   5.6 vto=0.06087078631546535 took=0.17300000000000004 tilt=2.6939857990900893 wknee=1.01 whip=0.52 wank=0.51 up=True
+고관절 피치 · 무릎 W210             a=0.5 p=0.0 half=True  flight=  1.0ms rise=   6.0 vto=0.04405754478894411 took=0.29699999999999993 tilt=7.912559819557993 wknee=0.85 whip=0.42 wank=0.35 up=False
+고관절 피치 · 무릎 W210             a=0.5 p=0.2 half=False flight=  7.0ms rise=   8.3 vto=0.10669131510111075 took=0.139 tilt=0.8438406068201857 wknee=0.97 whip=0.57 wank=0.51 up=False
+고관절 피치 · 무릎 W210             a=0.5 p=0.2 half=True  flight=  1.0ms rise=  16.9 vto=0.029889530329785714 took=0.30899999999999994 tilt=7.6413655377354255 wknee=0.89 whip=0.47 wank=0.39 up=True
+고관절 피치 · 무릎 W210             a=0.5 p=0.35 half=False flight= 37.0ms rise=  11.4 vto=0.10599728886795728 took=0.139 tilt=0.8544357808962472 wknee=0.97 whip=0.57 wank=0.51 up=False
+고관절 피치 · 무릎 W210             a=0.5 p=0.35 half=True  flight=  1.0ms rise=  21.8 vto=0.04145010797984945 took=0.29600000000000004 tilt=6.598425297162224 wknee=0.84 whip=0.49 wank=0.40 up=False
+고관절 피치 · 무릎 W210             a=0.7 p=0.0 half=False flight= 23.0ms rise=   5.0 vto=0.16502176426490525 took=0.16799999999999993 tilt=2.711782542556283 wknee=0.92 whip=0.49 wank=0.47 up=True
+고관절 피치 · 무릎 W210             a=0.7 p=0.0 half=True  flight=  1.0ms rise=   6.4 vto=0.08678116077819634 took=0.34999999999999987 tilt=9.788501501542433 wknee=0.83 whip=0.42 wank=0.36 up=False
+고관절 피치 · 무릎 W210             a=0.7 p=0.2 half=False flight= 18.0ms rise=   7.2 vto=0.16328229439191938 took=0.1499999999999999 tilt=1.0449043405956204 wknee=0.92 whip=0.54 wank=0.50 up=False
+고관절 피치 · 무릎 W210             a=0.7 p=0.2 half=True  flight=  1.0ms rise=   7.3 vto=0.1230915562816896 took=0.29000000000000004 tilt=7.68352746236438 wknee=0.71 whip=0.40 wank=0.25 up=False
+고관절 피치 · 무릎 W210             a=0.7 p=0.35 half=False flight= 25.0ms rise=   9.2 vto=0.16440238807350058 took=0.15100000000000002 tilt=1.11553505211737 wknee=0.93 whip=0.54 wank=0.51 up=False
+고관절 피치 · 무릎 W210             a=0.7 p=0.35 half=True  flight=  1.0ms rise=   5.4 vto=0.08045614584843382 took=0.357 tilt=10.896936227869135 wknee=0.85 whip=0.42 wank=0.34 up=False
+다리 XM 모두 W210                a=0.3 p=0.0 half=False flight= 16.0ms rise=   4.9 vto=-0.06351542125727239 took=0.20699999999999985 tilt=1.7015280445959322 wknee=0.97 whip=0.47 wank=0.50 up=True
+다리 XM 모두 W210                a=0.3 p=0.0 half=True  flight=  1.0ms rise=   6.2 vto=0.015540126590309903 took=0.22299999999999986 tilt=4.0810124226534334 wknee=0.79 whip=0.47 wank=0.29 up=True
+다리 XM 모두 W210                a=0.3 p=0.2 half=False flight= 10.0ms rise=   9.7 vto=0.03594153973958326 took=0.1259999999999999 tilt=0.7343479787817038 wknee=1.01 whip=0.59 wank=0.51 up=False
+다리 XM 모두 W210                a=0.3 p=0.2 half=True  flight=  1.0ms rise=  10.7 vto=0.038650092119922846 took=0.19499999999999984 tilt=3.092737657645529 wknee=0.76 whip=0.41 wank=0.32 up=False
+다리 XM 모두 W210                a=0.3 p=0.35 half=False flight= 33.0ms rise=  14.0 vto=0.033777266035994236 took=0.127 tilt=0.7023668689198302 wknee=1.01 whip=0.59 wank=0.52 up=False
+다리 XM 모두 W210                a=0.3 p=0.35 half=True  flight=  1.0ms rise=  13.6 vto=0.023550425906464872 took=0.20999999999999996 tilt=2.920370572737045 wknee=0.84 whip=0.49 wank=0.35 up=False
+다리 XM 모두 W210                a=0.5 p=0.0 half=False flight=  3.0ms rise=   5.5 vto=0.08760396479426055 took=0.15900000000000003 tilt=2.532783413935803 wknee=0.96 whip=0.50 wank=0.48 up=True
+다리 XM 모두 W210                a=0.5 p=0.0 half=True  flight=  0.0ms rise=   6.2 vto=None took=None tilt=None wknee=0.98 whip=0.55 wank=0.39 up=False
+다리 XM 모두 W210                a=0.5 p=0.2 half=False flight= 11.0ms rise=   8.3 vto=0.10596476015923419 took=0.139 tilt=0.8343875832849027 wknee=0.97 whip=0.57 wank=0.51 up=False
+다리 XM 모두 W210                a=0.5 p=0.2 half=True  flight=  1.0ms rise=  16.9 vto=0.005711598656805278 took=0.32499999999999996 tilt=8.20656852323351 wknee=0.94 whip=0.49 wank=0.40 up=True
+다리 XM 모두 W210                a=0.5 p=0.35 half=False flight= 37.0ms rise=  11.4 vto=0.10562449312074061 took=0.139 tilt=0.8462552890750694 wknee=0.97 whip=0.57 wank=0.51 up=False
+다리 XM 모두 W210                a=0.5 p=0.35 half=True  flight=  1.0ms rise=  21.6 vto=0.08500074446479894 took=0.242 tilt=4.4350911932533785 wknee=0.75 whip=0.49 wank=0.25 up=False
+다리 XM 모두 W210                a=0.7 p=0.0 half=False flight= 23.0ms rise=   5.0 vto=0.1711212480217948 took=0.14500000000000002 tilt=2.419854577234174 wknee=0.84 whip=0.40 wank=0.42 up=True
+다리 XM 모두 W210                a=0.7 p=0.0 half=True  flight=  1.0ms rise=   6.4 vto=0.08116488942037957 took=0.3579999999999999 tilt=10.16966741507117 wknee=0.84 whip=0.42 wank=0.36 up=False
+다리 XM 모두 W210                a=0.7 p=0.2 half=False flight= 14.0ms rise=   7.0 vto=0.16115519241245274 took=0.15100000000000002 tilt=1.0441695179459547 wknee=0.93 whip=0.54 wank=0.51 up=False
+다리 XM 모두 W210                a=0.7 p=0.2 half=True  flight=  1.0ms rise=   7.2 vto=0.093286100030615 took=0.33799999999999986 tilt=9.640468977429611 wknee=0.80 whip=0.41 wank=0.34 up=False
+다리 XM 모두 W210                a=0.7 p=0.35 half=False flight= 25.0ms rise=   9.1 vto=0.1623169453927787 took=0.1519999999999999 tilt=1.1215074683504354 wknee=0.93 whip=0.53 wank=0.51 up=False
+다리 XM 모두 W210                a=0.7 p=0.35 half=True  flight=  2.0ms rise=   5.4 vto=0.0408020506558598 took=0.389 tilt=12.286546093461634 wknee=0.92 whip=0.49 wank=0.37 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.3 p=0.0 half=False flight= 19.0ms rise=   3.6 vto=0.04530953057829232 took=0.1259999999999999 tilt=1.9418539691158008 wknee=0.93 whip=0.48 wank=0.31 up=True
+피치 · 무릎 W210 + 발목 피치 W150    a=0.3 p=0.0 half=True  flight=  0.0ms rise=   5.0 vto=None took=None tilt=None wknee=0.82 whip=0.41 wank=0.21 up=True
+피치 · 무릎 W210 + 발목 피치 W150    a=0.3 p=0.2 half=False flight= 43.0ms rise=   9.4 vto=0.045898524033119635 took=0.123 tilt=0.3018456207605617 wknee=1.02 whip=0.54 wank=0.42 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.3 p=0.2 half=True  flight=  0.0ms rise=   6.5 vto=None took=None tilt=None wknee=0.89 whip=0.50 wank=0.29 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.3 p=0.35 half=False flight= 30.0ms rise=  12.2 vto=0.046344311105871845 took=0.12199999999999989 tilt=0.36086409773297323 wknee=1.02 whip=0.53 wank=0.42 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.3 p=0.35 half=True  flight=  1.0ms rise=   6.2 vto=0.04881186726690856 took=0.17399999999999993 tilt=0.6511835743851777 wknee=0.63 whip=0.31 wank=0.22 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.5 p=0.0 half=False flight= 13.0ms rise=   3.7 vto=0.12005950051425571 took=0.1359999999999999 tilt=2.253695140112671 wknee=0.91 whip=0.46 wank=0.30 up=True
+피치 · 무릎 W210 + 발목 피치 W150    a=0.5 p=0.0 half=True  flight=  1.0ms rise=   5.7 vto=0.07522679383671768 took=0.28 tilt=4.496102617413928 wknee=0.66 whip=0.33 wank=0.16 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.5 p=0.2 half=False flight= 44.0ms rise=   8.1 vto=0.11640336404533388 took=0.135 tilt=0.10707938856391727 wknee=0.98 whip=0.53 wank=0.40 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.5 p=0.2 half=True  flight=  1.0ms rise=   8.4 vto=0.06511827126103492 took=0.30600000000000005 tilt=3.6362763257537254 wknee=0.81 whip=0.41 wank=0.24 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.5 p=0.35 half=False flight= 41.0ms rise=  11.3 vto=0.1235649252319104 took=0.1359999999999999 tilt=0.20892391412882688 wknee=0.98 whip=0.54 wank=0.42 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.5 p=0.35 half=True  flight=  0.0ms rise=   8.6 vto=None took=None tilt=None wknee=0.97 whip=0.49 wank=0.33 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.7 p=0.0 half=False flight= 27.0ms rise=   3.1 vto=0.1858410843893481 took=0.1439999999999999 tilt=2.5227298921375274 wknee=0.88 whip=0.44 wank=0.30 up=True
+피치 · 무릎 W210 + 발목 피치 W150    a=0.7 p=0.0 half=True  flight=  1.0ms rise=  -0.9 vto=0.10275460603380114 took=0.369 tilt=9.03018712312059 wknee=0.81 whip=0.42 wank=0.21 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.7 p=0.2 half=False flight= 46.0ms rise=   7.1 vto=0.18765876479280502 took=0.14500000000000002 tilt=1.035403640946956 wknee=0.93 whip=0.45 wank=0.36 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.7 p=0.2 half=True  flight=  0.0ms rise=   0.2 vto=None took=None tilt=None wknee=1.04 whip=0.54 wank=0.61 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.7 p=0.35 half=False flight= 60.0ms rise=   8.3 vto=0.18742711530581785 took=0.1459999999999999 tilt=0.14215641099309248 wknee=0.95 whip=0.52 wank=0.40 up=False
+피치 · 무릎 W210 + 발목 피치 W150    a=0.7 p=0.35 half=True  flight=  1.0ms rise=   1.6 vto=0.08627657308537949 took=0.3899999999999999 tilt=8.815102628171587 wknee=0.87 whip=0.45 wank=0.23 up=False
+발목 피치 XM430-W350             a=0.3 p=0.0 half=False flight= 12.0ms rise=   2.6 vto=0.007549835892252127 took=0.15900000000000003 tilt=1.103570159905735 wknee=1.00 whip=0.52 wank=0.50 up=True
+발목 피치 XM430-W350             a=0.3 p=0.0 half=True  flight=  0.0ms rise=   3.7 vto=None took=None tilt=None wknee=0.98 whip=0.50 wank=0.57 up=True
+발목 피치 XM430-W350             a=0.3 p=0.2 half=False flight= 21.0ms rise=   8.4 vto=0.03996691248611864 took=0.16500000000000004 tilt=1.1799557522087498 wknee=1.03 whip=0.51 wank=0.77 up=False
+발목 피치 XM430-W350             a=0.3 p=0.2 half=True  flight=  1.0ms rise=   6.9 vto=-0.1645664338204111 took=0.3599999999999999 tilt=7.213043112544854 wknee=1.03 whip=0.55 wank=0.56 up=False
+발목 피치 XM430-W350             a=0.3 p=0.35 half=False flight= 27.0ms rise=  10.7 vto=0.04029712255150934 took=0.16500000000000004 tilt=1.1807639329679596 wknee=1.03 whip=0.51 wank=0.77 up=False
+발목 피치 XM430-W350             a=0.3 p=0.35 half=True  flight=  0.0ms rise=   7.9 vto=None took=None tilt=None wknee=1.03 whip=0.56 wank=0.64 up=False
+발목 피치 XM430-W350             a=0.5 p=0.0 half=False flight=  1.0ms rise=   1.2 vto=0.037196031401979586 took=0.23899999999999988 tilt=0.011796057341675034 wknee=1.00 whip=0.55 wank=0.55 up=True
+발목 피치 XM430-W350             a=0.5 p=0.0 half=True  flight=  4.0ms rise=   1.7 vto=0.044226762149479744 took=0.2889999999999999 tilt=0.9755208930996111 wknee=0.95 whip=0.49 wank=0.58 up=True
+발목 피치 XM430-W350             a=0.5 p=0.2 half=False flight=  8.0ms rise=   3.0 vto=-0.25536456105382666 took=0.34399999999999986 tilt=12.805662375611126 wknee=1.09 whip=0.56 wank=0.77 up=False
+발목 피치 XM430-W350             a=0.5 p=0.2 half=True  flight=  4.0ms rise=   2.4 vto=-0.2341463568509092 took=0.46099999999999985 tilt=13.402773864958027 wknee=1.07 whip=0.62 wank=0.71 up=False
+발목 피치 XM430-W350             a=0.5 p=0.35 half=False flight= 56.0ms rise=   6.0 vto=0.09010295535867943 took=0.18100000000000005 tilt=1.3263162290837331 wknee=1.01 whip=0.51 wank=0.78 up=False
+발목 피치 XM430-W350             a=0.5 p=0.35 half=True  flight=  7.0ms rise=   1.9 vto=-0.2014862325447677 took=0.4670000000000001 tilt=15.747420586067586 wknee=1.11 whip=0.60 wank=0.65 up=False
+발목 피치 XM430-W350             a=0.7 p=0.0 half=False flight= 14.0ms rise=   1.9 vto=0.037484659028815696 took=0.3579999999999999 tilt=1.0943318930026087 wknee=0.98 whip=0.54 wank=0.54 up=True
+발목 피치 XM430-W350             a=0.7 p=0.0 half=True  flight=  0.0ms rise=   3.1 vto=None took=None tilt=None wknee=0.94 whip=0.50 wank=0.57 up=True
+발목 피치 XM430-W350             a=0.7 p=0.2 half=False flight= 17.0ms rise=  -2.9 vto=-0.035197019412797764 took=0.3879999999999999 tilt=13.908249181155561 wknee=1.07 whip=0.56 wank=0.76 up=False
+발목 피치 XM430-W350             a=0.7 p=0.2 half=True  flight=  0.0ms rise=  -2.5 vto=None took=None tilt=None wknee=1.01 whip=0.57 wank=0.82 up=False
+발목 피치 XM430-W350             a=0.7 p=0.35 half=False flight=  5.0ms rise=   1.8 vto=-0.22557556648953753 took=0.399 tilt=19.179001913343484 wknee=1.08 whip=0.55 wank=0.82 up=False
+발목 피치 XM430-W350             a=0.7 p=0.35 half=True  flight=  3.0ms rise=  -1.3 vto=-0.036694905348104226 took=0.399 tilt=5.223693004487177 wknee=1.06 whip=0.56 wank=0.63 up=False
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.3 p=0.0 half=False flight= 20.0ms rise=   3.0 vto=0.06705458788117108 took=0.12399999999999989 tilt=1.7797793390293417 wknee=0.95 whip=0.51 wank=0.50 up=True
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.3 p=0.0 half=True  flight=  2.0ms rise=   5.7 vto=0.037858401226234704 took=0.19399999999999995 tilt=3.052244581661123 wknee=0.76 whip=0.41 wank=0.30 up=True
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.3 p=0.2 half=False flight= 55.0ms rise=  10.7 vto=0.07065295134254311 took=0.12199999999999989 tilt=0.8284540838663595 wknee=1.02 whip=0.54 wank=0.68 up=False
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.3 p=0.2 half=True  flight= 47.0ms rise=  10.5 vto=0.019058852865505405 took=0.18799999999999994 tilt=1.9588727793402827 wknee=0.90 whip=0.43 wank=0.43 up=False
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.3 p=0.35 half=False flight= 53.0ms rise=  14.0 vto=0.06852458153492315 took=0.123 tilt=0.7897692946577087 wknee=1.03 whip=0.55 wank=0.68 up=False
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.3 p=0.35 half=True  flight=  2.0ms rise=  11.8 vto=0.010833023560342929 took=0.19499999999999984 tilt=2.2468942497326223 wknee=0.93 whip=0.44 wank=0.45 up=False
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.5 p=0.0 half=False flight= 20.0ms rise=   3.3 vto=0.144689541993801 took=0.1359999999999999 tilt=2.028156869045083 wknee=0.92 whip=0.47 wank=0.51 up=True
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.5 p=0.0 half=True  flight= 14.0ms rise=   7.1 vto=0.09855907524978551 took=0.21699999999999986 tilt=3.565567160427338 wknee=0.70 whip=0.36 wank=0.28 up=True
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.5 p=0.2 half=False flight= 57.0ms rise=   8.4 vto=0.14229923764317684 took=0.133 tilt=0.6001126037253441 wknee=0.99 whip=0.55 wank=0.64 up=False
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.5 p=0.2 half=True  flight=  1.0ms rise=  11.1 vto=0.10236068460553718 took=0.21699999999999986 tilt=2.6362277526028275 wknee=0.74 whip=0.36 wank=0.36 up=False
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.5 p=0.35 half=False flight= 62.0ms rise=  12.9 vto=0.15442826702407514 took=0.135 tilt=1.0051673287054048 wknee=0.99 whip=0.56 wank=0.69 up=False
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.5 p=0.35 half=True  flight=  2.0ms rise=  12.8 vto=0.10826229675580354 took=0.21799999999999997 tilt=2.6864617930343897 wknee=0.80 whip=0.45 wank=0.41 up=False
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.7 p=0.0 half=False flight= 19.0ms rise=   2.5 vto=0.21134766815975062 took=0.1499999999999999 tilt=2.3401746591020185 wknee=0.90 whip=0.44 wank=0.54 up=True
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.7 p=0.0 half=True  flight= 19.0ms rise=   7.0 vto=0.14660102727557406 took=0.23899999999999988 tilt=4.200997852778883 wknee=0.65 whip=0.31 wank=0.28 up=True
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.7 p=0.2 half=False flight= 23.0ms rise=   7.1 vto=0.2099865146133142 took=0.1479999999999999 tilt=0.2619197627624017 wknee=0.94 whip=0.50 wank=0.61 up=False
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.7 p=0.2 half=True  flight=  1.0ms rise=  12.0 vto=0.14619367361617688 took=0.28600000000000003 tilt=5.100596903350877 wknee=0.81 whip=0.41 wank=0.38 up=False
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.7 p=0.35 half=False flight= 71.0ms rise=   8.7 vto=0.20755462635620958 took=0.14900000000000002 tilt=0.8269530479975724 wknee=0.96 whip=0.54 wank=0.66 up=False
+피치 · 무릎 W210 + 발목 피치 XM430-W a=0.7 p=0.35 half=True  flight=  1.0ms rise=  17.2 vto=0.14172731139599032 took=0.29699999999999993 tilt=5.475740382465742 wknee=0.84 whip=0.42 wank=0.40 up=False
