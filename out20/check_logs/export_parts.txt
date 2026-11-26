@@ -13,16 +13,16 @@ R_hip_yaw_bracket         +z     38x37x66 sup     0    23.6 cm3
 R_thigh_frame             -z    44x49x118 sup    31    30.1 cm3  앞면 홈 + 받침(셸 걸쇠용)
 R_thigh_shell             +z     44x54x22 sup     0     4.4 cm3  
 R_shank_frame             +z    44x49x112 sup    16    29.1 cm3  앞면 홈 + 받침(셸 걸쇠용)
-R_shank_shell             +z     44x61x80 sup     0    16.5 cm3  하늘색
-R_ankle_bracket           +x     54x25x84 sup    59    21.1 cm3  
-R_foot_sole               +z    134x70x41 sup     0    63.9 cm3  발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓
+R_shank_shell             +z     44x58x80 sup     0    11.8 cm3  하늘색
+R_ankle_bracket           +x     54x25x84 sup    59    21.2 cm3  
+R_foot_sole               +z    134x70x41 sup     0    60.9 cm3  발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓
 L_hip_yaw_bracket         +z     38x37x66 sup     0    23.6 cm3  
 L_thigh_frame             -z    44x49x118 sup    30    30.1 cm3  앞면 홈 + 받침(셸 걸쇠용)
 L_thigh_shell             +z     44x54x22 sup     0     4.4 cm3  
 L_shank_frame             +z    44x49x112 sup    16    29.1 cm3  앞면 홈 + 받침(셸 걸쇠용)
-L_shank_shell             +z     44x61x80 sup     0    16.5 cm3  하늘색
-L_ankle_bracket           +x     54x25x84 sup    59    21.1 cm3  
-L_foot_sole               +z    134x70x41 sup     0    63.9 cm3  발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓
+L_shank_shell             +z     44x58x80 sup     0    11.8 cm3  하늘색
+L_ankle_bracket           +x     54x25x84 sup    59    21.2 cm3  
+L_foot_sole               +z    134x70x41 sup     0    60.9 cm3  발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓
 head_back                 +x   200x196x90 sup     0   122.0 cm3  뒷면을 바닥에. 목 축 판·보강판·서보 패드·이음 걸쇠 포함
 head_front                +x   200x170x57 sup     0    55.8 cm3  자른 면(뒤)을 바닥에, 브림 권장. 얼굴 테두리 경사, 얼굴판 걸림 바
 face_plate                -x   149x119x33 sup     0    33.0 cm3  앞면을 바닥에(걸쇠·카메라 핀이 위로)

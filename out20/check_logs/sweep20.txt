@@ -3,4 +3,5 @@ arms done 0 free range {'R': (-120, 120), 'L': (-120, 120)}
 roll done 0
 thigh done 0
 shank done 0
-leg done 0
+leg done 8
+('foot-shank', 'R_foot_sole', 'R_shank_frame') poses: 8 first: (0, -50, -20) last: (100, -50, 20) worst: ((0, -50, -20), 1)

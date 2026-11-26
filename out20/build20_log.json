@@ -2466,7 +2466,9 @@
    "ankle_bracket": 1,
    "foot_rim": 3,
    "cover": 0,
-   "side_plates": 0
+   "side_plates": 0,
+   "foot_out": 8,
+   "shank_shell_in": 10
   },
   {
    "side": "L",
@@ -2475,7 +2477,9 @@
    "ankle_bracket": 1,
    "foot_rim": 3,
    "cover": 0,
-   "side_plates": 0
+   "side_plates": 0,
+   "foot_out": 8,
+   "shank_shell_in": 10
   }
  ],
  "cable_clips": [
@@ -2554,6 +2558,45 @@
    ]
   }
  ],
+ "horn_holes_dropped": [
+  {
+   "part": "R_ankle_bracket",
+   "holes": [
+    [
+     -13.13,
+     0.0
+    ]
+   ]
+  },
+  {
+   "part": "R_ankle_bracket",
+   "holes": [
+    [
+     -13.13,
+     0.0
+    ]
+   ]
+  },
+  {
+   "part": "L_ankle_bracket",
+   "holes": [
+    [
+     -13.13,
+     0.0
+    ]
+   ]
+  },
+  {
+   "part": "L_ankle_bracket",
+   "holes": [
+    [
+     -13.13,
+     0.0
+    ]
+   ]
+  }
+ ],
+ "horn_hole_sets_turned": 26,
  "shank_plates_wider": [
   [
    "R",

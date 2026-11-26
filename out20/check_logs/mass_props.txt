@@ -1,15 +1,15 @@
-total 3168 g  CoM [-6.600e+00 -2.000e-01  2.052e+02]
+total 3150 g  CoM [-6.600e+00 -2.000e-01  2.064e+02]
   torso             1087.9 g  com [ -9.3  -0.4 274.5]
   R_hip_yaw_link     119.3 g  com [ 1.000e-01 -3.990e+01  1.932e+02]
   R_thigh            134.8 g  com [  0.4 -40.1  74.8]
-  R_shank            130.8 g  com [  1.7 -40.1 -15.2]
+  R_shank            125.1 g  com [  1.8 -41.4 -16.1]
   R_ankle_link       117.8 g  com [-45.1 -40.2 -35.4]
-  R_foot              57.3 g  com [-13.5 -41.2 -66. ]
+  R_foot              54.1 g  com [-14.3 -48.8 -66.2]
   L_hip_yaw_link     119.7 g  com [1.000e-01 4.010e+01 1.931e+02]
   L_thigh            134.9 g  com [ 0.4 40.4 74.8]
-  L_shank            130.8 g  com [  1.7  40.3 -15.2]
+  L_shank            125.1 g  com [  1.8  41.6 -16.1]
   L_ankle_link       117.8 g  com [-45.1  40.3 -35.4]
-  L_foot              57.3 g  com [-13.5  41.2 -66. ]
+  L_foot              54.1 g  com [-14.3  48.8 -66.2]
   head               390.6 g  com [  2.9  -0.7 435.2]
   nod_crank            5.8 g  com [-28.8  16.5 384.1]
   nod_rod              1.0 g  com [-14.7  21.2 364.2]
@@ -19,9 +19,9 @@ total 3168 g  CoM [-6.600e+00 -2.000e-01  2.052e+02]
   ear_rod              1.7 g  com [-26.2  21.3 419.7]
   R_hand_flap          5.3 g  com [   3.8 -101.2  180.7]
   L_hand_flap          5.3 g  com [  3.8 100.9 180.7]
-  R_hip_roll_link    124.1 g  com [  0.2 -40.  142.7]
-  L_hip_roll_link    124.1 g  com [  0.2  40.2 142.7]
-{'fixed': 630, 'print': 1269, 'steel': 78, 'servo': 1192}
+  R_hip_roll_link    124.0 g  com [  0.2 -40.  142.7]
+  L_hip_roll_link    124.0 g  com [  0.2  40.2 142.7]
+{'fixed': 630, 'print': 1251, 'steel': 78, 'servo': 1192}
     torso_frame                  print   174.5
     head_back                    print   152.2
     jetson_nano_2gb_devkit       fixed   140.0
@@ -45,5 +45,5 @@ total 3168 g  CoM [-6.600e+00 -2.000e-01  2.052e+02]
     head_front                   print    60.7
     opencr_1_0                   fixed    60.0
     lid                          print    54.4
-    R_foot_sole                  print    50.3
-    L_foot_sole                  print    50.3
+    R_foot_sole                  print    47.1
+    L_foot_sole                  print    47.1

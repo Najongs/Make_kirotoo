@@ -1,0 +1,87 @@
+{
+ "other_zero": {
+  "limit_deg": 1.5,
+  "first_contact": [
+   "R_foot:R_foot_sole",
+   [
+    -27.5,
+    2.8,
+    -72.4
+   ],
+   "L_foot:L_foot_sole",
+   [
+    -27.5,
+    5.5,
+    -72.6
+   ]
+  ]
+ },
+ "both_inward": {
+  "limit_deg": 0.75,
+  "first_contact": [
+   "R_foot:R_foot_sole",
+   [
+    -27.5,
+    -0.8,
+    -73.0
+   ],
+   "L_foot:L_foot_sole",
+   [
+    -27.5,
+    0.8,
+    -73.0
+   ]
+  ]
+ },
+ "other_zero_yaw+25": {
+  "limit_deg": 0.0,
+  "first_contact": [
+   "R_foot:R_foot_sole",
+   [
+    24.6,
+    5.4,
+    -73.5
+   ],
+   "L_foot:L_foot_sole",
+   [
+    24.5,
+    5.5,
+    -73.6
+   ]
+  ]
+ },
+ "other_zero_yaw-25": {
+  "limit_deg": 0.0,
+  "first_contact": [
+   "R_ankle_link:R_ankle_bracket",
+   [
+    -49.5,
+    13.5,
+    -45.5
+   ],
+   "L_ankle_link:L_ankle_bracket",
+   [
+    -49.5,
+    13.5,
+    -45.6
+   ]
+  ]
+ },
+ "both_inward_yaw_opposite25": {
+  "limit_deg": 0.0,
+  "first_contact": [
+   "R_foot:R_foot_sole",
+   [
+    39.3,
+    0.0,
+    -68.5
+   ],
+   "L_foot:L_foot_sole",
+   [
+    39.3,
+    -0.0,
+    -68.5
+   ]
+  ]
+ }
+}

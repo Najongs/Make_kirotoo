@@ -165,6 +165,9 @@ LEG_EXTRA_MM = LEG_EXTRA_MIN if _le == "min" else float(_le)       # hip pitch a
 assert LEG_EXTRA_MM >= LEG_EXTRA_MIN - 1e-6, f"LEG_EXTRA_MM {LEG_EXTRA_MM} < minimum {LEG_EXTRA_MIN}"
 THIGH_EXTRA_MM = float(os.environ.get("THIGH_EXTRA_MM", "20"))     # thigh longer (hip pitch -> knee); kit 2026-11-26: +20
 SHANK_EXTRA_MM = float(os.environ.get("SHANK_EXTRA_MM", "20"))     # shank longer (knee -> ankle); kit 2026-11-26: +20
+FOOT_OUT_MM = float(os.environ.get("FOOT_OUT_MM", "10"))         # foot sole moved outward (inward hip roll room);
+# 10: walking check e 0 / 10 / 15 / 20 mm -> usable 0.108 / 0.108 / 0.108 / none m/s, margin 9.7 / 10.2 / 5.9 mm
+SHANK_SHELL_IN = float(os.environ.get("SHANK_SHELL_IN", "27"))   # shank shell kept within this of the leg centre on the inner side (was 30.5: inner wall)
 LIFT_MM = (LEG_EXTRA_MM if LAYOUT == "A" else 0.0) + THIGH_EXTRA_MM + SHANK_EXTRA_MM    # feet below z 0 by this
 LOWER = ("thigh", "shank", "ankle_link", "foot")
 
@@ -282,6 +285,52 @@ def shank_plates_wider(links):
                 o = [(q[0], 16.0 if q[1] > 0 else -16.0) + tuple(q[2:]) for q in a[3]]
                 ss[i] = (x[0], (a[0], a[1], a[2], B18._fit_radii(o), a[4], a[5]), x[2]); out.append((side, i))
     return out
+
+
+def horn_holes_axial(links):
+    """XL430 / XC430 horn and idler: the M2 taps sit on PCD 16 at 0 / 90 deg to the case axes (the 45 deg spots are
+    untapped 1.7 holes; sim/walk/allxl XL-430_new.stp).  Every set of 4 equal holes on the 45 deg square of half
+    diagonal 8 (screws and their counterbores) is turned 45 deg about its centre."""
+    d = 8.0 / math.sqrt(2)
+    n = 0
+    for ln, L in links.items():
+        for pn, ss in L["parts"].items():
+            for i, x in enumerate(ss):
+                if x[0] != "rprism" or len(x[1][5]) < 4:
+                    continue
+                a = x[1]; H = list(a[5]); done = set()
+                for k, h in enumerate(H):
+                    if k in done:
+                        continue
+                    cu, cv = h[0] - d, h[1] - d                 # h as the (+d, +d) corner
+                    want = [(cu + d, cv + d), (cu - d, cv + d), (cu + d, cv - d), (cu - d, cv - d)]
+                    idx = []
+                    for wu, wv in want:
+                        m = next((j for j, g in enumerate(H) if j not in done and abs(g[0] - wu) < 0.02 and abs(g[1] - wv) < 0.02
+                                  and abs(g[2] - h[2]) < 1e-6), None)
+                        idx.append(m)
+                    if None in idx:
+                        continue
+                    for j, (nu, nv) in zip(idx, [(cu, cv + 8.0), (cu - 8.0, cv), (cu + 8.0, cv), (cu, cv - 8.0)]):
+                        H[j] = (nu, nv) + tuple(H[j][2:]); done.add(j)
+                    n += 1
+                if done:
+                    poly = [(q[0], q[1]) for q in a[3]]
+                    def pin(u, v):
+                        c = False
+                        for (u1, v1), (u2, v2) in zip(poly, poly[1:] + poly[:1]):
+                            if (v1 > v) != (v2 > v) and u < u1 + (v - v1) * (u2 - u1) / (v2 - v1):
+                                c = not c
+                        return c
+                    # a turned hole that would cut the plate edge (circle not inside the outline) is left out
+                    inside = lambda h: all(pin(h[0] + (h[2] + 0.4) * math.cos(t), h[1] + (h[2] + 0.4) * math.sin(t))
+                                           for t in np.linspace(0, 2 * math.pi, 16, endpoint=False))
+                    dropped = [h for j, h in enumerate(H) if j in done and not inside(h)]
+                    H = [h for j, h in enumerate(H) if not (j in done and not inside(h))]
+                    if dropped:
+                        LOG.setdefault("horn_holes_dropped", []).append(dict(part=pn, holes=[tuple(round(c, 2) for c in h[:2]) for h in dropped]))
+                    ss[i] = (x[0], (a[0], a[1], a[2], a[3], a[4], H), x[2])
+    return n
 
 
 def leg_lengths(links, joints, dz):
@@ -741,7 +790,22 @@ def widen_ranges(links):
         ab = P(f"{side}_ankle_link", f"{side}_ankle_bracket"); rgb_a = ab[0][2]
         for y0, y1 in ((ys + s * 27.0, ys + s * 14.75), (ys - s * 14.75, ys - s * 19.0)):      # outer, inner
             ab.append(PROFI("x", -68.4, -67.9, rrect(*sorted((y0, y1)), 27.0, 50.0, 0.0), [], rgb_a))
-        log.append(dict(side=side, thigh_back=n1, shank_back=n2, ankle_bracket=n3, foot_rim=n4, cover=n5, side_plates=n6))
+        # inward hip roll (the two sole slabs met at their inner edges, x -27.5, 7.7 above the floor): the sole moves
+        # outward by FOOT_OUT_MM with its pads; the horn plate and its base block stay on the ankle roll horn
+        nf = 0
+        if FOOT_OUT_MM:
+            keep = lambda x: x[0] == "rprism" and ((x[1][0] == "x" and abs(x[1][1] + 29.9) < 0.05) or
+                                                   (x[1][0] == "z" and abs(x[1][1] - 12.0) < 1e-6 and abs(x[1][2] - 18.0) < 1e-6))
+            dy = s * FOOT_OUT_MM                         # R: -y, L: +y
+            # the foot top rim (z 16-22, decoration) would come under the ankle bracket's inner plate: dropped
+            rim = lambda x: x[0] == "rprism" and x[1][0] == "z" and abs(x[1][1] - 16.0) < 1e-6 and abs(x[1][2] - 22.0) < 1e-6
+            sole[:] = [x if keep(x) else build4.to_local(x, (0.0, -dy, 0.0)) for x in sole if not rim(x)]
+            nf = sum(1 for x in sole if not keep(x))
+        # ... then the shank shells' inner walls met (y 9.5 from the centre line): inner wall dropped, the shell ends
+        # 27 from the leg centre on the inner side (frame inner plate at 24.7, ankle bracket at 27)
+        ssh = P(f"{side}_shank", f"{side}_shank_shell")
+        n7 = _cut_part(ssh, (0.0, -s * 1.0, 0.0), -s * (ys - s * SHANK_SHELL_IN))
+        log.append(dict(side=side, thigh_back=n1, shank_back=n2, ankle_bracket=n3, foot_rim=n4, cover=n5, side_plates=n6, foot_out=nf, shank_shell_in=n7))
     return log
 
 
@@ -795,6 +859,7 @@ def build_model():
     for S in "RL":
         for k in LOWER:
             _shift_link(links[f"{S}_{k}"], -lift) if lift else None
+    LOG["horn_hole_sets_turned"] = horn_holes_axial(links)
     LOG["shank_plates_wider"] = shank_plates_wider(links)
     LOG["leg_lengths"] = leg_lengths(links, joints, -LEG_EXTRA_MM if LAYOUT == "A" else 0.0)
     if "theta_max_deg" not in LOG:

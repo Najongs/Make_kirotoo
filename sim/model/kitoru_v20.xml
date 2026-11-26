@@ -347,7 +347,7 @@
       <geom class="col" name="col_nod_rod" mesh="col_nod_rod"/>
       <body name="R_hip_yaw_link" pos="0 -0.04 0.213">
         <joint name="R_hip_yaw" pos="0 0 0" axis="0 0 1" range="-0.349066 0.349066" damping="0.2569" armature="0.0241"/>  <!-- XL430-W250 -->
-        <inertial mass="0.1193026" pos="9.827211e-05 0.0001047175 -0.01983682" fullinertia="6.506266e-05 6.577462e-05 2.121846e-05 7.045444e-10 1.086163e-07 1.126561e-07"/>
+        <inertial mass="0.1192919" pos="9.914447e-05 0.0001038381 -0.01983984" fullinertia="6.505264e-05 6.576206e-05 2.122042e-05 -7.717348e-10 1.054705e-07 1.153112e-07"/>
         <geom class="visual" mesh="vis_R_hip_yaw_link_c333d52" material="c333d52"/>
         <geom class="visual" mesh="vis_R_hip_yaw_link_c8c8f99" material="c8c8f99"/>
         <geom class="visual" mesh="vis_R_hip_yaw_link_c383840" material="c383840"/>
@@ -357,7 +357,7 @@
         <geom class="col" name="col_R_hip_roll_servo_XM430" mesh="col_R_hip_roll_servo_XM430"/>
         <body name="R_hip_roll_link" pos="0 0 -0.01455">
           <joint name="R_hip_roll" pos="0 0 0" axis="1 0 0" range="-0.436332 0.034907" damping="0.8444" armature="0.045"/>  <!-- XM430-W350 -->
-          <inertial mass="0.1240692" pos="0.0002104246 2.467373e-05 -0.05572896" fullinertia="8.191445e-05 8.896532e-05 2.989932e-05 -7.807175e-11 -8.893868e-07 4.667512e-08"/>
+          <inertial mass="0.1240476" pos="0.0002112625 2.467803e-05 -0.05573978" fullinertia="8.18303e-05 8.887067e-05 2.988857e-05 -7.550684e-11 -8.961868e-07 4.664202e-08"/>
           <geom class="visual" mesh="vis_R_hip_roll_link_c8c8f99" material="c8c8f99"/>
           <geom class="visual" mesh="vis_R_hip_roll_link_c383840" material="c383840"/>
           <geom class="visual" mesh="vis_R_hip_roll_link_c333d52" material="c333d52"/>
@@ -367,7 +367,7 @@
           <geom class="col" name="col_R_hip_roll_bracket" mesh="col_R_hip_roll_bracket"/>
           <body name="R_thigh" pos="0 0 -0.05358">
             <joint name="R_hip_pitch" pos="0 0 0" axis="0 1 0" range="-1.396263 0.523599" damping="0.8444" armature="0.045"/>  <!-- XM430-W350 -->
-            <inertial mass="0.1347879" pos="0.0004345332 -9.260242e-05 -0.07004293" fullinertia="0.0001439437 0.000132146 3.902394e-05 1.046262e-08 4.18854e-07 9.640557e-07"/>
+            <inertial mass="0.1347794" pos="0.0004348349 -9.166699e-05 -0.07004777" fullinertia="0.0001438887 0.0001320955 3.901901e-05 9.823158e-09 4.160556e-07 9.555154e-07"/>
             <geom class="visual" mesh="vis_R_thigh_c383840" material="c383840"/>
             <geom class="visual" mesh="vis_R_thigh_c333d52" material="c333d52"/>
             <geom class="visual" mesh="vis_R_thigh_cf7f7f7" material="cf7f7f7"/>
@@ -379,7 +379,7 @@
             <geom class="col" name="col_R_hip_pitch_idler" mesh="col_R_hip_pitch_idler"/>
             <body name="R_shank" pos="0 0 -0.095">
               <joint name="R_knee" pos="0 0 0" axis="0 1 0" range="0.000000 1.745329" damping="0.8444" armature="0.045"/>  <!-- XM430-W350 -->
-              <inertial mass="0.130768" pos="0.001701364 -5.821912e-05 -0.06510312" fullinertia="0.0001565436 0.0001396317 4.897644e-05 -5.754695e-08 -3.334004e-06 1.009146e-06"/>
+              <inertial mass="0.1251385" pos="0.001769327 -0.001385214 -0.06596006" fullinertia="0.0001462749 0.0001337335 4.307428e-05 -3.398216e-07 -3.504984e-06 4.301493e-06"/>
               <geom class="visual" mesh="vis_R_shank_c333d52" material="c333d52"/>
               <geom class="visual" mesh="vis_R_shank_c00adf0" material="c00adf0"/>
               <geom class="visual" mesh="vis_R_shank_c8c8f99" material="c8c8f99"/>
@@ -390,7 +390,7 @@
               <geom class="col_leg" name="col_R_knee_idler" mesh="col_R_knee_idler"/>
               <body name="R_ankle_link" pos="0 0 -0.095">
                 <joint name="R_ankle_pitch" pos="0 0 0" axis="0 1 0" range="-0.872665 0.383972" damping="0.2570" armature="0.0217"/>  <!-- XC430-W240 -->
-                <inertial mass="0.1177989" pos="-0.04513381 -0.0002153477 0.009689843" fullinertia="3.818637e-05 6.04912e-05 6.11537e-05 5.193618e-07 5.736956e-06 -2.919027e-07"/>
+                <inertial mass="0.1177952" pos="-0.04513508 -0.0002162336 0.009690592" fullinertia="3.818401e-05 6.048471e-05 6.114946e-05 5.239343e-07 5.733956e-06 -2.951549e-07"/>
                 <geom class="visual" mesh="vis_R_ankle_link_c383840" material="c383840"/>
                 <geom class="visual" mesh="vis_R_ankle_link_c333d52" material="c333d52"/>
                 <geom class="visual" mesh="vis_R_ankle_link_c8c8f99" material="c8c8f99"/>
@@ -400,7 +400,7 @@
                 <geom class="col_leg" name="col_R_ankle_pitch_idler" mesh="col_R_ankle_pitch_idler"/>
                 <body name="R_foot" pos="0 0 0">
                   <joint name="R_ankle_roll" pos="0 0 0" axis="1 0 0" range="-0.349066 0.349066" damping="0.8444" armature="0.045"/>  <!-- XM430-W350 -->
-                  <inertial mass="0.05734122" pos="-0.01353667 -0.001228428 -0.02083403" fullinertia="2.676397e-05 9.20263e-05 0.0001071833 -2.235791e-06 7.446154e-06 -1.899191e-07"/>
+                  <inertial mass="0.0541013" pos="-0.01432702 -0.008798903 -0.0211045" fullinertia="2.512878e-05 8.459847e-05 9.826574e-05 1.991823e-06 7.678162e-06 -2.30443e-06"/>
                   <geom class="visual" mesh="vis_R_foot_c0d3061" material="c0d3061"/>
                   <geom class="visual" mesh="vis_R_foot_c1a1a1a" material="c1a1a1a"/>
                   <geom class="visual" mesh="vis_R_foot_c8c8f99" material="c8c8f99"/>
@@ -415,7 +415,7 @@
       </body>
       <body name="L_hip_yaw_link" pos="0 0.04 0.213">
         <joint name="L_hip_yaw" pos="0 0 0" axis="0 0 1" range="-0.349066 0.349066" damping="0.2569" armature="0.0241"/>  <!-- XL430-W250 -->
-        <inertial mass="0.119674" pos="9.775383e-05 6.901305e-05 -0.01986247" fullinertia="6.518028e-05 6.589518e-05 2.130809e-05 5.618407e-11 1.081337e-07 7.14735e-08"/>
+        <inertial mass="0.1196633" pos="9.862344e-05 6.813325e-05 -0.01986549" fullinertia="6.517023e-05 6.58826e-05 2.131004e-05 -1.423756e-09 1.049854e-07 7.414422e-08"/>
         <geom class="visual" mesh="vis_L_hip_yaw_link_c333d52" material="c333d52"/>
         <geom class="visual" mesh="vis_L_hip_yaw_link_c8c8f99" material="c8c8f99"/>
         <geom class="visual" mesh="vis_L_hip_yaw_link_c383840" material="c383840"/>
@@ -425,7 +425,7 @@
         <geom class="col" name="col_L_hip_roll_servo_XM430" mesh="col_L_hip_roll_servo_XM430"/>
         <body name="L_hip_roll_link" pos="0 0 -0.01455">
           <joint name="L_hip_roll" pos="0 0 0" axis="1 0 0" range="-0.034907 0.436332" damping="0.8444" armature="0.045"/>  <!-- XM430-W350 -->
-          <inertial mass="0.1240692" pos="0.0002104246 0.0001873131 -0.05572896" fullinertia="8.191017e-05 8.896532e-05 2.989505e-05 5.243608e-09 -8.893868e-07 2.595515e-07"/>
+          <inertial mass="0.1240476" pos="0.0002112625 0.0001873457 -0.05573978" fullinertia="8.182602e-05 8.887067e-05 2.988429e-05 5.263079e-09 -8.961868e-07 2.593002e-07"/>
           <geom class="visual" mesh="vis_L_hip_roll_link_c8c8f99" material="c8c8f99"/>
           <geom class="visual" mesh="vis_L_hip_roll_link_c383840" material="c383840"/>
           <geom class="visual" mesh="vis_L_hip_roll_link_c333d52" material="c333d52"/>
@@ -435,7 +435,7 @@
           <geom class="col" name="col_L_hip_roll_bracket" mesh="col_L_hip_roll_bracket"/>
           <body name="L_thigh" pos="0 0 -0.05358">
             <joint name="L_hip_pitch" pos="0 0 0" axis="0 1 0" range="-1.396263 0.523599" damping="0.8444" armature="0.045"/>  <!-- XM430-W350 -->
-            <inertial mass="0.1348587" pos="0.0004343314 0.0003602539 -0.07004881" fullinertia="0.0001440183 0.0001321752 3.910792e-05 -7.349854e-09 4.185491e-07 -8.768554e-07"/>
+            <inertial mass="0.1348502" pos="0.0004346329 0.000359317 -0.07005365" fullinertia="0.0001439632 0.0001321247 3.910298e-05 -6.711685e-09 4.157505e-07 -8.682933e-07"/>
             <geom class="visual" mesh="vis_L_thigh_c383840" material="c383840"/>
             <geom class="visual" mesh="vis_L_thigh_c333d52" material="c333d52"/>
             <geom class="visual" mesh="vis_L_thigh_cf7f7f7" material="cf7f7f7"/>
@@ -447,7 +447,7 @@
             <geom class="col" name="col_L_hip_pitch_idler" mesh="col_L_hip_pitch_idler"/>
             <body name="L_shank" pos="0 0 -0.095">
               <joint name="L_knee" pos="0 0 0" axis="0 1 0" range="0.000000 1.745329" damping="0.8444" armature="0.045"/>  <!-- XM430-W350 -->
-              <inertial mass="0.130768" pos="0.001701364 0.0002897276 -0.06510312" fullinertia="0.0001565923 0.0001396317 4.902516e-05 2.081948e-08 -3.334004e-06 -8.048147e-07"/>
+              <inertial mass="0.1251385" pos="0.001769869 0.001630534 -0.06596006" fullinertia="0.000146216 0.0001337355 4.301735e-05 3.100466e-07 -3.506333e-06 -4.131471e-06"/>
               <geom class="visual" mesh="vis_L_shank_c333d52" material="c333d52"/>
               <geom class="visual" mesh="vis_L_shank_c00adf0" material="c00adf0"/>
               <geom class="visual" mesh="vis_L_shank_c8c8f99" material="c8c8f99"/>
@@ -458,7 +458,7 @@
               <geom class="col_leg" name="col_L_knee_idler" mesh="col_L_knee_idler"/>
               <body name="L_ankle_link" pos="0 0 -0.095">
                 <joint name="L_ankle_pitch" pos="0 0 0" axis="0 1 0" range="-0.872665 0.383972" damping="0.2570" armature="0.0217"/>  <!-- XC430-W240 -->
-                <inertial mass="0.1177953" pos="-0.04513298 0.0003390743 0.009689992" fullinertia="3.824235e-05 6.048877e-05 6.120688e-05 -4.36953e-07 5.737449e-06 2.486995e-07"/>
+                <inertial mass="0.1177915" pos="-0.04513424 0.0003399672 0.00969074" fullinertia="3.823994e-05 6.048228e-05 6.120259e-05 -4.415587e-07 5.734449e-06 2.519715e-07"/>
                 <geom class="visual" mesh="vis_L_ankle_link_c383840" material="c383840"/>
                 <geom class="visual" mesh="vis_L_ankle_link_c333d52" material="c333d52"/>
                 <geom class="visual" mesh="vis_L_ankle_link_c8c8f99" material="c8c8f99"/>
@@ -468,7 +468,7 @@
                 <geom class="col_leg" name="col_L_ankle_pitch_idler" mesh="col_L_ankle_pitch_idler"/>
                 <body name="L_foot" pos="0 0 0">
                   <joint name="L_ankle_roll" pos="0 0 0" axis="1 0 0" range="-0.349066 0.349066" damping="0.8444" armature="0.045"/>  <!-- XM430-W350 -->
-                  <inertial mass="0.05734122" pos="-0.01353667 0.001216238 -0.02083403" fullinertia="2.676568e-05 9.20263e-05 0.000107185 2.211663e-06 7.446154e-06 2.026207e-07"/>
+                  <inertial mass="0.0541013" pos="-0.01432702 0.008785984 -0.0211045" fullinertia="2.514107e-05 8.459847e-05 9.827803e-05 -2.015399e-06 7.678162e-06 2.317321e-06"/>
                   <geom class="visual" mesh="vis_L_foot_c0d3061" material="c0d3061"/>
                   <geom class="visual" mesh="vis_L_foot_c1a1a1a" material="c1a1a1a"/>
                   <geom class="visual" mesh="vis_L_foot_c8c8f99" material="c8c8f99"/>

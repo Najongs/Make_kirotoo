@@ -248,9 +248,9 @@
   "part": "R_shank_shell",
   "link": "R_shank",
   "up": "+z",
-  "size_mm": "44x61x80",
+  "size_mm": "44x58x80",
   "support_mm2": 0,
-  "volume_cm3": 16.5,
+  "volume_cm3": 11.8,
   "note": "하늘색",
   "colours": [
    [
@@ -266,7 +266,7 @@
   "up": "+x",
   "size_mm": "54x25x84",
   "support_mm2": 59,
-  "volume_cm3": 21.1,
+  "volume_cm3": 21.2,
   "note": "",
   "colours": [
    [
@@ -282,7 +282,7 @@
   "up": "+z",
   "size_mm": "134x70x41",
   "support_mm2": 0,
-  "volume_cm3": 63.9,
+  "volume_cm3": 60.9,
   "note": "발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓",
   "colours": [
    [
@@ -360,9 +360,9 @@
   "part": "L_shank_shell",
   "link": "L_shank",
   "up": "+z",
-  "size_mm": "44x61x80",
+  "size_mm": "44x58x80",
   "support_mm2": 0,
-  "volume_cm3": 16.5,
+  "volume_cm3": 11.8,
   "note": "하늘색",
   "colours": [
    [
@@ -378,7 +378,7 @@
   "up": "+x",
   "size_mm": "54x25x84",
   "support_mm2": 59,
-  "volume_cm3": 21.1,
+  "volume_cm3": 21.2,
   "note": "",
   "colours": [
    [
@@ -394,7 +394,7 @@
   "up": "+z",
   "size_mm": "134x70x41",
   "support_mm2": 0,
-  "volume_cm3": 63.9,
+  "volume_cm3": 60.9,
   "note": "발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓",
   "colours": [
    [
