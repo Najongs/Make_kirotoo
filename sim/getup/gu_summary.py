@@ -5,7 +5,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import numpy as np
 from gu_model import ARMS, Sim, RES, jdump, reach, arm_mass_g, korean_font
 
-START_KO = {"prone": "엎드림", "pike": "엎드림(ㅅ자 시작)", "supine": "누움"}
+START_KO = {"prone": "엎드림", "pike": "엎드림(ㅅ자 시작)", "tuck": "엎드림(다리 당기기 시작)", "supine": "누움", "supine6": "누움"}
 
 
 def redo(r):
@@ -16,7 +16,7 @@ def redo(r):
     return dict(arm=r["arm"], start=r["start"], ok=res["ok"], n_ok=r.get("n_ok_total", 0), n_eval=r.get("n_eval", 0),
                 best_z_pct=float(H[i, 1] / S.z_stand * 100), best_tilt=float(H[i, 2]), max_z_pct=float(H[:, 1].max() / S.z_stand * 100),
                 z_end_pct=res["z_end"] / S.z_stand * 100, tilt_end=res["tilt_end"], score=res["score"],
-                tq=res["torque_p99"], sat=res["sat_frac"], hip_min_deg=r.get("hip_min_deg", -80), knee_max_deg=r.get("knee_max_deg", 100))
+                tq=res["torque_p99"], sat=res["sat_frac"], nk=len(r["best_x"]) // 6, hip_min_deg=r.get("hip_min_deg", -80), knee_max_deg=r.get("knee_max_deg", 100))
 
 
 def main(tags):
@@ -24,12 +24,12 @@ def main(tags):
     for t in tags:
         rows += [dict(redo(r), tag=t) for r in json.load(open(os.path.join(RES, f"{t}.json")))]
     jdump(rows, os.path.join(RES, f"summary_{'_'.join(tags)}.json"))
-    md = ["| 팔 | 닿는 길이 mm | 팔 하나 g | 시작 | 성공 | 가장 서 있음에 가까운 순간: 무게중심 높이 % · 몸통 기울기 ° | 끝 높이 % | "
-          "어깨 토크 몫(99번째 백분위) · 포화 시간 % | 팔꿈치 토크 몫 · 포화 % | 무릎 토크 몫 | 고관절 토크 몫 |", "|" + "---|" * 11]
+    md = ["| 팔 | 닿는 길이 mm | 팔 하나 g | 고관절 굽힘 한계 · 키 수 | 시작 | 성공 | 가장 서 있음에 가까운 순간: 무게중심 높이 % · 몸통 기울기 ° | 끝 높이 % | "
+          "어깨 토크 몫(99번째 백분위) · 포화 시간 % | 팔꿈치 토크 몫 · 포화 % | 무릎 토크 몫 | 고관절 토크 몫 |", "|" + "---|" * 12]
     for r in rows:
         a = ARMS[r["arm"]]
         el = f"{r['tq'].get('elbow', 0):.2f} · {r['sat'].get('elbow', 0) * 100:.0f}" if "elbow" in r["tq"] else "—"
-        md.append(f"| {r['arm']} | {reach(a) * 1e3:.0f} | {arm_mass_g(a):.0f} | {START_KO[r['start']]} | {'성공' if r['ok'] else '실패'} ({r['n_ok']}/{r['n_eval']}) | "
+        md.append(f"| {r['arm']} | {reach(a) * 1e3:.0f} | {arm_mass_g(a):.0f} | {r['hip_min_deg']:.0f}° · {r['nk']} | {START_KO[r['start']]} | {'성공' if r['ok'] else '실패'} ({r['n_ok']}/{r['n_eval']}) | "
                   f"{r['best_z_pct']:.0f} · {r['best_tilt']:.0f} | {r['z_end_pct']:.0f} | {r['tq']['arm_swing']:.2f} · {r['sat']['arm_swing'] * 100:.0f} | {el} | "
                   f"{r['tq']['knee']:.2f} | {r['tq']['hip_pitch']:.2f} |")
     open(os.path.join(RES, f"summary_{'_'.join(tags)}.md"), "w").write("\n".join(md) + "\n")
@@ -40,7 +40,7 @@ def main(tags):
 def fig(rows, path, title):
     plt = korean_font()
     arms = list(dict.fromkeys(r["arm"] for r in rows)); starts = list(dict.fromkeys(r["start"] for r in rows))
-    col = {"prone": "#257de0", "pike": "#00b894", "supine": "#f47230"}
+    col = {"prone": "#257de0", "pike": "#257de0", "tuck": "#257de0", "supine": "#f47230", "supine6": "#f47230"}
     fig, ax = plt.subplots(figsize=(7.5, 0.42 * len(arms) + 1.4))
     h = 0.8 / len(starts)
     for k, s in enumerate(starts):

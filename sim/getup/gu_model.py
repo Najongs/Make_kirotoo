@@ -50,6 +50,7 @@ ARMS = {
 
 for _n in ("곧은 220", "팔꿈치 110+110", "팔꿈치 140+140"):          # 민감도: 어깨 · 팔꿈치를 XM430-W350(3.8 N·m, 90 g)으로 — 과제 한계(XL430) 밖
     ARMS[_n + " · XM"] = dict(ARMS[_n], shoulder="XM430-W350", elbow_servo="XM430-W350")
+ARMS["팔꿈치 140+140 · W210"] = dict(ARMS["팔꿈치 140+140"], shoulder="XM430-W210", elbow_servo="XM430-W210")   # 2.7 N·m, 90 g (sp_common 이 더한 값)
 
 
 def reach(a):

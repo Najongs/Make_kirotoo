@@ -32,6 +32,9 @@ _SIMS = {}
 HIP_MIN = math.radians(float(os.environ.get("HIP_MIN_DEG", "-80")))
 KNEE_MAX = math.radians(float(os.environ.get("KNEE_MAX_DEG", "100")))
 LO["hip"] = HIP_MIN; HI["knee"] = KNEE_MAX
+# 어깨 범위(설계 ±120°). 머리 끄덕임 조사(v21)가 팔 첫 닿음 때문에 ±110° 를 추천해 그 범위로도 돌려 봄
+ARM_MAX = math.radians(float(os.environ.get("ARM_MAX_DEG", "120")))
+LO["arm"] = -min(ARM_MAX, 2.094); HI["arm"] = min(ARM_MAX, 2.094)
 
 
 def to_vec(keys):
@@ -55,6 +58,8 @@ def ev(job):
     start = "prone" if start in ("pike", "tuck") else ("supine" if start == "supine6" else start)
     if name not in _SIMS:
         _SIMS[name] = Sim(ARMS[name], knee_max=max(KNEE_MAX, 1.745), hip_min=min(HIP_MIN, -1.396))
+    if os.environ.get("ROBUST"):                 # 조건을 바꿔 여러 번 돌려 비용은 평균, 성공은 모두 성공일 때만
+        return ev_robust(_SIMS[name], x, start)
     try:
         r, _, _ = _SIMS[name].run(to_keys(x), start=start)
     except Exception as e:
@@ -64,12 +69,40 @@ def ev(job):
     return r
 
 
+PERT = [{}, dict(friction=0.6), dict(friction=1.0), dict(tscale=0.95), dict(tscale=1.05)]
+
+
+def ev_robust(S, x, start):
+    m = S.m; f0 = m.geom_friction[:, 0].copy(); rs = []
+    for v in PERT:
+        keys = to_keys(x)
+        if "tscale" in v:
+            keys = [(d * v["tscale"], a) for d, a in keys]
+        if "friction" in v:
+            m.geom_friction[:, 0] = v["friction"]
+        try:
+            r, _, _ = S.run(keys, start=start)
+        except Exception as e:
+            r = dict(ok=False, score=99.0, error=repr(e))
+        finally:
+            m.geom_friction[:, 0] = f0
+        rs.append(r)
+    out = dict(rs[0]); out["score"] = float(np.mean([r.get("score", 99.0) for r in rs])); out["ok_all"] = all(r.get("ok") for r in rs)
+    out["ok_n"] = sum(bool(r.get("ok")) for r in rs); out["ok"] = out["ok_all"]
+    return out
+
+
 def cem(names, starts, iters=20, pop=40, elite=8, seed=0, procs=40):
     from multiprocessing import Pool
     rng = np.random.default_rng(seed)
     combos = [(n, s) for n in names for s in starts]
     sig0 = np.array(([0.3] + [0.6] * len(JN)) * NK)
     st = {c: dict(mu=to_vec(INIT[c[1]]), sig=sig0.copy(), best=None, hist=[]) for c in combos}
+    if os.environ.get("INIT_FROM"):            # tag:팔:시작 — 이미 찾은 키프레임을 처음 평균으로(다른 팔 · 서보로 옮겨 보기)
+        t, a, s0 = os.environ["INIT_FROM"].split(":")
+        x0 = np.array(next(r for r in json.load(open(os.path.join(RES, f"{t}.json"))) if r["arm"] == a and r["start"] == s0)["best_x"])
+        for c in combos:
+            st[c]["mu"] = x0.copy(); st[c]["sig"] = sig0 * float(os.environ.get("SIG_SCALE", "0.4"))
     with Pool(procs) as P:
         for it in range(iters):
             t0 = time.time(); jobs = []; X = {}
@@ -103,7 +136,7 @@ if __name__ == "__main__":
     starts = os.environ.get("STARTS", "prone,supine").split(",")
     out = cem(names, starts, iters=iters, pop=pop, seed=int(os.environ.get("SEED", "0")), procs=int(os.environ.get("PROCS", "40")))
     for r in out:
-        r.update(hip_min_deg=math.degrees(HIP_MIN), knee_max_deg=math.degrees(KNEE_MAX))
+        r.update(hip_min_deg=math.degrees(HIP_MIN), knee_max_deg=math.degrees(KNEE_MAX), arm_max_deg=math.degrees(ARM_MAX))
     jdump(out, os.path.join(RES, f"{tag}.json"))
 
 
@@ -113,6 +146,7 @@ def replay(r, render=None):
     hm = math.radians(r["hip_min_deg"]) if "hip_min_deg" in r else -1.396
     km = math.radians(r["knee_max_deg"]) if "knee_max_deg" in r else 1.745
     global NK
+    am = math.radians(r.get("arm_max_deg", 120)); LO["arm"] = -min(am, 2.094); HI["arm"] = min(am, 2.094)
     LO["hip"] = hm; HI["knee"] = km; NK = len(r["best_x"]) // (1 + len(JN))
     S = Sim(ARMS[r["arm"]], knee_max=max(km, 1.745), hip_min=min(hm, -1.396))
     st = "prone" if r["start"] in ("pike", "tuck") else ("supine" if r["start"] == "supine6" else r["start"])
