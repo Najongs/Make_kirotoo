@@ -34,14 +34,34 @@ def servo_of(jname):
     raise KeyError(jname)
 
 
+# 서보 종류별 시뮬 값: (정지토크 = forcerange, 무부하속도, kp 기본, armature) — kitoru_v18.xml 과 같은 값 [kp · armature 추정]
+SERVO_SIM = {"XM430-W350": (3.8, 4.5, 17.5, 0.045), "XC430-W240": (1.75, 6.81, 7.0, 0.0217), "XL430-W250": (1.4, 5.45, 6.4, 0.0241)}
+
+
+def add_point_mass(body, mass, p):
+    """body 에 점 질량을 더하거나(+) 뺀다(−): 질량 · 무게중심 · 관성(평행축)을 고친다. p: body 좌표(m)."""
+    m0 = body.mass; c0 = np.array(body.ipos, float); p = np.asarray(p, float)
+    I0 = np.asarray(body.fullinertia, float)          # xx yy zz xy xz yz (무게중심 기준)
+    m1 = m0 + mass; c1 = (m0 * c0 + mass * p) / m1
+    def pa(mm, r):      # 점 질량 mm 이 r(무게중심에서) 에 있을 때 관성 텐서 성분
+        x, y, z = r
+        return mm * np.array([y * y + z * z, x * x + z * z, x * x + y * y, -x * y, -x * z, -y * z])
+    I1 = I0 + pa(m0, c0 - c1) + pa(mass, p - c1)
+    body.mass = m1; body.ipos = c1; body.fullinertia = I1
+
+
 def build_model(friction=None, head_mass=1.0, pad_dy_out=0.0, pad_dx=0.0, armature=1.0, camera=False,
-                hip_roll=False, extra_bodies=None):
+                hip_roll=False, extra_bodies=None, extra_mass=()):
     """MjSpec 로 v18 을 읽고 시뮬에서만 바꿀 수 있는 것을 바꾼다(설계 파일은 안 건드림).
     friction: 모든 충돌 geom(바닥 포함)의 미끄럼 마찰. MuJoCo 는 두 geom 중 큰 값을 쓰므로 양쪽을 다 바꾼다.
     head_mass: 머리 body 질량 · 관성 배수(무게중심 위치는 그대로).
     pad_dy_out: 발 바깥쪽 패드 두 개를 바깥으로 옮기는 거리 m(발 폭 넓히기 흉내).  pad_dx: 앞 패드 앞으로 / 뒤 패드 뒤로 m.
     armature: 모든 서보 관절 armature 배수.  camera: 왼쪽 눈 렌즈에 Pi Camera v2 카메라 추가.
-    hip_roll: 허벅지 위(고관절 피치 축 자리)에 롤 관절 + XM430 서보를 더한 가상 설계(형상 · 질량 그대로)."""
+    hip_roll: True = 허벅지 위(고관절 피치 축 자리)에 롤 관절 + XM430 서보를 더한 가상 설계(형상 · 질량 그대로, 피치 뒤 롤).
+              dict = 요 → 롤 → 피치 순서의 배치안: servo(서보 이름), d_axis(롤 축이 피치 축보다 위 m),
+              lengthen(다리가 길어지는 양 m: 허벅지 아래 전체를 내리고 몸통 시작 높이를 올림),
+              mass(롤 서보 하나 kg), mass_pos(요 링크 좌표 m, 오른쪽 기준, 왼쪽은 y 대칭).
+    extra_mass: [(body, kg, (x, y, z) body 좌표 m)] 점 질량 더하기(음수면 빼기)."""
     spec = mujoco.MjSpec.from_file(XML)
     if friction is not None:
         for g in spec.geoms:
@@ -68,7 +88,7 @@ def build_model(friction=None, head_mass=1.0, pad_dy_out=0.0, pad_dx=0.0, armatu
         c = spec.body("head").add_camera(); c.name = "eye"; c.pos = LENS_HEAD + [0.0015, 0, 0]
         c.fovy = CAM_FOVY; c.quat = [0.5, 0.5, -0.5, -0.5]      # 카메라 -z 가 +x(정면), 영상 위쪽 +z
         spec.visual.map.znear = 0.0005
-    if hip_roll:
+    if hip_roll is True:
         for s in "RL":
             th = spec.body(f"{s}_thigh")
             j = th.add_joint(); j.name = f"{s}_hip_roll"; j.type = mujoco.mjtJoint.mjJNT_HINGE; j.axis = [1, 0, 0]
@@ -77,6 +97,35 @@ def build_model(friction=None, head_mass=1.0, pad_dy_out=0.0, pad_dx=0.0, armatu
             a.trntype = mujoco.mjtTrn.mjTRN_JOINT
             a.set_to_position(kp=17.5); a.forcerange = [-3.8, 3.8]; a.forcelimited = mujoco.mjtLimited.mjLIMITED_TRUE
             a.ctrlrange = [-0.35, 0.35]; a.ctrllimited = mujoco.mjtLimited.mjLIMITED_TRUE
+    if isinstance(hip_roll, dict):
+        hr = dict(servo="XM430-W350", d_axis=0.0, lengthen=0.0, mass=0.0, mass_pos=(0.0, 0.0, 0.0)); hr.update(hip_roll)
+        ts, w0, kp0, arm = SERVO_SIM[hr["servo"]]
+        for s in "RL":
+            th = spec.body(f"{s}_thigh")
+            jp = spec.joint(f"{s}_hip_pitch")
+            att = dict(axis=np.array(jp.axis), range=np.array(jp.range), damping=np.array(jp.damping), armature=jp.armature,
+                       pos=np.array(jp.pos))
+            spec.delete(jp)
+            j = th.add_joint(); j.name = f"{s}_hip_roll"; j.type = mujoco.mjtJoint.mjJNT_HINGE; j.axis = [1, 0, 0]
+            j.pos = [0, 0, hr["d_axis"]]
+            j.range = [-0.35, 0.35]; j.damping = [ts / w0, 0, 0]; j.armature = arm
+            j2 = th.add_joint(); j2.name = f"{s}_hip_pitch"; j2.type = mujoco.mjtJoint.mjJNT_HINGE
+            j2.axis = att["axis"]; j2.range = att["range"]; j2.damping = att["damping"]; j2.armature = att["armature"]; j2.pos = att["pos"]
+            if hr["lengthen"]:
+                th.pos = np.array(th.pos) - [0, 0, hr["lengthen"]]
+            if hr["mass"]:
+                mp_ = np.array(hr["mass_pos"], float) * [1, 1 if s == "R" else -1, 1]
+                add_point_mass(spec.body(f"{s}_hip_yaw_link"), hr["mass"], mp_)
+            a = spec.add_actuator(); a.name = f"{s}_hip_roll"; a.target = f"{s}_hip_roll"
+            a.trntype = mujoco.mjtTrn.mjTRN_JOINT
+            a.set_to_position(kp=kp0); a.forcerange = [-ts, ts]; a.forcelimited = mujoco.mjtLimited.mjLIMITED_TRUE
+            a.ctrlrange = [-0.35, 0.35]; a.ctrllimited = mujoco.mjtLimited.mjLIMITED_TRUE
+        if hr["lengthen"]:
+            spec.body("torso").pos = np.array(spec.body("torso").pos) + [0, 0, hr["lengthen"]]
+        for k in list(spec.keys):
+            spec.delete(k)                       # 영점 키프레임은 관절 수 · 높이가 달라져 지움(시험은 qpos0 에서 시작)
+    for bname, mass, p in extra_mass:
+        add_point_mass(spec.body(bname), mass, p)
     if extra_bodies:
         extra_bodies(spec)
     m = spec.compile()
@@ -127,8 +176,11 @@ class Idx:
         self.robot_geoms = set(range(m.ngeom)) - {self.floor}
         self.legj = [n for n in self.jnames if n.startswith(("R_", "L_")) and not n.endswith("arm_swing")]
         self.mass = float(m.body_subtreemass[self.torso])
-        self.stall = np.array([SPEC[servo_of(j)][0] for j in self.act_j])
-        self.w0 = np.array([SPEC[servo_of(j)][1] for j in self.act_j])
+        # 정지토크 · 무부하속도: 액추에이터 forcerange 로 서보 종류를 알아냄(고관절 롤을 XC 로 바꾼 변형도 맞게)
+        W0 = {3.8: 4.5, 1.75: 6.81, 1.4: 5.45}
+        self.stall = np.array([float(m.actuator_forcerange[i, 1]) for i in range(m.nu)])
+        self.w0 = np.array([W0[round(float(m.actuator_forcerange[i, 1]), 2)] for i in range(m.nu)])
+        self.servo = [{3.8: "XM430-W350", 1.75: "XC430-W240", 1.4: "XL430-W250"}[round(float(m.actuator_forcerange[i, 1]), 2)] for i in range(m.nu)]
 
 
 # ---------------------------------------------------------------- 센서: 제어기가 받는 것은 이것뿐

@@ -232,7 +232,7 @@ class WholeBodyIK:
 class Controller:
     def __init__(self, m_plan, kp, dt, plan, crouch=0.015, lift=0.015, k_dcm=2.0, k_step=0.0, ff=True,
                  posture=(0.0, 0.0, 0.0, 0.0), head_fn=None, vel_fc=12.0, zc=None, pitch=0.0, com_bias=(0.0, 0.0),
-                 dcm_to_com=0.0, land_press=0.0, arm=0.0, dyn_ff=True, lead_s=0.0):
+                 dcm_to_com=0.0, land_press=0.0, arm=0.0, dyn_ff=True, lead_s=0.0, k_lat=0.0, lat_db=0.0, lat_in=True):
         self.m = m_plan; self.ik = WholeBodyIK(m_plan); self.ix = self.ik.ix
         self.kp = kp; self.dt = dt; self.plan = plan
         self.crouch, self.lift, self.k_dcm, self.k_step, self.ff = crouch, lift, k_dcm, k_step, ff
@@ -241,8 +241,11 @@ class Controller:
         self.pitch = pitch; self.com_bias = np.array(com_bias); self.dcm_to_com = dcm_to_com
         self.land_press = land_press; self.arm = arm; self.vel_fc = vel_fc
         self.dyn_ff, self.lead_s = dyn_ff, lead_s
+        self.k_lat = k_lat; self.lat_off = 0.0; self.lat_i = None
+        self.lat_db = lat_db; self.lat_in = lat_in
         ix = self.ix
         q0 = m_plan.qpos0.copy(); q0[3:7] = [1, 0, 0, 0]
+        self.zb = float(q0[2])           # 시작 몸통 높이(다리를 늘린 변형은 0 이 아님)
         d = self.ik.d; d.qpos[:] = q0; mujoco.mj_kinematics(m_plan, d); mujoco.mj_comPos(m_plan, d)
         self.foot0 = {s: d.xpos[ix.foot[s]].copy() for s in "RL"}
         self.com0 = d.subtree_com[ix.torso].copy()
@@ -251,7 +254,7 @@ class Controller:
             q0[ix.qadr[f"{s}_hip_pitch"]] = -0.1; q0[ix.qadr[f"{s}_knee"]] = 0.2; q0[ix.qadr[f"{s}_ankle_pitch"]] = -0.1
         self.q = q0
         tgt0 = dict(feet={s: (self.foot0[s], 0.0, np.full(3, 100.0), 100.0) for s in "RL"}, com=self.com0[:2], wcom=10.0,
-                    pitch=0.0, yaw=0.0, wori=10.0, z=-0.002, wz=3.0)
+                    pitch=0.0, yaw=0.0, wori=10.0, z=self.zb - 0.002, wz=3.0)
         self.q = self.ik.solve(self.q, tgt0, iters=60)
         d.qpos[:] = self.q; mujoco.mj_kinematics(m_plan, d); self.z0 = float(d.xpos[ix.torso][2])
         zc = zc or (self.com0[2] - crouch)
@@ -322,7 +325,7 @@ class Controller:
         p_d = p_ref + self.k_dcm * exi
         # ---- 발 목표
         feet = {}
-        crouch = -self.z0 + (self.crouch + self.z0) * min(1.0, max(0.0, t / 1.0))
+        crouch = (self.zb - self.z0) + (self.crouch - (self.zb - self.z0)) * min(1.0, max(0.0, t / 1.0))   # 시작 높이 기준 웅크림
         z_foot = self.foot0["R"][2]
         W_ST = (100, 100, 100); wr = 100
         if ph[0] in ("pre", "ds", "end"):
@@ -363,7 +366,22 @@ class Controller:
             z = z_foot + self.lift * (1 - math.cos(2 * math.pi * s)) / 2
             yaw = y0 + (tg["yaw"] - y0) * a
             feet[stn["side"]] = (np.array([*stn["pos"], z_foot]), stn["yaw"], np.array(W_ST, float), wr)
-            feet[sw] = (np.array([*pos, z]), yaw, np.array([50, 5, 50.0]), 50)
+            # 옆 발 디딤: 흔드는 발 착지점을 DCM 옆 오차만큼 옮긴다(바깥 +30 mm, 안쪽 −5 mm 까지; 계획은 착지 때만 고침)
+            if self.k_lat:
+                if self.lat_i != i:
+                    self.lat_i = i; self.lat_off = 0.0; self.lat_done = False
+                sgn = 1.0 if sw == "L" else -1.0
+                if s < 0.7:
+                    e_ = sgn * exi[1]                               # 흔드는 발 바깥쪽으로 + 인 DCM 오차
+                    e_ = max(0.0, abs(e_) - self.lat_db) * (1 if e_ > 0 else -1)
+                    lo_ = -0.005 if self.lat_in else 0.0
+                    outw = float(np.clip(self.k_lat * e_, lo_, 0.03))
+                    self.lat_off = sgn * outw
+                pos = pos + np.array([0.0, self.lat_off * a])
+                if s > 0.95 and not self.lat_done:
+                    plan.steps[i]["pos"] = plan.steps[i]["pos"] + np.array([0.0, self.lat_off]); self.lat_done = True
+            wy = 50.0 if self.ik.has_roll else 5.0
+            feet[sw] = (np.array([*pos, z]), yaw, np.array([50, wy, 50.0]), 50)
             sup_poly = [plan.center(i - 1)]
         if ph[0] == "end" and ph[2] >= 1.0:
             self.dq_ext[:] = 0
@@ -373,7 +391,7 @@ class Controller:
         body_yaw = 0.5 * (feet["R"][1] + feet["L"][1])
         com_t = c_ref + self.dcm_to_com * exi
         tgt = dict(feet=feet, com=com_t, wcom=10.0, pitch=self.pitch, yaw=body_yaw, wori=10.0,
-                   z=-crouch, wz=3.0)
+                   z=self.zb - crouch, wz=3.0)
         aux = {"nod_crank": crank_for_head(self.head_fn(t)), "R_arm_swing": 0.0, "L_arm_swing": 0.0}
         self.ik.set_aux(self.q, aux)
         self.q = self.ik.solve(self.q, tgt)
