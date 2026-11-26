@@ -1,0 +1,432 @@
+[
+ {
+  "part": "arm_R_horn_adapter",
+  "link": "torso",
+  "up": "+y",
+  "size_mm": "22x22x4",
+  "support_mm2": 0,
+  "support_printcheck_mm2": 0,
+  "support_all": {
+   "+z": [
+    0,
+    0
+   ],
+   "-z": [
+    0,
+    0
+   ],
+   "+x": [
+    0,
+    0
+   ],
+   "-x": [
+    0,
+    0
+   ],
+   "+y": [
+    0,
+    0
+   ],
+   "-y": [
+    0,
+    0
+   ]
+  },
+  "volume_cm3": 1.07,
+  "note": "구조색. 평평하게. 어깨 혼에 M2 4개, D컷 축에 압입",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "arm_L_horn_adapter",
+  "link": "torso",
+  "up": "+y",
+  "size_mm": "22x22x4",
+  "support_mm2": 0,
+  "support_printcheck_mm2": 0,
+  "support_all": {
+   "+z": [
+    0,
+    0
+   ],
+   "-z": [
+    0,
+    0
+   ],
+   "+x": [
+    0,
+    0
+   ],
+   "-x": [
+    0,
+    0
+   ],
+   "+y": [
+    0,
+    0
+   ],
+   "-y": [
+    0,
+    0
+   ]
+  },
+  "volume_cm3": 1.07,
+  "note": "구조색. 평평하게. 어깨 혼에 M2 4개, D컷 축에 압입",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "arm_R_upper_frame",
+  "link": "R_arm",
+  "up": "-y",
+  "size_mm": "135x37x43",
+  "support_mm2": 0,
+  "support_printcheck_mm2": 1242,
+  "support_all": {
+   "+z": [
+    1080,
+    0
+   ],
+   "-z": [
+    51,
+    51
+   ],
+   "+x": [
+    4075,
+    4075
+   ],
+   "-x": [
+    4072,
+    4072
+   ],
+   "+y": [
+    1409,
+    1409
+   ],
+   "-y": [
+    1242,
+    0
+   ]
+  },
+  "volume_cm3": 52.91,
+  "note": "하늘색. 몸통 쪽 면을 바닥에(R 은 위가 −y). 서보 둘을 옆 케이스 나사 16개로 잡음",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "arm_L_upper_frame",
+  "link": "L_arm",
+  "up": "+y",
+  "size_mm": "135x37x43",
+  "support_mm2": 0,
+  "support_printcheck_mm2": 1242,
+  "support_all": {
+   "+z": [
+    1080,
+    0
+   ],
+   "-z": [
+    51,
+    51
+   ],
+   "+x": [
+    4077,
+    4077
+   ],
+   "-x": [
+    4074,
+    4074
+   ],
+   "+y": [
+    1242,
+    0
+   ],
+   "-y": [
+    1417,
+    1417
+   ]
+  },
+  "volume_cm3": 52.91,
+  "note": "하늘색. 몸통 쪽 면을 바닥에(R 은 위가 −y). 서보 둘을 옆 케이스 나사 16개로 잡음",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "arm_R_elbow_bracket_out",
+  "link": "R_forearm",
+  "up": "-y",
+  "size_mm": "100x37x4",
+  "support_mm2": 0,
+  "support_printcheck_mm2": 0,
+  "support_all": {
+   "+z": [
+    0,
+    0
+   ],
+   "-z": [
+    0,
+    0
+   ],
+   "+x": [
+    72,
+    72
+   ],
+   "-x": [
+    72,
+    72
+   ],
+   "+y": [
+    0,
+    0
+   ],
+   "-y": [
+    0,
+    0
+   ]
+  },
+  "volume_cm3": 11.49,
+  "note": "구조색. 평평하게(바깥 면이 위). 팔꿈치 혼 M2 4개 + 손에 M2.5 4개",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "arm_R_elbow_bracket_in",
+  "link": "R_forearm",
+  "up": "-y",
+  "size_mm": "100x37x5",
+  "support_mm2": 0,
+  "support_printcheck_mm2": 0,
+  "support_all": {
+   "+z": [
+    0,
+    0
+   ],
+   "-z": [
+    0,
+    0
+   ],
+   "+x": [
+    96,
+    96
+   ],
+   "-x": [
+    96,
+    96
+   ],
+   "+y": [
+    2922,
+    2922
+   ],
+   "-y": [
+    0,
+    0
+   ]
+  },
+  "volume_cm3": 11.52,
+  "note": "구조색. 몸통 쪽 면(카운터보어)을 바닥에, 아이들러 받침이 위",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "arm_R_hand_frame",
+  "link": "R_forearm",
+  "up": "+z",
+  "size_mm": "37x49x60",
+  "support_mm2": 0,
+  "support_printcheck_mm2": 1230,
+  "support_all": {
+   "+z": [
+    1230,
+    0
+   ],
+   "-z": [
+    1591,
+    0
+   ],
+   "+x": [
+    1257,
+    0
+   ],
+   "-x": [
+    1988,
+    795
+   ],
+   "+y": [
+    1024,
+    669
+   ],
+   "-y": [
+    666,
+    666
+   ]
+  },
+  "volume_cm3": 26.62,
+  "note": "흰색. 손바닥을 바닥에. 고무 패드 접착",
+  "colours": [
+   [
+    0.97,
+    0.97,
+    0.97
+   ]
+  ]
+ },
+ {
+  "part": "arm_L_elbow_bracket_out",
+  "link": "L_forearm",
+  "up": "+y",
+  "size_mm": "100x37x4",
+  "support_mm2": 0,
+  "support_printcheck_mm2": 0,
+  "support_all": {
+   "+z": [
+    0,
+    0
+   ],
+   "-z": [
+    0,
+    0
+   ],
+   "+x": [
+    72,
+    72
+   ],
+   "-x": [
+    72,
+    72
+   ],
+   "+y": [
+    0,
+    0
+   ],
+   "-y": [
+    0,
+    0
+   ]
+  },
+  "volume_cm3": 11.49,
+  "note": "구조색. 평평하게(바깥 면이 위). 팔꿈치 혼 M2 4개 + 손에 M2.5 4개",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "arm_L_elbow_bracket_in",
+  "link": "L_forearm",
+  "up": "+y",
+  "size_mm": "100x37x5",
+  "support_mm2": 0,
+  "support_printcheck_mm2": 0,
+  "support_all": {
+   "+z": [
+    0,
+    0
+   ],
+   "-z": [
+    0,
+    0
+   ],
+   "+x": [
+    72,
+    72
+   ],
+   "-x": [
+    72,
+    72
+   ],
+   "+y": [
+    0,
+    0
+   ],
+   "-y": [
+    2922,
+    2922
+   ]
+  },
+  "volume_cm3": 11.52,
+  "note": "구조색. 몸통 쪽 면(카운터보어)을 바닥에, 아이들러 받침이 위",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "arm_L_hand_frame",
+  "link": "L_forearm",
+  "up": "+z",
+  "size_mm": "37x49x60",
+  "support_mm2": 0,
+  "support_printcheck_mm2": 1233,
+  "support_all": {
+   "+z": [
+    1233,
+    0
+   ],
+   "-z": [
+    1592,
+    0
+   ],
+   "+x": [
+    1257,
+    0
+   ],
+   "-x": [
+    1988,
+    795
+   ],
+   "+y": [
+    830,
+    666
+   ],
+   "-y": [
+    984,
+    669
+   ]
+  },
+  "volume_cm3": 26.62,
+  "note": "흰색. 손바닥을 바닥에. 고무 패드 접착",
+  "colours": [
+   [
+    0.97,
+    0.97,
+    0.97
+   ]
+  ]
+ }
+]

@@ -1,0 +1,513 @@
+{
+ "total_v20_g": 3150.392648778,
+ "total_v21_g": 3394.01587537,
+ "com_v21": [
+  -6.090997041438997,
+  -0.14114345475342485,
+  204.3100488331265
+ ],
+ "com_v20": [
+  -6.588339336184992,
+  -0.2247789559863342,
+  206.4388321742899
+ ],
+ "arm_v20_g": {
+  "R": 124.68898566800002,
+  "L": 123.485415132
+ },
+ "arm_v21_g": {
+  "R": 246.55084983600003,
+  "L": 247.62959032400002
+ },
+ "torso_v20_g": 1087.9425928360001,
+ "torso_v21_g": 1085.559780068,
+ "parts": [
+  {
+   "mass": 65.2,
+   "kind": "servo",
+   "link": "R_arm",
+   "part": "arm_R_servo_XL430",
+   "com": [
+    0.1,
+    -101.9,
+    293.9
+   ]
+  },
+  {
+   "mass": 65.2,
+   "kind": "servo",
+   "link": "R_arm",
+   "part": "arm_R_elbow_servo_XL430",
+   "com": [
+    0.1,
+    -101.9,
+    207.9
+   ]
+  },
+  {
+   "mass": 53.8,
+   "kind": "print",
+   "solid_cm3": 52.50712599999999,
+   "struct": true,
+   "link": "R_arm",
+   "part": "arm_R_upper_frame",
+   "com": [
+    0.1,
+    -104.0,
+    261.9
+   ]
+  },
+  {
+   "mass": 4.0,
+   "kind": "fixed",
+   "link": "R_forearm",
+   "part": "arm_R_elbow_horn",
+   "com": [
+    -0.0,
+    -120.8,
+    196.0
+   ]
+  },
+  {
+   "mass": 3.0,
+   "kind": "fixed",
+   "link": "R_forearm",
+   "part": "arm_R_elbow_idler",
+   "com": [
+    -0.0,
+    -83.6,
+    196.0
+   ]
+  },
+  {
+   "mass": 12.4,
+   "kind": "print",
+   "solid_cm3": 11.536804999999998,
+   "struct": true,
+   "link": "R_forearm",
+   "part": "arm_R_elbow_bracket_out",
+   "com": [
+    0.1,
+    -124.9,
+    156.0
+   ]
+  },
+  {
+   "mass": 12.4,
+   "kind": "print",
+   "solid_cm3": 11.513823999999996,
+   "struct": true,
+   "link": "R_forearm",
+   "part": "arm_R_elbow_bracket_in",
+   "com": [
+    0.1,
+    -79.0,
+    156.8
+   ]
+  },
+  {
+   "mass": 30.0,
+   "kind": "print",
+   "solid_cm3": 26.236755999999993,
+   "struct": true,
+   "link": "R_forearm",
+   "part": "arm_R_hand_frame",
+   "com": [
+    0.0,
+    -101.6,
+    110.5
+   ]
+  },
+  {
+   "mass": 0.6,
+   "kind": "rubber",
+   "link": "R_forearm",
+   "part": "arm_R_hand_pad",
+   "com": [
+    0.1,
+    -101.6,
+    85.3
+   ]
+  },
+  {
+   "mass": 65.2,
+   "kind": "servo",
+   "link": "L_arm",
+   "part": "arm_L_servo_XL430",
+   "com": [
+    0.1,
+    102.1,
+    293.9
+   ]
+  },
+  {
+   "mass": 65.2,
+   "kind": "servo",
+   "link": "L_arm",
+   "part": "arm_L_elbow_servo_XL430",
+   "com": [
+    0.1,
+    102.1,
+    207.9
+   ]
+  },
+  {
+   "mass": 54.9,
+   "kind": "print",
+   "solid_cm3": 53.44866099999999,
+   "struct": true,
+   "link": "L_arm",
+   "part": "arm_L_upper_frame",
+   "com": [
+    0.1,
+    104.5,
+    262.5
+   ]
+  },
+  {
+   "mass": 4.0,
+   "kind": "fixed",
+   "link": "L_forearm",
+   "part": "arm_L_elbow_horn",
+   "com": [
+    -0.0,
+    121.1,
+    196.0
+   ]
+  },
+  {
+   "mass": 3.0,
+   "kind": "fixed",
+   "link": "L_forearm",
+   "part": "arm_L_elbow_idler",
+   "com": [
+    -0.0,
+    83.4,
+    196.0
+   ]
+  },
+  {
+   "mass": 12.4,
+   "kind": "print",
+   "solid_cm3": 11.536804999999998,
+   "struct": true,
+   "link": "L_forearm",
+   "part": "arm_L_elbow_bracket_out",
+   "com": [
+    0.1,
+    124.9,
+    156.0
+   ]
+  },
+  {
+   "mass": 12.4,
+   "kind": "print",
+   "solid_cm3": 11.513823999999996,
+   "struct": true,
+   "link": "L_forearm",
+   "part": "arm_L_elbow_bracket_in",
+   "com": [
+    0.1,
+    79.2,
+    156.8
+   ]
+  },
+  {
+   "mass": 30.0,
+   "kind": "print",
+   "solid_cm3": 26.229895999999993,
+   "struct": true,
+   "link": "L_forearm",
+   "part": "arm_L_hand_frame",
+   "com": [
+    0.0,
+    101.3,
+    110.5
+   ]
+  },
+  {
+   "mass": 0.6,
+   "kind": "rubber",
+   "link": "L_forearm",
+   "part": "arm_L_hand_pad",
+   "com": [
+    0.1,
+    101.9,
+    85.3
+   ]
+  },
+  {
+   "mass": 1.3,
+   "kind": "print",
+   "solid_cm3": 1.0735899999999996,
+   "struct": true,
+   "link": "torso",
+   "part": "arm_R_horn_adapter",
+   "com": [
+    -0.1,
+    -79.4,
+    305.9
+   ]
+  },
+  {
+   "mass": 4.0,
+   "kind": "fixed",
+   "link": "torso",
+   "part": "arm_R_horn_XC430",
+   "com": [
+    -0.0,
+    -82.9,
+    306.0
+   ]
+  },
+  {
+   "mass": 1.3,
+   "kind": "print",
+   "solid_cm3": 1.0735899999999996,
+   "struct": true,
+   "link": "torso",
+   "part": "arm_L_horn_adapter",
+   "com": [
+    -0.1,
+    79.4,
+    305.9
+   ]
+  },
+  {
+   "mass": 4.0,
+   "kind": "fixed",
+   "link": "torso",
+   "part": "arm_L_horn_XC430",
+   "com": [
+    -0.0,
+    83.2,
+    306.0
+   ]
+  },
+  {
+   "mass": 3.0,
+   "kind": "fixed",
+   "link": "torso",
+   "part": "arm_R_idler_XC430",
+   "com": [
+    -0.0,
+    -120.6,
+    306.0
+   ]
+  },
+  {
+   "mass": 3.0,
+   "kind": "fixed",
+   "link": "torso",
+   "part": "arm_L_idler_XC430",
+   "com": [
+    -0.0,
+    120.4,
+    306.0
+   ]
+  }
+ ],
+ "joints": [
+  {
+   "name": "R_arm_swing",
+   "parent": "torso",
+   "child": "R_arm",
+   "axis": "y",
+   "point_mm": [
+    0,
+    -50.0,
+    306.0
+   ],
+   "lower_deg": -110.0,
+   "upper_deg": 110.0,
+   "actuator": "XL430-W250 (inside the arm)",
+   "stall_Nm_11V": 1.4,
+   "no_load_rad_s_11V": 5.45
+  },
+  {
+   "name": "R_elbow",
+   "parent": "R_arm",
+   "child": "R_forearm",
+   "axis": "y",
+   "point_mm": [
+    0.0,
+    -102.0,
+    196.0
+   ],
+   "lower_deg": -130.0,
+   "upper_deg": 130.0,
+   "actuator": "XL430-W250 (in the upper arm, horn outward)",
+   "stall_Nm_11V": 1.4,
+   "no_load_rad_s_11V": 5.45
+  },
+  {
+   "name": "L_arm_swing",
+   "parent": "torso",
+   "child": "L_arm",
+   "axis": "y",
+   "point_mm": [
+    0,
+    50.0,
+    306.0
+   ],
+   "lower_deg": -110.0,
+   "upper_deg": 110.0,
+   "actuator": "XL430-W250 (inside the arm)",
+   "stall_Nm_11V": 1.4,
+   "no_load_rad_s_11V": 5.45
+  },
+  {
+   "name": "L_elbow",
+   "parent": "L_arm",
+   "child": "L_forearm",
+   "axis": "y",
+   "point_mm": [
+    0.0,
+    102.0,
+    196.0
+   ],
+   "lower_deg": -130.0,
+   "upper_deg": 130.0,
+   "actuator": "XL430-W250 (in the upper arm, horn outward)",
+   "stall_Nm_11V": 1.4,
+   "no_load_rad_s_11V": 5.45
+  }
+ ],
+ "links": {
+  "R_arm": {
+   "parent_joint": "R_arm_swing",
+   "origin_mm": [
+    0.0,
+    -50.0,
+    306.0
+   ],
+   "mass_kg": 0.1842,
+   "com_from_origin_m": [
+    9e-05,
+    -0.05249,
+    -0.0519
+   ],
+   "inertia_about_com_kgm2": {
+    "Ixx": 0.0003823910103752236,
+    "Iyy": 0.00037828093164980005,
+    "Izz": 4.475852090460164e-05,
+    "Ixy": 6.5018209605498e-10,
+    "Ixz": -1.5498357022510324e-10,
+    "Iyz": 4.290065788050057e-06
+   }
+  },
+  "R_forearm": {
+   "parent_joint": "R_elbow",
+   "origin_mm": [
+    0.0,
+    -102.0,
+    196.0
+   ],
+   "mass_kg": 0.0624,
+   "com_from_origin_m": [
+    3e-05,
+    -0.00012,
+    -0.05791
+   ],
+   "inertia_about_com_kgm2": {
+    "Ixx": 0.00010603199496105434,
+    "Iyy": 9.099223704088926e-05,
+    "Izz": 3.0371755961855483e-05,
+    "Ixy": -1.134448968266763e-08,
+    "Ixz": 2.4302839721914724e-08,
+    "Iyz": 1.5191540897595806e-06
+   }
+  },
+  "L_arm": {
+   "parent_joint": "L_arm_swing",
+   "origin_mm": [
+    0.0,
+    50.0,
+    306.0
+   ],
+   "mass_kg": 0.1853,
+   "com_from_origin_m": [
+    9e-05,
+    0.05284,
+    -0.05167
+   ],
+   "inertia_about_com_kgm2": {
+    "Ixx": 0.0003847108568634718,
+    "Iyy": 0.0003802833912690374,
+    "Izz": 4.5210291240132314e-05,
+    "Ixy": -1.3756650611070735e-09,
+    "Ixz": -3.124713258742351e-10,
+    "Iyz": -5.0525025265044144e-06
+   }
+  },
+  "L_forearm": {
+   "parent_joint": "L_elbow",
+   "origin_mm": [
+    0.0,
+    102.0,
+    196.0
+   ],
+   "mass_kg": 0.0624,
+   "com_from_origin_m": [
+    4e-05,
+    1e-05,
+    -0.05791
+   ],
+   "inertia_about_com_kgm2": {
+    "Ixx": 0.00010594050428417596,
+    "Iyy": 9.096557770811283e-05,
+    "Izz": 3.0310016257610668e-05,
+    "Ixy": -5.819935406927219e-09,
+    "Ixz": 4.5036656484556657e-08,
+    "Iyz": -1.6173302104454498e-06
+   }
+  }
+ },
+ "strength": {
+  "elbow_torque_Nm": {
+   "worst": 3.5,
+   "stall": 1.4
+  },
+  "horn_plate": {
+   "section": "horn plate at the lower horn holes, width 27.7, thickness 3.5, printed flat (in-layer)",
+   "W_mm3": 447,
+   "stress_MPa": {
+    "worst": 7.8,
+    "stall": 3.1
+   },
+   "both_plates_MPa": {
+    "worst": 3.9,
+    "stall": 1.6
+   }
+  },
+  "upper_frame_elbow_bay": {
+   "section": "two x walls 3.85 x 41.2 at x 14.6..18.45 (servo case as web), printed -y/+y (in-layer)",
+   "W_mm3": 4717,
+   "stress_MPa": {
+    "worst": 0.74,
+    "stall": 0.3
+   }
+  },
+  "horn_screw_bearing": {
+   "note": "4 x M2 on r 8, all torque in bearing (no clamp friction): F = T / (4 * 8 mm), sigma = F / (2 mm * 3.5 mm)",
+   "force_N": {
+    "worst": 109.4,
+    "stall": 43.8
+   },
+   "stress_MPa": {
+    "worst": 15.6,
+    "stall": 6.2
+   }
+  },
+  "plates_lateral": {
+   "note": "side push 4.8 N at the hand (110 mm), two plates bending out of plane, printed flat (in-layer)",
+   "W_mm3": 113,
+   "stress_MPa": 4.7
+  },
+  "hand_section": {
+   "note": "hand shell at z 110 (printed +z, across layers): moment = 16 N x 24 mm, hollow 36.9 x 49.4, wall 2",
+   "stress_MPa": 0.1
+  },
+  "reference": "v20 leg: interlayer repeat limit ~7 MPa, target 5 MPa [estimate] (LEG_PRINT_KIT_R.md 6)"
+ }
+}
