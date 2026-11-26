@@ -1,4 +1,12 @@
 {
+ "yaw_range_deg": 30.000012857270395,
+ "in_range": {
+  "n_configs": 735,
+  "n_hull_contact": 232,
+  "n_design_interference": 219,
+  "single_leg_yaw_configs": 195,
+  "single_leg_yaw_design_interference": 52
+ },
  "single_leg_yaw_scan": {
   "R_yaw_positive": {
    "first_hull_contact": [

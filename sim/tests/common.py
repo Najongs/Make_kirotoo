@@ -10,10 +10,13 @@ import mujoco
 SIM = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CODE = os.path.join(SIM, "..", "code_v17")
 sys.path.insert(0, CODE)
-RES = os.path.join(SIM, "results"); os.makedirs(RES, exist_ok=True)
-XML = os.path.join(SIM, "model", "kitoru_v17.xml")
-XMLF = os.path.join(SIM, "model", "kitoru_v17_fixed.xml")
-MASSF = os.path.join(CODE, "mass_build17_light.json")
+RES = os.path.join(SIM, os.environ.get("KITORU_RES", "results")); os.makedirs(RES, exist_ok=True)
+# KITORU_MODEL = model stem in sim/model (default kitoru_v17), KITORU_MASSF = mass json for servo_study,
+# KITORU_RES = results subfolder (default results/)
+_STEM = os.environ.get("KITORU_MODEL", "kitoru_v17")
+XML = os.path.join(SIM, "model", f"{_STEM}.xml")
+XMLF = os.path.join(SIM, "model", f"{_STEM}_fixed.xml")
+MASSF = os.environ.get("KITORU_MASSF", os.path.join(CODE, "mass_build17_light.json"))
 LOOP = json.load(open(os.path.join(SIM, "model", "closed_loop_fit.json")))
 PV = np.polynomial.polynomial.polyval
 
@@ -217,3 +220,36 @@ def korean_font():
     plt.rcParams["axes.unicode_minus"] = False
     import logging; logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)
     return plt
+
+
+def foot_support(m, side="R"):
+    """zero-pose support outlines of one foot (world mm, 2D): convex hull of its pad circles and of the sole
+    bottom (collision hull vertices of <side>_foot_sole below z 8.5 mm)"""
+    from scipy.spatial import ConvexHull
+    d = mujoco.MjData(m); d.qpos[:] = m.qpos0
+    if m.nq == 22:
+        d.qpos[3:7] = [1, 0, 0, 0]
+    mujoco.mj_forward(m, d)
+    pads = []
+    for i in range(m.ngeom):
+        if gname(m, i).startswith(f"{side}_foot_pad"):
+            c = d.geom_xpos[i] * 1e3; r = m.geom_size[i][0] * 1e3
+            pads += [(c[0] + r * math.cos(t), c[1] + r * math.sin(t)) for t in np.linspace(0, 2 * math.pi, 48, endpoint=False)]
+    i = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_GEOM, f"col_{side}_foot_sole")
+    mid = m.geom_dataid[i]; a, n = m.mesh_vertadr[mid], m.mesh_vertnum[mid]
+    V = (m.mesh_vert[a:a + n] @ d.geom_xmat[i].reshape(3, 3).T + d.geom_xpos[i]) * 1e3
+    sole = V[V[:, 2] < 8.5][:, :2]
+    P, S_ = np.array(pads), np.array(sole)
+    return P[ConvexHull(P).vertices], S_[ConvexHull(S_).vertices]
+
+
+def hull_area(poly):
+    x, y = poly[:, 0], poly[:, 1]
+    return 0.5 * abs(np.dot(x, np.roll(y, -1)) - np.dot(y, np.roll(x, -1)))
+
+
+def hull_margin(poly, p):
+    """signed distance of p to the boundary of convex polygon poly (positive inside)"""
+    from scipy.spatial import ConvexHull
+    H = ConvexHull(poly)
+    return min(-(eq[:2] @ np.asarray(p)[:2] + eq[2]) for eq in H.equations)

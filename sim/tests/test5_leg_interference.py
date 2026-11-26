@@ -93,6 +93,11 @@ for p, k in itertools.product(PITCH, KNEE):
         rows.append({"hip_pitch_R": p, "knee": k, "yaw_R": yr, "yaw_L": yl, "hull_pairs": {f"{a}|{b}": round(v * 1e3, 2) for (a, b), v in pairs.items()},
                      "hull_categories": sorted({cat(a, b) for a, b in pairs}), "design_interference": fine, "level": level})
 n_h = sum(1 for v in GRID.values() if v >= 1); n_d = sum(1 for v in GRID.values() if v == 2)
+YAW_LIM = math.degrees(m.jnt_range[jid(m, "R_hip_yaw")][1])
+in_rng = {k: v for k, v in GRID.items() if abs(k[2]) <= YAW_LIM + 1e-6 and abs(k[3]) <= YAW_LIM + 1e-6}
+n_in = len(in_rng); n_h_in = sum(1 for v in in_rng.values() if v >= 1); n_d_in = sum(1 for v in in_rng.values() if v == 2)
+in_single = {k: v for k, v in in_rng.items() if (k[2] == 0 or k[3] == 0)}
+n_d_single = sum(1 for v in in_single.values() if v == 2)
 cats_h = {}; cats_d = {}
 for r in rows:
     for c in r["hull_categories"]:
@@ -123,10 +128,11 @@ for sgn in (1, -1):
             break
     scan["R_yaw_positive" if sgn > 0 else "R_yaw_negative"] = {"first_hull_contact": first_h, "first_design_contact": first_d}
 print("single-leg yaw scan", scan)
-out = {"single_leg_yaw_scan": scan, "grid": dict(yaw=YAW, pitch_scissor=PITCH, knee=KNEE), "n_configs": len(GRID), "n_hull_contact": n_h, "n_design_interference": n_d,
+out = {"yaw_range_deg": YAW_LIM, "in_range": {"n_configs": n_in, "n_hull_contact": n_h_in, "n_design_interference": n_d_in,
+       "single_leg_yaw_configs": len(in_single), "single_leg_yaw_design_interference": n_d_single}, "single_leg_yaw_scan": scan, "grid": dict(yaw=YAW, pitch_scissor=PITCH, knee=KNEE), "n_configs": len(GRID), "n_hull_contact": n_h, "n_design_interference": n_d,
        "hull_categories_count": cats_h, "design_categories_count": cats_d, "sample_step_mm": STEP, **rule, "rows": rows}
 jdump(out, "test5_leg_interference.json")
-print("configs", len(GRID), "hull contact", n_h, "design interference", n_d)
+print("configs", len(GRID), "hull contact", n_h, "design interference", n_d, "| within yaw range", YAW_LIM, out["in_range"])
 print("hull cats", cats_h); print("design cats", cats_d); print(rule)
 
 plt = korean_font()
@@ -145,7 +151,8 @@ import matplotlib.patches as mpatches
 fig.legend(handles=[mpatches.Patch(color="#e8f1fb", label="닿지 않음"), mpatches.Patch(color="#f5c26b", label="충돌 껍질만 닿음 (실제 부품은 안 닿음)"),
                     mpatches.Patch(color="#c0392b", label="설계 형상으로도 겹침 (정밀 검사)")], loc="lower center", ncol=3, fontsize=9)
 sc = out["single_leg_yaw_scan"]
-fig.suptitle(f"한쪽 고관절 요만 {abs(sc['R_yaw_negative']['first_design_contact'][0])}°(뒤꿈치가 안쪽으로) 또는 {abs(sc['R_yaw_positive']['first_design_contact'][0])}°(발끝이 안쪽으로) "
-             f"돌려도 두 발이 닿는다 — 격자 {len(GRID)}개 중 껍질 접촉 {n_h}개, 설계 형상 겹침 {n_d}개\n(두 발 평평 유지, 요 범위 ±30°, 시뮬 + 설계 형상 정밀 검사)", fontsize=11)
+fig.suptitle(f"다리를 펴고 한쪽 고관절 요만 돌리면 {abs(sc['R_yaw_negative']['first_design_contact'][0])}°(뒤꿈치가 안쪽으로) · {abs(sc['R_yaw_positive']['first_design_contact'][0])}°(발끝이 안쪽으로)에서 두 다리가 처음 닿는다 "
+             f"— 격자 {len(GRID)}개 중 설계 형상 겹침 {n_d}개, 관절 범위 ±{YAW_LIM:.0f}° 안에서는 {n_in}개 중 {n_d_in}개\n"
+             f"({os.environ.get('KITORU_MODEL', 'kitoru_v17')}, 두 발 평평 유지, 격자는 ±30°, 시뮬 충돌 껍질 + 설계 형상 정밀 검사)", fontsize=11)
 fig.tight_layout(rect=(0, 0.05, 1, 0.94), h_pad=2.2); fig.savefig(os.path.join(RES, "test5_leg_interference.png"), dpi=100)
 print("saved")

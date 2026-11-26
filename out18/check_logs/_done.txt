@@ -1,0 +1,9 @@
+servo_clear exit 0
+verify18 exit 0
+exact_check4 exit 0
+intra7 exit 0
+printcheck exit 0
+export_parts exit 0
+v17 baselines exit 0
+mass/servo_opt/gen_csv exit 0
+sweep exit 0

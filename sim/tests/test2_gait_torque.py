@@ -85,9 +85,10 @@ for nm, case in cases.items():
     res["zmp_ss_x_mm"] = [float(zss[:, 0].min()), float(zss[:, 0].max())]
     res["zmp_ss_y_mm"] = [float(zss[:, 1].min()), float(zss[:, 1].max())]
     res["zmp_max_diff_mm"] = float(np.max(np.linalg.norm(COP[:, :2] * 1e3 - zss, axis=1)))
-    cx, cy = COP[:, 0] * 1e3, COP[:, 1] * 1e3
-    res["cop_outside_pads_frac"] = float(np.mean((cx < -68) | (cx > 54) | (cy < -69) | (cy > -11)))
-    res["cop_outside_sole_frac"] = float(np.mean((cx < -74) | (cx > 60) | (cy < -75) | (cy > -5)))
+    PADH, SOLEH = foot_support(m_full, "R")
+    mp = np.array([hull_margin(PADH, c * 1e3) for c in COP]); ms_ = np.array([hull_margin(SOLEH, c * 1e3) for c in COP])
+    res["cop_outside_pads_frac"] = float(np.mean(mp < 0))
+    res["cop_outside_sole_frac"] = float(np.mean(ms_ < 0))
     res["ground_force_z_N"] = [float(W[:, 2].min()), float(W[:, 2].max())]
     out["cases"][nm] = res
     SERIES[nm] = (ts[1:-1], TAU, V, ss["true_mass"][0], COP, zss)

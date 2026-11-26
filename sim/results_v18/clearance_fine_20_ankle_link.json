@@ -1,0 +1,134 @@
+[
+ {
+  "theta": -21,
+  "crouch_mm": 0.0,
+  "coarse_gap": 3.1464221008831452,
+  "fine_gap": 2.279308394896235,
+  "pair": [
+   "R_ankle_bracket",
+   "L_ankle_bracket"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": -21,
+  "crouch_mm": 15.0,
+  "coarse_gap": 3.146422100883139,
+  "fine_gap": 2.279308394896223,
+  "pair": [
+   "R_ankle_bracket",
+   "L_ankle_bracket"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": -21,
+  "crouch_mm": 30.0,
+  "coarse_gap": 3.1464221008831483,
+  "fine_gap": 2.2793083948962347,
+  "pair": [
+   "R_ankle_bracket",
+   "L_ankle_bracket"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": -21,
+  "crouch_mm": 40.0,
+  "coarse_gap": 3.1464221008831372,
+  "fine_gap": 2.2793083948962183,
+  "pair": [
+   "R_ankle_bracket",
+   "L_ankle_bracket"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": -20,
+  "crouch_mm": 0.0,
+  "coarse_gap": 4.160685333601595,
+  "fine_gap": 3.288168869955603,
+  "pair": [
+   "R_ankle_bracket",
+   "L_ankle_bracket"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": -20,
+  "crouch_mm": 15.0,
+  "coarse_gap": 4.160685333601594,
+  "fine_gap": 3.2881688699555975,
+  "pair": [
+   "R_ankle_bracket",
+   "L_ankle_bracket"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": -20,
+  "crouch_mm": 30.0,
+  "coarse_gap": 4.160685333601596,
+  "fine_gap": 3.288168869955601,
+  "pair": [
+   "R_ankle_bracket",
+   "L_ankle_bracket"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": -20,
+  "crouch_mm": 40.0,
+  "coarse_gap": 4.160685333601594,
+  "fine_gap": 3.2881688699555993,
+  "pair": [
+   "R_ankle_bracket",
+   "L_ankle_bracket"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": -19,
+  "crouch_mm": 0.0,
+  "coarse_gap": 5.187613317508303,
+  "fine_gap": 4.314804739357858,
+  "pair": [
+   "R_ankle_bracket",
+   "L_ankle_bracket"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": -19,
+  "crouch_mm": 15.0,
+  "coarse_gap": 5.187613317508294,
+  "fine_gap": 4.314804739357853,
+  "pair": [
+   "R_ankle_bracket",
+   "L_ankle_bracket"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": -19,
+  "crouch_mm": 30.0,
+  "coarse_gap": 5.187613317508308,
+  "fine_gap": 4.314804739357865,
+  "pair": [
+   "R_ankle_bracket",
+   "L_ankle_bracket"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": -19,
+  "crouch_mm": 40.0,
+  "coarse_gap": 5.187613317508298,
+  "fine_gap": 4.314804739357859,
+  "pair": [
+   "R_ankle_bracket",
+   "L_ankle_bracket"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ }
+]

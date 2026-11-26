@@ -1,0 +1,12 @@
+XM ('hip_yaw', 'hip_pitch', 'knee')             env u 0.82 jog u 1.11 heat 0.21  hip_ya 0.02/0.03/0.00 hip_pi 0.67/1.06/0.02 knee 0.76/1.11/0.15 ankle_ 0.82/0.87/0.11 ankle_ 0.77/0.81/0.21
+XM ('hip_yaw', 'hip_pitch', 'ankle_pitch')      env u 0.82 jog u 1.06 heat 0.34  hip_ya 0.02/0.03/0.00 hip_pi 0.67/1.06/0.02 knee 0.82/1.00/0.34 ankle_ 0.67/1.04/0.05 ankle_ 0.77/0.81/0.21
+XM ('hip_yaw', 'hip_pitch', 'ankle_roll')       env u 0.83 jog u 1.06 heat 0.34  hip_ya 0.02/0.03/0.00 hip_pi 0.67/1.06/0.02 knee 0.83/1.01/0.34 ankle_ 0.82/0.88/0.11 ankle_ 0.46/0.47/0.10
+XM ('hip_yaw', 'knee', 'ankle_pitch')           env u 0.89 jog u 1.11 heat 0.21  hip_ya 0.02/0.04/0.00 hip_pi 0.89/0.74/0.04 knee 0.76/1.11/0.15 ankle_ 0.67/1.04/0.05 ankle_ 0.77/0.81/0.21
+XM ('hip_yaw', 'knee', 'ankle_roll')            env u 0.90 jog u 1.12 heat 0.16  hip_ya 0.02/0.04/0.00 hip_pi 0.90/0.74/0.05 knee 0.76/1.12/0.16 ankle_ 0.82/0.88/0.11 ankle_ 0.46/0.48/0.10
+XM ('hip_yaw', 'ankle_pitch', 'ankle_roll')     env u 0.90 jog u 1.04 heat 0.34  hip_ya 0.02/0.04/0.00 hip_pi 0.90/0.74/0.05 knee 0.82/1.01/0.34 ankle_ 0.67/1.04/0.05 ankle_ 0.46/0.48/0.10
+XM ('hip_pitch', 'knee', 'ankle_pitch')         env u 0.77 jog u 1.11 heat 0.21  hip_ya 0.04/0.08/0.01 hip_pi 0.67/1.06/0.02 knee 0.76/1.11/0.15 ankle_ 0.67/1.04/0.05 ankle_ 0.77/0.81/0.21
+XM ('hip_pitch', 'knee', 'ankle_roll')          env u 0.82 jog u 1.12 heat 0.15  hip_ya 0.04/0.08/0.01 hip_pi 0.67/1.06/0.02 knee 0.76/1.12/0.15 ankle_ 0.82/0.88/0.11 ankle_ 0.46/0.48/0.10
+XM ('hip_pitch', 'ankle_pitch', 'ankle_roll')   env u 0.82 jog u 1.06 heat 0.34  hip_ya 0.04/0.08/0.01 hip_pi 0.67/1.06/0.02 knee 0.82/1.01/0.34 ankle_ 0.67/1.04/0.05 ankle_ 0.46/0.48/0.10
+XM ('knee', 'ankle_pitch', 'ankle_roll')        env u 0.89 jog u 1.12 heat 0.15  hip_ya 0.04/0.08/0.01 hip_pi 0.89/0.74/0.04 knee 0.76/1.12/0.15 ankle_ 0.67/1.04/0.05 ankle_ 0.46/0.48/0.10
+arms True stance hip yaw peak 0.073
+arms False stance hip yaw peak 0.086

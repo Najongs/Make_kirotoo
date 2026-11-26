@@ -1,0 +1,16 @@
+-21 0.0 3.15 2.26 R_ankle_bracket L_ankle_bracket
+-21 15.0 3.15 2.26 R_ankle_bracket L_ankle_bracket
+-21 30.0 3.15 2.26 R_ankle_bracket L_ankle_bracket
+-21 40.0 3.15 2.26 R_ankle_bracket L_ankle_bracket
+-20 0.0 3.5 3.14 R_foot_sole L_foot_sole
+-20 15.0 3.5 3.14 R_foot_sole L_foot_sole
+-20 30.0 3.5 3.14 R_foot_sole L_foot_sole
+-20 40.0 3.5 3.14 R_foot_sole L_foot_sole
+20 0.0 3.5 3.14 R_foot_sole L_foot_sole
+20 15.0 3.5 3.14 R_foot_sole L_foot_sole
+20 30.0 3.5 3.14 R_foot_sole L_foot_sole
+20 40.0 2.43 1.71 R_shank_shell L_shank_shell
+21 0.0 3.16 2.67 R_foot_sole L_foot_sole
+21 15.0 3.16 2.67 R_foot_sole L_foot_sole
+21 30.0 3.16 2.67 R_foot_sole L_foot_sole
+21 40.0 1.64 0.95 R_shank_shell L_shank_shell

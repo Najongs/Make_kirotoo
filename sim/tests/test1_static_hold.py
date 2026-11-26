@@ -79,9 +79,7 @@ def hold(q, ang, kp_scale=1.0, snap_key=None, ramp=1.0, pad_solref=None):
                                  for i in range(mm.nu)}}
 
 
-R_PADS = np.array([(x + 6 * math.cos(t), y + 6 * math.sin(t)) for x, y in ((-62, -63), (-62, -17), (48, -63), (48, -17))
-                   for t in np.linspace(0, 2 * math.pi, 32, endpoint=False)])
-R_SOLE = np.array([(-74, -75), (60, -75), (60, -5), (-74, -5)], float)
+R_PADS, R_SOLE = foot_support(m_free, "R")
 out = {"cases": {}}
 snaps = {}
 for nm, crouch, xr in (("crouch", 40.0, 0.0), ("toe", 15.0, 55.0), ("heel", 15.0, -60.0)):

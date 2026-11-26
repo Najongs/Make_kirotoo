@@ -1,0 +1,47 @@
+total 2913 g  CoM [ -7.3  -0.3 233.6]
+  torso             1103.7 g  com [ -9.3  -0.4 274.2]
+  R_hip_yaw_link     119.8 g  com [ 1.000e-01 -4.000e+01  1.824e+02]
+  R_thigh            129.2 g  com [  0.5 -40.1 130.9]
+  R_shank            120.5 g  com [  1.3 -40.1  58.5]
+  R_ankle_link       115.9 g  com [-45.1 -40.1  44.8]
+  R_foot              55.7 g  com [-15.8 -41.9  15.3]
+  L_hip_yaw_link     119.8 g  com [1.000e-01 4.020e+01 1.824e+02]
+  L_thigh            129.3 g  com [  0.5  40.4 130.9]
+  L_shank            120.5 g  com [ 1.3 40.3 58.5]
+  L_ankle_link       115.9 g  com [-45.1  40.2  44.8]
+  L_foot              55.7 g  com [-15.8  41.8  15.3]
+  head               390.6 g  com [  2.9  -0.7 435.2]
+  nod_crank            5.8 g  com [-28.8  16.5 384.1]
+  nod_rod              1.0 g  com [-14.7  21.2 364.2]
+  R_arm              127.2 g  com [  -0.3 -100.6  276.5]
+  L_arm              126.0 g  com [ -0.3 101.2 276.5]
+  ears                64.4 g  com [-1.000e-01 -3.300e+00  4.492e+02]
+  ear_rod              1.7 g  com [-26.2  21.3 419.7]
+  R_hand_flap          5.3 g  com [   3.8 -101.2  180.7]
+  L_hand_flap          5.3 g  com [  3.8 100.9 180.7]
+{'servo': 1043, 'fixed': 616, 'print': 1177, 'steel': 78}
+    torso_frame                  print   174.6
+    head_back                    print   152.2
+    jetson_nano_2gb_devkit       fixed   140.0
+    battery_LB012                fixed   106.0
+    R_hip_pitch_servo_XM430      servo    90.0
+    R_knee_servo_XM430           servo    90.0
+    R_ankle_roll_servo_XM430     servo    90.0
+    L_hip_pitch_servo_XM430      servo    90.0
+    L_knee_servo_XM430           servo    90.0
+    L_ankle_roll_servo_XM430     servo    90.0
+    battery_jetson_2S_1500       fixed    85.0
+    yaw_servo_R_XC430            servo    73.0
+    yaw_servo_L_XC430            servo    73.0
+    R_ankle_pitch_servo_XC430    servo    73.0
+    L_ankle_pitch_servo_XC430    servo    73.0
+    arm_R_servo_XC430            servo    73.0
+    arm_L_servo_XC430            servo    73.0
+    head_nod_servo_XL430         servo    65.2
+    head_front                   print    60.7
+    opencr_1_0                   fixed    60.0
+    lid                          print    54.4
+    R_foot_sole                  print    48.7
+    L_foot_sole                  print    48.7
+    torso_cover_front            print    44.8
+    face_plate                   print    42.2

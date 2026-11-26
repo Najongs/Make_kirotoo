@@ -1,0 +1,17 @@
+R z 6.0..8.0 outline cut 4 -> 6
+R pocket clipped 340.3
+R pocket clipped 250.1
+R z 8.0..12.0 outline cut 4 -> 6
+R pad moved (-62.0, 23.0) -> (-62.0, 13.6)
+R pad moved (48, 23.0) -> (48, 18.7)
+R wall split: ring z 12..16.0, C-wall z 16.0..28 open x <= -38.0 on the heel cut
+R z 12..28 outline cut 4 -> 6
+L z 6.0..8.0 outline cut 4 -> 6
+L pocket clipped 340.3
+L pocket clipped 250.1
+L z 8.0..12.0 outline cut 4 -> 6
+L pad moved (-62.0, 23.0) -> (-62.0, 13.6)
+L pad moved (48, 23.0) -> (48, 18.7)
+L wall split: ring z 12..16.0, C-wall z 16.0..28 open x <= -38.0 on the heel cut
+L z 12..28 outline cut 4 -> 6
+theta_max 20.0 entities 309327 links 20 parts 122

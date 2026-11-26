@@ -1,0 +1,77 @@
+yaw_servo_R_XC430            joint R_hip_yaw      horn +z: horn 0.00  idler 0.00  exit_side+x 0.79  exit_side-x 0.00  exit_bore 0.88
+      exit_side+x: ['torso:torso_frame', 'torso:shorts']
+      exit_bore: ['R_hip_yaw_link:R_hip_yaw_bracket']
+yaw_servo_R_XC430            joint R_hip_yaw      horn -z: horn 0.00  idler 0.00  exit_side+x 0.00  exit_side-x 0.51  exit_bore 0.00
+      exit_side-x: ['torso:torso_frame']
+yaw_servo_L_XC430            joint L_hip_yaw      horn +z: horn 0.00  idler 0.00  exit_side+x 0.00  exit_side-x 0.71  exit_bore 0.88
+      exit_side-x: ['torso:torso_frame', 'torso:shorts']
+      exit_bore: ['L_hip_yaw_link:L_hip_yaw_bracket']
+yaw_servo_L_XC430            joint L_hip_yaw      horn -z: horn 0.00  idler 0.00  exit_side+x 0.56  exit_side-x 0.00  exit_bore 0.00
+      exit_side+x: ['torso:torso_frame']
+R_hip_pitch_servo_XM430      joint L_hip_pitch    horn +y: horn 0.21  idler 0.00  exit_side+x 0.51  exit_side-x 0.45  exit_bore 0.23
+      horn: ['R_thigh:R_thigh_frame']
+      exit_side+x: ['R_hip_yaw_link:R_hip_yaw_bracket']
+      exit_side-x: ['R_hip_yaw_link:R_hip_yaw_bracket']
+      exit_bore: ['R_thigh:R_thigh_frame']
+R_hip_pitch_servo_XM430      joint L_hip_pitch    horn -y: horn 0.00  idler 0.00  exit_side+x 0.00  exit_side-x 0.00  exit_bore 0.00
+R_knee_servo_XM430           joint L_knee         horn +y: horn 0.21  idler 0.00  exit_side+x 0.62  exit_side-x 0.54  exit_bore 0.23
+      horn: ['R_shank:R_shank_frame']
+      exit_side+x: ['R_thigh:R_thigh_frame']
+      exit_side-x: ['R_thigh:R_thigh_frame']
+      exit_bore: ['R_shank:R_shank_frame']
+R_knee_servo_XM430           joint L_knee         horn -y: horn 0.00  idler 0.00  exit_side+x 0.00  exit_side-x 0.00  exit_bore 0.00
+R_ankle_pitch_servo_XC430    joint L_ankle_pitch  horn +y: horn 0.21  idler 0.00  exit_side+x 0.62  exit_side-x 0.54  exit_bore 0.46
+      horn: ['R_ankle_link:R_ankle_bracket']
+      exit_side+x: ['R_shank:R_shank_frame']
+      exit_side-x: ['R_shank:R_shank_frame']
+      exit_bore: ['R_ankle_link:R_ankle_bracket']
+R_ankle_pitch_servo_XC430    joint L_ankle_pitch  horn -y: horn 0.00  idler 0.00  exit_side+x 0.00  exit_side-x 0.00  exit_bore 0.00
+R_ankle_roll_servo_XM430     joint R_ankle_roll   horn +x: horn 0.00  idler 0.00  exit_side+x 0.00  exit_side-x 0.00  exit_bore 0.00
+R_ankle_roll_servo_XM430     joint R_ankle_roll   horn -x: horn 0.00  idler 0.00  exit_side+x 0.00  exit_side-x 0.00  exit_bore 0.19
+      exit_bore: ['R_foot:R_foot_sole']
+L_hip_pitch_servo_XM430      joint L_hip_pitch    horn +y: horn 0.00  idler 0.00  exit_side+x 0.00  exit_side-x 0.00  exit_bore 0.00
+L_hip_pitch_servo_XM430      joint L_hip_pitch    horn -y: horn 0.21  idler 0.00  exit_side+x 0.51  exit_side-x 0.45  exit_bore 0.23
+      horn: ['L_thigh:L_thigh_frame']
+      exit_side+x: ['L_hip_yaw_link:L_hip_yaw_bracket']
+      exit_side-x: ['L_hip_yaw_link:L_hip_yaw_bracket']
+      exit_bore: ['L_thigh:L_thigh_frame']
+L_knee_servo_XM430           joint L_knee         horn +y: horn 0.00  idler 0.00  exit_side+x 0.00  exit_side-x 0.00  exit_bore 0.00
+L_knee_servo_XM430           joint L_knee         horn -y: horn 0.21  idler 0.00  exit_side+x 0.62  exit_side-x 0.46  exit_bore 0.23
+      horn: ['L_shank:L_shank_frame']
+      exit_side+x: ['L_thigh:L_thigh_frame']
+      exit_side-x: ['L_thigh:L_thigh_frame']
+      exit_bore: ['L_shank:L_shank_frame']
+L_ankle_pitch_servo_XC430    joint L_ankle_pitch  horn +y: horn 0.00  idler 0.00  exit_side+x 0.00  exit_side-x 0.00  exit_bore 0.00
+L_ankle_pitch_servo_XC430    joint L_ankle_pitch  horn -y: horn 0.21  idler 0.00  exit_side+x 0.62  exit_side-x 0.46  exit_bore 0.46
+      horn: ['L_ankle_link:L_ankle_bracket']
+      exit_side+x: ['L_shank:L_shank_frame']
+      exit_side-x: ['L_shank:L_shank_frame']
+      exit_bore: ['L_ankle_link:L_ankle_bracket']
+L_ankle_roll_servo_XM430     joint L_ankle_roll   horn +x: horn 0.00  idler 0.00  exit_side+x 0.00  exit_side-x 0.00  exit_bore 0.00
+L_ankle_roll_servo_XM430     joint L_ankle_roll   horn -x: horn 0.00  idler 0.00  exit_side+x 0.00  exit_side-x 0.00  exit_bore 0.19
+      exit_bore: ['L_foot:L_foot_sole']
+head_nod_servo_XL430         joint nod_crank      horn +y: horn 1.00  idler 0.00  exit_side+x 0.54  exit_side-x 0.00  exit_bore 0.38
+      horn: ['nod_crank:nod_servo_horn']
+      exit_side+x: ['head:head_back']
+      exit_bore: ['head:head_back']
+head_nod_servo_XL430         joint nod_crank      horn -y: horn 0.12  idler 1.00  exit_side+x 0.00  exit_side-x 0.54  exit_bore 0.75
+      horn: ['head:head_back']
+      idler: ['nod_crank:nod_servo_horn']
+      exit_side-x: ['head:head_back']
+      exit_bore: ['nod_crank:nod_crank', 'nod_crank:nod_servo_horn']
+arm_R_servo_XC430            joint L_arm_swing    horn +y: horn 0.00  idler 0.00  exit_side+x 0.26  exit_side-x 0.26  exit_bore 0.19
+      exit_side+x: ['R_arm:arm_R_shell_out']
+      exit_side-x: ['R_arm:arm_R_shell_out']
+      exit_bore: ['R_arm:arm_R_shell_out']
+arm_R_servo_XC430            joint L_arm_swing    horn -y: horn 0.00  idler 0.00  exit_side+x 0.23  exit_side-x 0.23  exit_bore 0.88
+      exit_side+x: ['R_arm:arm_R_shell_in']
+      exit_side-x: ['R_arm:arm_R_shell_in']
+      exit_bore: ['torso:shoulder_shaft_R']
+arm_L_servo_XC430            joint L_arm_swing    horn +y: horn 0.00  idler 0.00  exit_side+x 0.23  exit_side-x 0.23  exit_bore 0.88
+      exit_side+x: ['L_arm:arm_L_shell_in']
+      exit_side-x: ['L_arm:arm_L_shell_in']
+      exit_bore: ['torso:shoulder_shaft_L']
+arm_L_servo_XC430            joint L_arm_swing    horn -y: horn 0.00  idler 0.00  exit_side+x 0.26  exit_side-x 0.26  exit_bore 0.19
+      exit_side+x: ['L_arm:arm_L_shell_out']
+      exit_side-x: ['L_arm:arm_L_shell_out']
+      exit_bore: ['L_arm:arm_L_shell_out']

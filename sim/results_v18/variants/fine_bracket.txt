@@ -1,0 +1,12 @@
+-21 0.0 3.15 2.28 R_ankle_bracket L_ankle_bracket
+-21 15.0 3.15 2.28 R_ankle_bracket L_ankle_bracket
+-21 30.0 3.15 2.28 R_ankle_bracket L_ankle_bracket
+-21 40.0 3.15 2.28 R_ankle_bracket L_ankle_bracket
+-20 0.0 4.16 3.29 R_ankle_bracket L_ankle_bracket
+-20 15.0 4.16 3.29 R_ankle_bracket L_ankle_bracket
+-20 30.0 4.16 3.29 R_ankle_bracket L_ankle_bracket
+-20 40.0 4.16 3.29 R_ankle_bracket L_ankle_bracket
+-19 0.0 5.19 4.31 R_ankle_bracket L_ankle_bracket
+-19 15.0 5.19 4.31 R_ankle_bracket L_ankle_bracket
+-19 30.0 5.19 4.31 R_ankle_bracket L_ankle_bracket
+-19 40.0 5.19 4.31 R_ankle_bracket L_ankle_bracket

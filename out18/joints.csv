@@ -1,0 +1,20 @@
+joint,parent_link,child_link,axis,x_mm,y_mm,z_mm,lower_deg,upper_deg,actuator,stall_Nm_11.1V,no_load_rad_s_11.1V
+R_hip_yaw,torso,R_hip_yaw_link,z,0,-40,213,-20.0,20.0,XC430-W240,1.75,6.81
+R_hip_pitch,R_hip_yaw_link,R_thigh,y,0,-40,185,-80,30,XM430-W350,3.8,4.5
+R_knee,R_thigh,R_shank,y,0,-40,110,0,100,XM430-W350,3.8,4.5
+R_ankle_pitch,R_shank,R_ankle_link,y,0,-40,35,-50,22,XC430-W240,1.75,6.81
+R_ankle_roll,R_ankle_link,R_foot,x,0,-40,35,-20,20,XM430-W350,3.8,4.5
+L_hip_yaw,torso,L_hip_yaw_link,z,0,40,213,-20.0,20.0,XC430-W240,1.75,6.81
+L_hip_pitch,L_hip_yaw_link,L_thigh,y,0,40,185,-80,30,XM430-W350,3.8,4.5
+L_knee,L_thigh,L_shank,y,0,40,110,0,100,XM430-W350,3.8,4.5
+L_ankle_pitch,L_shank,L_ankle_link,y,0,40,35,-50,22,XC430-W240,1.75,6.81
+L_ankle_roll,L_ankle_link,L_foot,x,0,40,35,-20,20,XM430-W350,3.8,4.5
+head_nod,torso,head,y,0,0,348.5,-10,20,passive (driven by nod_crank),,
+nod_crank,head,nod_crank,y,-28.75,0,383.45,-70,40,XL430-W250 (inside the head),1.4,5.45
+nod_rod,torso,nod_rod,y,-14.75,0,345.0,-30,30,passive (closed loop with head_nod),,
+R_arm_swing,torso,R_arm,y,0,-50.0,306.0,-120,120,XC430-W240 (inside the arm),1.75,6.81
+L_arm_swing,torso,L_arm,y,0,50.0,306.0,-120,120,XC430-W240 (inside the arm),1.75,6.81
+ear_axle,head,ears,y,0.0,0,445.0,-60,60,passive (driven by nod_crank through ear_rod),,
+ear_rod,nod_crank,ear_rod,y,-43.25,0,390.21,-60,60,passive (closed loop with ear_axle),,
+R_hand_flap,R_arm,R_hand_flap,y,-3.0,-100.0,181.0,0,70,passive (shoulder cam -> rod; opens with |arm angle|),,
+L_hand_flap,L_arm,L_hand_flap,y,-3.0,100.0,181.0,0,70,passive (shoulder cam -> rod; opens with |arm angle|),,

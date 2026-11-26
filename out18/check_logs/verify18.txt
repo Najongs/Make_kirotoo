@@ -1,0 +1,3 @@
+solids in STEP 581 expected 581
+all world bboxes match within 0.05 mm: True | unmatched: 0
+overall bbox: [(-93.0, 71.2), (-125.0, 125.0), (0.0, 553.0)]

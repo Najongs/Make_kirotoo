@@ -1,0 +1,5 @@
+nod -10 crank -10.8 ear -17.5
+nod 0 crank -0.0 ear -0.0
+nod 10 crank 10.4 ear 16.7
+nod 20 crank 20.7 ear 34.0
+ok

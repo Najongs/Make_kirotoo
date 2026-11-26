@@ -1,0 +1,68 @@
+[
+ {
+  "theta": 16,
+  "crouch_mm": 40.0,
+  "coarse_gap": 5.499740787814456,
+  "fine_gap": 4.854631987485424,
+  "pair": [
+   "R_shank_shell",
+   "L_shank_shell"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": 17,
+  "crouch_mm": 40.0,
+  "coarse_gap": 4.712478831463806,
+  "fine_gap": 4.044078656565156,
+  "pair": [
+   "R_shank_shell",
+   "L_shank_shell"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": 18,
+  "crouch_mm": 30.0,
+  "coarse_gap": 5.307744048419008,
+  "fine_gap": 4.651044519465093,
+  "pair": [
+   "R_shank_shell",
+   "L_shank_shell"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": 18,
+  "crouch_mm": 40.0,
+  "coarse_gap": 3.9239212193424673,
+  "fine_gap": 3.247481681625026,
+  "pair": [
+   "R_shank_shell",
+   "L_shank_shell"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": 20,
+  "crouch_mm": 30.0,
+  "coarse_gap": 3.928712542753785,
+  "fine_gap": 3.2503976469634877,
+  "pair": [
+   "R_shank_shell",
+   "L_shank_shell"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ },
+ {
+  "theta": 20,
+  "crouch_mm": 40.0,
+  "coarse_gap": 2.433526479384572,
+  "fine_gap": 1.6975085945996835,
+  "pair": [
+   "R_shank_shell",
+   "L_shank_shell"
+  ],
+  "fine_error_mm": 0.4330127018922193
+ }
+]
