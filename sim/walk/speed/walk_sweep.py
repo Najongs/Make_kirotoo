@@ -94,7 +94,17 @@ def g_seg_push():
     return J
 
 
-G = dict(seg=g_seg, seg_push=g_seg_push, legs=g_legs, servo=g_servo, push=g_push, legs_rep=g_legs_rep, servo_rep=g_servo_rep)
+def g_combo():
+    """추천 조합을 함께: 고관절 피치 · 무릎 W210 + 발목 피치 W150 + 허벅지 · 정강이 각 +20 mm(질량 반영) + 웅크림 35 mm, 롤-피치 20 mm.
+    비교로 같은 다리에 지금 서보."""
+    sv = dict(CUR, hip_pitch=W210, knee=W210, ankle_pitch="XC430-W150")
+    cf = {"추천 조합 (W210 · W150 + 다리 +20/+20 + 웅크림 35)": dict(hip_roll=hrA(0.02), servo_map=sv, seg=(0.02, 0.02, True), crouch=0.035),
+          "같은 다리 + 지금 서보": dict(hip_roll=hrA(0.02), servo_map=CUR, seg=(0.02, 0.02, True), crouch=0.035)}
+    return [(dict(cfg=n, Ts=a, Td=b, stride=s, fr=f), dict(c, Ts=a, Td=b, stride=s, friction=f))
+            for n, c in cf.items() for a, b in CAD_R + [(0.28, 0.10)] for s in STR_S for f in FRIC]
+
+
+G = dict(combo=g_combo, seg=g_seg, seg_push=g_seg_push, legs=g_legs, servo=g_servo, push=g_push, legs_rep=g_legs_rep, servo_rep=g_servo_rep)
 if __name__ == "__main__":
     for g in sys.argv[1:] or list(G):
         t = time.time(); jobs = G[g]()
