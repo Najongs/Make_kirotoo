@@ -139,6 +139,11 @@ with DxlBus("/dev/kitoru_opencr", 1_000_000, {"R_knee": (4, "XM430-W350")}) as b
 
 비상정지는 「배터리 커넥터 뽑기 · OpenCR 전원 스위치」입니다. 손이 닿는 곳에 둡니다. 소프트웨어 비상정지(`Robot.emergency_stop()`, ID 254 로 토크 끄기 한 패킷)는 그다음입니다.
 
+- **물리 비상정지(전원 스위치)가 토크를 끄는 유일한 보장입니다.**
+  - USB 가 빠지거나 프로그램이 죽으면, 소프트웨어는 토크를 끌 수 없습니다.
+  - Bus Watchdog(7절)은 움직임을 멈출 뿐이고, 토크를 끈다고는 e-manual 에 적혀 있지 않습니다.
+- **YAML 의 `calibrated: false` 관절은 토크를 켜지 않습니다**(`arm()` · `range_check.py` 거부). 지금 v20 YAML 은 모두 false 입니다. 아래 1–4 단계를 마친 관절만 사람이 손으로 `calibrated: true` 로 바꿉니다.
+
 1. **서보 하나씩 ID 정하기.**
    - 새 X430 서보는 ID 1, 57600 bps 로 옵니다.
    - 하나만 꽂고 `python tools/scan_ids.py --bauds 57600,1000000` 으로 찾습니다.
@@ -154,11 +159,15 @@ with DxlBus("/dev/kitoru_opencr", 1_000_000, {"R_knee": (4, "XM430-W350")}) as b
    - 괜찮으면 `--save` 를 붙입니다.
    - `offset > 30 deg` 가 뜨면 혼을 한 칸 옮겨 끼우는 것이 낫습니다.
    - 같이 나오는 `Min/Max Position Limit` 값을 Wizard 로 서보 EEPROM 에 쓰면, 서보 자신도 그 밖으로 안 갑니다(두 번째 울타리).
+   - 관절이 움직이는 중이거나(`moving`) 한계가 0..4095 밖이면 `--save` 가 저장을 거부합니다. YAML 은 임시 파일에 쓴 뒤 바꿔치기해서, 도중에 죽어도 반쪽 파일이 남지 않습니다.
+   - **그다음 사람이 `calibrated: true` 를 켭니다.** ID(2단계) · 방향(3단계) · 영점(4단계)을 모두 확인한 관절만입니다. 도구는 이 값을 자동으로 켜지 않습니다.
 5. **한 관절씩 범위 확인.**
    - 로봇을 거치대에 겁니다. 다른 서보는 힘이 없습니다.
    - `python tools/range_check.py --joint R_knee` 를 돌립니다. 기본값은 Goal PWM 200(23 %), 느린 속도, 2° 씩입니다.
+   - 인자 범위: `--step` 0 초과 5° 이하, `--pwm` 1–885, `--profile-velocity` 1–50(0 은 「속도 제한 없음」이라 거부).
+   - 멈춘 자리를 목표로 다시 잡은 뒤(`Robot.hold()`) 같은 간격으로 처음 자세에 돌아옵니다.
    - `STOPPED SHORT` 가 나오면 무언가 닿거나 힘이 모자란 것입니다. 그 각을 기록합니다.
-   - 범위가 비어 있는 관절(고관절 롤)은 `--lo -5 --hi 5` 처럼 직접 범위를 줍니다. 그 실행에서만 쓰고 YAML 은 안 바꿉니다.
+   - 범위가 비어 있는 관절(고관절 롤)은 `--lo -5 --hi 5` 처럼 직접 범위를 줍니다. ±30° 를 넘으면 거부합니다. 그 실행에서만 쓰고 YAML 은 안 바꿉니다.
 6. **전체 토크 켜기.** 거치대에서 `Robot.arm()` 으로 지금 자세를 잡아 봅니다(`read_demo.py --demo --config config/joints_v20.yaml --joints …` 로 작은 움직임).
 7. 그다음에 바닥 · 줄에 매단 상태에서 정책을 돌립니다.
 
@@ -174,10 +183,17 @@ with DxlBus("/dev/kitoru_opencr", 1_000_000, {"R_knee": (4, "XM430-W350")}) as b
 | 온도 | 서보에서 Temperature Limit(31)을 읽어, 한계 − 10 °C 경고 · 한계 − 3 °C 멈춤(XL430: 62 · 69 °C) | e-manual 공장값 XL 72 · XC/XM 80 |
 | 하드웨어 오류 | Hardware Error Status(70)가 0 이 아니면 멈춤 | — |
 | 연결 끊김 | 직렬 포트 예외, 또는 패킷 3개 연속 분실이면 `DxlDisconnected` | — |
+| 한 번에 움직이는 양 | 명령마다 직전 명령에서 `max_step_deg`(기본 5°) 넘게 못 가게 자릅니다 | XM430 무부하 4.5 rad/s × 20 ms(50 Hz) ≈ 5.2°: 서보가 한 주기에 실제로 갈 수 있는 것보다 큰 점프는 버그 |
+| Ctrl-C | SDK 호출 도중 끊겨도 포트 잠금(`is_using`)을 풀고, `disarm()` · `emergency_stop()` 첫머리에서도 풉니다. 그래서 `with Robot(...)` 를 나갈 때 토크가 꺼집니다 | — |
+| 정지 우선 | 같은 주기에 넘어짐과 정지가 함께 나오면 정지(토크 끄기)를 먼저 합니다. 넘어짐 PWM 쓰기가 실패하면 다음 주기에 다시 씁니다 | — |
+| 비상정지 확인 | 브로드캐스트 뒤 서보마다 읽어 보고, 켜져 있으면 한 대씩 다시 끕니다. 그래도 남은 것은 `SafetyStop` 메시지에 붙입니다 | — |
+| Bus Watchdog(선택) | `arm(watchdog_ms=100)` 이면 토크를 켠 뒤 서보마다 98 번지(20 ms 단위)를 씁니다. 그 시간 동안 명령 패킷이 안 오면 서보가 움직임을 멈춥니다. `disarm()` 에서 0 으로 되돌립니다(0 은 「발동됨」 상태도 풂). 기본은 끔 | e-manual: 「DYNAMIXEL will stop」, 토크를 끄는지는 안 적힘, 발동 뒤 Goal 값은 읽기 전용 |
 
 - **넘어짐 훅에 Goal PWM 을 쓰는 이유:** 배터리 문서는 「Goal PWM 이나 PWM Limit」입니다. PWM Limit(36)은 EEPROM 이라 토크를 켠 채로는 못 씁니다(e-manual). Goal PWM(100)은 RAM 이고, 위치 모드에서도 출력 PWM 의 마지막 제한으로 쓰입니다(e-manual). 그래서 Goal PWM 으로 정했습니다.
 - **SDK 의 응답 기다림:** 서보 하나가 답을 안 하면 SDK 는 약 34 ms(`LATENCY_TIMER = 16` × 2 + 2 ms) 기다린 뒤 실패를 돌려줍니다. 그 주기는 그만큼 늦어집니다.
 - 저전압 · 온도에서 「멈춤」은 토크를 끄는 것이라 로봇이 주저앉습니다. 걷는 중 순간 처짐으로 멈추지 않게 연속 3번을 봅니다.
+- **Watchdog 을 쓸 때:** 매 주기 읽기나 쓰기가 오가므로 따로 살려 두는 패킷은 필요 없습니다. XM430 문서는 「모든 명령 패킷」이 통신으로 친다고 적었고, XL430 문서는 어떤 패킷이 시계를 되돌리는지 적지 않았습니다 [확인 필요: Sync Write 만으로 XL430 이 살아 있는지].
+- 발동하면 Bus Watchdog 이 −1 이 되고 `arm()` 이 거부합니다. `disarm()` 이나 Wizard 로 0 을 쓰면 풀립니다.
 
 ## 8. 정책(강화학습) 연결 자리
 
@@ -188,7 +204,7 @@ from kitoru_hw.policy_io import PolicyIO
 
 with Robot(load_config("config/joints_v20.yaml")) as robot:
     robot.start_monitor()          # 서보에서 온도 · 전압 한계를 읽음
-    robot.arm(profile_velocity=0)  # 0 = 속도 제한 없음(정책이 매 주기 목표를 줌)
+    robot.arm(profile_velocity=100, watchdog_ms=100)  # 100 × 0.229 rpm = 2.4 rad/s 상한, 100 ms 끊기면 멈춤
     io = PolicyIO(robot, imu=my_imu)
     for step in range(...):
         obs = io.observe()         # {"q": [15], "dq": [15], "imu": {...} 또는 None, "time": …}
@@ -197,6 +213,10 @@ with Robot(load_config("config/joints_v20.yaml")) as robot:
             robot.safety_step(tilt_deg=tilt_from(obs["imu"]))  # 넘어짐 · 전압 · 온도
 ```
 
+- **`profile_velocity=0`(속도 제한 없음)으로 시작하지 마세요.**
+  - 정책이 튀는 목표를 내면 서보가 최고 속도로 갑니다.
+  - 처음에는 위처럼 상한을 두고, 시뮬에서 정책이 쓰는 최대 관절 속도를 본 뒤 그 값에 맞춰 올립니다.
+  - 명령마다 5° 상한(7절)은 그 밖의 두 번째 울타리입니다.
 - **관절 순서는 YAML `joints:` 순서입니다.** 시뮬도 같은 순서로 맞추면 됩니다.
 - **각도는 로봇 기준 라디안입니다(방향 · 영점 적용 뒤).** MuJoCo 관절 각과 같은 뜻이 되게 방향 · 영점을 맞춥니다.
 - **IMU 는 자리만 있습니다(`NullImu`).** `read()` 가 `{"quat": …, "gyro": …, "roll_pitch": …}` 를 돌려주는 객체를 넘기면 됩니다.
@@ -223,8 +243,13 @@ with Robot(load_config("config/joints_v20.yaml")) as robot:
 
 ```bash
 cd robot
-uv run --no-project --python 3.12 --with pytest --with pyyaml --with dynamixel-sdk python -m pytest -q -p no:cacheprovider
+mkdir -p tmp/pytest
+uv run --no-project --python 3.12 --with pytest --with pyyaml --with dynamixel-sdk python -m pytest -q -p no:cacheprovider --basetemp=tmp/pytest
+rm -rf tmp && find . -name __pycache__ -prune -exec rm -rf {} +
 ```
+
+- `--basetemp` 를 주지 않으면 pytest 가 `/tmp` 에 씁니다.
+- `tests/test_regressions.py` 는 2026-11-26 검토에서 나온 결함 10개(Ctrl-C 뒤 포트 잠금, 넘어짐 PWM 재시도, 교정 안 된 관절 거부, Watchdog, 비상정지 재시도, 한 번 움직이는 양, PWM 되돌리기, 범위 확인 인자, 설정 덮어쓰기, 영점 저장)를 다시 막는 시험입니다.
 
 - `tests/fake_dxl.py` 는 SDK 의 `PortHandler` 를 바꿔 끼운 가짜 직렬 포트입니다.
   - 그 뒤에 가상 X430 서보가 있어서, 진짜 dynamixel-sdk 가 만든 패킷 바이트를 받아 답합니다.
@@ -244,5 +269,7 @@ uv run --no-project --python 3.12 --with pytest --with pyyaml --with dynamixel-s
   - 고관절 피치는 「v19 표 ∩ v20 설계 범위」라 v20 검사로 다시 봐야 합니다.
   - `nod_crank` 는 크랭크 각 범위(−70~40°)이고, 머리 각 한계(−20.8~28°)를 크랭크 각으로 바꾸지 않았습니다.
   - 짝 관절 제한은 자리만 있고 꺼져 있습니다.
+  - 모든 관절이 `calibrated: false` 입니다.
+- Bus Watchdog 이 발동할 때 토크가 켜진 채 붙잡는지(e-manual 에 없음), XL430 에서 Sync Write 가 시계를 되돌리는지.
 - 저전압 경고 11.1 V, 온도 여유 10 · 3 °C 는 정한 값이 아니라 출발점입니다.
 - 제어 주기 표의 USB 2 ms · 컴퓨터 0.1 ms/서보는 추정입니다. `read_demo.py --rate` 로 실측해야 합니다.

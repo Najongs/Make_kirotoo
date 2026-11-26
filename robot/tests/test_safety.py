@@ -54,7 +54,9 @@ def test_tilt_and_fall_guard_latch():
     assert guard.update(24.9) is None
     event = guard.update(25.1)
     assert event.level == "reduce" and "265" in event.message
-    assert guard.update(40) is None and guard.fallen  # latched, one event only
+    assert guard.update(40) is not None and not guard.fallen  # repeats until the PWM write is confirmed
+    guard.mark_applied()
+    assert guard.update(40) is None and guard.fallen  # latched after the write
     guard.reset()
     assert not guard.fallen
 

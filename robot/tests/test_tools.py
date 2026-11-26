@@ -3,7 +3,7 @@ import shutil
 
 import pytest
 
-from conftest import V20, servos_for
+from conftest import V20, calibrated_yaml, servos_for
 from fake_dxl import FakePort, FakeServo
 from kitoru_hw.joints import load_config
 from kitoru_hw.timing import cycle_time
@@ -44,14 +44,15 @@ def test_record_zero_refuses_with_torque_on(tmp_path):
         record_zero.main([], port_handlers={"opencr": FakePort(servos)}, settle_s=0)
 
 
-def test_range_check_stops_short_at_obstacle(capsys):
+def test_range_check_stops_short_at_obstacle(capsys, tmp_path):
     config = load_config(V20)
     knee = config.joints["R_knee"]
     blocked_hi = knee.tick(math.radians(60))  # a part touches at 60 deg
     servos = servos_for(config, R_knee={"position": knee.tick(math.radians(20)),
                                          "blocked": (0, blocked_hi)})
     port = FakePort(servos)
-    range_check.main(["--joint", "R_knee", "--step", "10", "--timeout", "0.05", "--yes"],
+    range_check.main(["--config", calibrated_yaml(tmp_path), "--joint", "R_knee", "--step", "5", "--timeout", "0.05",
+                      "--yes"],
                      port_handlers={"opencr": port}, settle_s=0)
     out = capsys.readouterr().out
     lower, upper = [line for line in out.splitlines() if line.strip().startswith(("lower", "upper"))]
@@ -61,17 +62,18 @@ def test_range_check_stops_short_at_obstacle(capsys):
     assert abs(servo.get("PRESENT_POSITION") - knee.tick(math.radians(20))) <= 3  # back at the start
 
 
-def test_range_check_needs_limits_for_unfilled_joint():
+def test_range_check_needs_limits_for_unfilled_joint(tmp_path):
     config = load_config(V20)
     with pytest.raises(SystemExit):
-        range_check.main(["--joint", "R_hip_roll", "--yes"],
+        range_check.main(["--config", calibrated_yaml(tmp_path), "--joint", "R_hip_roll", "--yes"],
                          port_handlers={"opencr": FakePort(servos_for(config))}, settle_s=0)
 
 
-def test_range_check_unfilled_joint_with_explicit_range(capsys):
+def test_range_check_unfilled_joint_with_explicit_range(capsys, tmp_path):
     config = load_config(V20)
     port = FakePort(servos_for(config))
-    range_check.main(["--joint", "R_hip_roll", "--lo", "-5", "--hi", "5", "--step", "5", "--timeout", "0.05", "--yes"],
+    range_check.main(["--config", calibrated_yaml(tmp_path), "--joint", "R_hip_roll", "--lo", "-5", "--hi", "5",
+                      "--step", "5", "--timeout", "0.05", "--yes"],
                      port_handlers={"opencr": port}, settle_s=0)
     out = capsys.readouterr().out
     assert "for this run only" in out and out.count(" ok ") == 2

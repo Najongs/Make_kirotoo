@@ -92,10 +92,18 @@ class DxlBus:
         try:
             return fn(*args)
         except OSError as error:  # serial.SerialException is an OSError
-            # The SDK leaves is_using set when writePort raises, which would block every later call.
-            self.port.is_using = False
+            # The SDK leaves is_using set when a call is cut short, which would block every later call.
+            self.release()
             self.failures = self.max_consecutive_failures
             raise DxlDisconnected(f"{self.port.port_name}: serial port failed: {error}") from error
+        except BaseException:
+            # Ctrl-C (KeyboardInterrupt) in the middle of a packet: free the port so cleanup can still talk.
+            self.release()
+            raise
+
+    def release(self):
+        """Clear the SDK's port lock left behind by an interrupted call."""
+        self.port.is_using = False
 
     def _check(self, result: int, error: int = 0, operation: str = "DYNAMIXEL"):
         if result != COMM_SUCCESS:

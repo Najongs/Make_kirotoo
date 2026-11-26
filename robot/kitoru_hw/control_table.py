@@ -46,7 +46,7 @@ ITEMS: Dict[str, Tuple[int, int, bool, bool]] = {
     "LED": (65, 1, False, False),
     "STATUS_RETURN_LEVEL": (68, 1, False, False),
     "HARDWARE_ERROR_STATUS": (70, 1, False, False),
-    "BUS_WATCHDOG": (98, 1, False, False),
+    "BUS_WATCHDOG": (98, 1, True, False),       # 20 ms per unit, reads -1 after it fired
     "GOAL_PWM": (100, 2, True, False),          # limits PWM in position mode too
     "GOAL_CURRENT": (102, 2, True, False),      # XM430 only
     "PROFILE_ACCELERATION": (108, 4, False, False),

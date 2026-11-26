@@ -2,7 +2,7 @@ import math
 
 import pytest
 
-from conftest import V20, servos_for
+from conftest import V20, calibrated, servos_for
 from fake_dxl import SYNC_WRITE, FakePort
 from kitoru_hw.joints import load_config
 from kitoru_hw.policy_io import PolicyIO
@@ -14,7 +14,7 @@ LEGS = ["R_knee", "R_ankle_pitch", "L_knee"]
 
 
 def leg_robot(**overrides):
-    config = load_config(V20)
+    config = calibrated(load_config(V20))
     port = FakePort(servos_for(config, **overrides))
     robot = Robot(config, port_handlers={"opencr": port}, settle_s=0)
     return robot, port
@@ -28,7 +28,8 @@ def test_arm_command_disarm_restores_registers():
         robot.arm(LEGS)
         assert knee.get("TORQUE_ENABLE") == 1 and knee.get("PROFILE_VELOCITY") == 15
         port.tx_log.clear()
-        clipped = robot.command_positions({"R_knee": R(120), "R_ankle_pitch": R(-10), "L_knee": R(30)})
+        clipped = robot.command_positions({"R_knee": R(120), "R_ankle_pitch": R(-10), "L_knee": R(30)},
+                                          max_step_rad=math.inf)
         assert clipped == ["R_knee"]
         assert len(port.instructions(SYNC_WRITE)) == 1  # one packet for the whole pose
         state = robot.read_state(LEGS)
@@ -93,18 +94,19 @@ def test_overheat_stops_robot():
 
 
 def test_policy_io_order_and_clip():
-    config = load_config(V20)
+    config = calibrated(load_config(V20))
     for name in ("R_hip_roll", "L_hip_roll"):  # give the unfilled joints a temporary range for this test
         j = config.joints[name]
         config.joints[name] = type(j)(**{**j.__dict__, "soft_limits_rad": (R(-10), R(10))})
-    port = FakePort(servos_for(config))
+    knee = config.joints["R_knee"]
+    port = FakePort(servos_for(config, R_knee={"position": knee.tick(R(92))}))
     with Robot(config, port_handlers={"opencr": port}, settle_s=0) as robot:
         io = PolicyIO(robot)
         obs = io.observe()
         assert obs["joint_names"] == list(config.joints) and len(obs["q"]) == 15 and obs["imu"] is None
         robot.arm()
         target = list(obs["q"])
-        target[obs["joint_names"].index("R_knee")] = R(97)  # inside soft (98.2), outside work (93.2)
+        target[obs["joint_names"].index("R_knee")] = R(97)  # from 92: inside soft (98.2), outside work (93.2)
         assert io.act(target) == ["R_knee"]
         assert robot.read_state(["R_knee"])["R_knee"]["position_rad"] == pytest.approx(R(93.2), abs=R(0.1))
         with pytest.raises(ValueError):

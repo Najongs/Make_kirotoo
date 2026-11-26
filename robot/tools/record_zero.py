@@ -31,7 +31,7 @@ def main(argv=None, **robot_kwargs):
             if on:
                 parser.exit(1, f"Error: torque is on for {', '.join(on)}; turn it off first\n")
             samples = [robot.read_state() for _ in range(max(1, args.samples))]
-            offsets, rows = {}, []
+            offsets, rows, blocking = {}, [], []
             for name, joint in robot.joints.items():
                 ticks = [s[name]["position_tick"] for s in samples]
                 tick = round(sum(ticks) / len(ticks))
@@ -42,17 +42,23 @@ def main(argv=None, **robot_kwargs):
                 note = []
                 if max(ticks) - min(ticks) > 2:
                     note.append(f"moving ({min(ticks)}..{max(ticks)})")
+                    blocking.append(name)
                 if abs(offset) > LARGE_OFFSET:
                     note.append("offset > 30 deg, check the horn")
                 if limits and not (0 <= limits[0] and limits[1] <= 4095):
                     note.append("limits leave 0..4095")
+                    blocking.append(name)
                 degrees = math.degrees(offset * ct.TICK_RAD)
                 rows.append(f"  {name:14s} tick {tick:5d}  offset {offset:+5d} ({degrees:+6.1f} deg)"
                             f"  Min/Max Position Limit {limits if limits else '-'}  {'; '.join(note)}")
             print("\n".join(rows))
         if args.save:
+            if blocking:
+                parser.exit(1, f"Error: not saved; fix {', '.join(sorted(set(blocking)))} first "
+                            "(joint moving, or limits outside 0..4095)\n")
             update_zero_offsets(args.config, offsets)
             print(f"saved {len(offsets)} offsets to {args.config}")
+            print("Next: check each joint's direction, then set calibrated: true in the YAML by hand")
     except (OSError, RuntimeError, ValueError) as error:
         parser.exit(1, f"Error: {error}\n")
 

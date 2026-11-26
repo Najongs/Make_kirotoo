@@ -1,16 +1,13 @@
 import os
 import sys
-
-import pytest
+from dataclasses import replace
 
 ROBOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 for path in (ROBOT_DIR, os.path.join(ROBOT_DIR, "tools"), os.path.dirname(os.path.abspath(__file__))):
     if path not in sys.path:
         sys.path.insert(0, path)
 
-from fake_dxl import FakePort, FakeServo  # noqa: E402
-from kitoru_hw.joints import load_config  # noqa: E402
-from kitoru_hw.robot import Robot  # noqa: E402
+from fake_dxl import FakeServo  # noqa: E402
 
 CONFIG_DIR = os.path.join(ROBOT_DIR, "config")
 V20 = os.path.join(CONFIG_DIR, "joints_v20.yaml")
@@ -28,9 +25,16 @@ def servos_for(config, **overrides):
     return servos
 
 
-@pytest.fixture
-def v20_robot():
-    config = load_config(V20)
-    port = FakePort(servos_for(config))
-    with Robot(config, port_handlers={"opencr": port}, settle_s=0) as robot:
-        yield robot, port
+def calibrated(config):
+    """Mark every joint calibrated, as a person would after checking ID, direction and zero."""
+    for name, joint in list(config.joints.items()):
+        config.joints[name] = replace(joint, calibrated=True)
+    return config
+
+
+def calibrated_yaml(tmp_path):
+    """Copy of joints_v20.yaml with calibrated: true everywhere (for tools that read a file)."""
+    path = tmp_path / "joints_calibrated.yaml"
+    path.write_text(open(V20, encoding="utf-8").read().replace("calibrated: false", "calibrated: true"),
+                    encoding="utf-8")
+    return str(path)

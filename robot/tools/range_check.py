@@ -17,6 +17,11 @@ from dataclasses import replace
 import _common
 from kitoru_hw.control_table import PWM_UNIT_PERCENT, TICK_RAD
 
+MAX_STEP_DEG = 5.0          # same as the robot's per-command jump guard
+MAX_PWM = 885               # PWM Limit(36) factory value
+MAX_PROFILE_VELOCITY = 50   # 50 x 0.229 rev/min = 1.2 rad/s; 0 would mean "no limit" and is refused
+UNFILLED_RANGE_DEG = 30.0   # joints without a YAML range: --lo/--hi must stay within +-30 deg
+
 
 def move_to(robot, name, angle, timeout, tolerance_rad):
     robot.command_positions({name: angle})
@@ -57,6 +62,14 @@ def main(argv=None, confirm=input, **robot_kwargs):
     parser.add_argument("--yes", action="store_true", help="do not ask before moving")
     args = parser.parse_args(argv)
     args.joints = args.joint
+    if not 0 < args.step <= MAX_STEP_DEG:
+        parser.error(f"--step must be in (0, {MAX_STEP_DEG}] deg")
+    if not 1 <= args.pwm <= MAX_PWM:
+        parser.error(f"--pwm must be 1..{MAX_PWM}")
+    if not 1 <= args.profile_velocity <= MAX_PROFILE_VELOCITY:
+        parser.error(f"--profile-velocity must be 1..{MAX_PROFILE_VELOCITY} (0 means unlimited speed)")
+    if args.timeout <= 0:
+        parser.error("--timeout must be positive")
     try:
         with _common.make_robot(args, **robot_kwargs) as robot:
             joint = robot.joints[args.joint]
@@ -70,6 +83,9 @@ def main(argv=None, confirm=input, **robot_kwargs):
                             f"{math.degrees(soft[0]):.1f}..{math.degrees(soft[1]):.1f} deg\n")
             if lo > hi:
                 parser.exit(1, "Error: --lo must not be above --hi\n")
+            if soft is None and max(abs(lo), abs(hi)) > math.radians(UNFILLED_RANGE_DEG):
+                parser.exit(1, f"Error: {args.joint} has no range in the YAML yet; keep --lo/--hi within "
+                            f"+-{UNFILLED_RANGE_DEG:.0f} deg\n")
             if soft is None:
                 # Joint without a range yet (e.g. hip roll before the v20 check): use --lo/--hi for this run only.
                 robot.joints[args.joint] = replace(joint, soft_limits_rad=(lo, hi))
@@ -86,7 +102,12 @@ def main(argv=None, confirm=input, **robot_kwargs):
                 for label, end in (("lower", lo), ("upper", hi)):
                     ok, reached, peak = sweep(robot, args.joint, start, end, step, args.timeout, tol)
                     results.append((label, end, ok, reached, peak))
-                    move_to(robot, args.joint, start, args.timeout * 3, tol)
+                    # Goal = where the joint really is (no jump if it stopped short), then step back.
+                    robot.hold()
+                    back, now, _ = sweep(robot, args.joint, reached, start, step, args.timeout, tol)
+                    if not back:
+                        raise RuntimeError(f"{args.joint}: could not return to the start, stopped at "
+                                           f"{math.degrees(now):.1f} deg")
                 for label, end, ok, reached, peak in results:
                     print(f"  {label}: target {math.degrees(end):7.1f} deg  reached {math.degrees(reached):7.1f} deg  "
                           f"{'ok' if ok else 'STOPPED SHORT'}  peak load/current raw {peak}")

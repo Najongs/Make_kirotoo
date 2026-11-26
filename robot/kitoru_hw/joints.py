@@ -7,6 +7,7 @@ Angle convention (sim/walk/ranges/JOINT_RANGES.md section 4):
 from __future__ import annotations
 
 import math
+import os
 import re
 from collections import OrderedDict
 from dataclasses import dataclass, field
@@ -30,6 +31,7 @@ class Joint:
     zero_offset: int = 0         # ticks; zero pose reads 2048 + zero_offset
     soft_limits_rad: Limits = None
     work_limits_rad: Limits = None
+    calibrated: bool = False     # set true by a person after ID, direction and zero were checked
 
     @property
     def zero_tick(self) -> int:
@@ -98,6 +100,7 @@ def load_config(path: str) -> RobotConfig:
             zero_offset=int(item.get("zero_offset", 0)),
             soft_limits_rad=_limits(item.get("soft_limit_rad"), f"{name}.soft_limit_rad"),
             work_limits_rad=_limits(item.get("work_limit_rad"), f"{name}.work_limit_rad"),
+            calibrated=item.get("calibrated", False) is True,
         )
         joints[name] = joint
     pairs = [PairLimit(name=p["name"], a=p["a"], b=p["b"], coef=tuple(p["coef"]),
@@ -158,5 +161,8 @@ def update_zero_offsets(path: str, offsets: Dict[str, int], note: str = "record_
             lines[index] = f"{match.group(1)}{int(pending.pop(current))}  # {note}"
     if pending:
         raise ValueError(f"zero_offset line not found for: {', '.join(pending)}")
-    with open(path, "w", encoding="utf-8") as file:
+    # Write a temporary file next to the YAML, then swap it in, so a crash never leaves half a file.
+    tmp_path = f"{path}.tmp"
+    with open(tmp_path, "w", encoding="utf-8") as file:
         file.write("\n".join(lines))
+    os.replace(tmp_path, path)

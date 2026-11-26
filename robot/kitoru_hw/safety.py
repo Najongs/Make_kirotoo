@@ -88,7 +88,11 @@ def tilt_deg(roll_rad: float, pitch_rad: float) -> float:
 
 
 class FallGuard:
-    """Latches once tilt exceeds the threshold; the caller lowers Goal PWM until reset()."""
+    """Reports a fall every cycle until the caller confirms the low Goal PWM was written.
+
+    `fallen` is set by mark_applied() only after the write succeeded, so a failed write
+    is retried on the next cycle. It stays set until reset().
+    """
 
     def __init__(self, threshold_deg: float = 25.0, reduced_pwm: int = 265, normal_pwm: int = 885):
         self.threshold_deg = threshold_deg
@@ -99,9 +103,11 @@ class FallGuard:
     def update(self, tilt: Optional[float]) -> Optional[Event]:
         if tilt is None or self.fallen or tilt <= self.threshold_deg:
             return None
-        self.fallen = True
         return Event("reduce", "fall", f"tilt {tilt:.1f} deg > {self.threshold_deg} deg, "
                      f"Goal PWM -> {self.reduced_pwm}")
+
+    def mark_applied(self):
+        self.fallen = True
 
     def reset(self):
         self.fallen = False

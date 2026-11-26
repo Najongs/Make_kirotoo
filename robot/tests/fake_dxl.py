@@ -15,15 +15,18 @@ from kitoru_hw import control_table as ct
 
 PING, READ, WRITE, SYNC_READ, SYNC_WRITE = 0x01, 0x02, 0x03, 0x82, 0x83
 ACCESS_ERROR = 0x07
+DATA_RANGE_ERROR = 0x04
 EEPROM_END = 64
 
 
 class FakeServo:
     def __init__(self, motor_id, model="XL430-W250", position=2048, voltage_v=12.0, temperature_c=35,
-                 blocked=None):
+                 blocked=None, ignore_broadcast=False, stuck_torque=False):
         m = ct.MODELS[model]
         self.memory = bytearray(256)
         self.blocked = blocked  # (lo_tick, hi_tick): a part stops the horn outside this
+        self.ignore_broadcast = ignore_broadcast  # e.g. a servo that missed the broadcast packet
+        self.stuck_torque = stuck_torque          # a servo whose torque never turns off
         for name, value in (("MODEL_NUMBER", m.number), ("FIRMWARE_VERSION", 46), ("ID", motor_id),
                             ("BAUD_RATE", 3), ("RETURN_DELAY_TIME", 250), ("OPERATING_MODE", 3),
                             ("TEMPERATURE_LIMIT", m.temperature_limit_c),
@@ -51,6 +54,10 @@ class FakeServo:
     def write(self, address, data):
         if address < EEPROM_END and self.get("TORQUE_ENABLE"):
             return ACCESS_ERROR
+        if self.get("BUS_WATCHDOG") == -1 and 100 <= address < 120:
+            return DATA_RANGE_ERROR  # e-manual: goals are read-only until Bus Watchdog is set to 0
+        if self.stuck_torque and address == ct.ITEMS["TORQUE_ENABLE"][0] and data[0] == 0:
+            return 0
         self.memory[address:address + len(data)] = bytes(data)
         if self.get("TORQUE_ENABLE"):
             goal = self.get("GOAL_POSITION")
@@ -115,7 +122,7 @@ class FakePort(PortHandler):
         motor_id, instruction = p[4], p[7]
         length = p[5] | p[6] << 8
         params = p[8:8 + length - 3]
-        targets = list(self.servos.values()) if motor_id == ct.BROADCAST_ID else \
+        targets = [s for s in self.servos.values() if not s.ignore_broadcast] if motor_id == ct.BROADCAST_ID else \
             [self.servos[motor_id]] if motor_id in self.servos else []
         word = lambda i: params[i] | params[i + 1] << 8  # noqa: E731
         if instruction == PING:

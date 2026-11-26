@@ -12,11 +12,14 @@ joints:
     id: 6
     model: XL430-W250
     zero_offset: 0
+    calibrated: true  # 링크 없는 빈 서보 시험대: 원본처럼 바로 토크를 켠다
   joint_7:
     id: 7
     model: XL430-W250
     zero_offset: 0
+    calibrated: true  # 링크 없는 빈 서보 시험대: 원본처럼 바로 토크를 켠다
   joint_12:
     id: 12
     model: XL430-W250
     zero_offset: 0
+    calibrated: true  # 링크 없는 빈 서보 시험대: 원본처럼 바로 토크를 켠다

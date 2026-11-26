@@ -17,6 +17,10 @@ from .joints import RobotConfig
 from .safety import Event, SafetyMonitor, SafetyStop, apply_pair_limits, clip_to_limits
 
 SAVED_REGISTERS = ("PROFILE_ACCELERATION", "PROFILE_VELOCITY", "GOAL_POSITION", "GOAL_PWM")
+WATCHDOG_UNIT_MS = 20
+# Jump guard per command. XM430-W350 runs 4.5 rad/s with no load at 11.1 V, so in one 20 ms
+# cycle (50 Hz policy) it cannot move more than about 0.09 rad = 5.2 deg. A bigger jump is a bug.
+DEFAULT_MAX_STEP_DEG = 5.0
 
 
 class Robot:
@@ -37,6 +41,10 @@ class Robot:
         self._saved: Dict[str, Dict[str, int]] = {}
         self.armed: List[str] = []
         self.monitor: Optional[SafetyMonitor] = None
+        self.last_command: Dict[str, float] = {}
+        self._run_pwm: Dict[str, int] = {}
+        self._watchdog: List[str] = []
+        self.max_step_rad = math.radians(float(config.safety.get("max_step_deg", DEFAULT_MAX_STEP_DEG)))
 
     # ----- lifecycle ------------------------------------------------------
     def __enter__(self):
@@ -57,6 +65,10 @@ class Robot:
         finally:
             for bus in self.buses.values():
                 bus.close()
+
+    def _release_buses(self):
+        for bus in self.buses.values():
+            bus.release()
 
     def bus_of(self, name: str) -> DxlBus:
         return self.buses[self.joints[name].bus]
@@ -111,12 +123,21 @@ class Robot:
         if self.monitor is None:
             raise RuntimeError("Call start_monitor() first")
         events = self.monitor.evaluate(self.read_health() if read_health else None, tilt_deg)
-        if any(e.kind == "fall" for e in events) and self.armed:
-            self.set_goal_pwm(self.monitor.fall.reduced_pwm)
         stops = [e for e in events if e.level == "stop"]
         if stops:
-            self.emergency_stop()
-            raise SafetyStop("; ".join(e.message for e in stops))
+            # Stop first: a failing PWM write below must never skip the torque off.
+            problems = self.emergency_stop()
+            message = "; ".join(e.message for e in stops)
+            if problems:
+                message += " | emergency stop problems: " + "; ".join(problems)
+            raise SafetyStop(message)
+        if any(e.kind == "fall" for e in events) and self.armed:
+            try:
+                self.set_goal_pwm(self.monitor.fall.reduced_pwm)
+            except Exception as error:  # not marked applied: retried on the next cycle
+                events.append(Event("warn", "fall", f"Goal PWM write failed, will retry: {error}"))
+            else:
+                self.monitor.fall.mark_applied()
         return events
 
     def set_goal_pwm(self, value: int, names: Optional[Iterable[str]] = None):
@@ -126,27 +147,49 @@ class Robot:
             self.buses[bus_name].sync_write("GOAL_PWM", {name: value for name in group})
 
     def reset_fall(self):
-        """After the robot is upright again: clear the latch and give back the normal Goal PWM."""
-        self.monitor.fall.reset()
+        """After the robot is upright again: give back the Goal PWM used at arm(), then clear the latch."""
         if self.armed:
-            self.set_goal_pwm(self.monitor.fall.normal_pwm)
+            for bus_name, group in self._group(self.armed).items():
+                self.buses[bus_name].sync_write("GOAL_PWM", {name: self._run_pwm[name] for name in group})
+        self.monitor.fall.reset()
 
     def emergency_stop(self) -> List[str]:
-        """Broadcast torque off on every bus, then check each servo as far as the bus allows."""
+        """Broadcast torque off on every bus, then check each servo and retry one by one.
+
+        Returns what could not be confirmed. Call disarm() afterwards to restore RAM settings.
+        """
+        self._release_buses()
         problems = []
         for bus_name, bus in self.buses.items():
             try:
                 bus.torque_off_broadcast()
             except Exception as error:
-                problems.append(f"{bus_name}: {error}")
+                problems.append(f"{bus_name}: broadcast failed: {error}")
         self.armed = []
         for name in self.joints:
             try:
+                if not self.read_register(name, "TORQUE_ENABLE"):
+                    continue
+            except Exception:
+                pass  # unknown state: try the single write anyway
+            try:
+                self.write_register(name, "TORQUE_ENABLE", 0)
                 if self.read_register(name, "TORQUE_ENABLE"):
                     problems.append(f"{name}: torque still on")
             except Exception as error:
                 problems.append(f"{name}: {error}")
         return problems
+
+    def hold(self):
+        """Make the measured pose the goal (no jump), e.g. after a joint stopped short."""
+        if not self.armed:
+            raise RuntimeError("Call arm() first")
+        state = self.read_state(self.armed)
+        pose, _ = clip_to_limits({n: s["position_rad"] for n, s in state.items()}, self.joints, require=False)
+        ticks = {name: self.target_tick(name, angle) for name, angle in pose.items()}
+        for bus_name, group in self._group(ticks).items():
+            self.buses[bus_name].sync_write("GOAL_POSITION", {name: ticks[name] for name in group})
+        self.last_command.update(pose)
 
     # ----- targets --------------------------------------------------------
     def target_tick(self, name: str, angle: float) -> int:
@@ -165,26 +208,49 @@ class Robot:
             raise ValueError(f"{name}: target {tick} ticks is outside motor limits {lo}..{hi}")
         return tick
 
-    def command_positions(self, positions_rad: Mapping[str, float], use_work: bool = False) -> List[str]:
-        """Clip to software and pair limits, then send one Sync Write per bus. Returns clipped names."""
+    def command_positions(self, positions_rad: Mapping[str, float], use_work: bool = False,
+                          max_step_rad: Optional[float] = None) -> List[str]:
+        """Clip to software and pair limits and to max_step_rad from the previous command, then send
+        one Sync Write per bus. Returns the clipped joint names (and pair limit names)."""
         if not self.armed:
             raise RuntimeError("Call arm() before commanding motion")
         if set(positions_rad) != set(self.armed):
             raise ValueError(f"Provide a target for every armed joint: {', '.join(self.armed)}")
         clipped, changed = clip_to_limits(positions_rad, self.joints, use_work, self.config.require_soft_limits)
         clipped, pairs = apply_pair_limits(clipped, self.config.pair_limits, self.joints)
+        step = self.max_step_rad if max_step_rad is None else max_step_rad
+        for name, angle in clipped.items():
+            last = self.last_command[name]
+            if abs(angle - last) > step + 1e-9:
+                clipped[name] = last + math.copysign(step, angle - last)
+                if name not in changed:
+                    changed.append(name)
         ticks = {name: self.target_tick(name, angle) for name, angle in clipped.items()}
         for bus_name, group in self._group(ticks).items():
             self.buses[bus_name].sync_write("GOAL_POSITION", {name: ticks[name] for name in group})
+        self.last_command.update(clipped)
         return changed + pairs
 
     # ----- arming ---------------------------------------------------------
     def arm(self, names: Optional[Iterable[str]] = None, profile_velocity: int = 15,
-            profile_acceleration: int = 5, goal_pwm: Optional[int] = None):
-        """Enable torque in existing Position Control Mode and hold the measured pose."""
+            profile_acceleration: int = 5, goal_pwm: Optional[int] = None, watchdog_ms: Optional[int] = None):
+        """Enable torque in existing Position Control Mode and hold the measured pose.
+
+        watchdog_ms: optional Bus Watchdog(98). If no instruction packet arrives for that long the
+        servo stops its motion (e-manual; it does not say torque turns off). Keep talking every cycle.
+        """
         names = list(self.joints if names is None else names)
         if self.armed:
             raise RuntimeError("Torque is already enabled by this controller")
+        if self._saved:
+            raise RuntimeError("Settings of an earlier arm are not restored yet "
+                               f"({', '.join(self._saved)}); call disarm() first")
+        uncalibrated = [n for n in names if not self.joints[n].calibrated]
+        if uncalibrated:
+            raise RuntimeError(f"Not calibrated (ID, direction, zero_offset are placeholders): {', '.join(uncalibrated)}. "
+                               "Check them and set calibrated: true in the YAML (README section 6)")
+        if watchdog_ms is not None and not WATCHDOG_UNIT_MS <= watchdog_ms <= 127 * WATCHDOG_UNIT_MS:
+            raise ValueError(f"watchdog_ms must be {WATCHDOG_UNIT_MS}..{127 * WATCHDOG_UNIT_MS}")
         saved = {}
         state = self.read_state(names)
         for name, motor in state.items():
@@ -206,6 +272,8 @@ class Robot:
 
         self._saved = saved
         self.armed = list(names)
+        self.last_command = {name: motor["position_rad"] for name, motor in state.items()}
+        self._run_pwm = {name: goal_pwm if goal_pwm is not None else saved[name]["GOAL_PWM"] for name in names}
         try:
             for name, motor in state.items():
                 self.write_register(name, "PROFILE_ACCELERATION", profile_acceleration)
@@ -220,12 +288,17 @@ class Robot:
             for name, motor in state.items():
                 if abs(armed_state[name]["position_tick"] - motor["position_tick"]) > 3:
                     raise RuntimeError(f"{name}: position shifted when torque was enabled")
+            if watchdog_ms is not None:
+                for name in names:
+                    self._watchdog.append(name)
+                    self.write_register(name, "BUS_WATCHDOG", round(watchdog_ms / WATCHDOG_UNIT_MS))
         except BaseException:
             self.disarm()
             raise
 
     def disarm(self):
         """Disable torque on all armed joints and restore their original RAM settings."""
+        self._release_buses()
         self.armed = []
         failures = []
         for name in tuple(self._saved):
@@ -237,6 +310,10 @@ class Robot:
                 failures.append(f"{name}: {error}")
                 continue
             try:
+                if name in self._watchdog:
+                    # 0 also clears a fired watchdog, which makes Goal Position writable again.
+                    self.write_register(name, "BUS_WATCHDOG", 0)
+                    self._watchdog.remove(name)
                 for item, value in self._saved[name].items():
                     self.write_register(name, item, value)
             except Exception as error:
