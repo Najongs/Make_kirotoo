@@ -1,0 +1,7 @@
+exact_check4 exit 0
+printcheck exit 0
+intra7 exit 0
+render exit 0
+export_parts exit 0
+sweep exit 0
+mass/csv/mjcf/ranges exit 0

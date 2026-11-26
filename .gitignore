@@ -10,3 +10,6 @@ __pycache__/
 !/out19/print_parts_stl/R_*.stl
 !/out19/print_parts_stl/L_*.stl
 /robot/tmp/
+/out20/print_parts_stl/*.stl
+!/out20/print_parts_stl/R_*.stl
+!/out20/print_parts_stl/L_*.stl

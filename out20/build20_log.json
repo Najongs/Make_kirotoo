@@ -1,0 +1,2600 @@
+{
+ "v19": {
+  "case_holes": [
+   {
+    "servo": "yaw_servo_R_XC430",
+    "hole": 1,
+    "link": "torso",
+    "part": "torso_frame",
+    "solid": 23,
+    "axis": "y",
+    "uv": [
+     259.0,
+     -28.0
+    ],
+    "plate_mm": 5.0,
+    "wall_left_mm": 1.6
+   },
+   {
+    "servo": "yaw_servo_R_XC430",
+    "hole": 2,
+    "link": "torso",
+    "part": "torso_frame",
+    "solid": 23,
+    "axis": "y",
+    "uv": [
+     247.0,
+     -28.0
+    ],
+    "plate_mm": 5.0,
+    "wall_left_mm": 1.7
+   },
+   {
+    "servo": "yaw_servo_L_XC430",
+    "hole": 11,
+    "link": "torso",
+    "part": "torso_frame",
+    "solid": 3,
+    "axis": "y",
+    "uv": [
+     259.0,
+     -28.0
+    ],
+    "plate_mm": 5.0,
+    "wall_left_mm": 1.6
+   },
+   {
+    "servo": "yaw_servo_L_XC430",
+    "hole": 12,
+    "link": "torso",
+    "part": "torso_frame",
+    "solid": 3,
+    "axis": "y",
+    "uv": [
+     247.0,
+     -28.0
+    ],
+    "plate_mm": 5.0,
+    "wall_left_mm": 1.7
+   },
+   {
+    "servo": "R_hip_pitch_servo_XM430",
+    "hole": 3,
+    "link": "R_hip_yaw_link",
+    "part": "R_hip_yaw_bracket",
+    "solid": 3,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     181.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 4.0
+   },
+   {
+    "servo": "R_hip_pitch_servo_XM430",
+    "hole": 4,
+    "link": "R_hip_yaw_link",
+    "part": "R_hip_yaw_bracket",
+    "solid": 3,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     181.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_hip_pitch_servo_XM430",
+    "hole": 13,
+    "link": "R_hip_yaw_link",
+    "part": "R_hip_yaw_bracket",
+    "solid": 2,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     181.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 4.0
+   },
+   {
+    "servo": "R_hip_pitch_servo_XM430",
+    "hole": 14,
+    "link": "R_hip_yaw_link",
+    "part": "R_hip_yaw_bracket",
+    "solid": 2,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     181.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 1,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 3,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     138.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 1,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 4,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     138.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 2,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 3,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     138.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 2,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 4,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     138.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 3,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 3,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     114.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 4.0
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 3,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 4,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     114.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 4.0
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 4,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 3,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     114.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 4,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 4,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     114.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 11,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 5,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     138.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 12,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 5,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     138.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 13,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 5,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     114.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 4.0
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 14,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 5,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     114.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 1,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 6,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     63.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 1,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 8,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     63.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 2,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 6,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     63.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 2,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 8,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     63.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 3,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 5,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     39.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 4.6
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 3,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 7,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     39.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 4.6
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 4,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 5,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     39.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 4,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 7,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     39.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 11,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 10,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     63.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 12,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 10,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     63.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 13,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 9,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     39.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 4.6
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 14,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 9,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     39.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "hole": 3,
+    "link": "R_ankle_link",
+    "part": "R_ankle_bracket",
+    "solid": 6,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -57.0
+    ],
+    "plate_mm": 8.6,
+    "wall_left_mm": 2.6
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "hole": 3,
+    "link": "R_ankle_link",
+    "part": "R_ankle_bracket",
+    "solid": 2,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -57.0
+    ],
+    "plate_mm": 4.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "hole": 4,
+    "link": "R_ankle_link",
+    "part": "R_ankle_bracket",
+    "solid": 6,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -45.0
+    ],
+    "plate_mm": 8.6,
+    "wall_left_mm": 2.6
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "hole": 4,
+    "link": "R_ankle_link",
+    "part": "R_ankle_bracket",
+    "solid": 2,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -45.0
+    ],
+    "plate_mm": 4.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "hole": 13,
+    "link": "R_ankle_link",
+    "part": "R_ankle_bracket",
+    "solid": 5,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -57.0
+    ],
+    "plate_mm": 8.6,
+    "wall_left_mm": 2.6
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "hole": 13,
+    "link": "R_ankle_link",
+    "part": "R_ankle_bracket",
+    "solid": 0,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -57.0
+    ],
+    "plate_mm": 4.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "hole": 14,
+    "link": "R_ankle_link",
+    "part": "R_ankle_bracket",
+    "solid": 5,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -45.0
+    ],
+    "plate_mm": 8.6,
+    "wall_left_mm": 2.6
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "hole": 14,
+    "link": "R_ankle_link",
+    "part": "R_ankle_bracket",
+    "solid": 0,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -45.0
+    ],
+    "plate_mm": 4.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_hip_pitch_servo_XM430",
+    "hole": 3,
+    "link": "L_hip_yaw_link",
+    "part": "L_hip_yaw_bracket",
+    "solid": 2,
+    "axis": "x",
+    "uv": [
+     34.0,
+     181.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 4.0
+   },
+   {
+    "servo": "L_hip_pitch_servo_XM430",
+    "hole": 4,
+    "link": "L_hip_yaw_link",
+    "part": "L_hip_yaw_bracket",
+    "solid": 2,
+    "axis": "x",
+    "uv": [
+     46.0,
+     181.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_hip_pitch_servo_XM430",
+    "hole": 13,
+    "link": "L_hip_yaw_link",
+    "part": "L_hip_yaw_bracket",
+    "solid": 3,
+    "axis": "x",
+    "uv": [
+     34.0,
+     181.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 4.0
+   },
+   {
+    "servo": "L_hip_pitch_servo_XM430",
+    "hole": 14,
+    "link": "L_hip_yaw_link",
+    "part": "L_hip_yaw_bracket",
+    "solid": 3,
+    "axis": "x",
+    "uv": [
+     46.0,
+     181.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 1,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 5,
+    "axis": "x",
+    "uv": [
+     34.0,
+     138.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 2,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 5,
+    "axis": "x",
+    "uv": [
+     46.0,
+     138.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 3,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 5,
+    "axis": "x",
+    "uv": [
+     34.0,
+     114.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 4.0
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 4,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 5,
+    "axis": "x",
+    "uv": [
+     46.0,
+     114.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 11,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 3,
+    "axis": "x",
+    "uv": [
+     34.0,
+     138.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 11,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 4,
+    "axis": "x",
+    "uv": [
+     34.0,
+     138.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 12,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 3,
+    "axis": "x",
+    "uv": [
+     46.0,
+     138.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 12,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 4,
+    "axis": "x",
+    "uv": [
+     46.0,
+     138.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 13,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 3,
+    "axis": "x",
+    "uv": [
+     34.0,
+     114.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 4.0
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 13,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 4,
+    "axis": "x",
+    "uv": [
+     34.0,
+     114.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 4.0
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 14,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 3,
+    "axis": "x",
+    "uv": [
+     46.0,
+     114.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 14,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 4,
+    "axis": "x",
+    "uv": [
+     46.0,
+     114.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 1,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 10,
+    "axis": "x",
+    "uv": [
+     34.0,
+     63.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 2,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 10,
+    "axis": "x",
+    "uv": [
+     46.0,
+     63.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 3,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 9,
+    "axis": "x",
+    "uv": [
+     34.0,
+     39.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 4.6
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 4,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 9,
+    "axis": "x",
+    "uv": [
+     46.0,
+     39.0
+    ],
+    "plate_mm": 3.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 11,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 6,
+    "axis": "x",
+    "uv": [
+     34.0,
+     63.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 11,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 8,
+    "axis": "x",
+    "uv": [
+     34.0,
+     63.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 12,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 6,
+    "axis": "x",
+    "uv": [
+     46.0,
+     63.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 12,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 8,
+    "axis": "x",
+    "uv": [
+     46.0,
+     63.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 13,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 5,
+    "axis": "x",
+    "uv": [
+     34.0,
+     39.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 4.6
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 13,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 7,
+    "axis": "x",
+    "uv": [
+     34.0,
+     39.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 4.6
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 14,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 5,
+    "axis": "x",
+    "uv": [
+     46.0,
+     39.0
+    ],
+    "plate_mm": 1.85,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 14,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 7,
+    "axis": "x",
+    "uv": [
+     46.0,
+     39.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "hole": 3,
+    "link": "L_ankle_link",
+    "part": "L_ankle_bracket",
+    "solid": 6,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -57.0
+    ],
+    "plate_mm": 8.6,
+    "wall_left_mm": 2.6
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "hole": 3,
+    "link": "L_ankle_link",
+    "part": "L_ankle_bracket",
+    "solid": 0,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -57.0
+    ],
+    "plate_mm": 4.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "hole": 4,
+    "link": "L_ankle_link",
+    "part": "L_ankle_bracket",
+    "solid": 6,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -45.0
+    ],
+    "plate_mm": 8.6,
+    "wall_left_mm": 2.6
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "hole": 4,
+    "link": "L_ankle_link",
+    "part": "L_ankle_bracket",
+    "solid": 0,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -45.0
+    ],
+    "plate_mm": 4.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "hole": 13,
+    "link": "L_ankle_link",
+    "part": "L_ankle_bracket",
+    "solid": 5,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -57.0
+    ],
+    "plate_mm": 8.6,
+    "wall_left_mm": 2.6
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "hole": 13,
+    "link": "L_ankle_link",
+    "part": "L_ankle_bracket",
+    "solid": 2,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -57.0
+    ],
+    "plate_mm": 4.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "hole": 14,
+    "link": "L_ankle_link",
+    "part": "L_ankle_bracket",
+    "solid": 5,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -45.0
+    ],
+    "plate_mm": 8.6,
+    "wall_left_mm": 2.6
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "hole": 14,
+    "link": "L_ankle_link",
+    "part": "L_ankle_bracket",
+    "solid": 2,
+    "axis": "y",
+    "uv": [
+     39.0,
+     -45.0
+    ],
+    "plate_mm": 4.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "head_nod_servo_XL430",
+    "hole": 11,
+    "link": "head",
+    "part": "head_back",
+    "solid": 34,
+    "axis": "z",
+    "uv": [
+     -0.75,
+     -9.7
+    ],
+    "plate_mm": 3.0,
+    "wall_left_mm": 1.4
+   },
+   {
+    "servo": "head_nod_servo_XL430",
+    "hole": 11,
+    "link": "head",
+    "part": "head_back",
+    "solid": 18,
+    "axis": "z",
+    "uv": [
+     -0.75,
+     -9.7
+    ],
+    "plate_mm": 1.2,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "head_nod_servo_XL430",
+    "hole": 12,
+    "link": "head",
+    "part": "head_back",
+    "solid": 34,
+    "axis": "z",
+    "uv": [
+     -0.75,
+     2.3
+    ],
+    "plate_mm": 3.0,
+    "wall_left_mm": 1.4
+   },
+   {
+    "servo": "head_nod_servo_XL430",
+    "hole": 12,
+    "link": "head",
+    "part": "head_back",
+    "solid": 18,
+    "axis": "z",
+    "uv": [
+     -0.75,
+     2.3
+    ],
+    "plate_mm": 1.2,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "head_nod_servo_XL430",
+    "hole": 13,
+    "link": "head",
+    "part": "head_back",
+    "solid": 34,
+    "axis": "z",
+    "uv": [
+     -24.75,
+     -9.7
+    ],
+    "plate_mm": 3.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "head_nod_servo_XL430",
+    "hole": 13,
+    "link": "head",
+    "part": "head_back",
+    "solid": 18,
+    "axis": "z",
+    "uv": [
+     -24.75,
+     -9.7
+    ],
+    "plate_mm": 1.2,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "head_nod_servo_XL430",
+    "hole": 14,
+    "link": "head",
+    "part": "head_back",
+    "solid": 34,
+    "axis": "z",
+    "uv": [
+     -24.75,
+     2.3
+    ],
+    "plate_mm": 3.0,
+    "wall_left_mm": 6.0
+   },
+   {
+    "servo": "head_nod_servo_XL430",
+    "hole": 14,
+    "link": "head",
+    "part": "head_back",
+    "solid": 18,
+    "axis": "z",
+    "uv": [
+     -24.75,
+     2.3
+    ],
+    "plate_mm": 1.2,
+    "wall_left_mm": 6.0
+   }
+  ],
+  "wall_warnings": [
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 1,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 4,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     138.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "hole": 2,
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 4,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     138.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 1,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 8,
+    "axis": "x",
+    "uv": [
+     -34.0,
+     63.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "hole": 2,
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 8,
+    "axis": "x",
+    "uv": [
+     -46.0,
+     63.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 11,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 4,
+    "axis": "x",
+    "uv": [
+     34.0,
+     138.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "hole": 12,
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 4,
+    "axis": "x",
+    "uv": [
+     46.0,
+     138.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 11,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 8,
+    "axis": "x",
+    "uv": [
+     34.0,
+     63.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "hole": 12,
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 8,
+    "axis": "x",
+    "uv": [
+     46.0,
+     63.0
+    ],
+    "plate_mm": 2.0,
+    "wall_left_mm": 0.6
+   }
+  ],
+  "pockets": [
+   {
+    "servo": "R_hip_pitch_servo_XM430",
+    "link": "R_hip_yaw_link",
+    "face": "+x",
+    "part": "R_hip_yaw_bracket",
+    "gap_mm": 0.275,
+    "solid_index": 2,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.703,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "R_hip_pitch_servo_XM430",
+    "link": "R_hip_yaw_link",
+    "face": "-x",
+    "part": "R_hip_yaw_bracket",
+    "gap_mm": 0.275,
+    "solid_index": 3,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.703,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "link": "R_thigh",
+    "face": "+x",
+    "part": "R_thigh_frame",
+    "gap_mm": 0.275,
+    "solid_index": 5,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.822,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "link": "R_thigh",
+    "face": "+x",
+    "part": "R_thigh_frame",
+    "gap_mm": 0.275,
+    "solid_index": 7,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.109,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "link": "R_thigh",
+    "face": "-x",
+    "part": "R_thigh_frame",
+    "gap_mm": 0.275,
+    "solid_index": 3,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.822,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 2.00 -> 1.85 mm)"
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "link": "R_thigh",
+    "face": "-x",
+    "part": "R_thigh_frame",
+    "gap_mm": 0.275,
+    "solid_index": 6,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.109,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "link": "R_shank",
+    "face": "+x",
+    "part": "R_shank_frame",
+    "gap_mm": 0.275,
+    "solid_index": 9,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.594,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "link": "R_shank",
+    "face": "+x",
+    "part": "R_shank_frame",
+    "gap_mm": 0.275,
+    "solid_index": 10,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.217,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "link": "R_shank",
+    "face": "-x",
+    "part": "R_shank_frame",
+    "gap_mm": 0.275,
+    "solid_index": 5,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.594,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 2.00 -> 1.85 mm)"
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "link": "R_shank",
+    "face": "-x",
+    "part": "R_shank_frame",
+    "gap_mm": 0.275,
+    "solid_index": 6,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.217,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 2.00 -> 1.85 mm)"
+   },
+   {
+    "servo": "L_hip_pitch_servo_XM430",
+    "link": "L_hip_yaw_link",
+    "face": "+x",
+    "part": "L_hip_yaw_bracket",
+    "gap_mm": 0.275,
+    "solid_index": 3,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.703,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "L_hip_pitch_servo_XM430",
+    "link": "L_hip_yaw_link",
+    "face": "-x",
+    "part": "L_hip_yaw_bracket",
+    "gap_mm": 0.275,
+    "solid_index": 2,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.703,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "link": "L_thigh",
+    "face": "+x",
+    "part": "L_thigh_frame",
+    "gap_mm": 0.275,
+    "solid_index": 3,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.822,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 2.00 -> 1.85 mm)"
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "link": "L_thigh",
+    "face": "+x",
+    "part": "L_thigh_frame",
+    "gap_mm": 0.275,
+    "solid_index": 6,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.109,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "link": "L_thigh",
+    "face": "-x",
+    "part": "L_thigh_frame",
+    "gap_mm": 0.275,
+    "solid_index": 5,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.822,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "link": "L_thigh",
+    "face": "-x",
+    "part": "L_thigh_frame",
+    "gap_mm": 0.275,
+    "solid_index": 7,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.109,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "link": "L_shank",
+    "face": "+x",
+    "part": "L_shank_frame",
+    "gap_mm": 0.275,
+    "solid_index": 5,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.594,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 2.00 -> 1.85 mm)"
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "link": "L_shank",
+    "face": "+x",
+    "part": "L_shank_frame",
+    "gap_mm": 0.275,
+    "solid_index": 6,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.217,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 2.00 -> 1.85 mm)"
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "link": "L_shank",
+    "face": "-x",
+    "part": "L_shank_frame",
+    "gap_mm": 0.275,
+    "solid_index": 9,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.594,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "link": "L_shank",
+    "face": "-x",
+    "part": "L_shank_frame",
+    "gap_mm": 0.275,
+    "solid_index": 10,
+    "solid_kind": "rprism",
+    "solid_axis": "x",
+    "coverage": 0.217,
+    "contact_frac": 0.0,
+    "action": "case-side face moved 0.15 mm (plate 4.00 -> 3.85 mm)"
+   }
+  ]
+ },
+ "hip_roll": [
+  {
+   "side": "R",
+   "roll_servo_x": [
+    -56.7,
+    -22.7
+   ],
+   "horn_face_x": -18.8,
+   "side_plates_y": [
+    [
+     -58.525,
+     -54.675
+    ],
+    [
+     -25.325,
+     -21.474999999999998
+    ]
+   ],
+   "front_pillar_x": [
+    19.0,
+    22.5
+   ],
+   "cover_x": [
+    -63.5,
+    -25.7
+   ]
+  },
+  {
+   "side": "L",
+   "roll_servo_x": [
+    -56.7,
+    -22.7
+   ],
+   "horn_face_x": -18.8,
+   "side_plates_y": [
+    [
+     21.474999999999998,
+     25.325
+    ],
+    [
+     54.675,
+     58.525
+    ]
+   ],
+   "front_pillar_x": [
+    19.0,
+    22.5
+   ],
+   "cover_x": [
+    -63.5,
+    -25.7
+   ]
+  }
+ ],
+ "renamed": [
+  [
+   "yaw_servo_R_XC430",
+   "yaw_servo_R_XL430"
+  ],
+  [
+   "yaw_servo_L_XC430",
+   "yaw_servo_L_XL430"
+  ],
+  [
+   "arm_R_servo_XC430",
+   "arm_R_servo_XL430"
+  ],
+  [
+   "arm_L_servo_XC430",
+   "arm_L_servo_XL430"
+  ]
+ ],
+ "seats": [
+  {
+   "servo": "R_ankle_roll_servo_XM430",
+   "link": "R_ankle_link",
+   "face": "+x",
+   "part": "R_ankle_bracket",
+   "gap_mm": 0.175,
+   "solid_index": 5,
+   "solid_kind": "rprism",
+   "solid_axis": "y",
+   "coverage": 0.136,
+   "contact_frac": 0.0,
+   "action": "pocket gap 0.175 -> 0.35"
+  },
+  {
+   "servo": "R_ankle_roll_servo_XM430",
+   "link": "R_ankle_link",
+   "face": "-x",
+   "part": "R_ankle_bracket",
+   "gap_mm": 0.15,
+   "solid_index": 6,
+   "solid_kind": "rprism",
+   "solid_axis": "y",
+   "coverage": 0.136,
+   "contact_frac": 0.0,
+   "action": "pocket gap 0.150 -> 0.35"
+  },
+  {
+   "servo": "R_ankle_roll_servo_XM430",
+   "link": "R_ankle_link",
+   "face": "-z(idler)",
+   "part": "R_ankle_bracket",
+   "gap_mm": 0.025,
+   "solid_index": 4,
+   "solid_kind": "rprism",
+   "solid_axis": "x",
+   "coverage": 0.222,
+   "contact_frac": 0.222,
+   "action": "seat gap 0.025 -> 0.3"
+  },
+  {
+   "servo": "L_ankle_roll_servo_XM430",
+   "link": "L_ankle_link",
+   "face": "+x",
+   "part": "L_ankle_bracket",
+   "gap_mm": 0.15,
+   "solid_index": 5,
+   "solid_kind": "rprism",
+   "solid_axis": "y",
+   "coverage": 0.136,
+   "contact_frac": 0.0,
+   "action": "pocket gap 0.150 -> 0.35"
+  },
+  {
+   "servo": "L_ankle_roll_servo_XM430",
+   "link": "L_ankle_link",
+   "face": "-x",
+   "part": "L_ankle_bracket",
+   "gap_mm": 0.175,
+   "solid_index": 6,
+   "solid_kind": "rprism",
+   "solid_axis": "y",
+   "coverage": 0.136,
+   "contact_frac": 0.0,
+   "action": "pocket gap 0.175 -> 0.35"
+  },
+  {
+   "servo": "L_ankle_roll_servo_XM430",
+   "link": "L_ankle_link",
+   "face": "-z(idler)",
+   "part": "L_ankle_bracket",
+   "gap_mm": 0.025,
+   "solid_index": 4,
+   "solid_kind": "rprism",
+   "solid_axis": "x",
+   "coverage": 0.222,
+   "contact_frac": 0.222,
+   "action": "seat gap 0.025 -> 0.3"
+  },
+  {
+   "servo": "head_nod_servo_XL430",
+   "link": "head",
+   "face": "+x",
+   "part": "head_back",
+   "gap_mm": 0.025,
+   "solid_index": 34,
+   "solid_kind": "rprism",
+   "solid_axis": "z",
+   "coverage": 0.903,
+   "contact_frac": 0.903,
+   "action": "seat gap 0.025 -> 0.3"
+  }
+ ],
+ "case_holes": [
+  {
+   "servo": "R_hip_roll_servo_XM430",
+   "hole": 1,
+   "link": "R_hip_yaw_link",
+   "part": "R_hip_yaw_bracket",
+   "solid": 5,
+   "axis": "y",
+   "uv": [
+    157.0,
+    -45.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 5.6
+  },
+  {
+   "servo": "R_hip_roll_servo_XM430",
+   "hole": 2,
+   "link": "R_hip_yaw_link",
+   "part": "R_hip_yaw_bracket",
+   "solid": 5,
+   "axis": "y",
+   "uv": [
+    157.0,
+    -33.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 5.6
+  },
+  {
+   "servo": "R_hip_roll_servo_XM430",
+   "hole": 3,
+   "link": "R_hip_yaw_link",
+   "part": "R_hip_yaw_bracket",
+   "solid": 5,
+   "axis": "y",
+   "uv": [
+    181.0,
+    -45.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 2.6
+  },
+  {
+   "servo": "R_hip_roll_servo_XM430",
+   "hole": 4,
+   "link": "R_hip_yaw_link",
+   "part": "R_hip_yaw_bracket",
+   "solid": 5,
+   "axis": "y",
+   "uv": [
+    181.0,
+    -33.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 6.0
+  },
+  {
+   "servo": "R_hip_roll_servo_XM430",
+   "hole": 7,
+   "link": "R_hip_yaw_link",
+   "part": "R_hip_yaw_bracket",
+   "solid": 4,
+   "axis": "z",
+   "uv": [
+    -33.7,
+    -48.0
+   ],
+   "plate_mm": 7.25,
+   "wall_left_mm": 6.0
+  },
+  {
+   "servo": "R_hip_roll_servo_XM430",
+   "hole": 10,
+   "link": "R_hip_yaw_link",
+   "part": "R_hip_yaw_bracket",
+   "solid": 4,
+   "axis": "z",
+   "uv": [
+    -33.7,
+    -32.0
+   ],
+   "plate_mm": 7.25,
+   "wall_left_mm": 6.0
+  },
+  {
+   "servo": "R_hip_roll_servo_XM430",
+   "hole": 11,
+   "link": "R_hip_yaw_link",
+   "part": "R_hip_yaw_bracket",
+   "solid": 6,
+   "axis": "y",
+   "uv": [
+    157.0,
+    -45.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 5.6
+  },
+  {
+   "servo": "R_hip_roll_servo_XM430",
+   "hole": 12,
+   "link": "R_hip_yaw_link",
+   "part": "R_hip_yaw_bracket",
+   "solid": 6,
+   "axis": "y",
+   "uv": [
+    157.0,
+    -33.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 5.6
+  },
+  {
+   "servo": "R_hip_roll_servo_XM430",
+   "hole": 13,
+   "link": "R_hip_yaw_link",
+   "part": "R_hip_yaw_bracket",
+   "solid": 6,
+   "axis": "y",
+   "uv": [
+    181.0,
+    -45.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 2.6
+  },
+  {
+   "servo": "R_hip_roll_servo_XM430",
+   "hole": 14,
+   "link": "R_hip_yaw_link",
+   "part": "R_hip_yaw_bracket",
+   "solid": 6,
+   "axis": "y",
+   "uv": [
+    181.0,
+    -33.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 6.0
+  },
+  {
+   "servo": "L_hip_roll_servo_XM430",
+   "hole": 1,
+   "link": "L_hip_yaw_link",
+   "part": "L_hip_yaw_bracket",
+   "solid": 5,
+   "axis": "y",
+   "uv": [
+    157.0,
+    -45.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 5.6
+  },
+  {
+   "servo": "L_hip_roll_servo_XM430",
+   "hole": 2,
+   "link": "L_hip_yaw_link",
+   "part": "L_hip_yaw_bracket",
+   "solid": 5,
+   "axis": "y",
+   "uv": [
+    157.0,
+    -33.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 5.6
+  },
+  {
+   "servo": "L_hip_roll_servo_XM430",
+   "hole": 3,
+   "link": "L_hip_yaw_link",
+   "part": "L_hip_yaw_bracket",
+   "solid": 5,
+   "axis": "y",
+   "uv": [
+    181.0,
+    -45.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 2.6
+  },
+  {
+   "servo": "L_hip_roll_servo_XM430",
+   "hole": 4,
+   "link": "L_hip_yaw_link",
+   "part": "L_hip_yaw_bracket",
+   "solid": 5,
+   "axis": "y",
+   "uv": [
+    181.0,
+    -33.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 6.0
+  },
+  {
+   "servo": "L_hip_roll_servo_XM430",
+   "hole": 7,
+   "link": "L_hip_yaw_link",
+   "part": "L_hip_yaw_bracket",
+   "solid": 4,
+   "axis": "z",
+   "uv": [
+    -33.7,
+    32.0
+   ],
+   "plate_mm": 7.25,
+   "wall_left_mm": 6.0
+  },
+  {
+   "servo": "L_hip_roll_servo_XM430",
+   "hole": 10,
+   "link": "L_hip_yaw_link",
+   "part": "L_hip_yaw_bracket",
+   "solid": 4,
+   "axis": "z",
+   "uv": [
+    -33.7,
+    48.0
+   ],
+   "plate_mm": 7.25,
+   "wall_left_mm": 6.0
+  },
+  {
+   "servo": "L_hip_roll_servo_XM430",
+   "hole": 11,
+   "link": "L_hip_yaw_link",
+   "part": "L_hip_yaw_bracket",
+   "solid": 6,
+   "axis": "y",
+   "uv": [
+    157.0,
+    -45.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 5.6
+  },
+  {
+   "servo": "L_hip_roll_servo_XM430",
+   "hole": 12,
+   "link": "L_hip_yaw_link",
+   "part": "L_hip_yaw_bracket",
+   "solid": 6,
+   "axis": "y",
+   "uv": [
+    157.0,
+    -33.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 5.6
+  },
+  {
+   "servo": "L_hip_roll_servo_XM430",
+   "hole": 13,
+   "link": "L_hip_yaw_link",
+   "part": "L_hip_yaw_bracket",
+   "solid": 6,
+   "axis": "y",
+   "uv": [
+    181.0,
+    -45.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 2.6
+  },
+  {
+   "servo": "L_hip_roll_servo_XM430",
+   "hole": 14,
+   "link": "L_hip_yaw_link",
+   "part": "L_hip_yaw_bracket",
+   "solid": 6,
+   "axis": "y",
+   "uv": [
+    181.0,
+    -33.7
+   ],
+   "plate_mm": 3.85,
+   "wall_left_mm": 6.0
+  }
+ ],
+ "case_holes_skipped": [],
+ "wall_warnings": [],
+ "entry_relief": [
+  {
+   "servo": "R_hip_roll_servo_XM430",
+   "part": "R_hip_yaw_bracket",
+   "solid": 6,
+   "entry_axis": "z-",
+   "edge": 150.0
+  },
+  {
+   "servo": "R_hip_roll_servo_XM430",
+   "part": "R_hip_yaw_bracket",
+   "solid": 5,
+   "entry_axis": "z-",
+   "edge": 150.0
+  },
+  {
+   "servo": "R_knee_servo_XM430",
+   "part": "R_thigh_frame",
+   "solid": 5,
+   "entry_axis": "z-",
+   "edge": 98
+  },
+  {
+   "servo": "R_knee_servo_XM430",
+   "part": "R_thigh_frame",
+   "solid": 7,
+   "entry_axis": "z-",
+   "edge": 140
+  },
+  {
+   "servo": "R_knee_servo_XM430",
+   "part": "R_thigh_frame",
+   "solid": 3,
+   "entry_axis": "z-",
+   "edge": 98
+  },
+  {
+   "servo": "R_knee_servo_XM430",
+   "part": "R_thigh_frame",
+   "solid": 6,
+   "entry_axis": "z-",
+   "edge": 140
+  },
+  {
+   "servo": "R_ankle_pitch_servo_XC430",
+   "part": "R_shank_frame",
+   "solid": 9,
+   "entry_axis": "z-",
+   "edge": 30.0
+  },
+  {
+   "servo": "R_ankle_pitch_servo_XC430",
+   "part": "R_shank_frame",
+   "solid": 10,
+   "entry_axis": "z-",
+   "edge": 60.0
+  },
+  {
+   "servo": "R_ankle_pitch_servo_XC430",
+   "part": "R_shank_frame",
+   "solid": 5,
+   "entry_axis": "z-",
+   "edge": 30.0
+  },
+  {
+   "servo": "R_ankle_pitch_servo_XC430",
+   "part": "R_shank_frame",
+   "solid": 6,
+   "entry_axis": "z-",
+   "edge": 60.0
+  },
+  {
+   "servo": "R_ankle_roll_servo_XM430",
+   "part": "R_ankle_bracket",
+   "solid": 5,
+   "entry_axis": "x+",
+   "edge": -41.0
+  },
+  {
+   "servo": "R_ankle_roll_servo_XM430",
+   "part": "R_ankle_bracket",
+   "solid": 6,
+   "entry_axis": "x+",
+   "edge": -41.0
+  },
+  {
+   "servo": "L_hip_roll_servo_XM430",
+   "part": "L_hip_yaw_bracket",
+   "solid": 6,
+   "entry_axis": "z-",
+   "edge": 150.0
+  },
+  {
+   "servo": "L_hip_roll_servo_XM430",
+   "part": "L_hip_yaw_bracket",
+   "solid": 5,
+   "entry_axis": "z-",
+   "edge": 150.0
+  },
+  {
+   "servo": "L_knee_servo_XM430",
+   "part": "L_thigh_frame",
+   "solid": 3,
+   "entry_axis": "z-",
+   "edge": 98
+  },
+  {
+   "servo": "L_knee_servo_XM430",
+   "part": "L_thigh_frame",
+   "solid": 6,
+   "entry_axis": "z-",
+   "edge": 140
+  },
+  {
+   "servo": "L_knee_servo_XM430",
+   "part": "L_thigh_frame",
+   "solid": 5,
+   "entry_axis": "z-",
+   "edge": 98
+  },
+  {
+   "servo": "L_knee_servo_XM430",
+   "part": "L_thigh_frame",
+   "solid": 7,
+   "entry_axis": "z-",
+   "edge": 140
+  },
+  {
+   "servo": "L_ankle_pitch_servo_XC430",
+   "part": "L_shank_frame",
+   "solid": 5,
+   "entry_axis": "z-",
+   "edge": 30.0
+  },
+  {
+   "servo": "L_ankle_pitch_servo_XC430",
+   "part": "L_shank_frame",
+   "solid": 6,
+   "entry_axis": "z-",
+   "edge": 60.0
+  },
+  {
+   "servo": "L_ankle_pitch_servo_XC430",
+   "part": "L_shank_frame",
+   "solid": 9,
+   "entry_axis": "z-",
+   "edge": 30.0
+  },
+  {
+   "servo": "L_ankle_pitch_servo_XC430",
+   "part": "L_shank_frame",
+   "solid": 10,
+   "entry_axis": "z-",
+   "edge": 60.0
+  },
+  {
+   "servo": "L_ankle_roll_servo_XM430",
+   "part": "L_ankle_bracket",
+   "solid": 5,
+   "entry_axis": "x+",
+   "edge": -41.0
+  },
+  {
+   "servo": "L_ankle_roll_servo_XM430",
+   "part": "L_ankle_bracket",
+   "solid": 6,
+   "entry_axis": "x+",
+   "edge": -41.0
+  },
+  {
+   "servo": "R_hip_pitch_servo_XM430",
+   "part": "R_hip_roll_plate_front",
+   "solid": 0,
+   "entry_axis": "z-",
+   "edge": 160
+  },
+  {
+   "servo": "R_hip_pitch_servo_XM430",
+   "part": "R_hip_roll_plate_back",
+   "solid": 0,
+   "entry_axis": "z-",
+   "edge": 160
+  },
+  {
+   "servo": "L_hip_pitch_servo_XM430",
+   "part": "L_hip_roll_plate_back",
+   "solid": 0,
+   "entry_axis": "z-",
+   "edge": 160
+  },
+  {
+   "servo": "L_hip_pitch_servo_XM430",
+   "part": "L_hip_roll_plate_front",
+   "solid": 0,
+   "entry_axis": "z-",
+   "edge": 160
+  }
+ ],
+ "press_fits": [
+  {
+   "link": "torso",
+   "purchased": "yaw_bearing_R_6805",
+   "printed": "torso_frame",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "yaw_bearing_R_6805",
+   "printed": "torso_frame",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "yaw_bearing_L_6805",
+   "printed": "torso_frame",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "yaw_bearing_L_6805",
+   "printed": "torso_frame",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "neck_bearings_688",
+   "printed": "neck_yoke",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "neck_bearings_688",
+   "printed": "neck_yoke",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "shoulder_shaft_R",
+   "printed": "torso_frame",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "shoulder_shaft_R",
+   "printed": "torso_frame",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "shoulder_shaft_R",
+   "printed": "arm_R_horn_adapter",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "shoulder_shaft_R",
+   "printed": "arm_R_horn_adapter",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "shoulder_shaft_L",
+   "printed": "torso_frame",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "shoulder_shaft_L",
+   "printed": "torso_frame",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "shoulder_shaft_L",
+   "printed": "arm_L_horn_adapter",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "torso",
+   "purchased": "shoulder_shaft_L",
+   "printed": "arm_L_horn_adapter",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "R_hip_yaw_link",
+   "purchased": "R_hip_roll_pin_4mm",
+   "printed": "R_hip_yaw_bracket",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "L_hip_yaw_link",
+   "purchased": "L_hip_roll_pin_4mm",
+   "printed": "L_hip_yaw_bracket",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "head",
+   "purchased": "ear_bearings_684",
+   "printed": "head_back",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "head",
+   "purchased": "ear_bearings_684",
+   "printed": "head_back",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "R_arm",
+   "purchased": "arm_R_flap_pin",
+   "printed": "arm_R_hand",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "R_arm",
+   "purchased": "arm_R_flap_pin",
+   "printed": "arm_R_hand",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "L_arm",
+   "purchased": "arm_L_flap_pin",
+   "printed": "arm_L_hand",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "L_arm",
+   "purchased": "arm_L_flap_pin",
+   "printed": "arm_L_hand",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "ears",
+   "purchased": "ear_axle_4mm",
+   "printed": "ear_L",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "ears",
+   "purchased": "ear_axle_4mm",
+   "printed": "ear_R",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  },
+  {
+   "link": "ears",
+   "purchased": "ear_axle_4mm",
+   "printed": "ear_rocker",
+   "kind": "hole for purchased part",
+   "radial_fit_mm": 0.0,
+   "new_radial_fit_mm": 0.1
+  }
+ ],
+ "latch_narrow": [
+  {
+   "link": "R_thigh",
+   "grooves": 1,
+   "beam_solids": 2
+  },
+  {
+   "link": "R_shank",
+   "grooves": 1,
+   "beam_solids": 2
+  },
+  {
+   "link": "L_thigh",
+   "grooves": 1,
+   "beam_solids": 2
+  },
+  {
+   "link": "L_shank",
+   "grooves": 1,
+   "beam_solids": 2
+  }
+ ],
+ "thin_wall_after": [
+  {
+   "servo": "R_knee_servo_XM430",
+   "hole": 1,
+   "solid_x": [
+    16.5,
+    18.5
+   ],
+   "wall_after": 2.0
+  },
+  {
+   "servo": "R_knee_servo_XM430",
+   "hole": 2,
+   "solid_x": [
+    16.5,
+    18.5
+   ],
+   "wall_after": 2.0
+  },
+  {
+   "servo": "R_ankle_pitch_servo_XC430",
+   "hole": 1,
+   "solid_x": [
+    16.5,
+    18.5
+   ],
+   "wall_after": 2.0
+  },
+  {
+   "servo": "R_ankle_pitch_servo_XC430",
+   "hole": 2,
+   "solid_x": [
+    16.5,
+    18.5
+   ],
+   "wall_after": 2.0
+  },
+  {
+   "servo": "L_knee_servo_XM430",
+   "hole": 11,
+   "solid_x": [
+    16.5,
+    18.5
+   ],
+   "wall_after": 2.0
+  },
+  {
+   "servo": "L_knee_servo_XM430",
+   "hole": 12,
+   "solid_x": [
+    16.5,
+    18.5
+   ],
+   "wall_after": 2.0
+  },
+  {
+   "servo": "L_ankle_pitch_servo_XC430",
+   "hole": 11,
+   "solid_x": [
+    16.5,
+    18.5
+   ],
+   "wall_after": 2.0
+  },
+  {
+   "servo": "L_ankle_pitch_servo_XC430",
+   "hole": 12,
+   "solid_x": [
+    16.5,
+    18.5
+   ],
+   "wall_after": 2.0
+  }
+ ],
+ "widen": [
+  {
+   "side": "R",
+   "thigh_back": 15,
+   "shank_back": 6,
+   "ankle_bracket": 1,
+   "foot_rim": 3,
+   "cover": 12,
+   "side_plates": 4
+  },
+  {
+   "side": "L",
+   "thigh_back": 15,
+   "shank_back": 6,
+   "ankle_bracket": 1,
+   "foot_rim": 3,
+   "cover": 12,
+   "side_plates": 4
+  }
+ ],
+ "cable_clips": [
+  [
+   "R_thigh",
+   -18.5,
+   115.0
+  ],
+  [
+   "R_shank",
+   -18.5,
+   41.0
+  ],
+  [
+   "L_thigh",
+   -18.5,
+   115.0
+  ],
+  [
+   "L_shank",
+   -18.5,
+   41.0
+  ]
+ ],
+ "latch_gaps": [
+  {
+   "link": "R_thigh",
+   "beam_solids": 3,
+   "pads": 1,
+   "beam_gap": [
+    0.1,
+    0.25
+   ],
+   "pad_gap": [
+    0.2,
+    0.25
+   ]
+  },
+  {
+   "link": "R_shank",
+   "beam_solids": 3,
+   "pads": 1,
+   "beam_gap": [
+    0.1,
+    0.25
+   ],
+   "pad_gap": [
+    0.2,
+    0.25
+   ]
+  },
+  {
+   "link": "L_thigh",
+   "beam_solids": 3,
+   "pads": 1,
+   "beam_gap": [
+    0.1,
+    0.25
+   ],
+   "pad_gap": [
+    0.2,
+    0.25
+   ]
+  },
+  {
+   "link": "L_shank",
+   "beam_solids": 3,
+   "pads": 1,
+   "beam_gap": [
+    0.1,
+    0.25
+   ],
+   "pad_gap": [
+    0.2,
+    0.25
+   ]
+  }
+ ],
+ "theta_max_deg": 20.0
+}

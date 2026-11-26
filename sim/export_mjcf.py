@@ -53,6 +53,9 @@ BODIES = ["torso",
 PARENT = {j["child"]: j["parent"] for j in joints}
 JOINT_OF = {j["child"]: j["name"] for j in joints}
 LEG_BITS = {f"{S}_{n}" for S in "RL" for n in ("shank", "ankle_link", "foot")}
+for S_ in "RL":                 # v20: hip roll link between the hip yaw link and the thigh
+    if f"{S_}_hip_roll_link" in links and f"{S_}_hip_roll_link" not in BODIES:
+        BODIES.insert(BODIES.index(f"{S_}_hip_yaw_link") + 1, f"{S_}_hip_roll_link")
 assert set(BODIES) | set(MERGE) == set(links) == set(MASS)
 
 
@@ -86,7 +89,7 @@ for j in joints:
     for s in SERVO:
         if j["actuator"].startswith(s):
             ACT[j["name"]] = s
-assert len(ACT) == 13, ACT
+assert len(ACT) >= 13, ACT
 
 
 # ------------------------------------------------------------------ mass
@@ -424,7 +427,7 @@ def model_xml(free):
   </actuator>
 
   <keyframe>
-    <key name="zero" qpos="{'0 0 0 1 0 0 0 ' if free else ''}{' '.join(['0'] * 15)}" ctrl="{' '.join(['0'] * 13)}"/>
+    <key name="zero" qpos="{'0 0 0 1 0 0 0 ' if free else ''}{' '.join(['0'] * (len(BODIES) - 1))}" ctrl="{' '.join(['0'] * len(ACT))}"/>
   </keyframe>
 </mujoco>
 """

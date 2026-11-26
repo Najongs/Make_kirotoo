@@ -1,0 +1,1877 @@
+{
+ "A_real_servo": {
+  "yaw_servo_R_XL430": {
+   "link": "torso",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "case": [
+     1.15,
+     "torso_frame"
+    ],
+    "horn": [
+     0.3,
+     "R_hip_yaw_bracket"
+    ],
+    "cable_cover": [
+     1.25,
+     "torso_frame"
+    ],
+    "idler": [
+     1.32,
+     "electronics_shelf"
+    ]
+   }
+  },
+  "yaw_servo_L_XL430": {
+   "link": "torso",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "case": [
+     0.95,
+     "torso_frame"
+    ],
+    "horn": [
+     0.3,
+     "L_hip_yaw_bracket"
+    ],
+    "cable_cover": [
+     1.05,
+     "torso_frame"
+    ],
+    "idler": [
+     1.32,
+     "electronics_shelf"
+    ]
+   }
+  },
+  "R_hip_roll_servo_XM430": {
+   "link": "R_hip_yaw_link",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "cable_cover": [
+     1.7,
+     "R_hip_yaw_bracket"
+    ],
+    "case": [
+     0.48,
+     "R_hip_yaw_bracket"
+    ],
+    "horn": [
+     0.5,
+     "R_hip_roll_plate_back"
+    ],
+    "idler": [
+     2.4,
+     "R_hip_cover"
+    ]
+   }
+  },
+  "R_knee_servo_XM430": {
+   "link": "R_thigh",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "cable_cover": [
+     0.75,
+     "R_thigh_frame"
+    ],
+    "case": [
+     0.45,
+     "R_thigh_frame"
+    ],
+    "horn": [
+     0.4,
+     "R_shank_frame"
+    ],
+    "idler": [
+     0.23,
+     "R_shank_frame"
+    ]
+   }
+  },
+  "R_ankle_pitch_servo_XC430": {
+   "link": "R_shank",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "cable_cover": [
+     0.89,
+     "R_shank_frame"
+    ],
+    "case": [
+     0.45,
+     "R_shank_frame"
+    ],
+    "horn": [
+     0.2,
+     "R_ankle_bracket"
+    ],
+    "idler": [
+     0.23,
+     "R_ankle_bracket"
+    ]
+   }
+  },
+  "R_ankle_roll_servo_XM430": {
+   "link": "R_ankle_link",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "cable_cover": [
+     0.6,
+     "R_ankle_bracket"
+    ],
+    "case": [
+     0.55,
+     "R_ankle_bracket"
+    ],
+    "horn": [
+     0.4,
+     "R_foot_sole"
+    ],
+    "idler": [
+     0.96,
+     "R_ankle_bracket"
+    ]
+   }
+  },
+  "L_hip_roll_servo_XM430": {
+   "link": "L_hip_yaw_link",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "cable_cover": [
+     1.7,
+     "L_hip_yaw_bracket"
+    ],
+    "case": [
+     0.48,
+     "L_hip_yaw_bracket"
+    ],
+    "horn": [
+     0.5,
+     "L_hip_roll_plate_back"
+    ],
+    "idler": [
+     2.4,
+     "L_hip_cover"
+    ]
+   }
+  },
+  "L_knee_servo_XM430": {
+   "link": "L_thigh",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "cable_cover": [
+     1.06,
+     "L_thigh_frame"
+    ],
+    "case": [
+     0.45,
+     "L_thigh_frame"
+    ],
+    "horn": [
+     0.5,
+     "L_shank_frame"
+    ],
+    "idler": [
+     0.15,
+     "L_shank_frame"
+    ]
+   }
+  },
+  "L_ankle_pitch_servo_XC430": {
+   "link": "L_shank",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "cable_cover": [
+     0.89,
+     "L_shank_frame"
+    ],
+    "case": [
+     0.45,
+     "L_shank_frame"
+    ],
+    "horn": [
+     0.2,
+     "L_ankle_bracket"
+    ],
+    "idler": [
+     0.32,
+     "L_ankle_bracket"
+    ]
+   }
+  },
+  "L_ankle_roll_servo_XM430": {
+   "link": "L_ankle_link",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "cable_cover": [
+     0.6,
+     "L_ankle_bracket"
+    ],
+    "case": [
+     0.55,
+     "L_ankle_bracket"
+    ],
+    "horn": [
+     0.4,
+     "L_foot_sole"
+    ],
+    "idler": [
+     0.96,
+     "L_ankle_bracket"
+    ]
+   }
+  },
+  "head_nod_servo_XL430": {
+   "link": "head",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "cable_cover": [
+     0.5,
+     "head_back"
+    ],
+    "case": [
+     0.4,
+     "head_back"
+    ],
+    "horn": [
+     0.2,
+     "nod_crank"
+    ],
+    "idler": [
+     0.4,
+     "head_back"
+    ]
+   }
+  },
+  "arm_R_servo_XL430": {
+   "link": "R_arm",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "horn": [
+     0.2,
+     "shoulder_shaft_R"
+    ],
+    "case": [
+     0.6,
+     "arm_R_finger_rod"
+    ],
+    "cable_cover": [
+     1.31,
+     "arm_R_shell_out"
+    ],
+    "idler": [
+     1.6,
+     "arm_R_shell_out"
+    ]
+   }
+  },
+  "arm_L_servo_XL430": {
+   "link": "L_arm",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "horn": [
+     0.1,
+     "shoulder_shaft_L"
+    ],
+    "case": [
+     0.7,
+     "arm_L_shell_in"
+    ],
+    "cable_cover": [
+     1.31,
+     "arm_L_shell_out"
+    ],
+    "idler": [
+     1.4,
+     "arm_L_shell_out"
+    ]
+   }
+  },
+  "R_hip_pitch_servo_XM430": {
+   "link": "R_hip_roll_link",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "case": [
+     0.45,
+     "R_hip_roll_plate_back"
+    ],
+    "horn": [
+     0.4,
+     "R_thigh_frame"
+    ],
+    "idler": [
+     0.23,
+     "R_thigh_frame"
+    ],
+    "cable_cover": [
+     0.9,
+     "R_hip_roll_plate_back"
+    ]
+   }
+  },
+  "L_hip_pitch_servo_XM430": {
+   "link": "L_hip_roll_link",
+   "interfering_points": 0,
+   "interfering_parts": {},
+   "min_gap_mm": {
+    "case": [
+     0.45,
+     "L_hip_roll_plate_back"
+    ],
+    "horn": [
+     0.5,
+     "L_thigh_frame"
+    ],
+    "idler": [
+     0.15,
+     "L_thigh_frame"
+    ],
+    "cable_cover": [
+     0.9,
+     "L_hip_roll_plate_back"
+    ]
+   }
+  }
+ },
+ "B_connectors": {
+  "R_ankle_roll_servo_XM430": {
+   "+x": {
+    "exit_open": 1.0,
+    "exit_blockers": {},
+    "plug_access_open": 0.88,
+    "access_blockers": {
+     "R_ankle_bracket": 390
+    }
+   },
+   "-x": {
+    "exit_open": 1.0,
+    "exit_blockers": {},
+    "plug_access_open": 0.88,
+    "access_blockers": {
+     "R_ankle_bracket": 390
+    }
+   }
+  },
+  "R_ankle_pitch_servo_XC430": {
+   "+x": {
+    "exit_open": 1.0,
+    "exit_blockers": {},
+    "plug_access_open": 0.84,
+    "access_blockers": {
+     "R_shank_frame": 420,
+     "R_foot_sole": 111
+    }
+   },
+   "-x": {
+    "exit_open": 1.0,
+    "exit_blockers": {},
+    "plug_access_open": 0.77,
+    "access_blockers": {
+     "R_shank_frame": 420,
+     "R_shank_shell": 348
+    }
+   }
+  },
+  "R_knee_servo_XM430": {
+   "+x": {
+    "exit_open": 1.0,
+    "exit_blockers": {},
+    "plug_access_open": 0.88,
+    "access_blockers": {
+     "R_thigh_frame": 420
+    }
+   },
+   "-x": {
+    "exit_open": 1.0,
+    "exit_blockers": {},
+    "plug_access_open": 0.77,
+    "access_blockers": {
+     "R_thigh_frame": 420,
+     "R_thigh_shell": 344
+    }
+   }
+  },
+  "R_hip_pitch_servo_XM430": {
+   "+x": {
+    "exit_open": 1.0,
+    "exit_blockers": {},
+    "plug_access_open": 0.81,
+    "access_blockers": {
+     "R_hip_roll_plate_front": 420,
+     "R_hip_yaw_bracket": 210
+    }
+   },
+   "-x": {
+    "exit_open": 1.0,
+    "exit_blockers": {},
+    "plug_access_open": 0.88,
+    "access_blockers": {
+     "R_hip_roll_plate_back": 420
+    }
+   }
+  },
+  "R_hip_roll_servo_XM430": {
+   "+x": {
+    "exit_open": 1.0,
+    "exit_blockers": {},
+    "plug_access_open": 0.85,
+    "access_blockers": {
+     "R_hip_cover": 308,
+     "R_hip_yaw_bracket": 210
+    }
+   },
+   "-x": {
+    "exit_open": 1.0,
+    "exit_blockers": {},
+    "plug_access_open": 0.85,
+    "access_blockers": {
+     "R_hip_cover": 308,
+     "R_hip_yaw_bracket": 210
+    }
+   }
+  },
+  "yaw_servo_R_XL430": {
+   "+x": {
+    "exit_open": 1.0,
+    "exit_blockers": {},
+    "plug_access_open": 0.98,
+    "access_blockers": {
+     "battery_LB012": 70
+    }
+   },
+   "-x": {
+    "exit_open": 0.48,
+    "exit_blockers": {
+     "torso_frame": 297
+    },
+    "plug_access_open": 0.74,
+    "access_blockers": {
+     "torso_frame": 878
+    }
+   }
+  }
+ },
+ "C_cable_routes": [
+  {
+   "frm": "R_ankle_roll_servo_XM430",
+   "to": "R_ankle_pitch_servo_XC430",
+   "exits": [
+    "+x",
+    "+x"
+   ],
+   "path_found": false,
+   "path_length_mm": null,
+   "joint_slack": {
+    "joint": "R_ankle_pitch",
+    "range_deg": [
+     -50,
+     22
+    ],
+    "end_distance_mm": [
+     54.3,
+     72.3
+    ],
+    "zero_mm": 57.1,
+    "extra_length_needed_mm": 15.1
+   },
+   "stuck_near_mm": [
+    -64.0,
+    -55.8,
+    49.1
+   ]
+  },
+  {
+   "frm": "R_ankle_pitch_servo_XC430",
+   "to": "R_knee_servo_XM430",
+   "exits": [
+    "+x",
+    "+x"
+   ],
+   "path_found": false,
+   "path_length_mm": null,
+   "joint_slack": {
+    "joint": "R_knee",
+    "range_deg": [
+     0,
+     100
+    ],
+    "end_distance_mm": [
+     42.4,
+     75.0
+    ],
+    "zero_mm": 75.0,
+    "extra_length_needed_mm": 0.0
+   },
+   "stuck_near_mm": [
+    -16.8,
+    -26.0,
+    50.1
+   ]
+  },
+  {
+   "frm": "R_knee_servo_XM430",
+   "to": "R_hip_pitch_servo_XM430",
+   "exits": [
+    "+x",
+    "+x"
+   ],
+   "path_found": false,
+   "path_length_mm": null,
+   "joint_slack": {
+    "joint": "R_hip_pitch",
+    "range_deg": [
+     -80,
+     5.0
+    ],
+    "end_distance_mm": [
+     41.3,
+     59.5
+    ],
+    "zero_mm": 57.6,
+    "extra_length_needed_mm": 1.9
+   },
+   "stuck_near_mm": [
+    -15.8,
+    -26.0,
+    125.1
+   ]
+  },
+  {
+   "frm": "R_hip_pitch_servo_XM430",
+   "to": "R_hip_roll_servo_XM430",
+   "exits": [
+    "+x",
+    "+x"
+   ],
+   "path_found": false,
+   "path_length_mm": null,
+   "joint_slack": {
+    "joint": "R_hip_roll",
+    "range_deg": [
+     -20.0,
+     20.0
+    ],
+    "end_distance_mm": [
+     70.4,
+     71.0
+    ],
+    "zero_mm": 70.5,
+    "extra_length_needed_mm": 0.6
+   },
+   "stuck_near_mm": [
+    15.3,
+    -25.0,
+    170.9
+   ]
+  },
+  {
+   "frm": "R_hip_roll_servo_XM430",
+   "to": "yaw_servo_R_XL430",
+   "exits": [
+    "+x",
+    "+x"
+   ],
+   "path_found": false,
+   "path_length_mm": null,
+   "joint_slack": {
+    "joint": "R_hip_yaw",
+    "range_deg": [
+     -20.0,
+     20.0
+    ],
+    "end_distance_mm": [
+     102.3,
+     106.6
+    ],
+    "zero_mm": 103.9,
+    "extra_length_needed_mm": 2.7
+   },
+   "stuck_near_mm": [
+    -52.7,
+    -23.2,
+    171.9
+   ]
+  },
+  {
+   "frm": "yaw_servo_R_XL430",
+   "to": "OpenCR",
+   "exits": [
+    "+x",
+    "TTL"
+   ],
+   "path_found": false,
+   "path_length_mm": null,
+   "joint_slack": null,
+   "stuck_near_mm": [
+    -15.1,
+    -22.2,
+    267.9
+   ]
+  }
+ ],
+ "D_insertion": {
+  "R_ankle_roll_servo_XM430": {
+   "+x": {
+    "world_dir": [
+     0,
+     -1,
+     0
+    ],
+    "free_mm": 0.0,
+    "first_hit": {
+     "R_ankle_bracket": 378
+    }
+   },
+   "-x": {
+    "world_dir": [
+     0,
+     1,
+     0
+    ],
+    "free_mm": 0.0,
+    "first_hit": {
+     "R_ankle_bracket": 377
+    }
+   },
+   "+y": {
+    "world_dir": [
+     0,
+     0,
+     -1
+    ],
+    "free_mm": 1.0,
+    "first_hit": {
+     "R_ankle_bracket": 19
+    }
+   },
+   "-y": {
+    "world_dir": [
+     0,
+     0,
+     1
+    ],
+    "free_mm": 0.0,
+    "first_hit": {
+     "R_ankle_bracket": 10
+    }
+   },
+   "+z": {
+    "world_dir": [
+     1,
+     0,
+     0
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "-z": {
+    "world_dir": [
+     -1,
+     0,
+     0
+    ],
+    "free_mm": 0.0,
+    "first_hit": {
+     "R_ankle_bracket": 619
+    }
+   }
+  },
+  "R_ankle_pitch_servo_XC430": {
+   "+x": {
+    "world_dir": [
+     -1,
+     0,
+     0
+    ],
+    "free_mm": 0.0,
+    "first_hit": {
+     "R_shank_frame": 2294
+    }
+   },
+   "-x": {
+    "world_dir": [
+     1,
+     0,
+     0
+    ],
+    "free_mm": 0.0,
+    "first_hit": {
+     "R_shank_frame": 2306
+    }
+   },
+   "+y": {
+    "world_dir": [
+     0,
+     0,
+     -1
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "-y": {
+    "world_dir": [
+     0,
+     0,
+     1
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "+z": {
+    "world_dir": [
+     0,
+     -1,
+     0
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "-z": {
+    "world_dir": [
+     0,
+     1,
+     0
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   }
+  },
+  "R_knee_servo_XM430": {
+   "+x": {
+    "world_dir": [
+     -1,
+     0,
+     0
+    ],
+    "free_mm": 0.0,
+    "first_hit": {
+     "R_thigh_frame": 2487
+    }
+   },
+   "-x": {
+    "world_dir": [
+     1,
+     0,
+     0
+    ],
+    "free_mm": 0.0,
+    "first_hit": {
+     "R_thigh_frame": 2501
+    }
+   },
+   "+y": {
+    "world_dir": [
+     0,
+     0,
+     -1
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "-y": {
+    "world_dir": [
+     0,
+     0,
+     1
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "+z": {
+    "world_dir": [
+     0,
+     -1,
+     0
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "-z": {
+    "world_dir": [
+     0,
+     1,
+     0
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   }
+  },
+  "R_hip_pitch_servo_XM430": {
+   "+x": {
+    "world_dir": [
+     1,
+     0,
+     0
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "-x": {
+    "world_dir": [
+     -1,
+     0,
+     0
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "+y": {
+    "world_dir": [
+     0,
+     0,
+     1
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "-y": {
+    "world_dir": [
+     0,
+     0,
+     -1
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "+z": {
+    "world_dir": [
+     0,
+     -1,
+     0
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "-z": {
+    "world_dir": [
+     0,
+     1,
+     0
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   }
+  },
+  "R_hip_roll_servo_XM430": {
+   "+x": {
+    "world_dir": [
+     0,
+     1,
+     0
+    ],
+    "free_mm": 0.0,
+    "first_hit": {
+     "R_hip_yaw_bracket": 2273
+    }
+   },
+   "-x": {
+    "world_dir": [
+     0,
+     -1,
+     0
+    ],
+    "free_mm": 0.0,
+    "first_hit": {
+     "R_hip_yaw_bracket": 2281
+    }
+   },
+   "+y": {
+    "world_dir": [
+     0,
+     0,
+     1
+    ],
+    "free_mm": 4.0,
+    "first_hit": {
+     "R_hip_yaw_bracket": 2377
+    }
+   },
+   "-y": {
+    "world_dir": [
+     0,
+     0,
+     -1
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   },
+   "+z": {
+    "world_dir": [
+     1,
+     0,
+     0
+    ],
+    "free_mm": 37.0,
+    "first_hit": {
+     "R_hip_yaw_bracket": 129
+    }
+   },
+   "-z": {
+    "world_dir": [
+     -1,
+     0,
+     0
+    ],
+    "free_mm": 60.0,
+    "first_hit": {}
+   }
+  },
+  "yaw_servo_R_XL430": {
+   "+x": {
+    "world_dir": [
+     0,
+     1,
+     0
+    ],
+    "free_mm": 8.0,
+    "first_hit": {
+     "torso_frame": 60,
+     "yaw_bearing_R_6805": 22
+    }
+   },
+   "-x": {
+    "world_dir": [
+     0,
+     -1,
+     0
+    ],
+    "free_mm": 0.0,
+    "first_hit": {
+     "torso_frame": 1868
+    }
+   },
+   "+y": {
+    "world_dir": [
+     1,
+     0,
+     0
+    ],
+    "free_mm": 8.0,
+    "first_hit": {
+     "torso_frame": 87,
+     "yaw_bearing_R_6805": 29
+    }
+   },
+   "-y": {
+    "world_dir": [
+     -1,
+     0,
+     0
+    ],
+    "free_mm": 8.0,
+    "first_hit": {
+     "torso_frame": 210,
+     "yaw_bearing_R_6805": 27
+    }
+   },
+   "+z": {
+    "world_dir": [
+     0,
+     0,
+     -1
+    ],
+    "free_mm": 1.0,
+    "first_hit": {
+     "torso_frame": 1133
+    }
+   },
+   "-z": {
+    "world_dir": [
+     0,
+     0,
+     1
+    ],
+    "free_mm": 24.0,
+    "first_hit": {
+     "torso_frame": 10
+    }
+   }
+  }
+ },
+ "E_driver": [
+  {
+   "kind": "case M2.5",
+   "servo": "R_hip_pitch_servo_XM430",
+   "n": 3,
+   "axis_world": [
+    -1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "R_hip_cover": 25
+   }
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_hip_pitch_servo_XM430",
+   "n": 4,
+   "axis_world": [
+    -1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "R_hip_cover": 25
+   }
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_hip_pitch_servo_XM430",
+   "n": 13,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": false,
+   "blocked_by": {
+    "R_hip_yaw_bracket": 44
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_hip_pitch_servo_XM430",
+   "n": 14,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": false,
+   "blocked_by": {
+    "R_hip_yaw_bracket": 44
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_knee_servo_XM430",
+   "n": 1,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "R_thigh_shell": 26
+   }
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_knee_servo_XM430",
+   "n": 2,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "R_thigh_shell": 26
+   }
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_knee_servo_XM430",
+   "n": 3,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_knee_servo_XM430",
+   "n": 4,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_knee_servo_XM430",
+   "n": 11,
+   "axis_world": [
+    -1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_knee_servo_XM430",
+   "n": 12,
+   "axis_world": [
+    -1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_knee_servo_XM430",
+   "n": 13,
+   "axis_world": [
+    -1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_knee_servo_XM430",
+   "n": 14,
+   "axis_world": [
+    -1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_ankle_pitch_servo_XC430",
+   "n": 1,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "R_shank_shell": 30
+   }
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_ankle_pitch_servo_XC430",
+   "n": 2,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "R_shank_shell": 30
+   }
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_ankle_pitch_servo_XC430",
+   "n": 3,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_ankle_pitch_servo_XC430",
+   "n": 4,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_ankle_pitch_servo_XC430",
+   "n": 11,
+   "axis_world": [
+    -1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_ankle_pitch_servo_XC430",
+   "n": 12,
+   "axis_world": [
+    -1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_ankle_pitch_servo_XC430",
+   "n": 13,
+   "axis_world": [
+    -1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": false,
+   "blocked_by": {
+    "R_foot_sole": 44
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_ankle_pitch_servo_XC430",
+   "n": 14,
+   "axis_world": [
+    -1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": false,
+   "blocked_by": {
+    "R_foot_sole": 44
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_ankle_roll_servo_XM430",
+   "n": 3,
+   "axis_world": [
+    0,
+    1,
+    0
+   ],
+   "material_mm": 12.65,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "L_ankle_bracket": 192
+   }
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_ankle_roll_servo_XM430",
+   "n": 4,
+   "axis_world": [
+    0,
+    1,
+    0
+   ],
+   "material_mm": 12.65,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "L_ankle_bracket": 192
+   }
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_ankle_roll_servo_XM430",
+   "n": 13,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 12.65,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_ankle_roll_servo_XM430",
+   "n": 14,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 12.65,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_hip_roll_servo_XM430",
+   "n": 1,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 6.25,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_hip_roll_servo_XM430",
+   "n": 2,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 6.25,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_hip_roll_servo_XM430",
+   "n": 3,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 6.25,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_hip_roll_servo_XM430",
+   "n": 4,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 6.25,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_hip_roll_servo_XM430",
+   "n": 11,
+   "axis_world": [
+    0,
+    1,
+    0
+   ],
+   "material_mm": 6.25,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "L_hip_yaw_bracket": 48,
+    "L_hip_cover": 25
+   }
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_hip_roll_servo_XM430",
+   "n": 12,
+   "axis_world": [
+    0,
+    1,
+    0
+   ],
+   "material_mm": 6.25,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "L_hip_yaw_bracket": 48,
+    "L_hip_cover": 25
+   }
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_hip_roll_servo_XM430",
+   "n": 13,
+   "axis_world": [
+    0,
+    1,
+    0
+   ],
+   "material_mm": 6.25,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "L_hip_yaw_bracket": 48,
+    "L_hip_cover": 25
+   }
+  },
+  {
+   "kind": "case M2.5",
+   "servo": "R_hip_roll_servo_XM430",
+   "n": 14,
+   "axis_world": [
+    0,
+    1,
+    0
+   ],
+   "material_mm": 6.25,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "L_hip_yaw_bracket": 48,
+    "L_hip_cover": 25
+   }
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_ankle_roll_servo_XM430",
+   "n": 1,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 2.65,
+   "clear": false,
+   "blocked_by": {
+    "R_shank_frame": 58
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_ankle_roll_servo_XM430",
+   "n": 2,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 2.65,
+   "clear": false,
+   "blocked_by": {
+    "R_shank_frame": 58
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_ankle_roll_servo_XM430",
+   "n": 3,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 2.65,
+   "clear": false,
+   "blocked_by": {
+    "R_shank_frame": 126
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_ankle_roll_servo_XM430",
+   "n": 4,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 2.65,
+   "clear": false,
+   "blocked_by": {
+    "R_shank_frame": 126
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_ankle_pitch_servo_XC430",
+   "n": 1,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 6.05,
+   "clear": false,
+   "blocked_by": {
+    "R_foot_sole": 6
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_ankle_pitch_servo_XC430",
+   "n": 2,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 6.05,
+   "clear": false,
+   "blocked_by": {
+    "R_foot_sole": 6
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_ankle_pitch_servo_XC430",
+   "n": 3,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 6.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_ankle_pitch_servo_XC430",
+   "n": 4,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 6.05,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_knee_servo_XM430",
+   "n": 1,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 3.65,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "R_shank_shell": 10
+   }
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_knee_servo_XM430",
+   "n": 2,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 3.65,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "R_shank_shell": 10
+   }
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_knee_servo_XM430",
+   "n": 3,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 3.65,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "R_thigh_shell": 3
+   }
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_knee_servo_XM430",
+   "n": 4,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 3.65,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "R_thigh_shell": 3
+   }
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_hip_pitch_servo_XM430",
+   "n": 1,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 3.65,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "arm_R_hand": 43
+   }
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_hip_pitch_servo_XM430",
+   "n": 2,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 3.65,
+   "clear": true,
+   "blocked_by": {},
+   "later_parts": {
+    "arm_R_hand": 43
+   }
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_hip_pitch_servo_XM430",
+   "n": 3,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 3.65,
+   "clear": false,
+   "blocked_by": {
+    "arm_R_flap": 722
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_hip_pitch_servo_XM430",
+   "n": 4,
+   "axis_world": [
+    0,
+    -1,
+    0
+   ],
+   "material_mm": 3.65,
+   "clear": false,
+   "blocked_by": {
+    "arm_R_flap": 348
+   },
+   "later_parts": {
+    "arm_R_hand": 129,
+    "arm_R_flap_pin": 31
+   }
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_hip_roll_servo_XM430",
+   "n": 1,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": false,
+   "blocked_by": {
+    "R_hip_yaw_bracket": 30,
+    "R_hip_roll_plate_front": 50
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_hip_roll_servo_XM430",
+   "n": 2,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": false,
+   "blocked_by": {
+    "R_hip_yaw_bracket": 30,
+    "R_hip_roll_plate_front": 50
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_hip_roll_servo_XM430",
+   "n": 3,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": false,
+   "blocked_by": {
+    "R_hip_yaw_bracket": 50,
+    "R_hip_roll_plate_front": 50
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "R_hip_roll_servo_XM430",
+   "n": 4,
+   "axis_world": [
+    1,
+    0,
+    0
+   ],
+   "material_mm": 4.05,
+   "clear": false,
+   "blocked_by": {
+    "R_hip_yaw_bracket": 50,
+    "R_hip_roll_plate_front": 50
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "yaw_servo_R_XL430",
+   "n": 1,
+   "axis_world": [
+    0,
+    0,
+    -1
+   ],
+   "material_mm": 4.05,
+   "clear": false,
+   "blocked_by": {
+    "R_hip_yaw_bracket": 288
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "yaw_servo_R_XL430",
+   "n": 2,
+   "axis_world": [
+    0,
+    0,
+    -1
+   ],
+   "material_mm": 4.05,
+   "clear": false,
+   "blocked_by": {
+    "R_hip_yaw_bracket": 288
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "yaw_servo_R_XL430",
+   "n": 3,
+   "axis_world": [
+    0,
+    0,
+    -1
+   ],
+   "material_mm": 4.05,
+   "clear": false,
+   "blocked_by": {
+    "R_hip_yaw_bracket": 288
+   },
+   "later_parts": {}
+  },
+  {
+   "kind": "horn M2",
+   "servo": "yaw_servo_R_XL430",
+   "n": 4,
+   "axis_world": [
+    0,
+    0,
+    -1
+   ],
+   "material_mm": 4.05,
+   "clear": false,
+   "blocked_by": {
+    "R_hip_yaw_bracket": 288
+   },
+   "later_parts": {}
+  }
+ ]
+}

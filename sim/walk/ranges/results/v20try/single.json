@@ -1,0 +1,30 @@
+[
+ {
+  "joint": "R_ankle_pitch",
+  "dir": -1,
+  "limit": -79.25,
+  "first_hit": -79.375,
+  "pair": "R_shank:R_shank_shell ↔ R_foot:R_foot_sole",
+  "n_pts": 1,
+  "contact_mm": [
+   22.8,
+   -62.2,
+   85.2
+  ],
+  "radius_mm": 55.15999456127602
+ },
+ {
+  "joint": "R_ankle_pitch",
+  "dir": 1,
+  "limit": 30.25,
+  "first_hit": 30.375,
+  "pair": "R_foot:R_foot_sole ↔ R_shank:R_shank_frame",
+  "n_pts": 17,
+  "contact_mm": [
+   -18.4,
+   -39.8,
+   58.3
+  ],
+  "radius_mm": 29.666226588496215
+ }
+]

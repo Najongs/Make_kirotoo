@@ -1,0 +1,5 @@
+interferences between links: 0
+intra-link fastener issues: 0
+('ears', 'ear_rocker', 'ear_rocker_pin') 1
+('nod_crank', 'nod_crank', 'nod_ear_pin') 1
+('torso', 'neck_yoke', 'neck_bearings_688') 2

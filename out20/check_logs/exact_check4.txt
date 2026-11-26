@@ -1,0 +1,2 @@
+interferences between links: 0
+intra-link fastener issues: 0

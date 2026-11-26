@@ -1,0 +1,37 @@
+{
+ "mass": 3174.121221394,
+ "assign": {
+  "hip_yaw": "XL430-W250",
+  "hip_pitch": "XM430-W350",
+  "knee": "XM430-W350",
+  "ankle_pitch": "XC430-W240",
+  "ankle_roll": "XM430-W350"
+ },
+ "u": {
+  "hip_yaw": 0.056796026165852,
+  "hip_pitch": 0.6680844488305228,
+  "knee": 0.7619091965481132,
+  "ankle_pitch": 0.9478442821203694,
+  "ankle_roll": 0.4848313099163528
+ },
+ "u_jog": {
+  "hip_yaw": 0.10689614445513887,
+  "hip_pitch": 1.0593605795739183,
+  "knee": 1.1210372777535982,
+  "ankle_pitch": 0.9781333518224913,
+  "ankle_roll": 0.5061048692432355
+ },
+ "heat": {
+  "hip_yaw": 0.011532447940459867,
+  "hip_pitch": 0.03936559756232554,
+  "knee": 0.18623819240382097,
+  "ankle_pitch": 0.13527447015146934,
+  "ankle_roll": 0.10986824431184358
+ },
+ "psi_deg": {
+  "walk": 5.5,
+  "fast": 3.5,
+  "jog": 3.0000000000000004
+ },
+ "note": "servo_study model, hip roll folded into the hip yaw link; XL430 no-load 52 rpm in servo_study SPEC"
+}

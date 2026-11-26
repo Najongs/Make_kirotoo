@@ -1,0 +1,506 @@
+[
+ {
+  "link": "torso",
+  "a": "torso_frame",
+  "b": "electronics_shelf",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   -61.1,
+   48.1,
+   271.9
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "torso_frame",
+  "b": "shelf_pins",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   -54.6,
+   49.6,
+   268.1
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "torso_frame",
+  "b": "lid",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   -65.0,
+   -39.4,
+   333.4
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "torso_frame",
+  "b": "torso_cover_front",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   8.1,
+   71.7,
+   280.1
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "torso_frame",
+  "b": "torso_cover_back",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   -25.9,
+   71.7,
+   280.1
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "torso_frame",
+  "b": "shorts",
+  "gap_est_mm": 0.07,
+  "overlap_pts": 0,
+  "where": [
+   -3.6,
+   61.6,
+   234.8
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "torso_frame",
+  "b": "pelvis_hatch",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   29.1,
+   -15.6,
+   225.1
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "electronics_shelf",
+  "b": "shelf_pins",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   26.4,
+   48.4,
+   273.1
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "lid",
+  "b": "torso_cover_front",
+  "gap_est_mm": 0.3,
+  "overlap_pts": 0,
+  "where": [
+   -10.1,
+   63.9,
+   336.4
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "lid",
+  "b": "torso_cover_back",
+  "gap_est_mm": 0.3,
+  "overlap_pts": 0,
+  "where": [
+   -82.9,
+   -13.1,
+   336.4
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "lid",
+  "b": "neck_yoke",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   -9.6,
+   -6.3,
+   336.4
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "torso_cover_front",
+  "b": "torso_cover_back",
+  "gap_est_mm": 0.45,
+  "overlap_pts": 0,
+  "where": [
+   -11.1,
+   73.9,
+   237.4
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "torso_cover_front",
+  "b": "shorts",
+  "gap_est_mm": 0.2,
+  "overlap_pts": 0,
+  "where": [
+   20.1,
+   73.9,
+   237.4
+  ]
+ },
+ {
+  "link": "torso",
+  "a": "torso_cover_back",
+  "b": "shorts",
+  "gap_est_mm": 0.2,
+  "overlap_pts": 0,
+  "where": [
+   -92.9,
+   25.1,
+   237.4
+  ]
+ },
+ {
+  "link": "R_hip_yaw_link",
+  "a": "R_hip_yaw_bracket",
+  "b": "R_hip_cover",
+  "gap_est_mm": 0.2,
+  "overlap_pts": 0,
+  "where": [
+   -49.4,
+   -58.4,
+   150.1
+  ]
+ },
+ {
+  "link": "R_thigh",
+  "a": "R_thigh_frame",
+  "b": "R_thigh_shell",
+  "gap_est_mm": 0.02,
+  "overlap_pts": 0,
+  "where": [
+   18.6,
+   -44.9,
+   121.9
+  ]
+ },
+ {
+  "link": "R_shank",
+  "a": "R_shank_frame",
+  "b": "R_shank_shell",
+  "gap_est_mm": 0.02,
+  "overlap_pts": 0,
+  "where": [
+   18.6,
+   -44.9,
+   47.9
+  ]
+ },
+ {
+  "link": "L_hip_yaw_link",
+  "a": "L_hip_yaw_bracket",
+  "b": "L_hip_cover",
+  "gap_est_mm": 0.2,
+  "overlap_pts": 0,
+  "where": [
+   -49.4,
+   21.6,
+   150.1
+  ]
+ },
+ {
+  "link": "L_thigh",
+  "a": "L_thigh_frame",
+  "b": "L_thigh_shell",
+  "gap_est_mm": 0.02,
+  "overlap_pts": 0,
+  "where": [
+   18.6,
+   35.1,
+   121.9
+  ]
+ },
+ {
+  "link": "L_shank",
+  "a": "L_shank_frame",
+  "b": "L_shank_shell",
+  "gap_est_mm": 0.02,
+  "overlap_pts": 0,
+  "where": [
+   18.6,
+   35.1,
+   47.9
+  ]
+ },
+ {
+  "link": "head",
+  "a": "head_back",
+  "b": "head_front",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   12.9,
+   30.4,
+   534.1
+  ]
+ },
+ {
+  "link": "head",
+  "a": "head_back",
+  "b": "crest",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   -29.8,
+   25.9,
+   534.9
+  ]
+ },
+ {
+  "link": "head",
+  "a": "head_front",
+  "b": "face_plate",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   67.9,
+   22.1,
+   393.1
+  ]
+ },
+ {
+  "link": "head",
+  "a": "head_front",
+  "b": "crest",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   31.1,
+   25.9,
+   534.9
+  ]
+ },
+ {
+  "link": "head",
+  "a": "face_plate",
+  "b": "eye_L",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   68.1,
+   34.2,
+   472.4
+  ]
+ },
+ {
+  "link": "head",
+  "a": "face_plate",
+  "b": "eye_R",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   68.1,
+   -40.8,
+   472.4
+  ]
+ },
+ {
+  "link": "head",
+  "a": "face_plate",
+  "b": "mouth",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   68.1,
+   -14.8,
+   434.1
+  ]
+ },
+ {
+  "link": "head",
+  "a": "face_plate",
+  "b": "camera_clip",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   63.0,
+   48.4,
+   461.4
+  ]
+ },
+ {
+  "link": "R_arm",
+  "a": "arm_R_shell_in",
+  "b": "arm_R_shell_out",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   18.6,
+   -97.9,
+   262.1
+  ]
+ },
+ {
+  "link": "R_arm",
+  "a": "arm_R_shell_in",
+  "b": "arm_R_hand",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   17.1,
+   -78.9,
+   262.1
+  ]
+ },
+ {
+  "link": "R_arm",
+  "a": "arm_R_shell_in",
+  "b": "arm_R_finger_rod",
+  "gap_est_mm": 0.2,
+  "overlap_pts": 0,
+  "where": [
+   -2.3,
+   -84.2,
+   272.1
+  ]
+ },
+ {
+  "link": "R_arm",
+  "a": "arm_R_shell_out",
+  "b": "arm_R_hand",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   19.9,
+   -102.4,
+   262.1
+  ]
+ },
+ {
+  "link": "R_arm",
+  "a": "arm_R_hand",
+  "b": "arm_R_finger_rod",
+  "gap_est_mm": 0.2,
+  "overlap_pts": 0,
+  "where": [
+   -2.3,
+   -84.2,
+   194.4
+  ]
+ },
+ {
+  "link": "L_arm",
+  "a": "arm_L_shell_in",
+  "b": "arm_L_shell_out",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   18.6,
+   97.9,
+   262.1
+  ]
+ },
+ {
+  "link": "L_arm",
+  "a": "arm_L_shell_in",
+  "b": "arm_L_hand",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   -16.9,
+   77.4,
+   262.1
+  ]
+ },
+ {
+  "link": "L_arm",
+  "a": "arm_L_shell_in",
+  "b": "arm_L_finger_rod",
+  "gap_est_mm": 0.2,
+  "overlap_pts": 0,
+  "where": [
+   -2.3,
+   79.5,
+   272.1
+  ]
+ },
+ {
+  "link": "L_arm",
+  "a": "arm_L_shell_out",
+  "b": "arm_L_hand",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   4.1,
+   124.1,
+   262.1
+  ]
+ },
+ {
+  "link": "L_arm",
+  "a": "arm_L_hand",
+  "b": "arm_L_finger_rod",
+  "gap_est_mm": 0.21,
+  "overlap_pts": 0,
+  "where": [
+   -2.3,
+   81.5,
+   191.9
+  ]
+ },
+ {
+  "link": "ears",
+  "a": "ear_L",
+  "b": "ear_disc_L",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   -3.6,
+   121.4,
+   452.2
+  ]
+ },
+ {
+  "link": "ears",
+  "a": "ear_L",
+  "b": "antenna_L",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   -2.1,
+   115.9,
+   457.2
+  ]
+ },
+ {
+  "link": "ears",
+  "a": "ear_R",
+  "b": "ear_disc_R",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   -3.6,
+   -122.4,
+   452.2
+  ]
+ },
+ {
+  "link": "ears",
+  "a": "ear_R",
+  "b": "antenna_R",
+  "gap_est_mm": 0.0,
+  "overlap_pts": 0,
+  "where": [
+   -2.1,
+   -109.1,
+   457.2
+  ]
+ }
+]

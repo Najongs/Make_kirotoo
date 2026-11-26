@@ -1,0 +1,1 @@
+{"hip_yaw": 0.057, "hip_pitch": 0.668, "knee": 0.762, "ankle_pitch": 0.948, "ankle_roll": 0.485} jog {'hip_yaw': 0.107, 'hip_pitch': 1.059, 'knee': 1.121, 'ankle_pitch': 0.978, 'ankle_roll': 0.506} mass 3174.1

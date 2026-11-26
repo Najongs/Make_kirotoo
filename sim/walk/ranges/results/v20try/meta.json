@@ -1,0 +1,9 @@
+{
+ "baseline_overlaps": [],
+ "joints": [
+  "R_ankle_pitch"
+ ],
+ "build": "build20",
+ "mjcf": "../model/kitoru_v20.xml",
+ "step_mm": 1.5
+}
