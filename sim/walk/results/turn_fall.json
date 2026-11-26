@@ -1,0 +1,165 @@
+[
+ {
+  "deg": 20,
+  "fall_t": null,
+  "leg_leg_contacts": 0,
+  "first_leg_leg_contact": [],
+  "leg_leg_contact_times": [],
+  "sat_last_1s": {},
+  "hip_yaw_force_over_0.6_times": [],
+  "hip_yaw_spike_with_contact": false
+ },
+ {
+  "deg": 25,
+  "fall_t": 11.599,
+  "leg_leg_contacts": 5110,
+  "first_leg_leg_contact": [
+   [
+    2.669,
+    "col_R_ankle_bracket",
+    "col_L_ankle_bracket"
+   ],
+   [
+    2.669,
+    "col_R_ankle_bracket",
+    "col_L_ankle_bracket"
+   ],
+   [
+    2.67,
+    "col_R_ankle_bracket",
+    "col_L_ankle_bracket"
+   ]
+  ],
+  "leg_leg_contact_times": [
+   2.669,
+   2.67,
+   2.671,
+   2.672,
+   2.673,
+   2.674,
+   2.675,
+   2.676,
+   2.677,
+   2.678,
+   2.679,
+   2.68,
+   2.681,
+   2.682,
+   2.683,
+   2.684,
+   2.685,
+   2.686,
+   2.687,
+   2.688
+  ],
+  "sat_last_1s": {
+   "R_hip_pitch": 0.075,
+   "R_knee": 0.15,
+   "R_ankle_pitch": 0.06,
+   "R_ankle_roll": 0.08,
+   "L_hip_pitch": 0.055,
+   "L_knee": 0.125,
+   "L_ankle_pitch": 0.08,
+   "L_ankle_roll": 0.085
+  },
+  "hip_yaw_force_over_0.6_times": [
+   6.785,
+   6.79,
+   6.795,
+   6.8,
+   6.805,
+   6.81,
+   6.815,
+   6.82,
+   6.825,
+   6.83,
+   6.835,
+   6.84,
+   6.845,
+   6.85,
+   6.855,
+   6.86,
+   6.865,
+   6.87,
+   6.875,
+   6.88
+  ],
+  "hip_yaw_spike_with_contact": false
+ },
+ {
+  "deg": 30,
+  "fall_t": 9.409,
+  "leg_leg_contacts": 6430,
+  "first_leg_leg_contact": [
+   [
+    2.606,
+    "col_R_ankle_bracket",
+    "col_L_ankle_bracket"
+   ],
+   [
+    2.606,
+    "col_R_ankle_bracket",
+    "col_L_ankle_bracket"
+   ],
+   [
+    2.607,
+    "col_R_ankle_bracket",
+    "col_L_ankle_bracket"
+   ]
+  ],
+  "leg_leg_contact_times": [
+   2.606,
+   2.607,
+   2.608,
+   2.609,
+   2.61,
+   2.611,
+   2.612,
+   2.613,
+   2.614,
+   2.615,
+   2.616,
+   2.617,
+   2.618,
+   2.619,
+   2.62,
+   2.621,
+   2.622,
+   2.623,
+   2.624,
+   2.625
+  ],
+  "sat_last_1s": {
+   "R_knee": 0.015,
+   "R_ankle_pitch": 0.015,
+   "R_ankle_roll": 0.015,
+   "L_hip_pitch": 0.015,
+   "L_knee": 0.04,
+   "L_ankle_pitch": 0.11,
+   "L_ankle_roll": 0.015
+  },
+  "hip_yaw_force_over_0.6_times": [
+   5.36,
+   5.365,
+   5.37,
+   5.375,
+   5.38,
+   5.385,
+   5.39,
+   5.395,
+   5.4,
+   5.405,
+   5.41,
+   5.415,
+   5.42,
+   5.425,
+   5.43,
+   5.435,
+   5.44,
+   5.445,
+   5.45,
+   5.455
+  ],
+  "hip_yaw_spike_with_contact": false
+ }
+]
