@@ -1,0 +1,26 @@
+{
+ "cam_lens_beta-10": {
+  "head_deg": -10.0,
+  "uniform_fraction": 0.541
+ },
+ "cam_front_beta-10": {
+  "head_deg": -10.0,
+  "uniform_fraction": 0.541
+ },
+ "cam_lens_beta0": {
+  "head_deg": 0.0,
+  "uniform_fraction": 0.022
+ },
+ "cam_front_beta0": {
+  "head_deg": 0.0,
+  "uniform_fraction": 0.028
+ },
+ "cam_lens_beta20": {
+  "head_deg": 20.01,
+  "uniform_fraction": 0.191
+ },
+ "cam_front_beta20": {
+  "head_deg": 20.01,
+  "uniform_fraction": 0.192
+ }
+}
