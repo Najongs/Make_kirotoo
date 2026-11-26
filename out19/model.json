@@ -1,0 +1,620 @@
+{
+ "links": {
+  "torso": {
+   "origin": [
+    0,
+    0,
+    0
+   ],
+   "parts": [
+    "yaw_servo_R_XC430",
+    "yaw_servo_L_XC430",
+    "yaw_bearing_R_6805",
+    "yaw_bearing_L_6805",
+    "imu_bno085",
+    "torso_frame",
+    "electronics_shelf",
+    "shelf_pins",
+    "battery_LB012",
+    "opencr_1_0",
+    "lid",
+    "torso_cover_front",
+    "torso_cover_back",
+    "shorts",
+    "neck_yoke",
+    "neck_bearings_688",
+    "neck_shaft_8mm",
+    "nod_anchor_pin",
+    "pelvis_hatch",
+    "hatch_magnets_6x3",
+    "jetson_nano_2gb_devkit",
+    "jetson_fan_40mm_5V",
+    "buck_5V_3A_jetson",
+    "switch_main_rocker",
+    "switch_jetson_rocker",
+    "dc_jack_5521",
+    "shoulder_shaft_R",
+    "arm_R_horn_adapter",
+    "arm_R_horn_XC430",
+    "shoulder_shaft_L",
+    "arm_L_horn_adapter",
+    "arm_L_horn_XC430",
+    "arm_R_idler_XC430",
+    "arm_L_idler_XC430",
+    "opencr_ttl_plugs_cables",
+    "battery_jetson_2S_1500"
+   ]
+  },
+  "R_hip_yaw_link": {
+   "origin": [
+    0,
+    -40,
+    213
+   ],
+   "parts": [
+    "R_hip_yaw_bracket",
+    "R_hip_pitch_servo_XM430",
+    "R_hip_yaw_horn",
+    "R_hip_yaw_idler"
+   ]
+  },
+  "R_thigh": {
+   "origin": [
+    0,
+    -40,
+    185
+   ],
+   "parts": [
+    "R_knee_servo_XM430",
+    "R_thigh_frame",
+    "R_thigh_shell",
+    "R_hip_pitch_horn",
+    "R_hip_pitch_idler"
+   ]
+  },
+  "R_shank": {
+   "origin": [
+    0,
+    -40,
+    110
+   ],
+   "parts": [
+    "R_shank_frame",
+    "R_shank_shell",
+    "R_ankle_pitch_servo_XC430",
+    "R_knee_horn",
+    "R_knee_idler"
+   ]
+  },
+  "R_ankle_link": {
+   "origin": [
+    0,
+    -40,
+    35
+   ],
+   "parts": [
+    "R_ankle_roll_servo_XM430",
+    "R_ankle_bracket",
+    "R_ankle_pitch_horn",
+    "R_ankle_pitch_idler"
+   ]
+  },
+  "R_foot": {
+   "origin": [
+    0,
+    -40,
+    35
+   ],
+   "parts": [
+    "R_foot_sole",
+    "R_ankle_roll_horn",
+    "R_ankle_roll_idler"
+   ]
+  },
+  "L_hip_yaw_link": {
+   "origin": [
+    0,
+    40,
+    213
+   ],
+   "parts": [
+    "L_hip_yaw_bracket",
+    "L_hip_pitch_servo_XM430",
+    "L_hip_yaw_horn",
+    "L_hip_yaw_idler"
+   ]
+  },
+  "L_thigh": {
+   "origin": [
+    0,
+    40,
+    185
+   ],
+   "parts": [
+    "L_knee_servo_XM430",
+    "L_thigh_frame",
+    "L_thigh_shell",
+    "L_hip_pitch_horn",
+    "L_hip_pitch_idler"
+   ]
+  },
+  "L_shank": {
+   "origin": [
+    0,
+    40,
+    110
+   ],
+   "parts": [
+    "L_shank_frame",
+    "L_shank_shell",
+    "L_ankle_pitch_servo_XC430",
+    "L_knee_horn",
+    "L_knee_idler"
+   ]
+  },
+  "L_ankle_link": {
+   "origin": [
+    0,
+    40,
+    35
+   ],
+   "parts": [
+    "L_ankle_roll_servo_XM430",
+    "L_ankle_bracket",
+    "L_ankle_pitch_horn",
+    "L_ankle_pitch_idler"
+   ]
+  },
+  "L_foot": {
+   "origin": [
+    0,
+    40,
+    35
+   ],
+   "parts": [
+    "L_foot_sole",
+    "L_ankle_roll_horn",
+    "L_ankle_roll_idler"
+   ]
+  },
+  "head": {
+   "origin": [
+    0,
+    0,
+    348.5
+   ],
+   "parts": [
+    "head_back",
+    "head_front",
+    "face_plate",
+    "eye_L",
+    "eye_R",
+    "mouth",
+    "camera_pi_v2",
+    "camera_clip",
+    "crest",
+    "head_nod_servo_XL430",
+    "ear_bearings_684",
+    "head_nod_servo_idler",
+    "speaker_40mm_3W",
+    "amp_MAX98357A",
+    "mic_INMP441"
+   ]
+  },
+  "nod_crank": {
+   "origin": [
+    -28.75,
+    0,
+    383.45
+   ],
+   "parts": [
+    "nod_crank",
+    "nod_crank_pin",
+    "nod_ear_pin",
+    "nod_servo_horn"
+   ]
+  },
+  "nod_rod": {
+   "origin": [
+    -14.75,
+    21.3,
+    345.0
+   ],
+   "parts": [
+    "nod_rod"
+   ]
+  },
+  "R_arm": {
+   "origin": [
+    0,
+    -50.0,
+    306.0
+   ],
+   "parts": [
+    "arm_R_servo_XC430",
+    "arm_R_shell_in",
+    "arm_R_shell_out",
+    "arm_R_hand",
+    "arm_R_flap_pin",
+    "arm_R_finger_rod"
+   ]
+  },
+  "L_arm": {
+   "origin": [
+    0,
+    50.0,
+    306.0
+   ],
+   "parts": [
+    "arm_L_servo_XC430",
+    "arm_L_shell_in",
+    "arm_L_shell_out",
+    "arm_L_hand",
+    "arm_L_flap_pin",
+    "arm_L_finger_rod"
+   ]
+  },
+  "ears": {
+   "origin": [
+    0.0,
+    0.0,
+    445.0
+   ],
+   "parts": [
+    "ear_L",
+    "ear_disc_L",
+    "antenna_L",
+    "ear_R",
+    "ear_disc_R",
+    "antenna_R",
+    "ear_axle_4mm",
+    "ear_rocker",
+    "ear_rocker_pin"
+   ]
+  },
+  "ear_rod": {
+   "origin": [
+    -43.2509245925864,
+    21.4,
+    390.21189218785116
+   ],
+   "parts": [
+    "ear_rod"
+   ]
+  },
+  "R_hand_flap": {
+   "origin": [
+    -3.0,
+    -100.0,
+    181.0
+   ],
+   "parts": [
+    "arm_R_flap"
+   ]
+  },
+  "L_hand_flap": {
+   "origin": [
+    -3.0,
+    100.0,
+    181.0
+   ],
+   "parts": [
+    "arm_L_flap"
+   ]
+  }
+ },
+ "joints": [
+  {
+   "name": "R_hip_yaw",
+   "parent": "torso",
+   "child": "R_hip_yaw_link",
+   "axis": "z",
+   "point_mm": [
+    0,
+    -40,
+    213
+   ],
+   "lower_deg": -20.0,
+   "upper_deg": 20.0,
+   "actuator": "XC430-W240"
+  },
+  {
+   "name": "R_hip_pitch",
+   "parent": "R_hip_yaw_link",
+   "child": "R_thigh",
+   "axis": "y",
+   "point_mm": [
+    0,
+    -40,
+    185
+   ],
+   "lower_deg": -80,
+   "upper_deg": 30,
+   "actuator": "XM430-W350"
+  },
+  {
+   "name": "R_knee",
+   "parent": "R_thigh",
+   "child": "R_shank",
+   "axis": "y",
+   "point_mm": [
+    0,
+    -40,
+    110
+   ],
+   "lower_deg": 0,
+   "upper_deg": 100,
+   "actuator": "XM430-W350"
+  },
+  {
+   "name": "R_ankle_pitch",
+   "parent": "R_shank",
+   "child": "R_ankle_link",
+   "axis": "y",
+   "point_mm": [
+    0,
+    -40,
+    35
+   ],
+   "lower_deg": -50,
+   "upper_deg": 22,
+   "actuator": "XC430-W240"
+  },
+  {
+   "name": "R_ankle_roll",
+   "parent": "R_ankle_link",
+   "child": "R_foot",
+   "axis": "x",
+   "point_mm": [
+    0,
+    -40,
+    35
+   ],
+   "lower_deg": -20,
+   "upper_deg": 20,
+   "actuator": "XM430-W350"
+  },
+  {
+   "name": "L_hip_yaw",
+   "parent": "torso",
+   "child": "L_hip_yaw_link",
+   "axis": "z",
+   "point_mm": [
+    0,
+    40,
+    213
+   ],
+   "lower_deg": -20.0,
+   "upper_deg": 20.0,
+   "actuator": "XC430-W240"
+  },
+  {
+   "name": "L_hip_pitch",
+   "parent": "L_hip_yaw_link",
+   "child": "L_thigh",
+   "axis": "y",
+   "point_mm": [
+    0,
+    40,
+    185
+   ],
+   "lower_deg": -80,
+   "upper_deg": 30,
+   "actuator": "XM430-W350"
+  },
+  {
+   "name": "L_knee",
+   "parent": "L_thigh",
+   "child": "L_shank",
+   "axis": "y",
+   "point_mm": [
+    0,
+    40,
+    110
+   ],
+   "lower_deg": 0,
+   "upper_deg": 100,
+   "actuator": "XM430-W350"
+  },
+  {
+   "name": "L_ankle_pitch",
+   "parent": "L_shank",
+   "child": "L_ankle_link",
+   "axis": "y",
+   "point_mm": [
+    0,
+    40,
+    35
+   ],
+   "lower_deg": -50,
+   "upper_deg": 22,
+   "actuator": "XC430-W240"
+  },
+  {
+   "name": "L_ankle_roll",
+   "parent": "L_ankle_link",
+   "child": "L_foot",
+   "axis": "x",
+   "point_mm": [
+    0,
+    40,
+    35
+   ],
+   "lower_deg": -20,
+   "upper_deg": 20,
+   "actuator": "XM430-W350"
+  },
+  {
+   "name": "head_nod",
+   "parent": "torso",
+   "child": "head",
+   "axis": "y",
+   "point_mm": [
+    0,
+    0,
+    348.5
+   ],
+   "lower_deg": -10,
+   "upper_deg": 20,
+   "actuator": "passive (driven by nod_crank)"
+  },
+  {
+   "name": "nod_crank",
+   "parent": "head",
+   "child": "nod_crank",
+   "axis": "y",
+   "point_mm": [
+    -28.75,
+    0,
+    383.45
+   ],
+   "lower_deg": -70,
+   "upper_deg": 40,
+   "actuator": "XL430-W250 (inside the head)"
+  },
+  {
+   "name": "nod_rod",
+   "parent": "torso",
+   "child": "nod_rod",
+   "axis": "y",
+   "point_mm": [
+    -14.75,
+    0,
+    345.0
+   ],
+   "lower_deg": -30,
+   "upper_deg": 30,
+   "actuator": "passive (closed loop with head_nod)"
+  },
+  {
+   "name": "R_arm_swing",
+   "parent": "torso",
+   "child": "R_arm",
+   "axis": "y",
+   "point_mm": [
+    0,
+    -50.0,
+    306.0
+   ],
+   "lower_deg": -120,
+   "upper_deg": 120,
+   "actuator": "XC430-W240 (inside the arm)"
+  },
+  {
+   "name": "L_arm_swing",
+   "parent": "torso",
+   "child": "L_arm",
+   "axis": "y",
+   "point_mm": [
+    0,
+    50.0,
+    306.0
+   ],
+   "lower_deg": -120,
+   "upper_deg": 120,
+   "actuator": "XC430-W240 (inside the arm)"
+  },
+  {
+   "name": "ear_axle",
+   "parent": "head",
+   "child": "ears",
+   "axis": "y",
+   "point_mm": [
+    0.0,
+    0,
+    445.0
+   ],
+   "lower_deg": -60,
+   "upper_deg": 60,
+   "actuator": "passive (driven by nod_crank through ear_rod)"
+  },
+  {
+   "name": "ear_rod",
+   "parent": "nod_crank",
+   "child": "ear_rod",
+   "axis": "y",
+   "point_mm": [
+    -43.25,
+    0,
+    390.21
+   ],
+   "lower_deg": -60,
+   "upper_deg": 60,
+   "actuator": "passive (closed loop with ear_axle)"
+  },
+  {
+   "name": "R_hand_flap",
+   "parent": "R_arm",
+   "child": "R_hand_flap",
+   "axis": "y",
+   "point_mm": [
+    -3.0,
+    -100.0,
+    181.0
+   ],
+   "lower_deg": 0,
+   "upper_deg": 70,
+   "actuator": "passive (shoulder cam -> rod; opens with |arm angle|)"
+  },
+  {
+   "name": "L_hand_flap",
+   "parent": "L_arm",
+   "child": "L_hand_flap",
+   "axis": "y",
+   "point_mm": [
+    -3.0,
+    100.0,
+    181.0
+   ],
+   "lower_deg": 0,
+   "upper_deg": 70,
+   "actuator": "passive (shoulder cam -> rod; opens with |arm angle|)"
+  }
+ ],
+ "fasteners": [],
+ "theta_max_deg": 20.0,
+ "servo_clr_mm": 0.15,
+ "case_hole_d_mm": 2.9,
+ "horn_hole_d_mm": 2.2,
+ "step_replaced_parts": [
+  "L_ankle_pitch_horn",
+  "L_ankle_pitch_idler",
+  "L_ankle_pitch_servo_XC430",
+  "L_ankle_roll_horn",
+  "L_ankle_roll_idler",
+  "L_ankle_roll_servo_XM430",
+  "L_hip_pitch_horn",
+  "L_hip_pitch_idler",
+  "L_hip_pitch_servo_XM430",
+  "L_hip_yaw_horn",
+  "L_hip_yaw_idler",
+  "L_knee_horn",
+  "L_knee_idler",
+  "L_knee_servo_XM430",
+  "R_ankle_pitch_horn",
+  "R_ankle_pitch_idler",
+  "R_ankle_pitch_servo_XC430",
+  "R_ankle_roll_horn",
+  "R_ankle_roll_idler",
+  "R_ankle_roll_servo_XM430",
+  "R_hip_pitch_horn",
+  "R_hip_pitch_idler",
+  "R_hip_pitch_servo_XM430",
+  "R_hip_yaw_horn",
+  "R_hip_yaw_idler",
+  "R_knee_horn",
+  "R_knee_idler",
+  "R_knee_servo_XM430",
+  "arm_L_horn_XC430",
+  "arm_L_idler_XC430",
+  "arm_L_servo_XC430",
+  "arm_R_horn_XC430",
+  "arm_R_idler_XC430",
+  "arm_R_servo_XC430",
+  "head_nod_servo_XL430",
+  "head_nod_servo_idler",
+  "nod_servo_horn",
+  "yaw_servo_L_XC430",
+  "yaw_servo_R_XC430"
+ ]
+}

@@ -1,0 +1,4 @@
+official servo solids (one product, placed 13 times): 16 | replaced model parts: 39
+solids in STEP 548 expected 548
+all world bboxes match within 0.05 mm: True | unmatched: 0
+overall bbox: [(-93.0, 71.2), (-125.0, 125.0), (0.0, 553.0)]

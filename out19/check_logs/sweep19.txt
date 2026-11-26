@@ -1,0 +1,5 @@
+head done 0 crank angle for head -10..20: -10.8 .. 20.7 ears -17.5 .. 34.0
+arms done 0 free range {'R': (-120, 120), 'L': (-120, 120)}
+thigh done 0
+shank done 0
+leg done 0

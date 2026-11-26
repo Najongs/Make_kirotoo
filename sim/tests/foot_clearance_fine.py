@@ -58,5 +58,5 @@ for th in THETAS:
         gf = float(cKDTree(B).query(A, k=1)[0].min()) if len(A) and len(B) else None
         out.append({"theta": th, "crouch_mm": c, "coarse_gap": g, "fine_gap": gf, "pair": [pa, pb], "fine_error_mm": STEP * math.sqrt(3)})
         print(th, c, round(g, 2), None if gf is None else round(gf, 2), pa, pb, flush=True)
-json.dump(out, open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results_v18",
+json.dump(out, open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results_v18" if mod == "build18" else "results_v19",
                                  f"clearance_fine_{os.environ.get('KITORU_THETA', 'x')}_{(FORCE or 'closest').split(':')[0]}.json"), "w"), indent=1)

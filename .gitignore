@@ -5,3 +5,7 @@
 /sim/.venv/
 /sim/tmp/
 __pycache__/
+# 출력용 STL 은 다리 부품만 커밋 (나머지는 print_tests/tools/step2stl.py 로 다시 만든다)
+/out19/print_parts_stl/*.stl
+!/out19/print_parts_stl/R_*.stl
+!/out19/print_parts_stl/L_*.stl

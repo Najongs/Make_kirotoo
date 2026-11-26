@@ -1,0 +1,53 @@
+torso_frame               +z  121x144x109 sup    47   219.5 cm3  골반판을 바닥에. 골반·측벽·뒷벽·레일이 한 부품. 골반판 윗면 포켓, 측벽 창
+electronics_shelf         +z    110x109x4 sup     0    30.8 cm3  평평하게. 창 4개
+shelf_pins                +z    85x106x12 sup     0     0.3 cm3  핀 4개, 세워서
+lid                       -z   143x130x29 sup     0    57.5 cm3  흰색. 캡을 바닥에(걸쇠가 위로). 스위치·잭 구멍, 배기 슬롯
+torso_cover_front         +z    81x150x99 sup     0    35.7 cm3  흰색. 세워서(어깨 라운드가 위로). 브림 권장
+torso_cover_back          +z    81x150x99 sup     0    33.7 cm3  흰색. 세워서(어깨 라운드가 위로). 브림 권장
+shorts                    -z   163x150x32 sup     0    31.2 cm3  남색. 플랜지(윗면)를 바닥에. 아래 라운드가 위로 감
+neck_yoke                 +z     31x35x28 sup     0     5.4 cm3  남색. 688ZZ 2개 압입, 핀 4개를 덮개에 압입
+pelvis_hatch              +z     110x36x6 sup     0    15.4 cm3  남색 또는 구조색. 윗면(립·자석 구멍)이 위로. 6x3 자석 4개 압입
+arm_R_horn_adapter        +y      29x35x4 sup     0     2.7 cm3  구조색. 서보 혼에 체결(서보 나사), D컷 축에 압입
+arm_L_horn_adapter        -y      29x35x4 sup     0     2.7 cm3  구조색. 서보 혼에 체결(서보 나사), D컷 축에 압입
+R_hip_yaw_bracket         +z     40x32x72 sup     0    33.3 cm3  
+R_thigh_frame             -z     40x49x98 sup     0    24.9 cm3  앞면 홈 + 받침(셸 걸쇠용)
+R_thigh_shell             +z     44x54x22 sup     0     4.5 cm3  
+R_shank_frame             +z     40x49x92 sup     0    23.7 cm3  앞면 홈 + 받침(셸 걸쇠용)
+R_shank_shell             +z     44x61x60 sup     0    12.5 cm3  하늘색
+R_ankle_bracket           +x     54x25x84 sup     0    22.1 cm3  
+R_foot_sole               +z    134x70x41 sup     0    68.7 cm3  발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓
+L_hip_yaw_bracket         +z     40x32x72 sup     0    33.3 cm3  
+L_thigh_frame             -z     40x49x98 sup     0    24.9 cm3  앞면 홈 + 받침(셸 걸쇠용)
+L_thigh_shell             +z     44x54x22 sup     0     4.5 cm3  
+L_shank_frame             +z     40x49x92 sup     0    23.7 cm3  앞면 홈 + 받침(셸 걸쇠용)
+L_shank_shell             +z     44x61x60 sup     0    12.5 cm3  하늘색
+L_ankle_bracket           +x     54x25x84 sup     0    22.1 cm3  
+L_foot_sole               +z    134x70x41 sup     0    68.7 cm3  발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓
+head_back                 +x   200x196x90 sup     0   122.5 cm3  뒷면을 바닥에. 목 축 판·보강판·서보 패드·이음 걸쇠 포함
+head_front                +x   200x170x57 sup     0    55.8 cm3  자른 면(뒤)을 바닥에, 브림 권장. 얼굴 테두리 경사, 얼굴판 걸림 바
+face_plate                -x   149x119x33 sup     0    33.0 cm3  앞면을 바닥에(걸쇠·카메라 핀이 위로)
+eye_L                     -x      22x42x3 sup     0     2.1 cm3  테두리를 바닥에
+eye_R                     -x      22x42x7 sup     0     2.7 cm3  테두리를 바닥에
+mouth                     -x      40x13x3 sup     0     0.6 cm3  테두리를 바닥에
+camera_clip               +x      25x17x3 sup     0     0.5 cm3  평평하게
+crest                     -z     91x54x22 sup     0    12.0 cm3  지붕을 바닥에(걸쇠가 위로)
+nod_crank                 +y      16x37x2 sup     0     1.0 cm3  끄덕임 서보 혼에 체결
+nod_rod                   +y       45x7x3 sup     0     0.9 cm3  평평하게
+arm_R_shell_in            -y     68x40x21 sup     0     8.8 cm3  하늘색. 안쪽(어깨) 면을 바닥에. 서보 혼 쪽 케이스 나사로 서보에 체결
+arm_R_shell_out           +y     68x40x27 sup     0     9.9 cm3  하늘색. 바깥 면을 바닥에. 서보 뒤쪽 케이스 나사로 서보에 체결
+arm_R_hand                +z     40x48x91 sup     0    26.9 cm3  흰색. 손바닥(아래)을 바닥에. 고무 패드 접착, 팔 껍데기 아래에 끼움
+arm_R_finger_rod          +x      5x109x4 sup     0     1.7 cm3  평평하게
+arm_L_shell_in            +y     68x40x21 sup     0     8.8 cm3  하늘색. 안쪽(어깨) 면을 바닥에. 서보 혼 쪽 케이스 나사로 서보에 체결
+arm_L_shell_out           -y     68x40x27 sup     0     9.9 cm3  하늘색. 바깥 면을 바닥에. 서보 뒤쪽 케이스 나사로 서보에 체결
+arm_L_hand                +z     40x48x91 sup     0    26.9 cm3  흰색. 손바닥(아래)을 바닥에. 고무 패드 접착, 팔 껍데기 아래에 끼움
+arm_L_finger_rod          -y      109x4x5 sup     0     1.7 cm3  평평하게
+ear_L                     -y     60x60x22 sup     0    14.7 cm3  덮개를 바닥에(걸쇠가 위로)
+ear_disc_L                -y      44x44x3 sup     0     2.5 cm3  
+antenna_L                 +z       8x8x60 sup     0     3.0 cm3  세워서 출력, 브림 5 mm
+ear_R                     +y     60x60x22 sup     0    14.7 cm3  덮개를 바닥에(걸쇠가 위로)
+ear_disc_R                +y      44x44x3 sup     0     2.5 cm3  
+antenna_R                 +z       8x8x60 sup     0     3.0 cm3  세워서 출력, 브림 5 mm
+ear_rocker                +y      13x18x2 sup     0     0.3 cm3  구조색. 귀 축 D컷에 압입
+ear_rod                   +y      66x41x3 sup     0     1.5 cm3  평평하게
+arm_R_flap                -z      22x43x8 sup     0     6.9 cm3  
+arm_L_flap                -z      22x43x8 sup     0     6.9 cm3  

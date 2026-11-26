@@ -1,0 +1,855 @@
+[
+ {
+  "part": "torso_frame",
+  "link": "torso",
+  "up": "+z",
+  "size_mm": "121x144x109",
+  "support_mm2": 47,
+  "volume_cm3": 219.5,
+  "note": "골반판을 바닥에. 골반·측벽·뒷벽·레일이 한 부품. 골반판 윗면 포켓, 측벽 창",
+  "colours": [
+   [
+    0.2,
+    0.24,
+    0.32
+   ],
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "electronics_shelf",
+  "link": "torso",
+  "up": "+z",
+  "size_mm": "110x109x4",
+  "support_mm2": 0,
+  "volume_cm3": 30.8,
+  "note": "평평하게. 창 4개",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "shelf_pins",
+  "link": "torso",
+  "up": "+z",
+  "size_mm": "85x106x12",
+  "support_mm2": 0,
+  "volume_cm3": 0.3,
+  "note": "핀 4개, 세워서",
+  "colours": [
+   [
+    0.2,
+    0.24,
+    0.32
+   ]
+  ]
+ },
+ {
+  "part": "lid",
+  "link": "torso",
+  "up": "-z",
+  "size_mm": "143x130x29",
+  "support_mm2": 0,
+  "volume_cm3": 57.5,
+  "note": "흰색. 캡을 바닥에(걸쇠가 위로). 스위치·잭 구멍, 배기 슬롯",
+  "colours": [
+   [
+    0.97,
+    0.97,
+    0.97
+   ]
+  ]
+ },
+ {
+  "part": "torso_cover_front",
+  "link": "torso",
+  "up": "+z",
+  "size_mm": "81x150x99",
+  "support_mm2": 0,
+  "volume_cm3": 35.7,
+  "note": "흰색. 세워서(어깨 라운드가 위로). 브림 권장",
+  "colours": [
+   [
+    0.97,
+    0.97,
+    0.97
+   ]
+  ]
+ },
+ {
+  "part": "torso_cover_back",
+  "link": "torso",
+  "up": "+z",
+  "size_mm": "81x150x99",
+  "support_mm2": 0,
+  "volume_cm3": 33.7,
+  "note": "흰색. 세워서(어깨 라운드가 위로). 브림 권장",
+  "colours": [
+   [
+    0.97,
+    0.97,
+    0.97
+   ]
+  ]
+ },
+ {
+  "part": "shorts",
+  "link": "torso",
+  "up": "-z",
+  "size_mm": "163x150x32",
+  "support_mm2": 0,
+  "volume_cm3": 31.2,
+  "note": "남색. 플랜지(윗면)를 바닥에. 아래 라운드가 위로 감",
+  "colours": [
+   [
+    0.05,
+    0.19,
+    0.38
+   ]
+  ]
+ },
+ {
+  "part": "neck_yoke",
+  "link": "torso",
+  "up": "+z",
+  "size_mm": "31x35x28",
+  "support_mm2": 0,
+  "volume_cm3": 5.4,
+  "note": "남색. 688ZZ 2개 압입, 핀 4개를 덮개에 압입",
+  "colours": [
+   [
+    0.05,
+    0.19,
+    0.38
+   ]
+  ]
+ },
+ {
+  "part": "pelvis_hatch",
+  "link": "torso",
+  "up": "+z",
+  "size_mm": "110x36x6",
+  "support_mm2": 0,
+  "volume_cm3": 15.4,
+  "note": "남색 또는 구조색. 윗면(립·자석 구멍)이 위로. 6x3 자석 4개 압입",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "arm_R_horn_adapter",
+  "link": "torso",
+  "up": "+y",
+  "size_mm": "29x35x4",
+  "support_mm2": 0,
+  "volume_cm3": 2.7,
+  "note": "구조색. 서보 혼에 체결(서보 나사), D컷 축에 압입",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "arm_L_horn_adapter",
+  "link": "torso",
+  "up": "-y",
+  "size_mm": "29x35x4",
+  "support_mm2": 0,
+  "volume_cm3": 2.7,
+  "note": "구조색. 서보 혼에 체결(서보 나사), D컷 축에 압입",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "R_hip_yaw_bracket",
+  "link": "R_hip_yaw_link",
+  "up": "+z",
+  "size_mm": "40x32x72",
+  "support_mm2": 0,
+  "volume_cm3": 33.3,
+  "note": "",
+  "colours": [
+   [
+    0.2,
+    0.24,
+    0.32
+   ]
+  ]
+ },
+ {
+  "part": "R_thigh_frame",
+  "link": "R_thigh",
+  "up": "-z",
+  "size_mm": "40x49x98",
+  "support_mm2": 0,
+  "volume_cm3": 24.9,
+  "note": "앞면 홈 + 받침(셸 걸쇠용)",
+  "colours": [
+   [
+    0.2,
+    0.24,
+    0.32
+   ]
+  ]
+ },
+ {
+  "part": "R_thigh_shell",
+  "link": "R_thigh",
+  "up": "+z",
+  "size_mm": "44x54x22",
+  "support_mm2": 0,
+  "volume_cm3": 4.5,
+  "note": "",
+  "colours": [
+   [
+    0.97,
+    0.97,
+    0.97
+   ]
+  ]
+ },
+ {
+  "part": "R_shank_frame",
+  "link": "R_shank",
+  "up": "+z",
+  "size_mm": "40x49x92",
+  "support_mm2": 0,
+  "volume_cm3": 23.7,
+  "note": "앞면 홈 + 받침(셸 걸쇠용)",
+  "colours": [
+   [
+    0.2,
+    0.24,
+    0.32
+   ]
+  ]
+ },
+ {
+  "part": "R_shank_shell",
+  "link": "R_shank",
+  "up": "+z",
+  "size_mm": "44x61x60",
+  "support_mm2": 0,
+  "volume_cm3": 12.5,
+  "note": "하늘색",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "R_ankle_bracket",
+  "link": "R_ankle_link",
+  "up": "+x",
+  "size_mm": "54x25x84",
+  "support_mm2": 0,
+  "volume_cm3": 22.1,
+  "note": "",
+  "colours": [
+   [
+    0.2,
+    0.24,
+    0.32
+   ]
+  ]
+ },
+ {
+  "part": "R_foot_sole",
+  "link": "R_foot",
+  "up": "+z",
+  "size_mm": "134x70x41",
+  "support_mm2": 0,
+  "volume_cm3": 68.7,
+  "note": "발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓",
+  "colours": [
+   [
+    0.05,
+    0.19,
+    0.38
+   ]
+  ]
+ },
+ {
+  "part": "L_hip_yaw_bracket",
+  "link": "L_hip_yaw_link",
+  "up": "+z",
+  "size_mm": "40x32x72",
+  "support_mm2": 0,
+  "volume_cm3": 33.3,
+  "note": "",
+  "colours": [
+   [
+    0.2,
+    0.24,
+    0.32
+   ]
+  ]
+ },
+ {
+  "part": "L_thigh_frame",
+  "link": "L_thigh",
+  "up": "-z",
+  "size_mm": "40x49x98",
+  "support_mm2": 0,
+  "volume_cm3": 24.9,
+  "note": "앞면 홈 + 받침(셸 걸쇠용)",
+  "colours": [
+   [
+    0.2,
+    0.24,
+    0.32
+   ]
+  ]
+ },
+ {
+  "part": "L_thigh_shell",
+  "link": "L_thigh",
+  "up": "+z",
+  "size_mm": "44x54x22",
+  "support_mm2": 0,
+  "volume_cm3": 4.5,
+  "note": "",
+  "colours": [
+   [
+    0.97,
+    0.97,
+    0.97
+   ]
+  ]
+ },
+ {
+  "part": "L_shank_frame",
+  "link": "L_shank",
+  "up": "+z",
+  "size_mm": "40x49x92",
+  "support_mm2": 0,
+  "volume_cm3": 23.7,
+  "note": "앞면 홈 + 받침(셸 걸쇠용)",
+  "colours": [
+   [
+    0.2,
+    0.24,
+    0.32
+   ]
+  ]
+ },
+ {
+  "part": "L_shank_shell",
+  "link": "L_shank",
+  "up": "+z",
+  "size_mm": "44x61x60",
+  "support_mm2": 0,
+  "volume_cm3": 12.5,
+  "note": "하늘색",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "L_ankle_bracket",
+  "link": "L_ankle_link",
+  "up": "+x",
+  "size_mm": "54x25x84",
+  "support_mm2": 0,
+  "volume_cm3": 22.1,
+  "note": "",
+  "colours": [
+   [
+    0.2,
+    0.24,
+    0.32
+   ]
+  ]
+ },
+ {
+  "part": "L_foot_sole",
+  "link": "L_foot",
+  "up": "+z",
+  "size_mm": "134x70x41",
+  "support_mm2": 0,
+  "volume_cm3": 68.7,
+  "note": "발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓",
+  "colours": [
+   [
+    0.05,
+    0.19,
+    0.38
+   ]
+  ]
+ },
+ {
+  "part": "head_back",
+  "link": "head",
+  "up": "+x",
+  "size_mm": "200x196x90",
+  "support_mm2": 0,
+  "volume_cm3": 122.5,
+  "note": "뒷면을 바닥에. 목 축 판·보강판·서보 패드·이음 걸쇠 포함",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "head_front",
+  "link": "head",
+  "up": "+x",
+  "size_mm": "200x170x57",
+  "support_mm2": 0,
+  "volume_cm3": 55.8,
+  "note": "자른 면(뒤)을 바닥에, 브림 권장. 얼굴 테두리 경사, 얼굴판 걸림 바",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "face_plate",
+  "link": "head",
+  "up": "-x",
+  "size_mm": "149x119x33",
+  "support_mm2": 0,
+  "volume_cm3": 33.0,
+  "note": "앞면을 바닥에(걸쇠·카메라 핀이 위로)",
+  "colours": [
+   [
+    0.97,
+    0.97,
+    0.97
+   ]
+  ]
+ },
+ {
+  "part": "eye_L",
+  "link": "head",
+  "up": "-x",
+  "size_mm": "22x42x3",
+  "support_mm2": 0,
+  "volume_cm3": 2.1,
+  "note": "테두리를 바닥에",
+  "colours": [
+   [
+    0.05,
+    0.19,
+    0.38
+   ]
+  ]
+ },
+ {
+  "part": "eye_R",
+  "link": "head",
+  "up": "-x",
+  "size_mm": "22x42x7",
+  "support_mm2": 0,
+  "volume_cm3": 2.7,
+  "note": "테두리를 바닥에",
+  "colours": [
+   [
+    0.05,
+    0.19,
+    0.38
+   ]
+  ]
+ },
+ {
+  "part": "mouth",
+  "link": "head",
+  "up": "-x",
+  "size_mm": "40x13x3",
+  "support_mm2": 0,
+  "volume_cm3": 0.6,
+  "note": "테두리를 바닥에",
+  "colours": [
+   [
+    0.05,
+    0.19,
+    0.38
+   ]
+  ]
+ },
+ {
+  "part": "camera_clip",
+  "link": "head",
+  "up": "+x",
+  "size_mm": "25x17x3",
+  "support_mm2": 0,
+  "volume_cm3": 0.5,
+  "note": "평평하게",
+  "colours": [
+   [
+    0.2,
+    0.24,
+    0.32
+   ]
+  ]
+ },
+ {
+  "part": "crest",
+  "link": "head",
+  "up": "-z",
+  "size_mm": "91x54x22",
+  "support_mm2": 0,
+  "volume_cm3": 12.0,
+  "note": "지붕을 바닥에(걸쇠가 위로)",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "nod_crank",
+  "link": "nod_crank",
+  "up": "+y",
+  "size_mm": "16x37x2",
+  "support_mm2": 0,
+  "volume_cm3": 1.0,
+  "note": "끄덕임 서보 혼에 체결",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "nod_rod",
+  "link": "nod_rod",
+  "up": "+y",
+  "size_mm": "45x7x3",
+  "support_mm2": 0,
+  "volume_cm3": 0.9,
+  "note": "평평하게",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "arm_R_shell_in",
+  "link": "R_arm",
+  "up": "-y",
+  "size_mm": "68x40x21",
+  "support_mm2": 0,
+  "volume_cm3": 8.8,
+  "note": "하늘색. 안쪽(어깨) 면을 바닥에. 서보 혼 쪽 케이스 나사로 서보에 체결",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "arm_R_shell_out",
+  "link": "R_arm",
+  "up": "+y",
+  "size_mm": "68x40x27",
+  "support_mm2": 0,
+  "volume_cm3": 9.9,
+  "note": "하늘색. 바깥 면을 바닥에. 서보 뒤쪽 케이스 나사로 서보에 체결",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "arm_R_hand",
+  "link": "R_arm",
+  "up": "+z",
+  "size_mm": "40x48x91",
+  "support_mm2": 0,
+  "volume_cm3": 26.9,
+  "note": "흰색. 손바닥(아래)을 바닥에. 고무 패드 접착, 팔 껍데기 아래에 끼움",
+  "colours": [
+   [
+    0.97,
+    0.97,
+    0.97
+   ]
+  ]
+ },
+ {
+  "part": "arm_R_finger_rod",
+  "link": "R_arm",
+  "up": "+x",
+  "size_mm": "5x109x4",
+  "support_mm2": 0,
+  "volume_cm3": 1.7,
+  "note": "평평하게",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "arm_L_shell_in",
+  "link": "L_arm",
+  "up": "+y",
+  "size_mm": "68x40x21",
+  "support_mm2": 0,
+  "volume_cm3": 8.8,
+  "note": "하늘색. 안쪽(어깨) 면을 바닥에. 서보 혼 쪽 케이스 나사로 서보에 체결",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "arm_L_shell_out",
+  "link": "L_arm",
+  "up": "-y",
+  "size_mm": "68x40x27",
+  "support_mm2": 0,
+  "volume_cm3": 9.9,
+  "note": "하늘색. 바깥 면을 바닥에. 서보 뒤쪽 케이스 나사로 서보에 체결",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "arm_L_hand",
+  "link": "L_arm",
+  "up": "+z",
+  "size_mm": "40x48x91",
+  "support_mm2": 0,
+  "volume_cm3": 26.9,
+  "note": "흰색. 손바닥(아래)을 바닥에. 고무 패드 접착, 팔 껍데기 아래에 끼움",
+  "colours": [
+   [
+    0.97,
+    0.97,
+    0.97
+   ]
+  ]
+ },
+ {
+  "part": "arm_L_finger_rod",
+  "link": "L_arm",
+  "up": "-y",
+  "size_mm": "109x4x5",
+  "support_mm2": 0,
+  "volume_cm3": 1.7,
+  "note": "평평하게",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "ear_L",
+  "link": "ears",
+  "up": "-y",
+  "size_mm": "60x60x22",
+  "support_mm2": 0,
+  "volume_cm3": 14.7,
+  "note": "덮개를 바닥에(걸쇠가 위로)",
+  "colours": [
+   [
+    0.05,
+    0.19,
+    0.38
+   ]
+  ]
+ },
+ {
+  "part": "ear_disc_L",
+  "link": "ears",
+  "up": "-y",
+  "size_mm": "44x44x3",
+  "support_mm2": 0,
+  "volume_cm3": 2.5,
+  "note": "",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "antenna_L",
+  "link": "ears",
+  "up": "+z",
+  "size_mm": "8x8x60",
+  "support_mm2": 0,
+  "volume_cm3": 3.0,
+  "note": "세워서 출력, 브림 5 mm",
+  "colours": [
+   [
+    0.91,
+    0.29,
+    0.1
+   ]
+  ]
+ },
+ {
+  "part": "ear_R",
+  "link": "ears",
+  "up": "+y",
+  "size_mm": "60x60x22",
+  "support_mm2": 0,
+  "volume_cm3": 14.7,
+  "note": "덮개를 바닥에(걸쇠가 위로)",
+  "colours": [
+   [
+    0.05,
+    0.19,
+    0.38
+   ]
+  ]
+ },
+ {
+  "part": "ear_disc_R",
+  "link": "ears",
+  "up": "+y",
+  "size_mm": "44x44x3",
+  "support_mm2": 0,
+  "volume_cm3": 2.5,
+  "note": "",
+  "colours": [
+   [
+    0.0,
+    0.68,
+    0.94
+   ]
+  ]
+ },
+ {
+  "part": "antenna_R",
+  "link": "ears",
+  "up": "+z",
+  "size_mm": "8x8x60",
+  "support_mm2": 0,
+  "volume_cm3": 3.0,
+  "note": "세워서 출력, 브림 5 mm",
+  "colours": [
+   [
+    0.91,
+    0.29,
+    0.1
+   ]
+  ]
+ },
+ {
+  "part": "ear_rocker",
+  "link": "ears",
+  "up": "+y",
+  "size_mm": "13x18x2",
+  "support_mm2": 0,
+  "volume_cm3": 0.3,
+  "note": "구조색. 귀 축 D컷에 압입",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "ear_rod",
+  "link": "ear_rod",
+  "up": "+y",
+  "size_mm": "66x41x3",
+  "support_mm2": 0,
+  "volume_cm3": 1.5,
+  "note": "평평하게",
+  "colours": [
+   [
+    0.95,
+    0.55,
+    0.15
+   ]
+  ]
+ },
+ {
+  "part": "arm_R_flap",
+  "link": "R_hand_flap",
+  "up": "-z",
+  "size_mm": "22x43x8",
+  "support_mm2": 0,
+  "volume_cm3": 6.9,
+  "note": "",
+  "colours": [
+   [
+    0.97,
+    0.97,
+    0.97
+   ]
+  ]
+ },
+ {
+  "part": "arm_L_flap",
+  "link": "L_hand_flap",
+  "up": "-z",
+  "size_mm": "22x43x8",
+  "support_mm2": 0,
+  "volume_cm3": 6.9,
+  "note": "",
+  "colours": [
+   [
+    0.97,
+    0.97,
+    0.97
+   ]
+  ]
+ }
+]
