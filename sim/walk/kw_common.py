@@ -35,7 +35,18 @@ def servo_of(jname):
 
 
 # 서보 종류별 시뮬 값: (정지토크 = forcerange, 무부하속도, kp 기본, armature) — kitoru_v18.xml 과 같은 값 [kp · armature 추정]
-SERVO_SIM = {"XM430-W350": (3.8, 4.5, 17.5, 0.045), "XC430-W240": (1.75, 6.81, 7.0, 0.0217), "XL430-W250": (1.4, 5.45, 6.4, 0.0241)}
+SERVO_SIM = {"XM430-W350": (3.8, 4.5, 17.5, 0.045), "XC430-W240": (1.75, 6.81, 7.0, 0.0217), "XL430-W250": (1.4, 5.45, 6.4, 0.0241),
+             "2xXL430": (2.8, 5.45, 12.8, 0.0482)}     # 2xXL430: 한 관절에 XL430 두 개(토크 · 감쇠 · 관성 · kp 두 배)
+# 질량 파일(mass_build*_light.json) 기준 서보 한 개 질량 g(혼 · 케이블 포함): XM 90, XC 73, XL 65.2 [설계 파일]
+SERVO_G = {"XM430-W350": 90.0, "XC430-W240": 73.0, "XL430-W250": 65.2, "2xXL430": 130.4}
+# 관절 → (서보가 붙은 body, 오른쪽 기준 서보 무게중심 body 좌표 m, v18 기본 서보) — mass_build19_light.json 서보 위치 [설계 파일]
+SERVO_AT = {"hip_yaw": ("torso", (-0.0121, -0.0399, 0.2532), "XC430-W240"),
+            "hip_pitch": ("hip_yaw_link", (0.0001, 0.0001, -0.0401), "XM430-W350"),
+            "knee": ("thigh", (0.0001, 0.0001, -0.0631), "XM430-W350"),
+            "ankle_pitch": ("shank", (0.0001, 0.0001, -0.0631), "XC430-W240"),
+            "ankle_roll": ("ankle_link", (-0.0509, 0.0001, 0.0119), "XM430-W350"),
+            "arm_swing": ("arm", (0.0001, -0.0019, -0.0121), "XC430-W240"),
+            "nod_crank": ("head", (-0.0169, -0.0035, 0.0350), "XL430-W250")}
 
 
 def add_point_mass(body, mass, p):
@@ -51,7 +62,7 @@ def add_point_mass(body, mass, p):
 
 
 def build_model(friction=None, head_mass=1.0, pad_dy_out=0.0, pad_dx=0.0, armature=1.0, camera=False,
-                hip_roll=False, extra_bodies=None, extra_mass=()):
+                hip_roll=False, extra_bodies=None, extra_mass=(), servo_map=None, mass_scale=None):
     """MjSpec 로 v18 을 읽고 시뮬에서만 바꿀 수 있는 것을 바꾼다(설계 파일은 안 건드림).
     friction: 모든 충돌 geom(바닥 포함)의 미끄럼 마찰. MuJoCo 는 두 geom 중 큰 값을 쓰므로 양쪽을 다 바꾼다.
     head_mass: 머리 body 질량 · 관성 배수(무게중심 위치는 그대로).
@@ -61,7 +72,10 @@ def build_model(friction=None, head_mass=1.0, pad_dy_out=0.0, pad_dx=0.0, armatu
               dict = 요 → 롤 → 피치 순서의 배치안: servo(서보 이름), d_axis(롤 축이 피치 축보다 위 m),
               lengthen(다리가 길어지는 양 m: 허벅지 아래 전체를 내리고 몸통 시작 높이를 올림),
               mass(롤 서보 하나 kg), mass_pos(요 링크 좌표 m, 오른쪽 기준, 왼쪽은 y 대칭).
-    extra_mass: [(body, kg, (x, y, z) body 좌표 m)] 점 질량 더하기(음수면 빼기)."""
+    extra_mass: [(body, kg, (x, y, z) body 좌표 m)] 점 질량 더하기(음수면 빼기).
+    servo_map: {관절 이름 끝(hip_yaw, knee, ..., arm_swing, nod_crank, hip_roll): 서보} 서보 바꾸기. 액추에이터 kp · forcerange,
+               관절 damping(= 정지토크/무부하속도) · armature 를 그 서보 값으로, 질량은 서보 질량 차이만큼 서보 자리에서 더하거나 뺀다.
+    mass_scale: {body 이름 앞부분: 배수} 서보를 뺀 몸 질량 줄이기 흉내(질량 · 관성 배수, 무게중심 그대로). 예: {"torso": 0.8}"""
     spec = mujoco.MjSpec.from_file(XML)
     if friction is not None:
         for g in spec.geoms:
@@ -124,6 +138,34 @@ def build_model(friction=None, head_mass=1.0, pad_dy_out=0.0, pad_dx=0.0, armatu
             spec.body("torso").pos = np.array(spec.body("torso").pos) + [0, 0, hr["lengthen"]]
         for k in list(spec.keys):
             spec.delete(k)                       # 영점 키프레임은 관절 수 · 높이가 달라져 지움(시험은 qpos0 에서 시작)
+    if servo_map:
+        hr_servo = hip_roll.get("servo", "XM430-W350") if isinstance(hip_roll, dict) else "XM430-W350"
+        for jkey, newt in servo_map.items():
+            ts, w0, kp0, arm = SERVO_SIM[newt]
+            for a in spec.actuators:
+                if not a.name.endswith(jkey):
+                    continue
+                a.gainprm = [kp0] + list(a.gainprm[1:]); bp = list(a.biasprm); bp[1] = -kp0; a.biasprm = bp
+                a.forcerange = [-ts, ts]
+                j = spec.joint(a.target); j.damping = [ts / w0, 0, 0]; j.armature = arm
+                if jkey == "hip_roll":
+                    old_t = hr_servo; side = a.name[0]
+                    bname = f"{side}_hip_yaw_link"; mp_ = np.array(hip_roll.get("mass_pos", (0, 0, 0)), float) * [1, 1 if side == "R" else -1, 1]
+                else:
+                    bn, pos, old_t = SERVO_AT[jkey]
+                    side = a.name[0] if a.name[0] in "RL" and a.name[1] == "_" else ""
+                    bname = bn if bn in ("torso", "head") else f"{side}_{bn}"
+                    mp_ = np.array(pos, float)
+                    if side == "L":
+                        mp_[1] *= -1
+                dm = (SERVO_G[newt] - SERVO_G[old_t]) / 1000.0
+                if dm:
+                    add_point_mass(spec.body(bname), dm, mp_)
+    if mass_scale:
+        for b in spec.bodies:
+            for pre, f in mass_scale.items():
+                if b.name and b.name.startswith(pre) and b.mass > 0:
+                    b.mass = b.mass * f; b.fullinertia = np.asarray(b.fullinertia) * f
     for bname, mass, p in extra_mass:
         add_point_mass(spec.body(bname), mass, p)
     if extra_bodies:
@@ -177,10 +219,10 @@ class Idx:
         self.legj = [n for n in self.jnames if n.startswith(("R_", "L_")) and not n.endswith("arm_swing")]
         self.mass = float(m.body_subtreemass[self.torso])
         # 정지토크 · 무부하속도: 액추에이터 forcerange 로 서보 종류를 알아냄(고관절 롤을 XC 로 바꾼 변형도 맞게)
-        W0 = {3.8: 4.5, 1.75: 6.81, 1.4: 5.45}
+        W0 = {3.8: 4.5, 1.75: 6.81, 1.4: 5.45, 2.8: 5.45}
         self.stall = np.array([float(m.actuator_forcerange[i, 1]) for i in range(m.nu)])
         self.w0 = np.array([W0[round(float(m.actuator_forcerange[i, 1]), 2)] for i in range(m.nu)])
-        self.servo = [{3.8: "XM430-W350", 1.75: "XC430-W240", 1.4: "XL430-W250"}[round(float(m.actuator_forcerange[i, 1]), 2)] for i in range(m.nu)]
+        self.servo = [{3.8: "XM430-W350", 1.75: "XC430-W240", 1.4: "XL430-W250", 2.8: "2xXL430"}[round(float(m.actuator_forcerange[i, 1]), 2)] for i in range(m.nu)]
 
 
 # ---------------------------------------------------------------- 센서: 제어기가 받는 것은 이것뿐

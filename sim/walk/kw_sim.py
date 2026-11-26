@@ -9,7 +9,7 @@ from kw_ctrl import Controller, Footsteps, make_steps, rpy_of
 
 DEFAULT = dict(
     kp_scale=2.0, ctrl_hz=200, delay_ms=0.0, friction=None, head_mass=1.0, pad_dy_out=0.0, pad_dx=0.0, armature=1.0,
-    hip_roll=False, extra_mass=(), k_lat=0.0, lat_db=0.0, lat_in=True, record_fall=False,
+    hip_roll=False, extra_mass=(), servo_map=None, mass_scale=None, k_lat=0.0, lat_db=0.0, lat_in=True, record_fall=False,
     # 걸음
     n_steps=20, stride=0.0, yaw_step=0.0, Ts=0.36, Td=0.14, Tinit=0.8, Tend=0.8, t_walk=1.5, crouch=0.015, lift=0.015,
     zmp_off=(-0.007, 0.0), ramp=2,
@@ -27,11 +27,11 @@ def run(**kw):
     cfg = dict(DEFAULT); cfg.update(kw)
     m, spec = build_model(friction=cfg["friction"], head_mass=cfg["head_mass"], pad_dy_out=cfg["pad_dy_out"],
                           pad_dx=cfg["pad_dx"], armature=cfg["armature"], camera=bool(cfg["eye_video"]),
-                          hip_roll=cfg["hip_roll"], extra_mass=cfg["extra_mass"])
+                          hip_roll=cfg["hip_roll"], extra_mass=cfg["extra_mass"], servo_map=cfg["servo_map"], mass_scale=cfg["mass_scale"])
     scale_kp(m, cfg["kp_scale"])
     # 계획용 모델: 같은 설계(머리 질량 · 패드 · 고관절 롤은 설계 변경이라 제어기도 안다), 접촉 · 등식 없음
     mp, _ = build_model(head_mass=cfg["head_mass"], pad_dy_out=cfg["pad_dy_out"], pad_dx=cfg["pad_dx"],
-                        hip_roll=cfg["hip_roll"], extra_mass=cfg["extra_mass"])
+                        hip_roll=cfg["hip_roll"], extra_mass=cfg["extra_mass"], servo_map=cfg["servo_map"], mass_scale=cfg["mass_scale"])
     mp.opt.disableflags |= int(mujoco.mjtDisableBit.mjDSBL_CONSTRAINT) | int(mujoco.mjtDisableBit.mjDSBL_CONTACT)
     d = mujoco.MjData(m)
     d.qpos[:] = m.qpos0; d.qpos[3:7] = [1, 0, 0, 0]

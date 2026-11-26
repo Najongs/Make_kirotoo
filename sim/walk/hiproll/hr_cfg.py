@@ -4,7 +4,7 @@ B 축 교차: 롤 축 = 피치 축 z 185, 롤 서보 무게중심 x −38.6, z 1
 서보 질량: XM430 82 g, XC430 65 g [e-manual]. 브래킷 질량은 넣지 않음(빼낸 요 브래킷과 비슷하다고 봄 [추정])."""
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-M = {"XM430-W350": 0.082, "XC430-W240": 0.065}
+M = {"XM430-W350": 0.082, "XC430-W240": 0.065, "XL430-W250": 0.0572}
 
 
 def hr(layout, servo="XM430-W350"):
