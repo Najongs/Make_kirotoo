@@ -1,0 +1,22 @@
+crouch psi 13.32 (ss 13.32) {'hip_yaw': (0.02, 0.02), 'hip_pitch': (0.084, 0.084), 'knee': (1.316, 1.311), 'ankle_pitch': (0.019, 0.019), 'ankle_roll': (0.002, 0.0)}
+   cop [ -2.8 -39.9] zmp ss [ -2.8 -40. ] com [ -2.8 -39.9 206.6] margin pads 28.9 sole 34.9
+   kp x 1.0 ramp 1.0 pads None fallen True -0.015000000000000013 rot 18.8 drop 12.3 L touch True max f/stall 0.695 R_ankle_pitch
+   kp x 4.0 ramp 1.0 pads None fallen False None rot 1.6 drop 1.4 L touch False max f/stall 0.379 R_knee
+   kp x 1.0 ramp 0.0 pads None fallen True 0.41600000000000004 rot 20.2 drop 13.4 L touch True max f/stall 0.766 R_ankle_pitch
+   kp x 4.0 ramp 1.0 pads [0.005, 1.0] fallen False None rot 1.6 drop 1.3 L touch False max f/stall 0.379 R_knee
+   static deflection deg {'hip_yaw': 0.2, 'hip_pitch': 0.3, 'knee': 4.3, 'ankle_pitch': 0.2, 'ankle_roll': 0.0}
+toe psi 12.01 (ss 12.01) {'hip_yaw': (0.063, 0.064), 'hip_pitch': (0.298, 0.299), 'knee': (0.027, 0.029), 'ankle_pitch': (1.095, 1.089), 'ankle_roll': (0.001, 0.0)}
+   cop [ 36.9 -40. ] zmp ss [ 36.8 -40. ] com [ 36.9 -40.  224.9] margin pads 17.1 sole 23.1
+   kp x 1.0 ramp 1.0 pads None fallen True -0.246 rot 92.7 drop 142.2 L touch True max f/stall 0.841 R_ankle_pitch
+   kp x 4.0 ramp 1.0 pads None fallen True 1.7890000000000001 rot 92.8 drop 143.0 L touch True max f/stall 1.0 nod_crank
+   kp x 1.0 ramp 0.0 pads None fallen True 0.304 rot 92.8 drop 142.4 L touch True max f/stall 0.988 R_ankle_pitch
+   kp x 4.0 ramp 1.0 pads [0.005, 1.0] fallen False None rot 3.3 drop 2.7 L touch False max f/stall 0.832 R_ankle_pitch
+   static deflection deg {'hip_yaw': 0.5, 'hip_pitch': 1.0, 'knee': 0.1, 'ankle_pitch': 9.0, 'ankle_roll': 0.0}
+heel psi 11.94 (ss 11.94) {'hip_yaw': (0.011, 0.011), 'hip_pitch': (0.053, 0.052), 'knee': (0.964, 0.96), 'ankle_pitch': (1.426, 1.42), 'ankle_roll': (0.001, 0.0)}
+   cop [-53. -40.] zmp ss [-53. -40.] com [-53.  -40.  226.1] margin pads 15.0 sole 21.0
+   kp x 1.0 ramp 1.0 pads None fallen True -0.396 rot 95.8 drop 130.5 L touch True max f/stall 0.574 R_ankle_pitch
+   kp x 4.0 ramp 1.0 pads None fallen True 0.29800000000000004 rot 98.1 drop 131.9 L touch True max f/stall 1.0 R_ankle_pitch
+   kp x 1.0 ramp 0.0 pads None fallen True 0.23 rot 96.2 drop 131.0 L touch True max f/stall 0.59 R_ankle_pitch
+   kp x 4.0 ramp 1.0 pads [0.005, 1.0] fallen True 0.31099999999999994 rot 98.5 drop 131.6 L touch True max f/stall 1.0 R_ankle_pitch
+   static deflection deg {'hip_yaw': 0.1, 'hip_pitch': 0.2, 'knee': 3.2, 'ankle_pitch': 11.7, 'ankle_roll': 0.0}
+saved

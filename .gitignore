@@ -1,0 +1,7 @@
+/*.zip
+/v16_outputs/
+/v17_outputs/
+/references/
+/sim/.venv/
+/sim/tmp/
+__pycache__/

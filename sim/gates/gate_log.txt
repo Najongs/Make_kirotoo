@@ -1,0 +1,71 @@
+=== Limits actually compiled: forcelimited 13/13, ctrllimited 13/13, hinge range limited 15/15
+=== Gate A: total mass and centre of mass (zero pose)
+  sim: 2919.698 g, com (-7.356, -0.253, 233.100) mm
+  design file: 2919.698 g, com (-7.356, -0.253, 233.100) mm
+  diff: +7.08e-05 g, |dcom| 5.34e-06 mm -> PASS
+  (merged nod_rod/ear_rod/hand_flaps keep mass and first moment exactly at the zero pose; they differ only when those links would move: nod_rod 1.0 g, ear_rod 1.7 g, flaps 5.3 g each)
+=== Gate C: lowest foot pad point at the zero pose
+  8 pads, bottom z min 0.0000 mm, max 0.0000 mm -> PASS
+  lowest non-pad collision hull: col_L_foot_sole at z 6.000 mm (should be > 0: only pads touch)
+  contacts at zero pose: 0 (robot-robot 0) []
+=== Gate B: non-zero pose, MuJoCo vs design code transforms (geom4.rot chain via render17.CHAINS)
+  nod_crank for head +15 deg: 15.5208 deg (brentq); poly head 14.9998, ear 25.1404 (brentq ear 25.1385)
+  com R_foot             sim (  -23.59,  -48.59,   46.74)  design (  -23.59,  -48.59,   46.74)  diff 5.17e-14 mm
+  com L_foot             sim (  -17.56,   45.12,   15.88)  design (  -17.56,   45.12,   15.88)  diff 0.00e+00 mm
+  com head               sim (   25.25,   -0.72,  431.46)  design (   25.25,   -0.72,  431.46)  diff 3.41e-04 mm
+  com nod_crank          sim (  -18.43,   16.54,  390.30)  design (  -18.43,   16.54,  390.30)  diff 1.80e-04 mm
+  com R_arm              sim (  -29.49, -100.64,  306.32)  design (  -29.49, -100.64,  306.32)  diff 5.68e-14 mm
+  com ears               sim (   27.62,   -3.29,  444.96)  design (   27.62,   -3.29,  444.96)  diff 2.74e-04 mm
+  R_foot pad             sim (  -59.03,  -85.96,   55.79)  design (  -59.03,  -85.96,   55.79)  diff 4.38e-14 mm
+  R_foot pad             sim (  -74.77,  -42.74,   55.79)  design (  -74.77,  -42.74,   55.79)  diff 3.83e-14 mm
+  R_foot pad             sim (   30.48,  -53.38,    0.79)  design (   30.48,  -53.38,    0.79)  diff 6.40e-14 mm
+  R_foot pad             sim (   14.75,  -10.15,    0.79)  design (   14.75,  -10.15,    0.79)  diff 6.44e-14 mm
+  R_foot toe corner      sim (   41.02,  -43.16,   -0.02)  design (   41.02,  -43.16,   -0.02)  diff 6.47e-14 mm
+  R_hand tip             sim ( -129.00,  -77.30,  323.00)  design ( -129.00,  -77.30,  323.00)  diff 0.00e+00 mm
+  L_foot pad             sim (  -62.00,   71.27,    7.15)  design (  -62.00,   71.27,    7.15)  diff 1.42e-14 mm
+  L_foot pad             sim (  -62.00,   26.84,   -4.76)  design (  -62.00,   26.84,   -4.76)  diff 3.66e-15 mm
+  L_foot pad             sim (   48.00,   71.27,    7.15)  design (   48.00,   71.27,    7.15)  diff 1.42e-14 mm
+  L_foot pad             sim (   48.00,   26.84,   -4.76)  design (   48.00,   26.84,   -4.76)  diff 3.66e-15 mm
+  L_foot toe corner      sim (   60.00,   31.09,    2.59)  design (   60.00,   31.09,    2.59)  diff 0.00e+00 mm
+  L_hand tip             sim (   -8.73,  124.73,  177.00)  design (   -8.73,  124.73,  177.00)  diff 0.00e+00 mm
+  ear tip                sim (   71.39,  112.50,  496.75)  design (   71.39,  112.50,  496.76)  diff 1.74e-03 mm
+  face front             sim (   90.36,  -74.60,  415.29)  design (   90.37,  -74.60,  415.29)  diff 4.43e-04 mm
+  crank far point        sim (  -28.68,   23.00,  404.09)  design (  -28.68,   23.00,  404.09)  diff 2.46e-04 mm
+  max position diff over 35 points (all link coms, pads, toes, hands, ear, face, crank): 1.742e-03 mm -> PASS (limit 0.1 mm; the residual comes from the 4th-order loop polynomial)
+  (R_foot front pad moved 20.0 mm from its zero-pose position)
+  saved gates/gate_B_compare.png
+  saved gates/collision_hulls.png
+=== Collision bits: R_hip_yaw +30 deg (toe swings across the midline)
+  robot-robot contacts: 8 [('R_foot_pad3', 'col_L_foot_sole'), ('col_R_foot_sole', 'col_L_foot_sole')]
+=== Closed loop in simulation (torso fixed): crank servo driven to its range ends and swept
+  6 s: crank -> 20.71 deg, -> -10.76 deg, then 1 Hz full-range sine
+  max |head_nod - poly(crank)| 0.0010 deg, vs brentq table 0.0016 deg, max |ear - poly(crank)| 0.0019 deg -> PASS (limit 0.5 deg)
+=== Gate D: free model, zero-pose position targets, 3 s
+  fallen: no (max torso tilt 1.985 deg, com height drop 1.168 mm; fall = tilt > 10 deg or drop > 20 mm; tilt at 3 s 1.350 deg)
+  final com (-11.22, -0.25, 232.95) mm; support polygon (hull of 8 pad circles) x -68.0..54.0, y -69.0..69.0 mm
+  com margin inside the support polygon: 56.8 mm (nearest edge)
+  loop violation during standing: 0.0002 deg
+  contacts at the end: 24
+  max |actuator force| over 0.05-3 s (N*m) and / stall torque:
+    R_hip_yaw      0.0001  / 1.75 = 0.000
+    R_hip_pitch    0.0985  / 3.80 = 0.026
+    R_knee         0.1267  / 3.80 = 0.033
+    R_ankle_pitch  0.1519  / 1.75 = 0.087
+    R_ankle_roll   0.0001  / 3.80 = 0.000
+    L_hip_yaw      0.0001  / 1.75 = 0.000
+    L_hip_pitch    0.0986  / 3.80 = 0.026
+    L_knee         0.1267  / 3.80 = 0.033
+    L_ankle_pitch  0.1518  / 1.75 = 0.087
+    L_ankle_roll   0.0001  / 3.80 = 0.000
+    nod_crank      0.0191  / 1.40 = 0.014
+    R_arm_swing    0.0015  / 1.75 = 0.001
+    L_arm_swing    0.0015  / 1.75 = 0.001
+  at 3 s: joint angle error (deg) vs actuator_force / kp (deg) — servo compliance check:
+    R_hip_pitch    error -0.241  force/kp -0.241
+    R_knee         error -0.289  force/kp -0.289
+    R_ankle_pitch  error -0.818  force/kp -0.817
+    L_hip_pitch    error -0.241  force/kp -0.241
+    L_knee         error -0.289  force/kp -0.289
+    L_ankle_pitch  error -0.817  force/kp -0.817
+  -> PASS
+=== Summary: A PASS, B PASS, C PASS, loop PASS, D PASS

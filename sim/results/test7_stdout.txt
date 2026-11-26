@@ -1,0 +1,2 @@
+{'peak_shoulder_force_Nm': {'R': 1.4793275245103583, 'L': 1.47898459358754}, 'peak_over_stall_XC430_1.75': 0.845330014005919, 'peak_over_stall_emanual_1.7': 0.8701926614766814, 'arm_angle_at_peak_deg': -27.11083531467134, 'arm_reached_deg': -120.03431029447292, 'arm_target_deg': -120.0, 'torso_pitch_up_final_deg': 10.866000454962503, 'com_height_mm': [75.03943028738784, 132.54094717224103], 'saturated_frac_during_ramp': 0.0, 'handover_estimate_Nm': [1.0, 1.1]}
+saved

@@ -1,0 +1,6 @@
+single-leg yaw scan {'R_yaw_positive': {'first_hull_contact': (15, [('L_foot', 'R_foot')]), 'first_design_contact': (16, [('L_foot', 'R_foot')])}, 'R_yaw_negative': {'first_hull_contact': (-9, [('L_foot', 'R_foot')]), 'first_design_contact': (-9, [('L_foot', 'R_foot')])}}
+configs 735 hull contact 232 design interference 219
+hull cats {'foot-foot': 204, 'ankle_link-foot': 161, 'ankle_link-shank': 78, 'ankle_link-ankle_link': 88, 'foot-shank': 53, 'shank-shank': 35}
+design cats {'ankle_link-foot': 223, 'foot-foot': 189, 'ankle_link-shank': 88, 'ankle_link-ankle_link': 84, 'foot-shank': 65, 'shank-shank': 35}
+{'design_touch_at_zero_pitch_knee': [(-30, -30), (-30, -20), (-30, -10), (-30, 0), (-30, 10), (-30, 20), (-30, 30), (-20, -30), (-20, -10), (-20, 0), (-20, 10), (-20, 20), (-20, 30), (-10, -30), (-10, 0), (-10, 10), (-10, 20), (-10, 30), (0, -30), (0, -20), (0, 10), (0, 20), (0, 30), (10, -30), (10, -20), (10, -10), (10, 20), (10, 30), (20, -30), (20, -20), (20, -10), (20, 0), (20, 30), (30, -30), (30, -20), (30, -10), (30, 0), (30, 10), (30, 20), (30, 30)]}
+saved

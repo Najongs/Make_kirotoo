@@ -1,0 +1,38 @@
+walk angle check 0.0e+00 rad, torso pos check 6.09e-14 mm, zmp diff 0.09 mm
+  stance_hip_yaw       tau mj 0.032 ss 0.033 ss(opt) 0.032 | w mj 0.00 ss 0.00 | u mj 0.018 ss 0.019 | +armature 0.032
+  stance_hip_pitch     tau mj 0.161 ss 0.162 ss(opt) 0.161 | w mj 0.61 ss 0.61 | u mj 0.150 ss 0.150 | +armature 0.132
+  stance_knee          tau mj 1.056 ss 1.053 ss(opt) 1.053 | w mj 0.26 ss 0.26 | u mj 0.335 ss 0.334 | +armature 1.110
+  stance_ankle_pitch   tau mj 0.524 ss 0.523 ss(opt) 0.523 | w mj 0.61 ss 0.61 | u mj 0.388 ss 0.388 | +armature 0.512
+  stance_ankle_roll    tau mj 1.179 ss 1.175 ss(opt) 1.168 | w mj 0.67 ss 0.67 | u mj 0.459 ss 0.458 | +armature 1.182
+  swing_hip_yaw        tau mj 0.003 ss 0.003 ss(opt) 0.003 | w mj 0.00 ss 0.00 | u mj 0.002 ss 0.002 | +armature 0.003
+  swing_hip_pitch      tau mj 0.070 ss 0.070 ss(opt) 0.070 | w mj 1.51 ss 1.51 | u mj 0.338 ss 0.338 | +armature 0.702
+  swing_knee           tau mj 0.162 ss 0.162 ss(opt) 0.158 | w mj 1.87 ss 1.87 | u mj 0.452 ss 0.452 | +armature 1.394
+  swing_ankle_pitch    tau mj 0.066 ss 0.066 ss(opt) 0.066 | w mj 1.51 ss 1.51 | u mj 0.254 ss 0.254 | +armature 0.384
+  swing_ankle_roll     tau mj 0.000 ss 0.000 ss(opt) 0.000 | w mj 0.67 ss 0.67 | u mj 0.149 ss 0.149 | +armature 0.211
+  crank load 0.008321475717629121 arms {'mj_tau_max': 0.005927802508244548, 'mj_w_max': 1.7057874010910625, 'mj_u': 0.2506241651820422} cop x [-20.585124541867593, 9.906068324205664] y [-49.47772791292798, 1.276751367377267] outside pads 0.16748768472906403 outside sole 0.08866995073891626
+fast angle check 0.0e+00 rad, torso pos check 5.79e-14 mm, zmp diff 0.10 mm
+  stance_hip_yaw       tau mj 0.071 ss 0.073 ss(opt) 0.070 | w mj 0.00 ss 0.00 | u mj 0.040 ss 0.042 | +armature 0.071
+  stance_hip_pitch     tau mj 0.189 ss 0.189 ss(opt) 0.188 | w mj 1.39 ss 1.39 | u mj 0.315 ss 0.316 | +armature 0.088
+  stance_knee          tau mj 1.250 ss 1.246 ss(opt) 1.244 | w mj 0.76 ss 0.76 | u mj 0.498 ss 0.497 | +armature 1.485
+  stance_ankle_pitch   tau mj 0.765 ss 0.763 ss(opt) 0.762 | w mj 1.39 ss 1.39 | u mj 0.642 ss 0.641 | +armature 0.716
+  stance_ankle_roll    tau mj 1.211 ss 1.207 ss(opt) 1.198 | w mj 0.60 ss 0.60 | u mj 0.452 ss 0.451 | +armature 1.215
+  swing_hip_yaw        tau mj 0.004 ss 0.004 ss(opt) 0.004 | w mj 0.00 ss 0.00 | u mj 0.002 ss 0.002 | +armature 0.004
+  swing_hip_pitch      tau mj 0.097 ss 0.097 ss(opt) 0.097 | w mj 2.96 ss 2.96 | u mj 0.668 ss 0.668 | +armature 1.921
+  swing_knee           tau mj 0.197 ss 0.197 ss(opt) 0.192 | w mj 3.23 ss 3.23 | u mj 0.762 ss 0.762 | +armature 3.026
+  swing_ankle_pitch    tau mj 0.074 ss 0.074 ss(opt) 0.074 | w mj 2.96 ss 2.96 | u mj 0.465 ss 0.465 | +armature 0.947
+  swing_ankle_roll     tau mj 0.000 ss 0.000 ss(opt) 0.000 | w mj 0.60 ss 0.60 | u mj 0.133 ss 0.133 | +armature 0.265
+  crank load 0.008362626934006606 arms {'mj_tau_max': 0.0014539327969701303, 'mj_w_max': 2.398763532784273, 'mj_u': 0.35235943270519837} cop x [-28.79764527081842, 17.43476027678137] y [-50.89950938874865, 1.7292914575118348] outside pads 0.17733990147783252 outside sole 0.09359605911330049
+jog angle check 0.0e+00 rad, torso pos check 6.62e-14 mm, zmp diff 0.15 mm
+  stance_hip_yaw       tau mj 0.137 ss 0.141 ss(opt) 0.135 | w mj 0.00 ss 0.00 | u mj 0.078 ss 0.081 | +armature 0.137
+  stance_hip_pitch     tau mj 0.249 ss 0.250 ss(opt) 0.245 | w mj 2.29 ss 2.29 | u mj 0.517 ss 0.517 | +armature 0.308
+  stance_knee          tau mj 1.418 ss 1.415 ss(opt) 1.411 | w mj 1.38 ss 1.38 | u mj 0.680 ss 0.679 | +armature 1.978
+  stance_ankle_pitch   tau mj 0.954 ss 0.951 ss(opt) 0.948 | w mj 2.29 ss 2.29 | u mj 0.881 ss 0.879 | +armature 0.906
+  stance_ankle_roll    tau mj 1.268 ss 1.265 ss(opt) 1.254 | w mj 0.66 ss 0.66 | u mj 0.480 ss 0.479 | +armature 1.274
+  swing_hip_yaw        tau mj 0.006 ss 0.006 ss(opt) 0.005 | w mj 0.00 ss 0.00 | u mj 0.003 ss 0.003 | +armature 0.006
+  swing_hip_pitch      tau mj 0.161 ss 0.161 ss(opt) 0.156 | w mj 4.64 ss 4.64 | u mj 1.059 ss 1.059 | +armature 3.905
+  swing_knee           tau mj 0.243 ss 0.243 ss(opt) 0.237 | w mj 4.78 ss 4.78 | u mj 1.121 ss 1.121 | +armature 5.450
+  swing_ankle_pitch    tau mj 0.085 ss 0.085 ss(opt) 0.085 | w mj 4.64 ss 4.64 | u mj 0.705 ss 0.705 | +armature 1.860
+  swing_ankle_roll     tau mj 0.000 ss 0.000 ss(opt) 0.000 | w mj 0.66 ss 0.66 | u mj 0.146 ss 0.146 | +armature 0.372
+  crank load 0.0083333813436934 arms {'mj_tau_max': 0.0049022759111220175, 'mj_w_max': 3.0704173219638693, 'mj_u': 0.4509886981003252} cop x [-34.95540406758897, 22.543602508009695] y [-66.15571072598297, 2.8125684898594323] outside pads 0.15270935960591134 outside sole 0.08866995073891626
+hip_strategy {'mj_tau_max': 1.5053577233793027, 'mj_tau_max_with_armature': 2.4973319166153214, 'mj_w_max': 1.7537947269485898, 'ss_tau_max': 1.505772328766341, 'ss_w_max': 1.7537947269485832, 'mj_u': 0.5641565692833277, 'mj_u_emanual': 0.5639668608509356, 'mj_u_with_armature': 0.768064695821207, 'mj_u_with_armature_emanual': 0.76792566152532}
+saved

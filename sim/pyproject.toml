@@ -1,0 +1,5 @@
+[project]
+name = "kitoru-sim"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = ["mujoco>=3.2", "numpy", "scipy", "pillow", "imageio", "imageio-ffmpeg", "matplotlib"]

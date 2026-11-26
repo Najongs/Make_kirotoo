@@ -1,0 +1,446 @@
+{
+ "front": {
+  "smallest_toppling_push_N": 10,
+  "at_smallest": {
+   "push_N": 10,
+   "push_s": 0.2,
+   "fallen": true,
+   "fall_time_s": 0.744,
+   "first_floor_contacts": [
+    [
+     0.771,
+     "col_R_foot_sole"
+    ],
+    [
+     0.771,
+     "col_L_foot_sole"
+    ],
+    [
+     0.911,
+     "col_shorts"
+    ],
+    [
+     0.912,
+     "col_torso_cover_front"
+    ],
+    [
+     0.916,
+     "col_head_front"
+    ],
+    [
+     0.916,
+     "col_face_plate"
+    ],
+    [
+     0.916,
+     "col_mouth"
+    ],
+    [
+     0.917,
+     "col_eye_L"
+    ]
+   ],
+   "peak_contact_normal_N_reference": 202.10791842438024,
+   "peak_actuator_force_over_stall": {
+    "R_hip_yaw": 0.0008987302770079383,
+    "R_hip_pitch": 0.14758865991126446,
+    "R_knee": 0.030100161178690712,
+    "R_ankle_pitch": 0.5377037023017542,
+    "R_ankle_roll": 0.0010659549587533899,
+    "L_hip_yaw": 0.001797590331426676,
+    "L_hip_pitch": 0.14826962581336084,
+    "L_knee": 0.030100937274558162,
+    "L_ankle_pitch": 0.5361818861256356,
+    "L_ankle_roll": 0.0010357054950900833,
+    "nod_crank": 0.18429200348861358,
+    "R_arm_swing": 0.05927507344150641,
+    "L_arm_swing": 0.05881731367982023
+   }
+  },
+  "hard_push_30N": {
+   "push_N": 30,
+   "push_s": 0.2,
+   "fallen": true,
+   "fall_time_s": 0.249,
+   "first_floor_contacts": [
+    [
+     0.252,
+     "col_R_foot_sole"
+    ],
+    [
+     0.252,
+     "col_L_foot_sole"
+    ],
+    [
+     0.358,
+     "col_torso_cover_front"
+    ],
+    [
+     0.358,
+     "col_shorts"
+    ],
+    [
+     0.361,
+     "col_head_front"
+    ],
+    [
+     0.361,
+     "col_face_plate"
+    ],
+    [
+     0.361,
+     "col_eye_L"
+    ],
+    [
+     0.361,
+     "col_eye_R"
+    ]
+   ],
+   "peak_contact_normal_N_reference": 260.1228330080384,
+   "peak_actuator_force_over_stall": {
+    "R_hip_yaw": 0.00033845393692622005,
+    "R_hip_pitch": 0.15095756917760486,
+    "R_knee": 0.02998658917757715,
+    "R_ankle_pitch": 0.4741986287756226,
+    "R_ankle_roll": 0.0006231233199463773,
+    "L_hip_yaw": 0.0013251243574536175,
+    "L_hip_pitch": 0.15075743324863247,
+    "L_knee": 0.029987468852246374,
+    "L_ankle_pitch": 0.47290338806507604,
+    "L_ankle_roll": 0.0006515624577307751,
+    "nod_crank": 0.4839766887855819,
+    "R_arm_swing": 0.07057188318546306,
+    "L_arm_swing": 0.07010583048643662
+   }
+  }
+ },
+ "back": {
+  "smallest_toppling_push_N": 8,
+  "at_smallest": {
+   "push_N": 8,
+   "push_s": 0.2,
+   "fallen": true,
+   "fall_time_s": 0.7809999999999999,
+   "first_floor_contacts": [
+    [
+     0.818,
+     "col_R_foot_sole"
+    ],
+    [
+     0.818,
+     "col_L_foot_sole"
+    ],
+    [
+     0.947,
+     "col_shorts"
+    ],
+    [
+     0.949,
+     "col_torso_cover_back"
+    ],
+    [
+     0.956,
+     "col_opencr_ttl_plugs_cables"
+    ],
+    [
+     0.979,
+     "col_head_back"
+    ]
+   ],
+   "peak_contact_normal_N_reference": 179.25964532175297,
+   "peak_actuator_force_over_stall": {
+    "R_hip_yaw": 0.00255792845957855,
+    "R_hip_pitch": 0.13472586610916784,
+    "R_knee": 0.18689482505127641,
+    "R_ankle_pitch": 0.5597610284664556,
+    "R_ankle_roll": 0.001240151179924317,
+    "L_hip_yaw": 0.0015844718463092218,
+    "L_hip_pitch": 0.13453892411284618,
+    "L_knee": 0.18678866075245054,
+    "L_ankle_pitch": 0.5583029727109863,
+    "L_ankle_roll": 0.0012108395076139418,
+    "nod_crank": 0.43786526910307494,
+    "R_arm_swing": 0.05854079471631423,
+    "L_arm_swing": 0.05819578099259204
+   }
+  },
+  "hard_push_30N": {
+   "push_N": 30,
+   "push_s": 0.2,
+   "fallen": true,
+   "fall_time_s": 0.23299999999999998,
+   "first_floor_contacts": [
+    [
+     0.235,
+     "col_R_foot_sole"
+    ],
+    [
+     0.235,
+     "col_L_foot_sole"
+    ],
+    [
+     0.336,
+     "col_shorts"
+    ],
+    [
+     0.338,
+     "col_torso_cover_back"
+    ],
+    [
+     0.343,
+     "col_opencr_ttl_plugs_cables"
+    ],
+    [
+     0.353,
+     "col_opencr_1_0"
+    ],
+    [
+     0.354,
+     "col_lid"
+    ],
+    [
+     0.356,
+     "col_head_back"
+    ]
+   ],
+   "peak_contact_normal_N_reference": 218.7215139980973,
+   "peak_actuator_force_over_stall": {
+    "R_hip_yaw": 0.005859672950801549,
+    "R_hip_pitch": 0.19417109839026972,
+    "R_knee": 0.07474875891207083,
+    "R_ankle_pitch": 0.461121520877668,
+    "R_ankle_roll": 0.0022083831587345437,
+    "L_hip_yaw": 0.006805979264932426,
+    "L_hip_pitch": 0.19478892297388067,
+    "L_knee": 0.0747289301821968,
+    "L_ankle_pitch": 0.4601425819334609,
+    "L_ankle_roll": 0.0019999661920580307,
+    "nod_crank": 0.5219137355704561,
+    "R_arm_swing": 0.07430674043547716,
+    "L_arm_swing": 0.07401244988427882
+   }
+  }
+ },
+ "left": {
+  "smallest_toppling_push_N": 12,
+  "at_smallest": {
+   "push_N": 12,
+   "push_s": 0.2,
+   "fallen": true,
+   "fall_time_s": 1.2670000000000001,
+   "first_floor_contacts": [
+    [
+     1.295,
+     "col_R_foot_sole"
+    ],
+    [
+     1.314,
+     "col_L_foot_sole"
+    ],
+    [
+     1.433,
+     "col_shorts"
+    ],
+    [
+     1.434,
+     "col_torso_cover_back"
+    ],
+    [
+     1.44,
+     "col_opencr_ttl_plugs_cables"
+    ],
+    [
+     1.466,
+     "col_head_back"
+    ]
+   ],
+   "peak_contact_normal_N_reference": 261.64381422686347,
+   "peak_actuator_force_over_stall": {
+    "R_hip_yaw": 0.06297693621916173,
+    "R_hip_pitch": 0.13504921488246138,
+    "R_knee": 0.06342719761105511,
+    "R_ankle_pitch": 0.3075664497787035,
+    "R_ankle_roll": 0.05996516172477931,
+    "L_hip_yaw": 0.19746530188103675,
+    "L_hip_pitch": 0.20477367435678037,
+    "L_knee": 0.29885090196650366,
+    "L_ankle_pitch": 0.8393393990470505,
+    "L_ankle_roll": 0.1569729188681291,
+    "nod_crank": 0.4736450826244081,
+    "R_arm_swing": 0.054975486878599135,
+    "L_arm_swing": 0.060886018320479136
+   }
+  },
+  "hard_push_30N": {
+   "push_N": 30,
+   "push_s": 0.2,
+   "fallen": true,
+   "fall_time_s": 0.252,
+   "first_floor_contacts": [
+    [
+     0.252,
+     "col_L_foot_sole"
+    ],
+    [
+     0.33,
+     "col_arm_L_hand"
+    ],
+    [
+     0.331,
+     "col_arm_L_flap_pin"
+    ],
+    [
+     0.332,
+     "col_arm_L_flap"
+    ],
+    [
+     0.353,
+     "col_arm_L_shell_out"
+    ],
+    [
+     0.361,
+     "col_ear_disc_L"
+    ],
+    [
+     0.362,
+     "col_ear_L"
+    ],
+    [
+     0.363,
+     "col_arm_L_idler_XC430"
+    ]
+   ],
+   "peak_contact_normal_N_reference": 200.24679774205478,
+   "peak_actuator_force_over_stall": {
+    "R_hip_yaw": 0.17091189574180607,
+    "R_hip_pitch": 0.3163991802931783,
+    "R_knee": 0.1429693733940157,
+    "R_ankle_pitch": 0.09541277382488893,
+    "R_ankle_roll": 0.01733052847407704,
+    "L_hip_yaw": 0.21172034115939092,
+    "L_hip_pitch": 0.19022738206129738,
+    "L_knee": 0.07264236981298967,
+    "L_ankle_pitch": 0.17492449884826125,
+    "L_ankle_roll": 0.0948458815905656,
+    "nod_crank": 0.24498381059656196,
+    "R_arm_swing": 0.048139802037836556,
+    "L_arm_swing": 0.27225217188207174
+   }
+  }
+ },
+ "right": {
+  "smallest_toppling_push_N": 12,
+  "at_smallest": {
+   "push_N": 12,
+   "push_s": 0.2,
+   "fallen": true,
+   "fall_time_s": 1.205,
+   "first_floor_contacts": [
+    [
+     1.309,
+     "col_R_foot_sole"
+    ],
+    [
+     1.425,
+     "col_head_back"
+    ],
+    [
+     1.427,
+     "col_ear_R"
+    ],
+    [
+     1.429,
+     "col_ear_disc_R"
+    ],
+    [
+     1.434,
+     "col_shorts"
+    ],
+    [
+     1.434,
+     "col_arm_R_hand"
+    ],
+    [
+     1.435,
+     "col_arm_R_shell_out"
+    ],
+    [
+     1.744,
+     "col_torso_cover_back"
+    ]
+   ],
+   "peak_contact_normal_N_reference": 161.6988918887265,
+   "peak_actuator_force_over_stall": {
+    "R_hip_yaw": 0.28736088252127184,
+    "R_hip_pitch": 0.2437900953769203,
+    "R_knee": 0.34453583698330514,
+    "R_ankle_pitch": 1.0,
+    "R_ankle_roll": 0.15727844516531453,
+    "L_hip_yaw": 0.029925591799627314,
+    "L_hip_pitch": 0.1526179590194222,
+    "L_knee": 0.06067764529678035,
+    "L_ankle_pitch": 0.07872985769990459,
+    "L_ankle_roll": 0.003960698418259431,
+    "nod_crank": 0.3524396229923573,
+    "R_arm_swing": 0.03945651296425312,
+    "L_arm_swing": 0.03710705279183237
+   }
+  },
+  "hard_push_30N": {
+   "push_N": 30,
+   "push_s": 0.2,
+   "fallen": true,
+   "fall_time_s": 0.252,
+   "first_floor_contacts": [
+    [
+     0.252,
+     "col_R_foot_sole"
+    ],
+    [
+     0.329,
+     "col_arm_R_hand"
+    ],
+    [
+     0.33,
+     "col_arm_R_flap_pin"
+    ],
+    [
+     0.332,
+     "col_arm_R_flap"
+    ],
+    [
+     0.353,
+     "col_arm_R_shell_out"
+    ],
+    [
+     0.36,
+     "col_ear_disc_R"
+    ],
+    [
+     0.361,
+     "col_ear_R"
+    ],
+    [
+     0.362,
+     "col_arm_R_idler_XC430"
+    ]
+   ],
+   "peak_contact_normal_N_reference": 247.84639471859975,
+   "peak_actuator_force_over_stall": {
+    "R_hip_yaw": 0.17773730891369866,
+    "R_hip_pitch": 0.2067621886290941,
+    "R_knee": 0.07422834161954993,
+    "R_ankle_pitch": 0.1662397523392847,
+    "R_ankle_roll": 0.09511332314966232,
+    "L_hip_yaw": 0.1533548177490198,
+    "L_hip_pitch": 0.1689323629125269,
+    "L_knee": 0.06627017472836737,
+    "L_ankle_pitch": 0.12479114086299616,
+    "L_ankle_roll": 0.006497604605191086,
+    "nod_crank": 0.3395542500026352,
+    "R_arm_swing": 0.12483064872482001,
+    "L_arm_swing": 0.03833126427825899
+   }
+  }
+ }
+}

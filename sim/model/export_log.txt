@@ -1,0 +1,10 @@
+closed loop: crank -10.762..20.707 deg for head -10..20, ear -17.482..34.013 deg
+  polyfit deg4 residual: head 6.77e-04 deg, ear 6.12e-03 deg; dbeta/dalpha 0.9089..0.9735, dpsi/dalpha 1.5986..1.7532
+  c0 head -4.53e-06 rad, c0 ear 3.69e-05 rad (should be ~0: beta=0 <-> crank=0)
+visual triangle winding: {'kept': 82280, 'flipped': 50624, 'two_sided': 1294}
+caps triangulated: {'ear': 656, 'strip': 306}; caps whose triangle area != outline-holes area: 10 [('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'shorts', np.float64(4823.33), np.float64(5014.71)), ('torso', 'shorts', np.float64(4823.33), np.float64(5014.71)), ('R_foot', 'R_foot_sole', np.float64(5049.52), np.float64(5061.95)), ('R_foot', 'R_foot_sole', np.float64(5049.52), np.float64(5061.95)), ('L_foot', 'L_foot_sole', np.float64(5049.52), np.float64(5061.95)), ('L_foot', 'L_foot_sole', np.float64(5049.52), np.float64(5061.95))]
+meshes: 76 visual + 122 collision hulls, 4.87 MB
+pads R_foot: 4 at [(np.float64(-62.0), np.float64(-63.0), np.float64(0.0)), (np.float64(-62.0), np.float64(-17.0), np.float64(0.0)), (np.float64(48.0), np.float64(-63.0), np.float64(0.0)), (np.float64(48.0), np.float64(-17.0), np.float64(0.0))]
+pads L_foot: 4 at [(np.float64(-62.0), np.float64(63.0), np.float64(0.0)), (np.float64(-62.0), np.float64(17.0), np.float64(0.0)), (np.float64(48.0), np.float64(63.0), np.float64(0.0)), (np.float64(48.0), np.float64(17.0), np.float64(0.0))]
+compiled kitoru_v17.xml: nbody 17 njnt 16 nq 22 nu 13 ngeom 207 neq 2
+compiled kitoru_v17_fixed.xml: nq 15 nu 13
