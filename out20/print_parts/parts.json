@@ -184,9 +184,9 @@
   "part": "R_hip_yaw_bracket",
   "link": "R_hip_yaw_link",
   "up": "+z",
-  "size_mm": "84x37x82",
-  "support_mm2": 56,
-  "volume_cm3": 47.0,
+  "size_mm": "38x37x66",
+  "support_mm2": 0,
+  "volume_cm3": 23.6,
   "note": "",
   "colours": [
    [
@@ -197,28 +197,12 @@
   ]
  },
  {
-  "part": "R_hip_cover",
-  "link": "R_hip_yaw_link",
-  "up": "+x",
-  "size_mm": "41x55x38",
-  "support_mm2": 0,
-  "volume_cm3": 9.0,
-  "note": "",
-  "colours": [
-   [
-    0.05,
-    0.19,
-    0.38
-   ]
-  ]
- },
- {
   "part": "R_thigh_frame",
   "link": "R_thigh",
   "up": "-z",
-  "size_mm": "44x49x98",
-  "support_mm2": 34,
-  "volume_cm3": 23.3,
+  "size_mm": "44x49x118",
+  "support_mm2": 31,
+  "volume_cm3": 30.1,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -248,9 +232,9 @@
   "part": "R_shank_frame",
   "link": "R_shank",
   "up": "+z",
-  "size_mm": "44x49x92",
+  "size_mm": "44x49x112",
   "support_mm2": 16,
-  "volume_cm3": 22.1,
+  "volume_cm3": 29.1,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -264,9 +248,9 @@
   "part": "R_shank_shell",
   "link": "R_shank",
   "up": "+z",
-  "size_mm": "44x61x60",
+  "size_mm": "44x61x80",
   "support_mm2": 0,
-  "volume_cm3": 12.4,
+  "volume_cm3": 16.5,
   "note": "하늘색",
   "colours": [
    [
@@ -312,9 +296,9 @@
   "part": "L_hip_yaw_bracket",
   "link": "L_hip_yaw_link",
   "up": "+z",
-  "size_mm": "84x37x82",
-  "support_mm2": 56,
-  "volume_cm3": 47.0,
+  "size_mm": "38x37x66",
+  "support_mm2": 0,
+  "volume_cm3": 23.6,
   "note": "",
   "colours": [
    [
@@ -325,28 +309,12 @@
   ]
  },
  {
-  "part": "L_hip_cover",
-  "link": "L_hip_yaw_link",
-  "up": "+x",
-  "size_mm": "41x55x38",
-  "support_mm2": 0,
-  "volume_cm3": 9.0,
-  "note": "",
-  "colours": [
-   [
-    0.05,
-    0.19,
-    0.38
-   ]
-  ]
- },
- {
   "part": "L_thigh_frame",
   "link": "L_thigh",
   "up": "-z",
-  "size_mm": "44x49x98",
-  "support_mm2": 33,
-  "volume_cm3": 23.3,
+  "size_mm": "44x49x118",
+  "support_mm2": 30,
+  "volume_cm3": 30.1,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -376,9 +344,9 @@
   "part": "L_shank_frame",
   "link": "L_shank",
   "up": "+z",
-  "size_mm": "44x49x92",
+  "size_mm": "44x49x112",
   "support_mm2": 16,
-  "volume_cm3": 22.1,
+  "volume_cm3": 29.1,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -392,9 +360,9 @@
   "part": "L_shank_shell",
   "link": "L_shank",
   "up": "+z",
-  "size_mm": "44x61x60",
+  "size_mm": "44x61x80",
   "support_mm2": 0,
-  "volume_cm3": 12.4,
+  "volume_cm3": 16.5,
   "note": "하늘색",
   "colours": [
    [
@@ -885,12 +853,12 @@
   ]
  },
  {
-  "part": "R_hip_roll_plate_back",
+  "part": "R_hip_roll_bracket",
   "link": "R_hip_roll_link",
-  "up": "+x",
-  "size_mm": "32x37x4",
+  "up": "+z",
+  "size_mm": "49x35x89",
   "support_mm2": 0,
-  "volume_cm3": 3.8,
+  "volume_cm3": 29.6,
   "note": "",
   "colours": [
    [
@@ -901,44 +869,12 @@
   ]
  },
  {
-  "part": "R_hip_roll_plate_front",
-  "link": "R_hip_roll_link",
-  "up": "-x",
-  "size_mm": "32x37x4",
-  "support_mm2": 0,
-  "volume_cm3": 4.0,
-  "note": "",
-  "colours": [
-   [
-    0.2,
-    0.24,
-    0.32
-   ]
-  ]
- },
- {
-  "part": "L_hip_roll_plate_back",
+  "part": "L_hip_roll_bracket",
   "link": "L_hip_roll_link",
-  "up": "+x",
-  "size_mm": "32x37x4",
+  "up": "+z",
+  "size_mm": "49x35x89",
   "support_mm2": 0,
-  "volume_cm3": 3.8,
-  "note": "",
-  "colours": [
-   [
-    0.2,
-    0.24,
-    0.32
-   ]
-  ]
- },
- {
-  "part": "L_hip_roll_plate_front",
-  "link": "L_hip_roll_link",
-  "up": "-x",
-  "size_mm": "32x37x4",
-  "support_mm2": 0,
-  "volume_cm3": 4.0,
+  "volume_cm3": 29.6,
   "note": "",
   "colours": [
    [

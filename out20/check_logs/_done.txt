@@ -1,7 +1,11 @@
-exact_check4 exit 0
 printcheck exit 0
-intra7 exit 0
-render exit 0
+exact_check4 exit 0
 export_parts exit 0
+stl/strength exit 0
 sweep exit 0
-mass/csv/mjcf/ranges exit 0
+build/mass/mjcf/ranges exit 0
+U rerun exit 0
+rollpair exit 0
+U2 exit 0
+sweep2 exit 0
+final ranges exit 0

@@ -1,0 +1,23 @@
+{
+ "baseline_overlaps": [],
+ "joints": [
+  "R_hip_yaw",
+  "R_hip_roll",
+  "R_hip_pitch",
+  "R_knee",
+  "R_ankle_pitch",
+  "R_ankle_roll",
+  "L_hip_yaw",
+  "L_hip_roll",
+  "L_hip_pitch",
+  "L_knee",
+  "L_ankle_pitch",
+  "L_ankle_roll",
+  "R_arm_swing",
+  "L_arm_swing",
+  "head_nod"
+ ],
+ "build": "build20",
+ "mjcf": "../model/kitoru_v20.xml",
+ "step_mm": 1.5
+}

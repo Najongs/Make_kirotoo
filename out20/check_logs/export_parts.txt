@@ -9,20 +9,18 @@ neck_yoke                 +z     31x35x28 sup     0     5.4 cm3  남색. 688ZZ 2
 pelvis_hatch              +z     110x36x6 sup     0    15.4 cm3  남색 또는 구조색. 윗면(립·자석 구멍)이 위로. 6x3 자석 4개 압입
 arm_R_horn_adapter        +y      29x35x4 sup     0     2.7 cm3  구조색. 서보 혼에 체결(서보 나사), D컷 축에 압입
 arm_L_horn_adapter        -y      29x35x4 sup     0     2.7 cm3  구조색. 서보 혼에 체결(서보 나사), D컷 축에 압입
-R_hip_yaw_bracket         +z     84x37x82 sup    56    47.0 cm3  
-R_hip_cover               +x     41x55x38 sup     0     9.0 cm3  
-R_thigh_frame             -z     44x49x98 sup    34    23.3 cm3  앞면 홈 + 받침(셸 걸쇠용)
+R_hip_yaw_bracket         +z     38x37x66 sup     0    23.6 cm3  
+R_thigh_frame             -z    44x49x118 sup    31    30.1 cm3  앞면 홈 + 받침(셸 걸쇠용)
 R_thigh_shell             +z     44x54x22 sup     0     4.4 cm3  
-R_shank_frame             +z     44x49x92 sup    16    22.1 cm3  앞면 홈 + 받침(셸 걸쇠용)
-R_shank_shell             +z     44x61x60 sup     0    12.4 cm3  하늘색
+R_shank_frame             +z    44x49x112 sup    16    29.1 cm3  앞면 홈 + 받침(셸 걸쇠용)
+R_shank_shell             +z     44x61x80 sup     0    16.5 cm3  하늘색
 R_ankle_bracket           +x     54x25x84 sup    59    21.1 cm3  
 R_foot_sole               +z    134x70x41 sup     0    63.9 cm3  발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓
-L_hip_yaw_bracket         +z     84x37x82 sup    56    47.0 cm3  
-L_hip_cover               +x     41x55x38 sup     0     9.0 cm3  
-L_thigh_frame             -z     44x49x98 sup    33    23.3 cm3  앞면 홈 + 받침(셸 걸쇠용)
+L_hip_yaw_bracket         +z     38x37x66 sup     0    23.6 cm3  
+L_thigh_frame             -z    44x49x118 sup    30    30.1 cm3  앞면 홈 + 받침(셸 걸쇠용)
 L_thigh_shell             +z     44x54x22 sup     0     4.4 cm3  
-L_shank_frame             +z     44x49x92 sup    16    22.1 cm3  앞면 홈 + 받침(셸 걸쇠용)
-L_shank_shell             +z     44x61x60 sup     0    12.4 cm3  하늘색
+L_shank_frame             +z    44x49x112 sup    16    29.1 cm3  앞면 홈 + 받침(셸 걸쇠용)
+L_shank_shell             +z     44x61x80 sup     0    16.5 cm3  하늘색
 L_ankle_bracket           +x     54x25x84 sup    59    21.1 cm3  
 L_foot_sole               +z    134x70x41 sup     0    63.9 cm3  발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓
 head_back                 +x   200x196x90 sup     0   122.0 cm3  뒷면을 바닥에. 목 축 판·보강판·서보 패드·이음 걸쇠 포함
@@ -53,7 +51,5 @@ ear_rocker                +y      13x18x2 sup     0     0.3 cm3  구조색. 귀 
 ear_rod                   +y      66x41x3 sup     0     1.5 cm3  평평하게
 arm_R_flap                -z      22x43x8 sup     0     6.9 cm3  
 arm_L_flap                -z      22x43x8 sup     0     6.9 cm3  
-R_hip_roll_plate_back     +x      32x37x4 sup     0     3.8 cm3  
-R_hip_roll_plate_front    -x      32x37x4 sup     0     4.0 cm3  
-L_hip_roll_plate_back     +x      32x37x4 sup     0     3.8 cm3  
-L_hip_roll_plate_front    -x      32x37x4 sup     0     4.0 cm3  
+R_hip_roll_bracket        +z     49x35x89 sup     0    29.6 cm3  
+L_hip_roll_bracket        +z     49x35x89 sup     0    29.6 cm3  

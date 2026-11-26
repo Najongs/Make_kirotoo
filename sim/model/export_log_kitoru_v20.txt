@@ -1,10 +1,8 @@
 closed loop: crank -10.762..20.707 deg for head -10..20, ear -17.482..34.013 deg
   polyfit deg4 residual: head 6.77e-04 deg, ear 6.12e-03 deg; dbeta/dalpha 0.9089..0.9735, dpsi/dalpha 1.5986..1.7532
   c0 head -4.53e-06 rad, c0 ear 3.69e-05 rad (should be ~0: beta=0 <-> crank=0)
-visual triangle winding: {'kept': 96246, 'flipped': 68254, 'two_sided': 10194}
-caps triangulated: {'strip': 416, 'ear': 738}; caps whose triangle area != outline-holes area: 50 [('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'shorts', np.float64(4823.33), np.float64(5014.71)), ('torso', 'shorts', np.float64(4823.33), np.float64(5014.71)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-9.98), np.float64(35.53)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-9.98), np.float64(35.53)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-9.98), np.float64(35.53)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-9.98), np.float64(35.53))]
-meshes: 86 visual + 136 collision hulls, 6.23 MB
-pads R_foot: 5 at [(np.float64(-55.5), np.float64(-69.0), np.float64(0.0)), (np.float64(-62.0), np.float64(-26.4), np.float64(0.0)), (np.float64(41.5), np.float64(-69.0), np.float64(0.0)), (np.float64(48.0), np.float64(-21.3), np.float64(0.0)), (np.float64(0.0), np.float64(-13.0), np.float64(0.0))]
-pads L_foot: 5 at [(np.float64(-55.5), np.float64(69.0), np.float64(0.0)), (np.float64(-62.0), np.float64(26.4), np.float64(0.0)), (np.float64(41.5), np.float64(69.0), np.float64(0.0)), (np.float64(48.0), np.float64(21.3), np.float64(0.0)), (np.float64(0.0), np.float64(13.0), np.float64(0.0))]
-compiled kitoru_v20.xml: nbody 19 njnt 18 nq 24 nu 15 ngeom 233 neq 2
+visual triangle winding: {'kept': 93766, 'flipped': 67094, 'two_sided': 8510}
+caps triangulated: {'strip': 412, 'ear': 690}; caps whose triangle area != outline-holes area: 50 [('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'shorts', np.float64(4823.33), np.float64(5014.71)), ('torso', 'shorts', np.float64(4823.33), np.float64(5014.71)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-5.76), np.float64(39.76)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-5.76), np.float64(39.76)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-5.76), np.float64(39.76)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-5.76), np.float64(39.76))]
+meshes: 82 visual + 130 collision hulls, 6.05 MB
+compiled kitoru_v20.xml: nbody 19 njnt 18 nq 24 nu 15 ngeom 213 neq 2
 compiled kitoru_v20_fixed.xml: nq 17 nu 15

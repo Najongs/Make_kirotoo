@@ -1,0 +1,2 @@
+part                               pc  up          size (mm) support mm2  bed mm2    cm3  worst
+R_hip_roll_bracket                  1  +z           35x49x89           0      330   28.0  []

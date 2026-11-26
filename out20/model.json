@@ -55,16 +55,14 @@
     "R_hip_yaw_bracket",
     "R_hip_yaw_horn",
     "R_hip_yaw_idler",
-    "R_hip_roll_servo_XM430",
-    "R_hip_roll_pin_4mm",
-    "R_hip_cover"
+    "R_hip_roll_servo_XM430"
    ]
   },
   "R_thigh": {
    "origin": [
     0,
     -40,
-    185
+    144.87
    ],
    "parts": [
     "R_knee_servo_XM430",
@@ -78,7 +76,7 @@
    "origin": [
     0,
     -40,
-    110
+    49.870000000000005
    ],
    "parts": [
     "R_shank_frame",
@@ -92,7 +90,7 @@
    "origin": [
     0,
     -40,
-    35
+    -45.13
    ],
    "parts": [
     "R_ankle_roll_servo_XM430",
@@ -105,7 +103,7 @@
    "origin": [
     0,
     -40,
-    35
+    -45.13
    ],
    "parts": [
     "R_foot_sole",
@@ -123,16 +121,14 @@
     "L_hip_yaw_bracket",
     "L_hip_yaw_horn",
     "L_hip_yaw_idler",
-    "L_hip_roll_servo_XM430",
-    "L_hip_roll_pin_4mm",
-    "L_hip_cover"
+    "L_hip_roll_servo_XM430"
    ]
   },
   "L_thigh": {
    "origin": [
     0,
     40,
-    185
+    144.87
    ],
    "parts": [
     "L_knee_servo_XM430",
@@ -146,7 +142,7 @@
    "origin": [
     0,
     40,
-    110
+    49.870000000000005
    ],
    "parts": [
     "L_shank_frame",
@@ -160,7 +156,7 @@
    "origin": [
     0,
     40,
-    35
+    -45.13
    ],
    "parts": [
     "L_ankle_roll_servo_XM430",
@@ -173,7 +169,7 @@
    "origin": [
     0,
     40,
-    35
+    -45.13
    ],
    "parts": [
     "L_foot_sole",
@@ -310,28 +306,26 @@
    "origin": [
     0.0,
     -40.0,
-    185.0
+    198.45
    ],
    "parts": [
-    "R_hip_pitch_servo_XM430",
-    "R_hip_roll_plate_back",
-    "R_hip_roll_plate_front",
     "R_hip_roll_horn",
-    "R_hip_roll_idler"
+    "R_hip_roll_idler",
+    "R_hip_pitch_servo_XM430",
+    "R_hip_roll_bracket"
    ]
   },
   "L_hip_roll_link": {
    "origin": [
     0.0,
     40.0,
-    185.0
+    198.45
    ],
    "parts": [
-    "L_hip_pitch_servo_XM430",
-    "L_hip_roll_plate_back",
-    "L_hip_roll_plate_front",
     "L_hip_roll_horn",
-    "L_hip_roll_idler"
+    "L_hip_roll_idler",
+    "L_hip_pitch_servo_XM430",
+    "L_hip_roll_bracket"
    ]
   }
  },
@@ -358,9 +352,9 @@
    "point_mm": [
     0.0,
     -40.0,
-    185.0
+    198.45
    ],
-   "lower_deg": -18.0,
+   "lower_deg": -25.0,
    "upper_deg": 2.0,
    "actuator": "XM430-W350"
   },
@@ -372,10 +366,10 @@
    "point_mm": [
     0,
     -40,
-    185
+    144.87
    ],
-   "lower_deg": -80,
-   "upper_deg": 5.0,
+   "lower_deg": -80.0,
+   "upper_deg": 30.0,
    "actuator": "XM430-W350"
   },
   {
@@ -386,7 +380,7 @@
    "point_mm": [
     0,
     -40,
-    110
+    49.870000000000005
    ],
    "lower_deg": 0,
    "upper_deg": 100,
@@ -400,7 +394,7 @@
    "point_mm": [
     0,
     -40,
-    35
+    -45.13
    ],
    "lower_deg": -50,
    "upper_deg": 22,
@@ -414,7 +408,7 @@
    "point_mm": [
     0,
     -40,
-    35
+    -45.13
    ],
    "lower_deg": -20,
    "upper_deg": 20,
@@ -442,10 +436,10 @@
    "point_mm": [
     0.0,
     40.0,
-    185.0
+    198.45
    ],
    "lower_deg": -2.0,
-   "upper_deg": 18.0,
+   "upper_deg": 25.0,
    "actuator": "XM430-W350"
   },
   {
@@ -456,10 +450,10 @@
    "point_mm": [
     0,
     40,
-    185
+    144.87
    ],
-   "lower_deg": -80,
-   "upper_deg": 5.0,
+   "lower_deg": -80.0,
+   "upper_deg": 30.0,
    "actuator": "XM430-W350"
   },
   {
@@ -470,7 +464,7 @@
    "point_mm": [
     0,
     40,
-    110
+    49.870000000000005
    ],
    "lower_deg": 0,
    "upper_deg": 100,
@@ -484,7 +478,7 @@
    "point_mm": [
     0,
     40,
-    35
+    -45.13
    ],
    "lower_deg": -50,
    "upper_deg": 22,
@@ -498,7 +492,7 @@
    "point_mm": [
     0,
     40,
-    35
+    -45.13
    ],
    "lower_deg": -20,
    "upper_deg": 20,

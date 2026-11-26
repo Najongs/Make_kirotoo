@@ -149,6 +149,164 @@ def hip_roll(links, joints, side):
                 side_plates_y=[side_out, side_in], front_pillar_x=(round(pf0, 2), round(pf0 + 3.5, 2)), cover_x=(round(cx0, 2), round(cx1, 2)))
 
 
+# ---------------------------------------------------------------- hip roll, layout A (owner 2026-11-26)
+LAYOUT = os.environ.get("KITORU_HIPROLL", "A")
+# layout A stack: roll servo top 0.3 under the yaw plate (z 210), roll axis 11.25 below its top; its bottom corners
+# sweep r = hypot(35.25, 14.25) = 38.02 about the roll axis; U bracket bottom plate (3.0) 1.0 below that circle;
+# pitch servo top 0.3 under the plate, pitch axis 11.25 below the pitch servo top.  (Without the bottom plate the
+# stack is 3.3 mm shorter, 36.8, but the U falls apart into a front and a back half held only by the servo cases.)
+ROLL_CLEAR = 1.0
+U_PLATE = 3.0
+WALL_PLUS = 2.0             # hip pitch clamp walls in the U bracket: 3.85 -> 5.85
+_ZR_A = 210.0 - 0.3 - 11.25
+LEG_EXTRA_MIN = math.ceil((185.0 - (_ZR_A - math.hypot(35.25, 14.25) - ROLL_CLEAR - U_PLATE - SEAT_GAP - 11.25)) * 100) / 100
+_le = os.environ.get("LEG_EXTRA_MM", "min")
+LEG_EXTRA_MM = LEG_EXTRA_MIN if _le == "min" else float(_le)       # hip pitch axis drop below v19 (A)
+assert LEG_EXTRA_MM >= LEG_EXTRA_MIN - 1e-6, f"LEG_EXTRA_MM {LEG_EXTRA_MM} < minimum {LEG_EXTRA_MIN}"
+THIGH_EXTRA_MM = float(os.environ.get("THIGH_EXTRA_MM", "20"))     # thigh longer (hip pitch -> knee); kit 2026-11-26: +20
+SHANK_EXTRA_MM = float(os.environ.get("SHANK_EXTRA_MM", "20"))     # shank longer (knee -> ankle); kit 2026-11-26: +20
+LIFT_MM = (LEG_EXTRA_MM if LAYOUT == "A" else 0.0) + THIGH_EXTRA_MM + SHANK_EXTRA_MM    # feet below z 0 by this
+LOWER = ("thigh", "shank", "ankle_link", "foot")
+
+
+def _shift_link(L, dz):
+    L["origin"] = tuple(L["origin"][:2]) + (L["origin"][2] + dz,)
+    for pn, ss in L["parts"].items():
+        L["parts"][pn] = [build4.to_local(x, (0.0, 0.0, -dz)) for x in ss]
+
+
+def hip_roll_A(links, joints, side):
+    """layout A (serial): roll servo upright under the yaw plate (horn axis x, horn forward), roll output = U bracket
+    (front plate on the horn, back plate on the idler, bottom plate) that carries the hip pitch clamp walls; the
+    pitch axis and the whole leg below move down by LEG_EXTRA_MM."""
+    s = -1 if side == "R" else 1
+    ys = 40.0 * s
+    dz = -LEG_EXTRA_MM
+    Y = links[f"{side}_hip_yaw_link"]["parts"]
+    yb = Y[f"{side}_hip_yaw_bracket"]
+    rgb = yb[1][2]
+    hr = B19.HORN_HOLE_D / 2
+    # ---- roll servo: top 0.3 under the yaw plate (z 210-213), horn 11.25 below its top
+    top = 210.0 - SEAT_GAP
+    zr = top - 11.25
+    sv = Y[f"{side}_hip_pitch_servo_XM430"][0]
+    Y[f"{side}_hip_roll_servo_XM430"] = [PROFI("x", -17.0, 17.0, rrect(ys - 14.25, ys + 14.25, zr - 35.25, zr + 11.25, 3.25), [], sv[2])]
+    # ---- roll link: U bracket + pitch servo + clamp walls (moved down)
+    roll = {"origin": (0.0, ys, zr), "parts": {}}
+    R = roll["parts"]
+    horn_rgb = links["R_thigh"]["parts"]["R_hip_pitch_horn"][0][2]
+    R[f"{side}_hip_roll_horn"] = [CYL((17.0, ys, zr), "x", 10.25, 3.9, horn_rgb)]
+    R[f"{side}_hip_roll_idler"] = [CYL((-17.0, ys, zr), "-x", 10.25, 3.0, horn_rgb)]
+    zp = 185.0 + dz
+    pt = zp + 11.25                                    # pitch servo top
+    plate_bot, plate_top = pt + SEAT_GAP, pt + SEAT_GAP + U_PLATE
+    r_corner = math.hypot(35.25, 14.25)                # roll servo bottom corner about the roll axis
+    clear = zr - r_corner - plate_top
+    assert clear >= ROLL_CLEAR - 1e-3, f"LEG_EXTRA_MM {LEG_EXTRA_MM}: roll servo corner clears the U plate by {clear:.2f} mm only"
+    R[f"{side}_hip_pitch_servo_XM430"] = [build4.to_local(x, (0.0, 0.0, -dz)) for x in Y.pop(f"{side}_hip_pitch_servo_XM430")]
+    walls = [x for x in yb if x[0] == "rprism" and x[1][0] == "x"]
+    ub = []
+    for w in walls:
+        w2 = build4.to_local(w, (0.0, 0.0, -dz))
+        ax, a0, a1, outer, inn, holes = w2[1]
+        # clamp walls 2 mm thicker outward (walking bending at the wall foot 5.8 -> ~3.8 MPa, sim/robust strength)
+        a0, a1 = (a0, a1 + WALL_PLUS) if a0 > 0 else (a0 - WALL_PLUS, a1)
+        o2 = _clip_v(outer, plate_bot + 0.5)
+        ub.append(PROFI(ax, a0, a1, o2, inn, w[2], [h for h in holes if h[1] + h[2] < plate_bot - 1.2]))
+    xf0, xb1 = 17.0 + 3.9, -17.0 - 3.0                  # horn face / idler face
+    # U plates 32 wide below the roll axis (walking bending 9.7 -> ~4 MPa, sim/robust strength), tapering to the
+    # 21 wide rounded top above it: every point stays under z 212 at roll +-35 (shorts block from z 213 at x >= 20)
+    up = [(ys - 16.0, plate_bot, 0.0), (ys + 16.0, plate_bot, 0.0), (ys + 16.0, zr + 2.5, 0.0), (ys + 10.5, zr + 6.5, 0.0),
+          (ys + 10.5, zr + 10.5, 4.0), (ys - 10.5, zr + 10.5, 4.0), (ys - 10.5, zr + 6.5, 0.0), (ys - 16.0, zr + 2.5, 0.0)]
+    hd = [(y, z, hr) for y, z in _diag(ys, zr)] + [(ys, zr, 2.5)]
+    ub += [PROFI("x", xf0, xf0 + PL, up, [], rgb, hd),                       # front plate on the horn
+           PROFI("x", xb1 - PL, xb1, up, [], rgb, hd),                       # back plate on the idler
+           PROFI("z", plate_bot, plate_top, rrect(xb1 - PL, xf0 + PL, ys - 17.5, ys + 17.5, 2.0), [], rgb)]   # bottom plate
+    R[f"{side}_hip_roll_bracket"] = ub
+    links[f"{side}_hip_roll_link"] = roll
+    # ---- yaw link: hub + plate z 210-213 + side plates gripping the roll servo
+    cb = [(x, y, 2.3) for x, y in _diag(0.0, ys)] + [(0.0, ys, 2.5)]       # counterbores (driver from below)
+    sc = [(x, y, hr) for x, y in _diag(0.0, ys)] + [(0.0, ys, 2.5)]       # M2 yaw horn screws
+    hub = [PROFI("z", 213.0, 228.0, _ring(0.0, ys, 12.5 - FIT_PLUS), [], rgb, cb),
+           PROFI("z", 228.0, 232.1, _ring(0.0, ys, 12.5 - FIT_PLUS), [], rgb, sc)]
+    yin = 14.25 + PITCH_GAP
+    Y[f"{side}_hip_yaw_bracket"] = hub + [
+        PROFI("z", 210.0, 213.0, rrect(-19.0, 19.0, ys - yin - PL, ys + yin + PL, 2.0), [], rgb, cb),
+        PROFI("y", ys - yin - PL, ys - yin, rrect(166.0, 213.0, -17.0, 17.0, 1.0), [], rgb),
+        PROFI("y", ys + yin, ys + yin + PL, rrect(166.0, 213.0, -17.0, 17.0, 1.0), [], rgb)]
+    # ---- the leg below the pitch axis moves down
+    for k in LOWER:
+        _shift_link(links[f"{side}_{k}"], dz)
+    names = [f"{side}_hip_pitch", f"{side}_knee", f"{side}_ankle_pitch", f"{side}_ankle_roll"]
+    for j in joints:
+        if j["name"] in names:
+            p = j["point_mm"]; j["point_mm"] = (p[0], p[1], p[2] + dz)
+        if j["name"] == f"{side}_hip_pitch":
+            j["parent"] = f"{side}_hip_roll_link"
+            j["lower_deg"], j["upper_deg"] = -80.0, 30.0
+    k = next(i for i, j in enumerate(joints) if j["name"] == f"{side}_hip_yaw")
+    lo_r, hi_r = (-25.0, 2.0) if side == "R" else (-2.0, 25.0)
+    joints.insert(k + 1, {"name": f"{side}_hip_roll", "parent": f"{side}_hip_yaw_link", "child": f"{side}_hip_roll_link",
+                          "axis": "x", "point_mm": (0.0, ys, zr), "lower_deg": lo_r, "upper_deg": hi_r, "actuator": "XM430-W350"})
+    return dict(side=side, layout="A", leg_extra_mm=LEG_EXTRA_MM, leg_extra_min_mm=LEG_EXTRA_MIN, roll_axis_z=round(zr, 2),
+                pitch_axis_z=round(zp, 2), u_plate_z=(round(plate_bot, 2), round(plate_top, 2)), roll_corner_clear_mm=round(clear, 2))
+
+
+def _stretch(sol, zc, d):
+    """lower everything of a solid below z = zc by d (a solid that crosses zc gets longer)"""
+    kind, a, rgb = sol
+    if kind == "cyl":
+        c = a[0]
+        return (kind, ((c[0], c[1], c[2] - d),) + tuple(a[1:]), rgb) if c[2] < zc else sol
+    if kind != "rprism":
+        raise ValueError(kind)
+    axn, a0, a1, outer, inn, holes = a
+    if axn == "z":
+        if a1 <= zc:
+            return (kind, (axn, a0 - d, a1 - d, outer, inn, holes), rgb)
+        return (kind, (axn, a0 - d, a1, outer, inn, holes), rgb) if a0 < zc else sol
+    k = 1 if axn == "x" else 0                      # index of z in the outline (x -> (y, z), y -> (z, x))
+    mv = lambda q: tuple((c - d if (j == k and q[k] < zc) else c) for j, c in enumerate(q))
+    return (kind, (axn, a0, a1, [mv(q) for q in outer], [[mv(q) for q in l] for l in inn], [mv(h) for h in holes]), rgb)
+
+
+def shank_plates_wider(links):
+    """shank knee horn plates (y-plates, x +-12, v19 z 88-122) -> x +-16: walking bending at the knee end 7.7 -> ~4.5 MPa
+    (sim/robust strength); the thigh parts that turn past them stay at |y - c| <= 17 or >= 30 mm from the knee axis"""
+    out = []
+    for side in ("R", "L"):
+        ss = links[f"{side}_shank"]["parts"][f"{side}_shank_frame"]
+        for i, x in enumerate(ss):
+            a = x[1]
+            if x[0] == "rprism" and a[0] == "y" and sorted({round(q[1], 3) for q in a[3]}) == [-12.0, 12.0]:
+                o = [(q[0], 16.0 if q[1] > 0 else -16.0) + tuple(q[2:]) for q in a[3]]
+                ss[i] = (x[0], (a[0], a[1], a[2], B18._fit_radii(o), a[4], a[5]), x[2]); out.append((side, i))
+    return out
+
+
+def leg_lengths(links, joints, dz):
+    """THIGH_EXTRA_MM / SHANK_EXTRA_MM: the thigh is stretched across v19 z 160 (between the hip pitch horn and the
+    knee servo), the shank across v19 z 85 (between the knee horn and the ankle pitch servo); dz = layout A drop"""
+    out = []
+    for side in ("R", "L"):
+        # (the shank cut also moves down with the thigh extension: v19 z 85 is then at 85 + dz - THIGH_EXTRA_MM)
+        for T, link, zc, below in ((THIGH_EXTRA_MM, "thigh", 160.0 + dz, ("shank", "ankle_link", "foot")),
+                                   (SHANK_EXTRA_MM, "shank", 85.0 + dz - THIGH_EXTRA_MM, ("ankle_link", "foot"))):
+            if not T:
+                continue
+            L = links[f"{side}_{link}"]
+            for pn, ss in L["parts"].items():
+                L["parts"][pn] = [_stretch(x, zc, T) for x in ss]
+            for k in below:
+                _shift_link(links[f"{side}_{k}"], -T)
+            names = {"thigh": ("knee", "ankle_pitch", "ankle_roll"), "shank": ("ankle_pitch", "ankle_roll")}[link]
+            for j in joints:
+                if j["name"] in [f"{side}_{n}" for n in names]:
+                    p = j["point_mm"]; j["point_mm"] = (p[0], p[1], p[2] - T)
+            out.append(dict(side=side, link=link, extra_mm=T, cut_z=zc))
+    return out
+
+
 def rename_servos(links, joints):
     out = []
     for ln, L in links.items():
@@ -507,6 +665,40 @@ def _split_mid(ss, sel, coord, lo, hi, n, c):
     return nc
 
 
+def _thigh_back_B(links, side, ys):
+    """layout B only: thigh back wall cut under the lying roll servo (+ ties)"""
+    P = lambda ln, pn: links[ln]["parts"][pn]
+    # hip pitch + (thigh back wall top met the roll servo / bracket): back wall middle (roll servo, bracket side
+    # plates and hip cover y-span, +-21 around the leg centre) cut down; outer 3.7 mm strips stay full height
+    back = lambda x: x[1][0] == "x" and x[1][2] <= -14.0 and max(q[1] for q in x[1][3]) > 130.0
+    # V-shaped top z <= 119 + |y - c| (45 deg both ways: prints upside down without support)
+    n1 = _split_mid(P(f"{side}_thigh", f"{side}_thigh_frame"), back, 0, ys, ys + 21.0, (0, -1, 1), 119.0 - ys)
+    n1 += _split_mid(P(f"{side}_thigh", f"{side}_thigh_frame"), back, 0, ys - 21.0, ys, (0, 1, 1), 119.0 + ys)
+    # inner half: the wall above the knee-pocket notch would be an island, so also z <= 130 there
+    lo_i, hi_i = (ys, ys + 21.0) if side == "R" else (ys - 21.0, ys)
+    n1 += _split_mid(P(f"{side}_thigh", f"{side}_thigh_frame"), back, 0, lo_i, hi_i, (0, 0, 1), 130.0)
+    # ties so nothing is left floating (printcheck pieces):
+    tf = P(f"{side}_thigh", f"{side}_thigh_frame"); rgb_t = tf[0][2]
+    for g in (-1, 1):       # thigh: outer strips down to z 126 + bridge into the lower back wall (|y - c| <= 17)
+        tf += [PROFI("x", -18.5, -14.65, rrect(*sorted((ys + g * 20.9, ys + g * 24.7)), 126.0, 146.0, 0.0), [], rgb_t),
+               PROFI("x", -18.5, -14.65, [(ys + g * 16.9, 126.0, 0), (ys + g * 21.0, 126.0, 0), (ys + g * 21.0, 140.0, 0),
+                                          (ys + g * 16.9, 135.9, 0)][::g], [], rgb_t)]
+    return n1
+
+
+def _cover_B(links, side, ys):
+    """layout B only: hip cover / bracket side plate chamfers"""
+    P = lambda ln, pn: links[ln]["parts"][pn]
+    # knee + at hip 0 (heel met the hip cover / bracket bottom-back): 45 deg chamfer x + z <= 97 (cover) / 99 (plates)
+    cov = P(f"{side}_hip_yaw_link", f"{side}_hip_cover")
+    n5 = _cut_part(cov, (-1.0, 0.0, -1.0), -97.0)          # keep x + z >= 97
+    # hip pitch + (knee servo top met the cover's front-bottom edge): keep z - x >= 183 (45 deg, from x -37 at z 146)
+    n5 += _cut_part(cov, (1.0, 0.0, -1.0), -183.0)
+    br = P(f"{side}_hip_yaw_link", f"{side}_hip_yaw_bracket")
+    n6 = _cut_part(br, (-1.0, 0.0, -1.0), -99.0, lambda x: x[1][0] == "y")
+    return n5, n6
+
+
 def widen_ranges(links):
     """trim the parts that first stopped a joint (sim/walk/ranges v20pre single-joint contacts)"""
     log = []
@@ -514,15 +706,9 @@ def widen_ranges(links):
         s = -1 if side == "R" else 1
         ys = 40.0 * s
         P = lambda ln, pn: links[ln]["parts"][pn]
-        # hip pitch + (thigh back wall top met the roll servo / bracket): back wall middle (roll servo, bracket side
-        # plates and hip cover y-span, +-21 around the leg centre) cut down; outer 3.7 mm strips stay full height
-        back = lambda x: x[1][0] == "x" and x[1][2] <= -14.0 and max(q[1] for q in x[1][3]) > 130.0
-        # V-shaped top z <= 119 + |y - c| (45 deg both ways: prints upside down without support)
-        n1 = _split_mid(P(f"{side}_thigh", f"{side}_thigh_frame"), back, 0, ys, ys + 21.0, (0, -1, 1), 119.0 - ys)
-        n1 += _split_mid(P(f"{side}_thigh", f"{side}_thigh_frame"), back, 0, ys - 21.0, ys, (0, 1, 1), 119.0 + ys)
-        # inner half: the wall above the knee-pocket notch would be an island, so also z <= 130 there
-        lo_i, hi_i = (ys, ys + 21.0) if side == "R" else (ys - 21.0, ys)
-        n1 += _split_mid(P(f"{side}_thigh", f"{side}_thigh_frame"), back, 0, lo_i, hi_i, (0, 0, 1), 130.0)
+        n1 = n5 = n6 = 0
+        if LAYOUT == "B":
+            n1 = _thigh_back_B(links, side, ys)
         # ankle pitch + (shank back wall top met the ankle roll servo): back wall above z 60 cut to z 64 in the middle
         sback = lambda x: x[1][0] == "x" and x[1][2] <= -14.0 and min(q[1] for q in x[1][3]) >= 59.9
         # (whole width: the outer strips met the ankle bracket plates; the side plates stay tied through the front walls)
@@ -546,19 +732,8 @@ def widen_ranges(links):
         # of the roll axis; the bracket plates start at r 24.3)
         blk = lambda x: x[1][0] == "z" and abs(x[1][1] - 12.0) < 1e-6 and abs(x[1][2] - 18.0) < 1e-6
         n4 += _cut_part(sole, (0.0, 1.0, 0.0), ys + 16.0, blk) + _cut_part(sole, (0.0, -1.0, 0.0), -(ys - 16.0), blk)
-        # knee + at hip 0 (heel met the hip cover / bracket bottom-back): 45 deg chamfer x + z <= 97 (cover) / 99 (plates)
-        cov = P(f"{side}_hip_yaw_link", f"{side}_hip_cover")
-        n5 = _cut_part(cov, (-1.0, 0.0, -1.0), -97.0)          # keep x + z >= 97
-        # hip pitch + (knee servo top met the cover's front-bottom edge): keep z - x >= 183 (45 deg, from x -37 at z 146)
-        n5 += _cut_part(cov, (1.0, 0.0, -1.0), -183.0)
-        br = P(f"{side}_hip_yaw_link", f"{side}_hip_yaw_bracket")
-        n6 = _cut_part(br, (-1.0, 0.0, -1.0), -99.0, lambda x: x[1][0] == "y")
-        # ties so nothing is left floating (printcheck pieces):
-        tf = P(f"{side}_thigh", f"{side}_thigh_frame"); rgb_t = tf[0][2]
-        for g in (-1, 1):       # thigh: outer strips down to z 126 + bridge into the lower back wall (|y - c| <= 17)
-            tf += [PROFI("x", -18.5, -14.65, rrect(*sorted((ys + g * 20.9, ys + g * 24.7)), 126.0, 146.0, 0.0), [], rgb_t),
-                   PROFI("x", -18.5, -14.65, [(ys + g * 16.9, 126.0, 0), (ys + g * 21.0, 126.0, 0), (ys + g * 21.0, 140.0, 0),
-                                              (ys + g * 16.9, 135.9, 0)][::g], [], rgb_t)]
+        if LAYOUT == "B":
+            n5, n6 = _cover_B(links, side, ys)
         rgb_s = sh[0][2]
         for g in (-1, 1):       # shank: posts from the trimmed back wall up into the side plates (clear of the bracket plates)
             sh.append(PROFI("x", -18.5, -14.65, rrect(*sorted((ys + g * 18.0, ys + g * 22.5)), 60.0, 78.0, 0.0), [], rgb_s))
@@ -573,7 +748,7 @@ def widen_ranges(links):
 def build_model():
     links, joints, fasteners = B19.build_model()
     LOG["v19"] = {k: B19.LOG[k] for k in ("case_holes", "wall_warnings", "pockets") if k in B19.LOG}
-    LOG["hip_roll"] = [hip_roll(links, joints, s) for s in ("R", "L")]
+    LOG["hip_roll"] = [(hip_roll_A if LAYOUT == "A" else hip_roll)(links, joints, s) for s in ("R", "L")]
     LOG["renamed"] = rename_servos(links, joints)
     mp = B19._mass_parts()
     frames = X.servo_frames(links)
@@ -581,22 +756,47 @@ def build_model():
     # roll servo case holes (side plates); other seats already drilled in v19 (CASE / HORN hole sizes via env)
     LOG["case_holes"], LOG["case_holes_skipped"], LOG["wall_warnings"] = B19.case_holes(links, frames, mp)
     # the cover goes on after the screws: no holes in it
-    for S in "RL":
+    for S in ("RL" if LAYOUT == "B" else ""):
         cv = links[f"{S}_hip_yaw_link"]["parts"][f"{S}_hip_cover"]
         for i, x in enumerate(cv):
             a = x[1]
             cv[i] = (x[0], (a[0], a[1], a[2], a[3], a[4], [h for h in a[5] if abs(h[2] - B19.CASE_HOLE_D / 2) > 1e-6]), x[2])
     LOG["case_holes"] = [h for h in LOG["case_holes"] if "cover" not in h["part"]]
+    if LAYOUT == "A":
+        # roll servo top-end holes (7, 10) would cut into the hub counterbores: the servo is held by its 8 side screws
+        for S in "RL":
+            fr = frames[f"{S}_hip_roll_servo_XM430"]
+            bad = []
+            for hn in (7, 10):
+                p, n = X.HOLES[hn - 1]; pw, _ = X.to_world(fr, p, n); bad.append((pw[0], pw[1]))
+            ss = links[f"{S}_hip_yaw_link"]["parts"][f"{S}_hip_yaw_bracket"]
+            for i, x in enumerate(ss):
+                a = x[1]
+                if x[0] == "rprism" and a[0] == "z":
+                    hs = [h for h in a[5] if not any(abs(h[0] - u) < 0.01 and abs(h[1] - v) < 0.01 for u, v in bad)]
+                    ss[i] = (x[0], (a[0], a[1], a[2], a[3], a[4], hs), x[2])
+        LOG["case_holes"] = [h for h in LOG["case_holes"] if not ("hip_roll_servo" in h["servo"] and h.get("hole") in (7, 10))]
+        LOG["wall_warnings"] = [w for w in LOG["wall_warnings"] if not ("hip_roll_servo" in w["servo"] and w["hole"] in (7, 10))]
     entries = {f"{S}_{n}": v for S in "RL" for n, v in (("knee_servo_XM430", (2, -1)), ("ankle_pitch_servo_XC430", (2, -1)),
                                                         ("hip_pitch_servo_XM430", (2, -1)), ("hip_roll_servo_XM430", (2, -1)),
                                                         ("ankle_roll_servo_XM430", (0, +1)))}
     LOG["entry_relief"] = entry_relief(links, frames, mp, entries)
     LOG["press_fits"] = press_fits(links)
+    # the leg trims below use v19 leg coordinates: in layout A the lower leg is lifted back for them
+    lift = LEG_EXTRA_MM if LAYOUT == "A" else 0.0
+    for S in "RL":
+        for k in LOWER:
+            _shift_link(links[f"{S}_{k}"], lift) if lift else None
     LOG["latch_narrow"] = narrow_latch(links)
-    LOG["thin_wall_after"] = thin_wall_after(links, frames)
+    LOG["thin_wall_after"] = thin_wall_after(links, X.servo_frames(links))
     LOG["widen"] = widen_ranges(links)
     LOG["cable_clips"] = cable_clips(links)
     LOG["latch_gaps"] = latch_gaps(links)
+    for S in "RL":
+        for k in LOWER:
+            _shift_link(links[f"{S}_{k}"], -lift) if lift else None
+    LOG["shank_plates_wider"] = shank_plates_wider(links)
+    LOG["leg_lengths"] = leg_lengths(links, joints, -LEG_EXTRA_MM if LAYOUT == "A" else 0.0)
     if "theta_max_deg" not in LOG:
         LOG["theta_max_deg"] = B18.THETA_MAX
     return links, joints, fasteners

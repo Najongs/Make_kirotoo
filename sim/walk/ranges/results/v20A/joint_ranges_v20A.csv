@@ -1,0 +1,22 @@
+joint,parent_link,child_link,axis,x_mm,y_mm,z_mm,lower_deg,upper_deg,actuator,stall_Nm_11.1V,no_load_rad_s_11.1V,shape_lower_deg,shape_upper_deg,soft_lower_deg,soft_upper_deg,work_lower_deg,work_upper_deg,dxl_min_raw,dxl_max_raw,note
+R_hip_yaw,torso,R_hip_yaw_link,z,0,-40,213,-20.4,21.1,XL430-W250,1.4,5.45,-25.4,26.1,-20.4,21.1,-15.4,16.1,1816,2288,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+R_hip_roll,R_hip_yaw_link,R_hip_roll_link,x,0.0,-40.0,198.45,-28.6,0.0,XM430-W350,3.8,4.5,-33.6,2.1,-28.6,0.0,-23.6,0.0,1722,2048,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+R_hip_pitch,R_hip_roll_link,R_thigh,y,0,-40,144.87,-112.8,108.9,XM430-W350,3.8,4.5,-117.8,113.9,-112.8,108.9,-107.8,103.9,765,3287,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+R_knee,R_thigh,R_shank,y,0,-40,49.87,-29.7,112.8,XM430-W350,3.8,4.5,-36.8,117.8,-29.7,112.8,0.0,107.8,1710,3331,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+R_ankle_pitch,R_shank,R_ankle_link,y,0,-40,-45.13,-74.2,24.5,XC430-W240,1.75,6.81,-79.2,30.2,-74.2,24.5,-69.2,19.5,1203,2326,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+R_ankle_roll,R_ankle_link,R_foot,x,0,-40,-45.13,-24.6,24.6,XM430-W350,3.8,4.5,-31.6,29.6,-24.6,24.6,-19.6,19.6,1768,2328,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+L_hip_yaw,torso,L_hip_yaw_link,z,0,40,213,-21.2,20.4,XL430-W250,1.4,5.45,-26.2,25.4,-21.2,20.4,-16.2,15.4,1806,2280,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+L_hip_roll,L_hip_yaw_link,L_hip_roll_link,x,0.0,40.0,198.45,0.0,28.9,XM430-W350,3.8,4.5,-2.1,33.9,0.0,28.9,0.0,23.9,2048,2377,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+L_hip_pitch,L_hip_roll_link,L_thigh,y,0,40,144.87,-112.8,108.9,XM430-W350,3.8,4.5,-117.8,113.9,-112.8,108.9,-107.8,103.9,765,3287,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+L_knee,L_thigh,L_shank,y,0,40,49.87,-29.7,112.8,XM430-W350,3.8,4.5,-36.8,117.8,-29.7,112.8,0.0,107.8,1710,3331,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+L_ankle_pitch,L_shank,L_ankle_link,y,0,40,-45.13,-74.2,24.5,XC430-W240,1.75,6.81,-79.2,30.2,-74.2,24.5,-69.2,19.5,1203,2326,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+L_ankle_roll,L_ankle_link,L_foot,x,0,40,-45.13,-22.8,26.0,XM430-W350,3.8,4.5,-27.8,32.9,-22.8,26.0,-17.8,21.0,1789,2343,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+head_nod,torso,head,y,0,0,348.5,-20.8,28.0,passive (driven by nod_crank),,,-25.8,33.0,-20.8,28.0,-10.0,20.0,1812,2367,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+nod_crank,head,nod_crank,y,-28.75,0,383.45,-70,40,XL430-W250 (inside the head),1.4,5.45,,,,,,,,,이번 검사에서 안 봄(수동 · 고리 관절은 joints.csv 값 그대로)
+nod_rod,torso,nod_rod,y,-14.75,0,345.0,-30,30,passive (closed loop with head_nod),,,,,,,,,,,이번 검사에서 안 봄(수동 · 고리 관절은 joints.csv 값 그대로)
+R_arm_swing,torso,R_arm,y,0,-50.0,306.0,-132.6,126.8,XL430-W250 (inside the arm),1.4,5.45,-137.6,131.8,-132.6,126.8,-127.6,121.8,539,3490,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+L_arm_swing,torso,L_arm,y,0,50.0,306.0,-132.6,126.8,XL430-W250 (inside the arm),1.4,5.45,-137.6,131.8,-132.6,126.8,-127.6,121.8,539,3490,"초안: lower/upper = 소프트웨어 한계(형상 한계 − max(5°, 3 mm)), 관절 하나만 움직인 값"
+ear_axle,head,ears,y,0.0,0,445.0,-60,60,passive (driven by nod_crank through ear_rod),,,,,,,,,,,이번 검사에서 안 봄(수동 · 고리 관절은 joints.csv 값 그대로)
+ear_rod,nod_crank,ear_rod,y,-43.25,0,390.21,-60,60,passive (closed loop with ear_axle),,,,,,,,,,,이번 검사에서 안 봄(수동 · 고리 관절은 joints.csv 값 그대로)
+R_hand_flap,R_arm,R_hand_flap,y,-3.0,-100.0,181.0,0,70,passive (shoulder cam -> rod; opens with |arm angle|),,,,,,,,,,,이번 검사에서 안 봄(수동 · 고리 관절은 joints.csv 값 그대로)
+L_hand_flap,L_arm,L_hand_flap,y,-3.0,100.0,181.0,0,70,passive (shoulder cam -> rod; opens with |arm angle|),,,,,,,,,,,이번 검사에서 안 봄(수동 · 고리 관절은 joints.csv 값 그대로)

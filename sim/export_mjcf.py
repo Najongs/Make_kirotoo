@@ -29,6 +29,8 @@ R17 = importlib.import_module(f"render{VER}")   # sets BUILD=build<ver>, imports
 r = R17.r
 TAG = os.environ.get("KITORU_TAG", f"kitoru_v{VER}")
 import shapes, geom4
+# layout A hip roll (build20): the legs reach below z 0 by LEG_EXTRA_MM, so the free model starts lifted by that much
+LIFT = float(getattr(sys.modules.get(f"build{VER}"), "LIFT_MM", 0.0))
 from build import IDX, UVI
 
 OUT = os.path.join(HERE, "model")
@@ -306,7 +308,7 @@ def body_xml(b, ind, free):
     par = PARENT.get(b)
     pos = origin(b) - (origin(par) if par else 0)
     if b == "torso":
-        out = [f'{sp}<body name="torso" pos="{f3(pos) if not free else "0 0 0"}" childclass="robot">']
+        out = [f'{sp}<body name="torso" pos="{f3(pos) if not free else "0 0 %.7g" % (LIFT * 1e-3)}" childclass="robot">']
         out.append(f'{sp}  ' + ('<freejoint name="root"/>' if free else '<!-- torso welded to the world -->'))
         out.append(f'{sp}  <camera name="track" mode="trackcom" pos="0.9 -0.9 0.45" xyaxes="0.707 0.707 0 -0.25 0.25 0.935"/>')
     else:
@@ -427,7 +429,7 @@ def model_xml(free):
   </actuator>
 
   <keyframe>
-    <key name="zero" qpos="{'0 0 0 1 0 0 0 ' if free else ''}{' '.join(['0'] * (len(BODIES) - 1))}" ctrl="{' '.join(['0'] * len(ACT))}"/>
+    <key name="zero" qpos="{('0 0 %.7g 1 0 0 0 ' % (LIFT * 1e-3)) if free else ''}{' '.join(['0'] * (len(BODIES) - 1))}" ctrl="{' '.join(['0'] * len(ACT))}"/>
   </keyframe>
 </mujoco>
 """
@@ -436,7 +438,7 @@ def model_xml(free):
 for free, fn in ((True, f"{TAG}.xml"), (False, f"{TAG}_fixed.xml")):
     xml = model_xml(free)
     if not free:     # fixed version: lift the torso so the feet hang 5 cm above the floor
-        xml = xml.replace('<body name="torso" pos="0 0 0"', '<body name="torso" pos="0 0 0.05"')
+        xml = xml.replace('<body name="torso" pos="0 0 %.7g"' % (LIFT * 1e-3), '<body name="torso" pos="0 0 %.7g"' % (0.05 + LIFT * 1e-3))
     open(os.path.join(OUT, fn), "w").write(xml)
 
 import mujoco
