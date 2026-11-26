@@ -1,0 +1,14 @@
+<!-- 초안: 소프트웨어 한계(rad). MJCF <joint name=... range=...> 에 넣는 값 -->
+<joint name="R_hip_yaw" range="-0.331613 0.368701"/>
+<joint name="R_hip_pitch" range="-1.424625 1.492257"/>
+<joint name="R_knee" range="-0.506261 1.714786"/>
+<joint name="R_ankle_pitch" range="-1.178097 0.362156"/>
+<joint name="R_ankle_roll" range="-0.307471 0.307471"/>
+<joint name="L_hip_yaw" range="-0.370882 0.318523"/>
+<joint name="L_hip_pitch" range="-1.424625 1.492257"/>
+<joint name="L_knee" range="-0.506261 1.714786"/>
+<joint name="L_ankle_pitch" range="-1.178097 0.362156"/>
+<joint name="L_ankle_roll" range="-0.307471 0.307471"/>
+<joint name="R_arm_swing" range="-2.314743 2.212205"/>
+<joint name="L_arm_swing" range="-2.314743 2.212205"/>
+<joint name="head_nod" range="-0.362156 0.488692"/>
