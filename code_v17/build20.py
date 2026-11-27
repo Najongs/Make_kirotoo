@@ -809,6 +809,205 @@ def widen_ranges(links):
     return log
 
 
+# ---------------------------------------------------------------- XL430 horn / idler fit (first print, owner 2026-11-27)
+# ROBOTIS STEP (XL-430_new.stp; XC-430_idle.stp is the same here): the horn disc face is at z_s 19.0 and only a centre
+# hub r 4.0 rises to 20.9; the idler face is at -19.0 with a cap r 5.3 out to -20.0.  Up to v20 the horn was a full
+# r 10.25 disc to 20.9, so the plates sat on the hub with 1.9-2.2 mm of air under the screw ring.
+SERVO_STEP_XL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "references", "XL-430_new.stp")
+HORN_FACE = 19.0            # |z_s| of the horn disc face and of the idler face
+HUB_R, CAP_R = 4.0, 5.3
+HUB_CLR, CAP_CLR = 0.5, 0.35   # centre hole clearance per side (>= POCKET_MIN)
+PAD_R = 10.25               # pad on the plate's servo side, down to the horn / idler face (inside the old horn disc)
+HORN_SCREW = 5.0            # M2 x 5 (owner's screws)
+UNDER_HEAD = 2.0            # plate left under the screw head -> 3.0 mm in the horn tap
+UNDER_HEAD_RANGE = (1.6, 2.4)   # snap the counterbore floor to a solid face in this range (tap depth 3.5, >= 2.6 thread)
+HORN_TAP = 3.5              # M2 tap depth from the horn / idler face (blind, bottom at |z_s| 15.5)
+CB_D = 4.4                  # counterbore for the M2 pan head (3.8-4.0)
+
+
+def _inside_loop(sol, u, v, r):
+    from matplotlib.path import Path
+    loop = np.asarray(build4.sampled(sol)[1][3])[:, :2]
+    t = np.linspace(0, 2 * math.pi, 24, endpoint=False)
+    return bool(Path(loop).contains_points(np.c_[u + r * np.cos(t), v + r * np.sin(t)]).all())
+
+
+def xl_horn_fit(links):
+    """horn / idler model -> XL shape; every printed plate on a horn (centre hole or 4 screws) or on an idler with
+    4 screws gets a pad down to the true face, a centre hole clear of the hub / cap, and M2 x 5 counterbores"""
+    log = dict(model=0, plates=[], screws=[])
+    for ln, L in links.items():
+        for pn, ss in L["parts"].items():
+            if "adapter" in pn or not re.search(r"(_horn|_idler)(_X[CML]430)?$", pn) or not all(s[0] == "cyl" for s in ss):
+                continue
+            new = []
+            for s in ss:
+                c, a, r, h = s[1]
+                if abs(r - 10.25) > 1e-6 or len(ss) > 1:
+                    new.append(s); continue
+                horn = abs(h - 3.9) < 1e-6
+                new += [("cyl", (c, a, 10.25, HORN_FACE - 17.0), s[2]),
+                        ("cyl", (c, a, HUB_R if horn else CAP_R, (20.9 if horn else 20.0) - 17.0), s[2])]
+                log["model"] += 1
+            ss[:] = new
+    frames = X.servo_frames(links)
+    for sv, fr in sorted(frames.items()):
+        Z = np.asarray(fr["Z"], float); k = int(np.argmax(np.abs(Z))); axc = "xyz"[k]; iu, iv = UVI[axc]
+        O = np.asarray(fr["O"], float); sg = float(Z[k]); cu, cv = O[iu], O[iv]
+        for side, sd, face_m, r_ctr in (("horn", 1, 20.9, HUB_R + HUB_CLR), ("idler", -1, 20.0, CAP_R + CAP_CLR)):
+            n_of = lambda w: (w - O[k]) * sg * sd               # distance from the case centre plane, outward on this side
+            w_of = lambda n: O[k] + sg * sd * n
+            for ln, L in links.items():
+                for pn, ss in L["parts"].items():
+                    if "servo" in pn or "adapter" in pn or re.search(r"(_horn|_idler)(_X[CML]430)?$", pn):
+                        continue
+                    for i in range(len(ss)):
+                        s = ss[i]
+                        if s[0] != "rprism" or s[1][0] != axc:
+                            continue
+                        axn, a0, a1, outer, inn, holes = s[1]
+                        n0, n1 = sorted((n_of(a0), n_of(a1)))
+                        if not (face_m - 0.05 <= n0 <= face_m + 0.6):
+                            continue
+                        ctr = [h for h in holes if math.hypot(h[0] - cu, h[1] - cv) < 0.05]
+                        ring = [h for h in holes if abs(math.hypot(h[0] - cu, h[1] - cv) - 8.0) < 0.1 and h[2] < 1.5]
+                        if (side == "horn" and not (ctr or ring)) or (side == "idler" and len(ring) < 3):
+                            continue
+                        # pad + centre hole
+                        holes2 = [(h[0], h[1], max(h[2], r_ctr)) if h in ctr else h for h in holes]
+                        ss[i] = ("rprism", (axn, a0, a1, outer, inn, holes2), s[2])
+                        # (0.5 into the plate: touching solids read as separate pieces in the 1 mm voxel check)
+                        pad = PROFI(axc, w_of(HORN_FACE), w_of(n0 + 0.5), _ring(cu, cv, PAD_R), [], s[2],
+                                    [(cu, cv, r_ctr)] + [(h[0], h[1], h[2]) for h in ring])
+                        ss.append(pad)
+                        rec = dict(servo=sv, side=side, link=ln, part=pn, solid=i, plate_mm=round(n1 - n0, 2),
+                                   pad_mm=round(n0 - HORN_FACE, 2), centre_d_before=[round(2 * h[2], 2) for h in ctr],
+                                   centre_d=round(2 * r_ctr, 2), screws=len(ring))
+                        # counterbores: floor snapped to a face of the plate / pad in UNDER_HEAD_RANGE, else UNDER_HEAD
+                        faces = [n0, n1] + [n_of(x[1][1]) for x in ss if x[0] == "rprism" and x[1][0] == axc] + \
+                                [n_of(x[1][2]) for x in ss if x[0] == "rprism" and x[1][0] == axc]
+                        lo, hi = HORN_FACE + UNDER_HEAD_RANGE[0], HORN_FACE + UNDER_HEAD_RANGE[1]
+                        cand = [f for f in faces if lo - 1e-6 <= f <= hi + 1e-6]
+                        n_cb = min(cand, key=lambda f: abs(f - HORN_FACE - UNDER_HEAD)) if cand else HORN_FACE + UNDER_HEAD
+                        rec["under_head_mm"] = round(n_cb - HORN_FACE, 2)
+                        rec["thread_mm"] = round(HORN_SCREW - (n_cb - HORN_FACE), 2)
+                        cb_done = []
+                        for h in ring:
+                            u, v = h[0], h[1]
+                            hit = lambda x: x[0] == "rprism" and x[1][0] == axc and any(abs(g[0] - u) < 0.05 and abs(g[1] - v) < 0.05 for g in x[1][5])
+                            chain = sorted([j for j, x in enumerate(ss) if hit(x)], key=lambda j: min(n_of(ss[j][1][1]), n_of(ss[j][1][2])))
+                            cur = HORN_FACE
+                            used = []
+                            for j in chain:
+                                m0, m1 = sorted((n_of(ss[j][1][1]), n_of(ss[j][1][2])))
+                                if m0 > cur + 0.05:
+                                    break
+                                cur = max(cur, m1); used.append(j)
+                            # blocked: material of this part without the hole right behind the chain
+                            P = np.zeros(3); P[iu], P[iv] = u, v
+                            blocked = []
+                            for j, x in enumerate(ss):
+                                if j in used or x[0] != "rprism" or hit(x):
+                                    continue
+                                m0, m1 = sorted((n_of(x[1][1]), n_of(x[1][2])))
+                                if m1 <= cur - 0.05 or m0 > cur + 30.0:
+                                    continue
+                                P[k] = w_of(max(m0, cur) + 0.05)
+                                if geom4.inside(x, P[None])[0]:
+                                    blocked.append(j)
+                            srec = dict(servo=sv, side=side, part=pn, uv=(round(u, 2), round(v, 2)), grip_mm=round(cur - HORN_FACE, 2))
+                            if blocked:
+                                srec["note"] = "no screw here (hole covered by the next plate)"
+                                log["screws"].append(srec); continue
+                            for j in used:
+                                x = ss[j]; m0, m1 = sorted((n_of(x[1][1]), n_of(x[1][2])))
+                                if m1 <= n_cb + 0.01:
+                                    continue
+                                cb_done.append((j, u, v))
+                            srec["counterbore_depth_mm"] = round(cur - n_cb, 2)
+                            log["screws"].append(srec)
+                        # apply: split solids that straddle the floor, widen the screw holes beyond it
+                        by = {}
+                        for j, u, v in cb_done:
+                            by.setdefault(j, []).append((u, v))
+                        new_solids = {}
+                        for j, uvs in by.items():
+                            x = ss[j]; axn, b0, b1, ou, il, hl = x[1]
+                            wide = [(g[0], g[1], CB_D / 2) if any(abs(g[0] - u) < 0.05 and abs(g[1] - v) < 0.05 for u, v in uvs) and g[2] < CB_D / 2 else g for g in hl]
+                            m0, m1 = sorted((n_of(b0), n_of(b1)))
+                            for u, v in uvs:
+                                if not _inside_loop(x, u, v, CB_D / 2 + 0.4):
+                                    rec.setdefault("counterbore_near_edge", []).append((round(u, 2), round(v, 2)))
+                            if m0 >= n_cb - 0.01:
+                                new_solids[j] = [("rprism", (axn, b0, b1, ou, il, wide), x[2])]
+                            else:
+                                wc = w_of(n_cb)
+                                inner = sorted((w_of(m0), wc)); outer_ = sorted((wc, w_of(m1)))
+                                new_solids[j] = [("rprism", (axn, inner[0], inner[1], ou, il, hl), x[2]),
+                                                 ("rprism", (axn, outer_[0], outer_[1], ou, il, wide), x[2])]
+                        if new_solids:
+                            ss[:] = [y for j, x in enumerate(ss) for y in new_solids.get(j, [x])]
+                        log["plates"].append(rec)
+    return log
+
+
+def ankle_back_reinforce(links, frames):
+    """ankle bracket back (owner 2026-11-27: the round cut for the roll servo idler looked weak):
+    * the idler cut in the back plate becomes a pocket: r 10.6 (idler disc r 10.25 + 0.35) as deep as the disc
+      (+0.3), then r 5.65 for the cap (+0.3), then a closed floor; the back plate grows 1.5 mm backward behind the
+      pocket only (y within 16 of the leg centre, the inner-back corner that meets the other leg stays where it was)
+    * ties between the back plate and both side plates, outside the servo case (0.35) and below its cable slots, so
+      the side plates no longer hang on the 8 mm spacer blocks across the 0.3 seat gap; the inner tie keeps to the
+      45 deg corner cut of v20 and to the servo side of the inner plate"""
+    out = []
+    for side in ("R", "L"):
+        s = -1 if side == "R" else 1
+        fr = frames[f"{side}_ankle_roll_servo_XM430"]
+        O = np.asarray(fr["O"], float); ys, zc = O[1], O[2]
+        ab = links[f"{side}_ankle_link"]["parts"][f"{side}_ankle_bracket"]
+        rgb = ab[0][2]
+        xb = O[0] - 17.0 - SEAT_GAP                     # back plate front face (case idler face + 0.3)
+        k = next(i for i, x in enumerate(ab) if x[0] == "rprism" and x[1][0] == "x" and abs(x[1][2] - xb) < 0.05 and len(x[1][3]) > 8)
+        axn, a0, a1, outer, inn, holes = ab[k][1]
+        r_old = max(math.hypot(q[0] - ys, q[1] - zc) for q in outer if abs(math.hypot(q[0] - ys, q[1] - zc) - 11.25) < 0.05)
+        zbot = min(q[1] for q in outer); ztop = max(q[1] for q in outer)
+        u_lo, u_hi = min(q[0] for q in outer), max(q[0] for q in outer)
+        r_disc = 10.25 + POCKET_MIN
+        def notch(q):
+            d = math.hypot(q[0] - ys, q[1] - zc)
+            if abs(d - r_old) > 0.05:
+                return q
+            if abs(q[1] - zbot) < 1e-6:
+                return (ys + math.copysign(math.sqrt(r_disc ** 2 - (zbot - zc) ** 2), q[0] - ys), q[1], q[2])
+            return (ys + (q[0] - ys) * r_disc / d, zc + (q[1] - zc) * r_disc / d, q[2])
+        x_disc = O[0] - HORN_FACE - SEAT_GAP           # behind the idler disc face (z_s -19)
+        x_cap = O[0] - 20.0 - SEAT_GAP                  # behind the cap (z_s -20)
+        full = rrect(u_lo, u_hi, zbot, ztop, 0.0)
+        ab[k] = PROFI("x", x_disc - 0.05, a1, [notch(q) for q in outer], inn, rgb, holes)       # layers overlap 0.05
+        ab.append(PROFI("x", x_cap, x_disc, full, [], rgb, holes + [(ys, zc, CAP_R + POCKET_MIN)]))
+        ab.append(PROFI("x", a0, x_cap + 0.05, full, [], rgb, holes))
+        ab.append(PROFI("x", a0 - 1.5, a0 + 0.05, rrect(ys - 16.0, ys + 16.0, zbot, ztop, 2.0), [], rgb))
+        # ties (z prisms, full plate height): outer between the back plate and the outer side plate (spacer zone)
+        y_case_o, y_case_i = ys + s * (14.25 + POCKET_MIN), ys - s * (14.25 + POCKET_MIN)
+        y_plate_o, y_plate_i = ys + s * 23.0, ys - s * 23.0       # servo-side faces of the side plates
+        x_end = O[0] - 9.0                                          # ends 1.65 before the case screw hole at x_s -6
+        # the case cable slots (both sides, z_s -17..-10.9, y_s -19.5..-8.7) open into this gap: ties stay below them
+        Yv = np.asarray(fr["Y"], float)
+        z_slot = min(O[2] + Yv[2] * -8.7, O[2] + Yv[2] * -19.5)
+        ztie = min(ztop, z_slot - POCKET_MIN)
+        ab.append(PROFI("z", zbot, ztie, [(a0, y_plate_o, 0.0), (x_end, y_plate_o, 0.0), (x_end, y_case_o, 0.0), (a0, y_case_o, 0.0)], [], rgb))
+        # inner: inside the 45 deg inner-back corner cut of widen_ranges (meets the back face 8 mm in from the inner face)
+        yi_face = ys - s * 27.0
+        x_back = a0
+        y_cut_at_back = yi_face + s * 8.0
+        x_at_plate = x_back + abs(y_plate_i - y_cut_at_back)        # 45 deg
+        poly = [(x_back, y_case_i, 0.0), (x_back, y_cut_at_back, 0.0), (x_at_plate, y_plate_i, 0.0), (x_end, y_plate_i, 0.0), (x_end, y_case_i, 0.0)]
+        ab.append(PROFI("z", zbot, ztie, poly, [], rgb))
+        out.append(dict(side=side, notch_r=(round(r_old, 2), r_disc), pocket_x=(round(a0, 2), round(x_cap, 2), round(x_disc, 2), round(a1, 2)),
+                        back_extra_x=(round(a0 - 1.5, 2), round(a0, 2)), tie_x_end=round(x_end, 2), tie_z=(round(zbot, 2), round(ztie, 2)), inner_cut=(round(y_cut_at_back, 2), round(x_at_plate, 2))))
+    return out
+
+
 def build_model():
     links, joints, fasteners = B19.build_model()
     LOG["v19"] = {k: B19.LOG[k] for k in ("case_holes", "wall_warnings", "pockets") if k in B19.LOG}
@@ -864,10 +1063,15 @@ def build_model():
     LOG["leg_lengths"] = leg_lengths(links, joints, -LEG_EXTRA_MM if LAYOUT == "A" else 0.0)
     if "theta_max_deg" not in LOG:
         LOG["theta_max_deg"] = B18.THETA_MAX
+    LOG["xl_horn_fit"] = xl_horn_fit(links)
+    LOG["ankle_back"] = ankle_back_reinforce(links, X.servo_frames(links))
     return links, joints, fasteners
 
 
-SERVO_STEP_XL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "references", "XL-430_new.stp")
+# export_parts print directions: the defaults of export_parts.FORCE + the leg frames as in the 2026-11-26 kit (the
+# horn pads touch the frames over a 0.5 mm overlap that the 1 mm voxel check of the right frames reads as a loose piece)
+FORCE = {"shank_shell": "+z", "thigh_shell": "+z", "torso_cover": "+z", "antenna": "+z", "face_plate": "+x",
+         "torso_side": "+z", "foot_sole": "+z", "hip_yaw_bracket": "+z", "thigh_frame": "-z", "shank_frame": "+z"}
 
 
 def write(links, path):

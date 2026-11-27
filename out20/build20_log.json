@@ -2641,5 +2641,1158 @@
    "cut_z": 24.869999999999997
   }
  ],
- "theta_max_deg": 20.0
+ "theta_max_deg": 20.0,
+ "xl_horn_fit": {
+  "model": 30,
+  "plates": [
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "side": "horn",
+    "link": "L_ankle_link",
+    "part": "L_ankle_bracket",
+    "solid": 1,
+    "plate_mm": 2.4,
+    "pad_mm": 1.9,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 9.0,
+    "screws": 4,
+    "under_head_mm": 1.9,
+    "thread_mm": 3.1,
+    "counterbore_near_edge": [
+     [
+      -45.13,
+      8.0
+     ],
+     [
+      -37.13,
+      0.0
+     ],
+     [
+      -45.13,
+      -8.0
+     ],
+     [
+      -45.13,
+      8.0
+     ],
+     [
+      -37.13,
+      0.0
+     ],
+     [
+      -45.13,
+      -8.0
+     ]
+    ]
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "side": "horn",
+    "link": "L_foot",
+    "part": "L_foot_sole",
+    "solid": 7,
+    "plate_mm": 2.5,
+    "pad_mm": 2.1,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 9.0,
+    "screws": 4,
+    "under_head_mm": 2.1,
+    "thread_mm": 2.9,
+    "counterbore_near_edge": [
+     [
+      40.0,
+      -37.13
+     ],
+     [
+      32.0,
+      -45.13
+     ],
+     [
+      48.0,
+      -45.13
+     ],
+     [
+      40.0,
+      -53.13
+     ]
+    ]
+   },
+   {
+    "servo": "L_hip_pitch_servo_XM430",
+    "side": "horn",
+    "link": "L_thigh",
+    "part": "L_thigh_frame",
+    "solid": 0,
+    "plate_mm": 3.5,
+    "pad_mm": 2.2,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 9.0,
+    "screws": 4,
+    "under_head_mm": 2.2,
+    "thread_mm": 2.8,
+    "counterbore_near_edge": [
+     [
+      144.87,
+      8.0
+     ],
+     [
+      136.87,
+      0.0
+     ],
+     [
+      152.87,
+      0.0
+     ],
+     [
+      144.87,
+      -8.0
+     ]
+    ]
+   },
+   {
+    "servo": "L_hip_roll_servo_XM430",
+    "side": "horn",
+    "link": "L_hip_roll_link",
+    "part": "L_hip_roll_bracket",
+    "solid": 2,
+    "plate_mm": 3.85,
+    "pad_mm": 1.9,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 9.0,
+    "screws": 4,
+    "under_head_mm": 1.9,
+    "thread_mm": 3.1,
+    "counterbore_near_edge": [
+     [
+      40.0,
+      206.45
+     ],
+     [
+      32.0,
+      198.45
+     ],
+     [
+      48.0,
+      198.45
+     ],
+     [
+      40.0,
+      190.45
+     ],
+     [
+      40.0,
+      206.45
+     ]
+    ]
+   },
+   {
+    "servo": "L_hip_roll_servo_XM430",
+    "side": "idler",
+    "link": "L_hip_roll_link",
+    "part": "L_hip_roll_bracket",
+    "solid": 3,
+    "plate_mm": 3.85,
+    "pad_mm": 1.0,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 11.3,
+    "screws": 4,
+    "under_head_mm": 2.0,
+    "thread_mm": 3.0,
+    "counterbore_near_edge": [
+     [
+      40.0,
+      206.45
+     ]
+    ]
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "side": "horn",
+    "link": "L_shank",
+    "part": "L_shank_frame",
+    "solid": 0,
+    "plate_mm": 3.5,
+    "pad_mm": 2.2,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 9.0,
+    "screws": 4,
+    "under_head_mm": 2.2,
+    "thread_mm": 2.8,
+    "counterbore_near_edge": [
+     [
+      49.87,
+      8.0
+     ],
+     [
+      41.87,
+      0.0
+     ],
+     [
+      57.87,
+      0.0
+     ],
+     [
+      49.87,
+      -8.0
+     ]
+    ]
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "side": "horn",
+    "link": "R_ankle_link",
+    "part": "R_ankle_bracket",
+    "solid": 1,
+    "plate_mm": 2.4,
+    "pad_mm": 1.9,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 9.0,
+    "screws": 4,
+    "under_head_mm": 1.9,
+    "thread_mm": 3.1,
+    "counterbore_near_edge": [
+     [
+      -45.13,
+      8.0
+     ],
+     [
+      -37.13,
+      0.0
+     ],
+     [
+      -45.13,
+      -8.0
+     ],
+     [
+      -45.13,
+      8.0
+     ],
+     [
+      -37.13,
+      0.0
+     ],
+     [
+      -45.13,
+      -8.0
+     ]
+    ]
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "side": "horn",
+    "link": "R_foot",
+    "part": "R_foot_sole",
+    "solid": 7,
+    "plate_mm": 2.5,
+    "pad_mm": 2.1,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 9.0,
+    "screws": 4,
+    "under_head_mm": 2.1,
+    "thread_mm": 2.9,
+    "counterbore_near_edge": [
+     [
+      -40.0,
+      -37.13
+     ],
+     [
+      -48.0,
+      -45.13
+     ],
+     [
+      -32.0,
+      -45.13
+     ],
+     [
+      -40.0,
+      -53.13
+     ]
+    ]
+   },
+   {
+    "servo": "R_hip_pitch_servo_XM430",
+    "side": "horn",
+    "link": "R_thigh",
+    "part": "R_thigh_frame",
+    "solid": 0,
+    "plate_mm": 3.5,
+    "pad_mm": 2.2,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 9.0,
+    "screws": 4,
+    "under_head_mm": 2.2,
+    "thread_mm": 2.8,
+    "counterbore_near_edge": [
+     [
+      144.87,
+      8.0
+     ],
+     [
+      136.87,
+      0.0
+     ],
+     [
+      152.87,
+      0.0
+     ],
+     [
+      144.87,
+      -8.0
+     ]
+    ]
+   },
+   {
+    "servo": "R_hip_roll_servo_XM430",
+    "side": "horn",
+    "link": "R_hip_roll_link",
+    "part": "R_hip_roll_bracket",
+    "solid": 2,
+    "plate_mm": 3.85,
+    "pad_mm": 1.9,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 9.0,
+    "screws": 4,
+    "under_head_mm": 1.9,
+    "thread_mm": 3.1,
+    "counterbore_near_edge": [
+     [
+      -40.0,
+      206.45
+     ],
+     [
+      -48.0,
+      198.45
+     ],
+     [
+      -32.0,
+      198.45
+     ],
+     [
+      -40.0,
+      190.45
+     ],
+     [
+      -40.0,
+      206.45
+     ]
+    ]
+   },
+   {
+    "servo": "R_hip_roll_servo_XM430",
+    "side": "idler",
+    "link": "R_hip_roll_link",
+    "part": "R_hip_roll_bracket",
+    "solid": 3,
+    "plate_mm": 3.85,
+    "pad_mm": 1.0,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 11.3,
+    "screws": 4,
+    "under_head_mm": 2.0,
+    "thread_mm": 3.0,
+    "counterbore_near_edge": [
+     [
+      -40.0,
+      206.45
+     ]
+    ]
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "side": "horn",
+    "link": "R_shank",
+    "part": "R_shank_frame",
+    "solid": 0,
+    "plate_mm": 3.5,
+    "pad_mm": 2.2,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 9.0,
+    "screws": 4,
+    "under_head_mm": 2.2,
+    "thread_mm": 2.8,
+    "counterbore_near_edge": [
+     [
+      49.87,
+      8.0
+     ],
+     [
+      41.87,
+      0.0
+     ],
+     [
+      57.87,
+      0.0
+     ],
+     [
+      49.87,
+      -8.0
+     ]
+    ]
+   },
+   {
+    "servo": "yaw_servo_L_XL430",
+    "side": "horn",
+    "link": "L_hip_yaw_link",
+    "part": "L_hip_yaw_bracket",
+    "solid": 1,
+    "plate_mm": 4.1,
+    "pad_mm": 1.9,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 9.0,
+    "screws": 4,
+    "under_head_mm": 1.9,
+    "thread_mm": 3.1,
+    "counterbore_near_edge": [
+     [
+      0.0,
+      48.0
+     ],
+     [
+      -8.0,
+      40.0
+     ],
+     [
+      8.0,
+      40.0
+     ],
+     [
+      0.0,
+      32.0
+     ]
+    ]
+   },
+   {
+    "servo": "yaw_servo_R_XL430",
+    "side": "horn",
+    "link": "R_hip_yaw_link",
+    "part": "R_hip_yaw_bracket",
+    "solid": 1,
+    "plate_mm": 4.1,
+    "pad_mm": 1.9,
+    "centre_d_before": [
+     5.0
+    ],
+    "centre_d": 9.0,
+    "screws": 4,
+    "under_head_mm": 1.9,
+    "thread_mm": 3.1,
+    "counterbore_near_edge": [
+     [
+      0.0,
+      -32.0
+     ],
+     [
+      -8.0,
+      -40.0
+     ],
+     [
+      8.0,
+      -40.0
+     ],
+     [
+      0.0,
+      -48.0
+     ]
+    ]
+   }
+  ],
+  "screws": [
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "side": "horn",
+    "part": "L_ankle_bracket",
+    "uv": [
+     -45.13,
+     8.0
+    ],
+    "grip_mm": 8.0,
+    "counterbore_depth_mm": 6.1
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "side": "horn",
+    "part": "L_ankle_bracket",
+    "uv": [
+     -53.13,
+     0.0
+    ],
+    "grip_mm": 4.3,
+    "note": "no screw here (hole covered by the next plate)"
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "side": "horn",
+    "part": "L_ankle_bracket",
+    "uv": [
+     -37.13,
+     0.0
+    ],
+    "grip_mm": 8.0,
+    "counterbore_depth_mm": 6.1
+   },
+   {
+    "servo": "L_ankle_pitch_servo_XC430",
+    "side": "horn",
+    "part": "L_ankle_bracket",
+    "uv": [
+     -45.13,
+     -8.0
+    ],
+    "grip_mm": 8.0,
+    "counterbore_depth_mm": 6.1
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "side": "horn",
+    "part": "L_foot_sole",
+    "uv": [
+     40.0,
+     -37.13
+    ],
+    "grip_mm": 4.6,
+    "counterbore_depth_mm": 2.5
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "side": "horn",
+    "part": "L_foot_sole",
+    "uv": [
+     32.0,
+     -45.13
+    ],
+    "grip_mm": 4.6,
+    "counterbore_depth_mm": 2.5
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "side": "horn",
+    "part": "L_foot_sole",
+    "uv": [
+     48.0,
+     -45.13
+    ],
+    "grip_mm": 4.6,
+    "counterbore_depth_mm": 2.5
+   },
+   {
+    "servo": "L_ankle_roll_servo_XM430",
+    "side": "horn",
+    "part": "L_foot_sole",
+    "uv": [
+     40.0,
+     -53.13
+    ],
+    "grip_mm": 4.6,
+    "counterbore_depth_mm": 2.5
+   },
+   {
+    "servo": "L_hip_pitch_servo_XM430",
+    "side": "horn",
+    "part": "L_thigh_frame",
+    "uv": [
+     144.87,
+     8.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "L_hip_pitch_servo_XM430",
+    "side": "horn",
+    "part": "L_thigh_frame",
+    "uv": [
+     136.87,
+     0.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "L_hip_pitch_servo_XM430",
+    "side": "horn",
+    "part": "L_thigh_frame",
+    "uv": [
+     152.87,
+     0.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "L_hip_pitch_servo_XM430",
+    "side": "horn",
+    "part": "L_thigh_frame",
+    "uv": [
+     144.87,
+     -8.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "L_hip_roll_servo_XM430",
+    "side": "horn",
+    "part": "L_hip_roll_bracket",
+    "uv": [
+     40.0,
+     206.45
+    ],
+    "grip_mm": 5.75,
+    "counterbore_depth_mm": 3.85
+   },
+   {
+    "servo": "L_hip_roll_servo_XM430",
+    "side": "horn",
+    "part": "L_hip_roll_bracket",
+    "uv": [
+     32.0,
+     198.45
+    ],
+    "grip_mm": 5.75,
+    "counterbore_depth_mm": 3.85
+   },
+   {
+    "servo": "L_hip_roll_servo_XM430",
+    "side": "horn",
+    "part": "L_hip_roll_bracket",
+    "uv": [
+     48.0,
+     198.45
+    ],
+    "grip_mm": 5.75,
+    "counterbore_depth_mm": 3.85
+   },
+   {
+    "servo": "L_hip_roll_servo_XM430",
+    "side": "horn",
+    "part": "L_hip_roll_bracket",
+    "uv": [
+     40.0,
+     190.45
+    ],
+    "grip_mm": 5.75,
+    "counterbore_depth_mm": 3.85
+   },
+   {
+    "servo": "L_hip_roll_servo_XM430",
+    "side": "idler",
+    "part": "L_hip_roll_bracket",
+    "uv": [
+     40.0,
+     206.45
+    ],
+    "grip_mm": 4.85,
+    "counterbore_depth_mm": 2.85
+   },
+   {
+    "servo": "L_hip_roll_servo_XM430",
+    "side": "idler",
+    "part": "L_hip_roll_bracket",
+    "uv": [
+     32.0,
+     198.45
+    ],
+    "grip_mm": 4.85,
+    "counterbore_depth_mm": 2.85
+   },
+   {
+    "servo": "L_hip_roll_servo_XM430",
+    "side": "idler",
+    "part": "L_hip_roll_bracket",
+    "uv": [
+     48.0,
+     198.45
+    ],
+    "grip_mm": 4.85,
+    "counterbore_depth_mm": 2.85
+   },
+   {
+    "servo": "L_hip_roll_servo_XM430",
+    "side": "idler",
+    "part": "L_hip_roll_bracket",
+    "uv": [
+     40.0,
+     190.45
+    ],
+    "grip_mm": 4.85,
+    "counterbore_depth_mm": 2.85
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "side": "horn",
+    "part": "L_shank_frame",
+    "uv": [
+     49.87,
+     8.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "side": "horn",
+    "part": "L_shank_frame",
+    "uv": [
+     41.87,
+     0.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "side": "horn",
+    "part": "L_shank_frame",
+    "uv": [
+     57.87,
+     0.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "L_knee_servo_XM430",
+    "side": "horn",
+    "part": "L_shank_frame",
+    "uv": [
+     49.87,
+     -8.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "side": "horn",
+    "part": "R_ankle_bracket",
+    "uv": [
+     -45.13,
+     8.0
+    ],
+    "grip_mm": 8.0,
+    "counterbore_depth_mm": 6.1
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "side": "horn",
+    "part": "R_ankle_bracket",
+    "uv": [
+     -53.13,
+     0.0
+    ],
+    "grip_mm": 4.3,
+    "note": "no screw here (hole covered by the next plate)"
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "side": "horn",
+    "part": "R_ankle_bracket",
+    "uv": [
+     -37.13,
+     0.0
+    ],
+    "grip_mm": 8.0,
+    "counterbore_depth_mm": 6.1
+   },
+   {
+    "servo": "R_ankle_pitch_servo_XC430",
+    "side": "horn",
+    "part": "R_ankle_bracket",
+    "uv": [
+     -45.13,
+     -8.0
+    ],
+    "grip_mm": 8.0,
+    "counterbore_depth_mm": 6.1
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "side": "horn",
+    "part": "R_foot_sole",
+    "uv": [
+     -40.0,
+     -37.13
+    ],
+    "grip_mm": 4.6,
+    "counterbore_depth_mm": 2.5
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "side": "horn",
+    "part": "R_foot_sole",
+    "uv": [
+     -48.0,
+     -45.13
+    ],
+    "grip_mm": 4.6,
+    "counterbore_depth_mm": 2.5
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "side": "horn",
+    "part": "R_foot_sole",
+    "uv": [
+     -32.0,
+     -45.13
+    ],
+    "grip_mm": 4.6,
+    "counterbore_depth_mm": 2.5
+   },
+   {
+    "servo": "R_ankle_roll_servo_XM430",
+    "side": "horn",
+    "part": "R_foot_sole",
+    "uv": [
+     -40.0,
+     -53.13
+    ],
+    "grip_mm": 4.6,
+    "counterbore_depth_mm": 2.5
+   },
+   {
+    "servo": "R_hip_pitch_servo_XM430",
+    "side": "horn",
+    "part": "R_thigh_frame",
+    "uv": [
+     144.87,
+     8.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "R_hip_pitch_servo_XM430",
+    "side": "horn",
+    "part": "R_thigh_frame",
+    "uv": [
+     136.87,
+     0.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "R_hip_pitch_servo_XM430",
+    "side": "horn",
+    "part": "R_thigh_frame",
+    "uv": [
+     152.87,
+     0.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "R_hip_pitch_servo_XM430",
+    "side": "horn",
+    "part": "R_thigh_frame",
+    "uv": [
+     144.87,
+     -8.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "R_hip_roll_servo_XM430",
+    "side": "horn",
+    "part": "R_hip_roll_bracket",
+    "uv": [
+     -40.0,
+     206.45
+    ],
+    "grip_mm": 5.75,
+    "counterbore_depth_mm": 3.85
+   },
+   {
+    "servo": "R_hip_roll_servo_XM430",
+    "side": "horn",
+    "part": "R_hip_roll_bracket",
+    "uv": [
+     -48.0,
+     198.45
+    ],
+    "grip_mm": 5.75,
+    "counterbore_depth_mm": 3.85
+   },
+   {
+    "servo": "R_hip_roll_servo_XM430",
+    "side": "horn",
+    "part": "R_hip_roll_bracket",
+    "uv": [
+     -32.0,
+     198.45
+    ],
+    "grip_mm": 5.75,
+    "counterbore_depth_mm": 3.85
+   },
+   {
+    "servo": "R_hip_roll_servo_XM430",
+    "side": "horn",
+    "part": "R_hip_roll_bracket",
+    "uv": [
+     -40.0,
+     190.45
+    ],
+    "grip_mm": 5.75,
+    "counterbore_depth_mm": 3.85
+   },
+   {
+    "servo": "R_hip_roll_servo_XM430",
+    "side": "idler",
+    "part": "R_hip_roll_bracket",
+    "uv": [
+     -40.0,
+     206.45
+    ],
+    "grip_mm": 4.85,
+    "counterbore_depth_mm": 2.85
+   },
+   {
+    "servo": "R_hip_roll_servo_XM430",
+    "side": "idler",
+    "part": "R_hip_roll_bracket",
+    "uv": [
+     -48.0,
+     198.45
+    ],
+    "grip_mm": 4.85,
+    "counterbore_depth_mm": 2.85
+   },
+   {
+    "servo": "R_hip_roll_servo_XM430",
+    "side": "idler",
+    "part": "R_hip_roll_bracket",
+    "uv": [
+     -32.0,
+     198.45
+    ],
+    "grip_mm": 4.85,
+    "counterbore_depth_mm": 2.85
+   },
+   {
+    "servo": "R_hip_roll_servo_XM430",
+    "side": "idler",
+    "part": "R_hip_roll_bracket",
+    "uv": [
+     -40.0,
+     190.45
+    ],
+    "grip_mm": 4.85,
+    "counterbore_depth_mm": 2.85
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "side": "horn",
+    "part": "R_shank_frame",
+    "uv": [
+     49.87,
+     8.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "side": "horn",
+    "part": "R_shank_frame",
+    "uv": [
+     41.87,
+     0.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "side": "horn",
+    "part": "R_shank_frame",
+    "uv": [
+     57.87,
+     0.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "R_knee_servo_XM430",
+    "side": "horn",
+    "part": "R_shank_frame",
+    "uv": [
+     49.87,
+     -8.0
+    ],
+    "grip_mm": 5.7,
+    "counterbore_depth_mm": 3.5
+   },
+   {
+    "servo": "yaw_servo_L_XL430",
+    "side": "horn",
+    "part": "L_hip_yaw_bracket",
+    "uv": [
+     0.0,
+     48.0
+    ],
+    "grip_mm": 24.0,
+    "counterbore_depth_mm": 22.1
+   },
+   {
+    "servo": "yaw_servo_L_XL430",
+    "side": "horn",
+    "part": "L_hip_yaw_bracket",
+    "uv": [
+     -8.0,
+     40.0
+    ],
+    "grip_mm": 24.0,
+    "counterbore_depth_mm": 22.1
+   },
+   {
+    "servo": "yaw_servo_L_XL430",
+    "side": "horn",
+    "part": "L_hip_yaw_bracket",
+    "uv": [
+     8.0,
+     40.0
+    ],
+    "grip_mm": 24.0,
+    "counterbore_depth_mm": 22.1
+   },
+   {
+    "servo": "yaw_servo_L_XL430",
+    "side": "horn",
+    "part": "L_hip_yaw_bracket",
+    "uv": [
+     0.0,
+     32.0
+    ],
+    "grip_mm": 24.0,
+    "counterbore_depth_mm": 22.1
+   },
+   {
+    "servo": "yaw_servo_R_XL430",
+    "side": "horn",
+    "part": "R_hip_yaw_bracket",
+    "uv": [
+     0.0,
+     -32.0
+    ],
+    "grip_mm": 24.0,
+    "counterbore_depth_mm": 22.1
+   },
+   {
+    "servo": "yaw_servo_R_XL430",
+    "side": "horn",
+    "part": "R_hip_yaw_bracket",
+    "uv": [
+     -8.0,
+     -40.0
+    ],
+    "grip_mm": 24.0,
+    "counterbore_depth_mm": 22.1
+   },
+   {
+    "servo": "yaw_servo_R_XL430",
+    "side": "horn",
+    "part": "R_hip_yaw_bracket",
+    "uv": [
+     8.0,
+     -40.0
+    ],
+    "grip_mm": 24.0,
+    "counterbore_depth_mm": 22.1
+   },
+   {
+    "servo": "yaw_servo_R_XL430",
+    "side": "horn",
+    "part": "R_hip_yaw_bracket",
+    "uv": [
+     0.0,
+     -48.0
+    ],
+    "grip_mm": 24.0,
+    "counterbore_depth_mm": 22.1
+   }
+  ]
+ },
+ "ankle_back": [
+  {
+   "side": "R",
+   "notch_r": [
+    11.25,
+    10.6
+   ],
+   "pocket_x": [
+    -72.0,
+    -71.3,
+    -70.3,
+    -68.3
+   ],
+   "back_extra_x": [
+    -73.5,
+    -72.0
+   ],
+   "tie_x_end": -60.0,
+   "tie_z": [
+    -53.13,
+    -36.78
+   ],
+   "inner_cut": [
+    -21.0,
+    -68.0
+   ]
+  },
+  {
+   "side": "L",
+   "notch_r": [
+    11.25,
+    10.6
+   ],
+   "pocket_x": [
+    -72.0,
+    -71.3,
+    -70.3,
+    -68.3
+   ],
+   "back_extra_x": [
+    -73.5,
+    -72.0
+   ],
+   "tie_x_end": -60.0,
+   "tie_z": [
+    -53.13,
+    -36.78
+   ],
+   "inner_cut": [
+    21.0,
+    -68.0
+   ]
+  }
+ ]
 }

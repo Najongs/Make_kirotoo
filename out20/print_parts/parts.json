@@ -184,9 +184,9 @@
   "part": "R_hip_yaw_bracket",
   "link": "R_hip_yaw_link",
   "up": "+z",
-  "size_mm": "38x37x66",
+  "size_mm": "38x37x68",
   "support_mm2": 0,
-  "volume_cm3": 23.6,
+  "volume_cm3": 23.8,
   "note": "",
   "colours": [
    [
@@ -202,7 +202,7 @@
   "up": "-z",
   "size_mm": "44x49x118",
   "support_mm2": 31,
-  "volume_cm3": 30.1,
+  "volume_cm3": 30.4,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -233,8 +233,8 @@
   "link": "R_shank",
   "up": "+z",
   "size_mm": "44x49x112",
-  "support_mm2": 16,
-  "volume_cm3": 29.1,
+  "support_mm2": 32,
+  "volume_cm3": 29.5,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -263,10 +263,10 @@
  {
   "part": "R_ankle_bracket",
   "link": "R_ankle_link",
-  "up": "+x",
-  "size_mm": "54x25x84",
-  "support_mm2": 59,
-  "volume_cm3": 21.2,
+  "up": "+z",
+  "size_mm": "86x54x25",
+  "support_mm2": 289,
+  "volume_cm3": 26.4,
   "note": "",
   "colours": [
    [
@@ -282,7 +282,7 @@
   "up": "+z",
   "size_mm": "134x70x41",
   "support_mm2": 0,
-  "volume_cm3": 60.9,
+  "volume_cm3": 61.3,
   "note": "발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓",
   "colours": [
    [
@@ -296,9 +296,9 @@
   "part": "L_hip_yaw_bracket",
   "link": "L_hip_yaw_link",
   "up": "+z",
-  "size_mm": "38x37x66",
+  "size_mm": "38x37x68",
   "support_mm2": 0,
-  "volume_cm3": 23.6,
+  "volume_cm3": 23.8,
   "note": "",
   "colours": [
    [
@@ -313,8 +313,8 @@
   "link": "L_thigh",
   "up": "-z",
   "size_mm": "44x49x118",
-  "support_mm2": 30,
-  "volume_cm3": 30.1,
+  "support_mm2": 46,
+  "volume_cm3": 30.4,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -346,7 +346,7 @@
   "up": "+z",
   "size_mm": "44x49x112",
   "support_mm2": 16,
-  "volume_cm3": 29.1,
+  "volume_cm3": 29.5,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -375,10 +375,10 @@
  {
   "part": "L_ankle_bracket",
   "link": "L_ankle_link",
-  "up": "+x",
-  "size_mm": "54x25x84",
-  "support_mm2": 59,
-  "volume_cm3": 21.2,
+  "up": "+z",
+  "size_mm": "86x54x25",
+  "support_mm2": 289,
+  "volume_cm3": 26.4,
   "note": "",
   "colours": [
    [
@@ -394,7 +394,7 @@
   "up": "+z",
   "size_mm": "134x70x41",
   "support_mm2": 0,
-  "volume_cm3": 60.9,
+  "volume_cm3": 61.3,
   "note": "발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓",
   "colours": [
    [
@@ -858,7 +858,7 @@
   "up": "+z",
   "size_mm": "49x35x89",
   "support_mm2": 0,
-  "volume_cm3": 29.6,
+  "volume_cm3": 29.8,
   "note": "",
   "colours": [
    [
@@ -874,7 +874,7 @@
   "up": "+z",
   "size_mm": "49x35x89",
   "support_mm2": 0,
-  "volume_cm3": 29.6,
+  "volume_cm3": 29.8,
   "note": "",
   "colours": [
    [
