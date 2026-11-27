@@ -26,6 +26,10 @@ INIT["tuck"] = [(0.68, [-0.65, -0.49, 0.05, 1.29, 0.1]), (1.03, [-0.45, -0.13, -
                 (0.8, [-2.0, 0.5, -1.396, 1.745, -0.87]), (0.6, [-2.09, 0.0, -1.2, 1.6, -0.87]), (0.6, [-1.5, 0.0, -0.9, 1.2, -0.6])]
 INIT["supine6"] = INIT["supine"][:2] + [(0.6, [2.09, 0.3, -1.396, 1.745, -0.87]), (0.6, [2.09, 0.0, -1.396, 1.745, -0.87]),
                                          (0.6, [1.5, 0.0, -1.2, 1.6, -0.87]), (0.6, [0.5, 0.0, -0.9, 1.2, -0.6])]
+# 머리 받침 묶음(HEAD21=1): 엎드림에서 이마를 바닥에 대고(머리 +28° 숙임) 고관절을 접어 머리 · 발로 버티는 ㅅ자 → 팔로 마지막 무게 옮기기
+INIT["headpike"] = [(0.6, [-0.6, -1.5, -0.5, 0.3, 0.0]), (0.8, [-1.2, -0.6, -1.2, 0.1, 0.2]), (0.8, [-1.5, 0.0, -2.0, 0.0, 0.38]),
+                    (0.5, [-1.92, 0.0, -2.0, 0.6, 0.38]), (0.6, [-1.6, 0.0, -1.0, 1.6, -0.3]), (0.6, [-1.0, 0.0, 0.2, 1.9, 0.1])]
+INIT_HEAD = {"headpike": [28, 28, 28, 20, 0, 0]}     # 키마다 머리 끄덕임 목표 °(+ 숙임), 없으면 0
 T_STAND = 1.5
 _SIMS = {}
 # 민감도: 고관절 피치 굽힘 한계(설계 −80°)와 무릎 한계(설계 100°)를 환경 변수로 넓힘 — 형상 확인 필요
@@ -35,27 +39,37 @@ LO["hip"] = HIP_MIN; HI["knee"] = KNEE_MAX
 # 어깨 범위(설계 ±120°). 머리 끄덕임 조사(v21)가 팔 첫 닿음 때문에 ±110° 를 추천해 그 범위로도 돌려 봄
 ARM_MAX = math.radians(float(os.environ.get("ARM_MAX_DEG", "120")))
 LO["arm"] = -min(ARM_MAX, 2.094); HI["arm"] = min(ARM_MAX, 2.094)
+# 머리 끄덕임도 키마다 찾음(HEAD21=1, v21 머리 · XL 크랭크 위치 제어). 벡터 끝에 키 수만큼 머리 각을 덧붙임(앞 묶음 벡터 배치는 그대로)
+HEAD = bool(os.environ.get("HEAD21"))
+LO["head"], HI["head"] = math.radians(-20.0), math.radians(28.0)
 
 
-def to_vec(keys):
+def to_vec(keys, head=None):
     keys = list(keys)
     while len(keys) < NK:
         keys.insert(-1, (0.5, list(keys[-2][1])))
-    return np.array([v for dur, a in keys for v in [dur] + list(a)])
+    v = [v for dur, a in keys for v in [dur] + list(a)]
+    if HEAD:
+        v += list(np.radians(head)) if head is not None else [0.0] * NK
+    return np.array(v)
 
 
 def to_keys(x):
-    x = np.asarray(x).reshape(NK, 1 + len(JN)); keys = []
-    for row in x:
+    x = np.asarray(x); n = NK * (1 + len(JN))
+    hd = x[n:] if HEAD else None
+    x = x[:n].reshape(NK, 1 + len(JN)); keys = []
+    for k, row in enumerate(x):
         tg = {j: float(np.clip(row[1 + i], LO[j], HI[j])) for i, j in enumerate(JN)}
+        if HEAD:
+            tg["head"] = float(np.clip(hd[k], LO["head"], HI["head"]))
         keys.append((float(np.clip(row[0], 0.15, 1.5)), tg))
-    keys.append((T_STAND, dict(arm=0.0, elbow=0.0, hip=0.0, knee=0.0, ankle=0.0)))
+    keys.append((T_STAND, dict(arm=0.0, elbow=0.0, hip=0.0, knee=0.0, ankle=0.0, head=0.0)))
     return keys
 
 
 def ev(job):
     name, start, x = job
-    start = "prone" if start in ("pike", "tuck") else ("supine" if start == "supine6" else start)
+    start = "prone" if start in ("pike", "tuck", "headpike") else ("supine" if start == "supine6" else start)
     if name not in _SIMS:
         _SIMS[name] = Sim(ARMS[name], knee_max=max(KNEE_MAX, 1.745), hip_min=min(HIP_MIN, -1.396))
     if os.environ.get("ROBUST"):                 # 조건을 바꿔 여러 번 돌려 비용은 평균, 성공은 모두 성공일 때만
@@ -96,8 +110,8 @@ def cem(names, starts, iters=20, pop=40, elite=8, seed=0, procs=40):
     from multiprocessing import Pool
     rng = np.random.default_rng(seed)
     combos = [(n, s) for n in names for s in starts]
-    sig0 = np.array(([0.3] + [0.6] * len(JN)) * NK)
-    st = {c: dict(mu=to_vec(INIT[c[1]]), sig=sig0.copy(), best=None, hist=[]) for c in combos}
+    sig0 = np.array(([0.3] + [0.6] * len(JN)) * NK + ([0.3] * NK if HEAD else []))
+    st = {c: dict(mu=to_vec(INIT[c[1]], INIT_HEAD.get(c[1])), sig=sig0.copy(), best=None, hist=[]) for c in combos}
     if os.environ.get("INIT_FROM"):            # tag:팔:시작 — 이미 찾은 키프레임을 처음 평균으로(다른 팔 · 서보로 옮겨 보기)
         t, a, s0 = os.environ["INIT_FROM"].split(":")
         x0 = np.array(next(r for r in json.load(open(os.path.join(RES, f"{t}.json"))) if r["arm"] == a and r["start"] == s0)["best_x"])
@@ -136,7 +150,8 @@ if __name__ == "__main__":
     starts = os.environ.get("STARTS", "prone,supine").split(",")
     out = cem(names, starts, iters=iters, pop=pop, seed=int(os.environ.get("SEED", "0")), procs=int(os.environ.get("PROCS", "40")))
     for r in out:
-        r.update(hip_min_deg=math.degrees(HIP_MIN), knee_max_deg=math.degrees(KNEE_MAX), arm_max_deg=math.degrees(ARM_MAX), selfcol=bool(os.environ.get("SELFCOL")))
+        r.update(hip_min_deg=math.degrees(HIP_MIN), knee_max_deg=math.degrees(KNEE_MAX), arm_max_deg=math.degrees(ARM_MAX), selfcol=bool(os.environ.get("SELFCOL")),
+                 head21=HEAD, nk=NK)
     jdump(out, os.path.join(RES, f"{tag}.json"))
 
 
@@ -145,14 +160,19 @@ def replay(r, render=None):
     궤적이 관절 범위 0.0003 rad 차이에도 갈라질 만큼 예민하므로 범위를 똑같이 맞춰야 같은 결과가 나온다."""
     hm = math.radians(r["hip_min_deg"]) if "hip_min_deg" in r else -1.396
     km = math.radians(r["knee_max_deg"]) if "knee_max_deg" in r else 1.745
-    global NK
+    global NK, HEAD
+    HEAD = bool(r.get("head21"))                 # v21 머리 + 머리 각 키(머리 받침 묶음)
+    if HEAD:
+        os.environ["HEAD21"] = "1"
+    else:
+        os.environ.pop("HEAD21", None)
     if r.get("selfcol"):                         # 다리 ↔ 몸통 · 머리 충돌을 켜고 찾은 묶음(h115*)
         os.environ["SELFCOL"] = "1"
     else:
         os.environ.pop("SELFCOL", None)
     am = math.radians(r.get("arm_max_deg", 120)); LO["arm"] = -min(am, 2.094); HI["arm"] = min(am, 2.094)
-    LO["hip"] = hm; HI["knee"] = km; NK = len(r["best_x"]) // (1 + len(JN))
+    LO["hip"] = hm; HI["knee"] = km; NK = r.get("nk") or len(r["best_x"]) // (1 + len(JN))
     S = Sim(ARMS[r["arm"]], knee_max=max(km, 1.745), hip_min=min(hm, -1.396))
-    st = "prone" if r["start"] in ("pike", "tuck") else ("supine" if r["start"] == "supine6" else r["start"])
+    st = "prone" if r["start"] in ("pike", "tuck", "headpike") else ("supine" if r["start"] == "supine6" else r["start"])
     res, H, fr = S.run(to_keys(r["best_x"]), start=st, render=render)
     return S, res, H, fr

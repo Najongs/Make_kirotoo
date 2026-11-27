@@ -35,7 +35,7 @@ def run_v(r, v):
     keys = G.to_keys(r["best_x"])
     if "tscale" in v:
         keys = [(d * v["tscale"], a) for d, a in keys]
-    st = "prone" if r["start"] in ("pike", "tuck") else ("supine" if r["start"] == "supine6" else r["start"])
+    st = "prone" if r["start"] in ("pike", "tuck", "headpike") else ("supine" if r["start"] == "supine6" else r["start"])
     res, H, _ = S.run(keys, start=st, settle=0.8 + v.get("settle", 0.0))
     return res
 

@@ -1,0 +1,4 @@
+ok True
+쉬는 자세 {'다리↔head': 183.5, '다리↔torso': 49.5, 'head': 48.6, 'torso': 10.0, 'R_hip_yaw_link': 28.0, 'L_hip_yaw_link': 28.0, 'R_thigh': 15.9, 'L_thigh': 15.9, 'R_shank': 37.9, 'L_shank': 37.9}
+최소 {'head': (5.8, 4.1), 'torso': (10.0, 8.52), 'R_hip_yaw_link': (28.0, 1.0), 'L_hip_yaw_link': (28.0, 5.54), 'R_thigh': (15.5, 5.28), 'L_thigh': (15.5, 5.66), 'R_shank': (15.0, 5.24), 'L_shank': (16.3, 5.24), '다리↔head': (154.1, 4.88), '다리↔torso': (9.6, 4.88)}
+기준보다 5 mm 넘게 파고든 시간 s {'head': 0.0, 'torso': 0.0, 'R_hip_yaw_link': 0.0, 'L_hip_yaw_link': 0.0, 'R_thigh': 0.0, 'L_thigh': 0.0, 'R_shank': 0.0, 'L_shank': 0.0, '다리↔head': 0.0, '다리↔torso': 0.0}

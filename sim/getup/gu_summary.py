@@ -5,7 +5,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import numpy as np
 from gu_model import ARMS, Sim, RES, jdump, reach, arm_mass_g, korean_font
 
-START_KO = {"prone": "엎드림", "pike": "엎드림(ㅅ자 시작)", "tuck": "엎드림(다리 당기기 시작)", "supine": "누움", "supine6": "누움"}
+START_KO = {"prone": "엎드림", "pike": "엎드림(ㅅ자 시작)", "tuck": "엎드림(다리 당기기 시작)", "headpike": "엎드림(머리 받침 ㅅ자 시작)", "supine": "누움", "supine6": "누움"}
 
 
 def redo(r):
@@ -16,7 +16,7 @@ def redo(r):
     return dict(arm=r["arm"], start=r["start"], ok=res["ok"], n_ok=r.get("n_ok_total", 0), n_eval=r.get("n_eval", 0),
                 best_z_pct=float(H[i, 1] / S.z_stand * 100), best_tilt=float(H[i, 2]), max_z_pct=float(H[:, 1].max() / S.z_stand * 100),
                 z_end_pct=res["z_end"] / S.z_stand * 100, tilt_end=res["tilt_end"], score=res["score"],
-                tq=res["torque_p99"], sat=res["sat_frac"], nk=len(r["best_x"]) // 6, hip_min_deg=r.get("hip_min_deg", -80), knee_max_deg=r.get("knee_max_deg", 100))
+                tq=res["torque_p99"], sat=res["sat_frac"], nk=r.get("nk") or len(r["best_x"]) // 6, hip_min_deg=r.get("hip_min_deg", -80), knee_max_deg=r.get("knee_max_deg", 100))
 
 
 def main(tags):
@@ -40,7 +40,7 @@ def main(tags):
 def fig(rows, path, title):
     plt = korean_font()
     arms = list(dict.fromkeys(r["arm"] for r in rows)); starts = list(dict.fromkeys(r["start"] for r in rows))
-    col = {"prone": "#257de0", "pike": "#257de0", "tuck": "#257de0", "supine": "#f47230", "supine6": "#f47230"}
+    col = {"prone": "#257de0", "pike": "#257de0", "tuck": "#257de0", "headpike": "#257de0", "supine": "#f47230", "supine6": "#f47230"}
     fig, ax = plt.subplots(figsize=(7.5, 0.42 * len(arms) + 1.4))
     h = 0.8 / len(starts)
     for k, s in enumerate(starts):
