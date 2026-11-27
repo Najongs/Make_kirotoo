@@ -1,148 +1,315 @@
 {
  "hooks": [
   {
+   "ins": "-z",
    "flex": "+y",
-   "face_before": 54.85,
-   "face": 54.75
+   "face": 54.85,
+   "arm_mm": 21.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.54,
+   "now": "lid: M2.5 into the frame wall pads"
   },
   {
+   "ins": "-z",
    "flex": "+y",
-   "face_before": 54.85,
-   "face": 54.75
+   "face": 54.85,
+   "arm_mm": 21.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.54,
+   "now": "lid: M2.5 into the frame wall pads"
   },
   {
+   "ins": "-z",
    "flex": "-y",
-   "face_before": -54.85,
-   "face": -54.75
+   "face": -54.85,
+   "arm_mm": 21.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.54,
+   "now": "lid: M2.5 into the frame wall pads"
   },
   {
+   "ins": "-z",
    "flex": "-y",
-   "face_before": -54.85,
-   "face": -54.75
+   "face": -54.85,
+   "arm_mm": 21.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.54,
+   "now": "lid: M2.5 into the frame wall pads"
   },
   {
+   "ins": "+x",
    "flex": "+y",
-   "face_before": 98.65,
-   "face": 98.55
+   "face": 98.65,
+   "arm_mm": 20.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.6,
+   "now": "M2.5 x 10 through the front side wall"
   },
   {
+   "ins": "+x",
    "flex": "-y",
-   "face_before": -98.65,
-   "face": -98.55
+   "face": -98.65,
+   "arm_mm": 20.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.6,
+   "now": "M2.5 x 10 through the front side wall"
   },
   {
+   "ins": "+x",
    "flex": "-z",
-   "face_before": 366.35,
-   "face": 366.45
+   "face": 366.35,
+   "arm_mm": 17.0,
+   "t_mm": 1.4,
+   "barb_mm": 0.9,
+   "strain_pct": 0.73,
+   "now": "head seam bottom: removed"
   },
   {
+   "ins": "-x",
    "flex": "+y",
-   "face_before": 72.0,
-   "face": 71.9
+   "face": 72.0,
+   "arm_mm": 31.0,
+   "t_mm": 2.0,
+   "barb_mm": 0.9,
+   "strain_pct": 0.31,
+   "now": "face plate: M2.5 into head front bosses"
   },
   {
+   "ins": "-x",
    "flex": "-y",
-   "face_before": -72.0,
-   "face": -71.9
+   "face": -72.0,
+   "arm_mm": 31.0,
+   "t_mm": 2.0,
+   "barb_mm": 0.9,
+   "strain_pct": 0.31,
+   "now": "face plate: M2.5 into head front bosses"
   },
   {
+   "ins": "-y",
    "flex": "+x",
-   "face_before": 12.0,
-   "face": 11.9
+   "face": 12.0,
+   "arm_mm": 25.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.38,
+   "now": "dropped by build16"
   },
   {
+   "ins": "-y",
    "flex": "-x",
-   "face_before": -12.0,
-   "face": -11.9
+   "face": -12.0,
+   "arm_mm": 25.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.38,
+   "now": "dropped by build16"
   },
   {
+   "ins": "+y",
    "flex": "+x",
-   "face_before": 12.0,
-   "face": 11.9
+   "face": 12.0,
+   "arm_mm": 25.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.38,
+   "now": "dropped by build16"
   },
   {
+   "ins": "+y",
    "flex": "-x",
-   "face_before": -12.0,
-   "face": -11.9
+   "face": -12.0,
+   "arm_mm": 25.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.38,
+   "now": "dropped by build16"
   },
   {
+   "ins": "-z",
    "flex": "+y",
-   "face_before": 12.0,
-   "face": 11.9
+   "face": 12.0,
+   "arm_mm": 21.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.54,
+   "now": "crest: glued"
   },
   {
+   "ins": "-z",
    "flex": "+y",
-   "face_before": 12.0,
-   "face": 11.9
+   "face": 12.0,
+   "arm_mm": 21.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.54,
+   "now": "crest: glued"
   },
   {
+   "ins": "-z",
    "flex": "-y",
-   "face_before": -12.0,
-   "face": -11.9
+   "face": -12.0,
+   "arm_mm": 21.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.54,
+   "now": "crest: glued"
   },
   {
+   "ins": "-z",
    "flex": "-y",
-   "face_before": -12.0,
-   "face": -11.9
+   "face": -12.0,
+   "arm_mm": 21.0,
+   "t_mm": 1.6,
+   "barb_mm": 0.9,
+   "strain_pct": 0.54,
+   "now": "crest: glued"
   }
  ],
  "dovetail": [
   {
    "side": 1,
    "x": 12.0,
-   "face_d": 9.1,
-   "tip_d": 12.1,
-   "flank_at_face": 2.985,
-   "flank_at_tip": 4.485
+   "face_d": 9.2,
+   "tip_d": 12.2,
+   "flank_at_face": 3.147,
+   "flank_at_tip": 4.647
   },
   {
    "side": -1,
    "x": 12.0,
-   "face_d": 9.1,
-   "tip_d": 12.1,
-   "flank_at_face": 2.985,
-   "flank_at_tip": 4.485
+   "face_d": 9.2,
+   "tip_d": 12.2,
+   "flank_at_face": 3.147,
+   "flank_at_tip": 4.647
   },
   {
    "side": 1,
    "x": -22.0,
-   "face_d": 9.1,
-   "tip_d": 12.1,
-   "flank_at_face": 2.985,
-   "flank_at_tip": 4.485
+   "face_d": 9.2,
+   "tip_d": 12.2,
+   "flank_at_face": 3.147,
+   "flank_at_tip": 4.647
   },
   {
    "side": -1,
    "x": -22.0,
-   "face_d": 9.1,
-   "tip_d": 12.1,
-   "flank_at_face": 2.985,
-   "flank_at_tip": 4.485
+   "face_d": 9.2,
+   "tip_d": 12.2,
+   "flank_at_face": 3.147,
+   "flank_at_tip": 4.647
   }
  ],
  "tongue": {
   "solids": 1,
   "gap": [
    0.15,
-   0.25
+   0.4
   ]
  },
  "shorts_flange": {
   "points": 12,
   "gap": [
    0.2,
-   0.3
+   0.4
   ]
  },
  "lid_back": {
   "points": 8,
   "gap": [
    0.0,
-   0.3
+   0.4
   ]
  },
+ "lid_screws": [
+  {
+   "x": -32.0,
+   "y": 52.3,
+   "lid_solids": 2
+  },
+  {
+   "x": -13.0,
+   "y": 52.3,
+   "lid_solids": 2
+  },
+  {
+   "x": -32.0,
+   "y": -52.3,
+   "lid_solids": 2
+  },
+  {
+   "x": -13.0,
+   "y": -52.3,
+   "lid_solids": 2
+  }
+ ],
+ "face_screws": {
+  "y": 70.5,
+  "z": 450.0,
+  "boss_d": 7.0,
+  "pilot_depth": 27.6
+ },
+ "seam_screws": 2,
+ "inserts": {
+  "camera_screws": 4
+ },
+ "yoke_screws": 4,
+ "nod_crank": {
+  "horn_face_y": 15.3,
+  "thick": 4.4,
+  "centre_d": 9.0,
+  "screw_d": 2.4,
+  "cb_d": 4.4,
+  "thread_mm": 3.0
+ },
+ "yaw_side_screws": [
+  {
+   "servo": "yaw_servo_L_XL430",
+   "holes": [
+    13,
+    14
+   ],
+   "world": [
+    [
+     -4.0,
+     54.25,
+     259.0
+    ],
+    [
+     -4.0,
+     54.25,
+     247.0
+    ]
+   ]
+  },
+  {
+   "servo": "yaw_servo_R_XL430",
+   "holes": [
+    3,
+    4
+   ],
+   "world": [
+    [
+     -4.0,
+     -54.25,
+     259.0
+    ],
+    [
+     -4.0,
+     -54.25,
+     247.0
+    ]
+   ]
+  }
+ ],
  "written": [
   "torso_frame",
+  "electronics_shelf",
   "lid",
   "torso_cover_front",
   "torso_cover_back",
@@ -152,11 +319,21 @@
   "head_back",
   "head_front",
   "face_plate",
+  "eye_L",
+  "eye_R",
+  "mouth",
+  "camera_clip",
   "crest",
   "nod_crank",
+  "nod_rod",
   "ear_L",
+  "ear_disc_L",
+  "antenna_L",
   "ear_R",
-  "ear_rocker"
+  "ear_disc_R",
+  "antenna_R",
+  "ear_rocker",
+  "ear_rod"
  ],
  "missing": []
 }

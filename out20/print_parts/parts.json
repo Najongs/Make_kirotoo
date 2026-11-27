@@ -5,7 +5,7 @@
   "up": "+z",
   "size_mm": "121x144x109",
   "support_mm2": 47,
-  "volume_cm3": 219.2,
+  "volume_cm3": 224.6,
   "note": "골반판을 바닥에. 골반·측벽·뒷벽·레일이 한 부품. 골반판 윗면 포켓, 측벽 창",
   "colours": [
    [
@@ -26,7 +26,7 @@
   "up": "+z",
   "size_mm": "110x109x4",
   "support_mm2": 0,
-  "volume_cm3": 30.8,
+  "volume_cm3": 30.7,
   "note": "평평하게. 창 4개",
   "colours": [
    [
@@ -37,28 +37,12 @@
   ]
  },
  {
-  "part": "shelf_pins",
-  "link": "torso",
-  "up": "+z",
-  "size_mm": "85x106x12",
-  "support_mm2": 0,
-  "volume_cm3": 0.3,
-  "note": "핀 4개, 세워서",
-  "colours": [
-   [
-    0.2,
-    0.24,
-    0.32
-   ]
-  ]
- },
- {
   "part": "lid",
   "link": "torso",
   "up": "-z",
-  "size_mm": "143x130x29",
+  "size_mm": "143x130x8",
   "support_mm2": 0,
-  "volume_cm3": 57.3,
+  "volume_cm3": 57.1,
   "note": "흰색. 캡을 바닥에(걸쇠가 위로). 스위치·잭 구멍, 배기 슬롯",
   "colours": [
    [
@@ -74,7 +58,7 @@
   "up": "+z",
   "size_mm": "81x150x99",
   "support_mm2": 0,
-  "volume_cm3": 35.5,
+  "volume_cm3": 35.3,
   "note": "흰색. 세워서(어깨 라운드가 위로). 브림 권장",
   "colours": [
    [
@@ -90,7 +74,7 @@
   "up": "+z",
   "size_mm": "81x150x99",
   "support_mm2": 0,
-  "volume_cm3": 33.5,
+  "volume_cm3": 33.3,
   "note": "흰색. 세워서(어깨 라운드가 위로). 브림 권장",
   "colours": [
    [
@@ -120,10 +104,10 @@
   "part": "neck_yoke",
   "link": "torso",
   "up": "+z",
-  "size_mm": "31x35x28",
+  "size_mm": "31x35x22",
   "support_mm2": 0,
-  "volume_cm3": 5.4,
-  "note": "남색. 688ZZ 2개 압입, 핀 4개를 덮개에 압입",
+  "volume_cm3": 4.8,
+  "note": "남색. 688 베어링 2개 손으로 밀어 넣고 고정제, M2.5 x 10 네 개로 뚜껑에",
   "colours": [
    [
     0.05,
@@ -408,9 +392,9 @@
   "part": "head_back",
   "link": "head",
   "up": "+x",
-  "size_mm": "200x196x90",
+  "size_mm": "200x196x92",
   "support_mm2": 0,
-  "volume_cm3": 122.0,
+  "volume_cm3": 125.2,
   "note": "뒷면을 바닥에. 목 축 판·보강판·서보 패드·이음 걸쇠 포함",
   "colours": [
    [
@@ -425,8 +409,8 @@
   "link": "head",
   "up": "+x",
   "size_mm": "200x170x57",
-  "support_mm2": 0,
-  "volume_cm3": 55.8,
+  "support_mm2": 14,
+  "volume_cm3": 58.0,
   "note": "자른 면(뒤)을 바닥에, 브림 권장. 얼굴 테두리 경사, 얼굴판 걸림 바",
   "colours": [
    [
@@ -440,9 +424,9 @@
   "part": "face_plate",
   "link": "head",
   "up": "-x",
-  "size_mm": "149x119x33",
+  "size_mm": "149x119x12",
   "support_mm2": 0,
-  "volume_cm3": 33.0,
+  "volume_cm3": 31.9,
   "note": "앞면을 바닥에(걸쇠·카메라 핀이 위로)",
   "colours": [
    [
@@ -490,7 +474,7 @@
   "up": "-x",
   "size_mm": "40x13x3",
   "support_mm2": 0,
-  "volume_cm3": 0.6,
+  "volume_cm3": 0.5,
   "note": "테두리를 바닥에",
   "colours": [
    [
@@ -520,9 +504,9 @@
   "part": "crest",
   "link": "head",
   "up": "-z",
-  "size_mm": "91x54x22",
+  "size_mm": "91x54x18",
   "support_mm2": 0,
-  "volume_cm3": 12.0,
+  "volume_cm3": 10.9,
   "note": "지붕을 바닥에(걸쇠가 위로)",
   "colours": [
    [
@@ -535,11 +519,11 @@
  {
   "part": "nod_crank",
   "link": "nod_crank",
-  "up": "+y",
-  "size_mm": "16x37x2",
+  "up": "-y",
+  "size_mm": "25x38x4",
   "support_mm2": 0,
-  "volume_cm3": 1.0,
-  "note": "끄덕임 서보 혼에 체결",
+  "volume_cm3": 2.0,
+  "note": "구조색. 팔 면(카운터보어 쪽)을 바닥에. XL430 혼에 M2 x 5 네 개",
   "colours": [
    [
     0.95,
@@ -698,7 +682,7 @@
   "up": "-y",
   "size_mm": "60x60x22",
   "support_mm2": 0,
-  "volume_cm3": 14.7,
+  "volume_cm3": 14.5,
   "note": "덮개를 바닥에(걸쇠가 위로)",
   "colours": [
    [
@@ -727,11 +711,11 @@
  {
   "part": "antenna_L",
   "link": "ears",
-  "up": "+z",
-  "size_mm": "8x8x60",
+  "up": "+x",
+  "size_mm": "8x60x7",
   "support_mm2": 0,
-  "volume_cm3": 3.0,
-  "note": "세워서 출력, 브림 5 mm",
+  "volume_cm3": 2.6,
+  "note": "주황색. 납작한 면을 바닥에 눕혀서. 귀 구멍에 접착",
   "colours": [
    [
     0.91,
@@ -746,7 +730,7 @@
   "up": "+y",
   "size_mm": "60x60x22",
   "support_mm2": 0,
-  "volume_cm3": 14.7,
+  "volume_cm3": 14.5,
   "note": "덮개를 바닥에(걸쇠가 위로)",
   "colours": [
    [
@@ -775,11 +759,11 @@
  {
   "part": "antenna_R",
   "link": "ears",
-  "up": "+z",
-  "size_mm": "8x8x60",
+  "up": "+x",
+  "size_mm": "8x60x7",
   "support_mm2": 0,
-  "volume_cm3": 3.0,
-  "note": "세워서 출력, 브림 5 mm",
+  "volume_cm3": 2.6,
+  "note": "주황색. 납작한 면을 바닥에 눕혀서. 귀 구멍에 접착",
   "colours": [
    [
     0.91,
