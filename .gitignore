@@ -41,3 +41,4 @@ __pycache__/
 !/out20/print_parts_stl/antenna_R.stl
 !/out20/print_parts_stl/ear_rocker.stl
 !/out20/print_parts_stl/ear_rod.stl
+/out20/PRINT_v2/**/*.stl
