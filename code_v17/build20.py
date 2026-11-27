@@ -1264,6 +1264,306 @@ def assembly_durability(links):
     return out
 
 
+# ---------------------------------------------------------------- print robustness (STATUS 10 left 1-3, 2026-11-27)
+# Section stress = design-solid sections in the print layer planes (fdm_joints method, sim/robust/strength_v20A.py
+# props(), M = max(ankle pitch, ankle roll) of strength_v20A.json); ranges = static first-contact sweep, margin 0, 1 deg.
+# * foot: the horn plate (2.5) + doubler (4.4) carried the ankle pitch moment over 7 mm of depth: a block in front of the
+#   plate from the sole up to 3 below the ankle axis and fins |dy| 11..14 up to 3 above it beside the side horn screws,
+#   |dy| <= 14 like the plate (wider meets the bracket side plates at ankle roll < 32).  The front follows the room the
+#   shank leaves: every front point stays 0.4 clear of the shank walls, the pitch servo case and the shank cable tunnel
+#   (boxes read from the model) at ankle roll -22..+22 x pitch -52..+31 (frame <-> foot was the first contact at +30).
+#   A centre slot |dy| < 4 above 11 below the axis keeps the lowest horn screw open to the driver; the doubler's front
+#   2 mm goes where the bigger shank tunnel would come nearer than 0.4 (|dy| < 7, above 8.5 below the axis).
+#   Behind the plate a ring around the roll horn disc (0.4 to the disc and to the servo case face) down to the block
+#   under the servo; in the horn zone wings |dy| 14..17.5, a 1.5 front layer and the centre hole closed in front of
+#   the hub (between the lowest and the side horn screws the section still carries most of the moment).
+# * ankle bracket: case holes 1 / 2 / 11 / 12 (z_s -28 row) get screws: side plate ears up to 4.5 above that row,
+#   spacers between the ears and the case (V bottom, prints +x without support), pillars under the ears on the plate
+#   band (the cable route between case and plate stays open); the side plates rise to 22 above the ankle axis from
+#   the ears to the pitch horn pads (bending about y was the weak axis).  M2.5 x 16 like the lower row.
+# * shank / thigh cable tunnels: bar and the walls above / below the tie slot 1.5 / 2.0 -> 3.0 (slot 3.0 x 1.5 kept).
+# * teardrops on every hole whose axis is horizontal in the part's print orientation (flat top where the point would
+#   come nearer than DROP_LIG to another hole or the outline); 45 deg fillets on the new joints.
+FOOT_SLOT = 4.0
+FOOT_HALF = 14.0
+FOOT_FIN_IN = 11.0
+FOOT_CAP_X = -12.0
+FOOT_ROLL, FOOT_PITCH_UP = 22.0, 31.0       # sweep for the block front: joint limits + 2, + side up to 31
+EAR_HOLE_BACK, EAR_HOLE_TOP = 4.5, 4.5     # ear material behind / above the upper case holes (hole r 1.35)
+BR_TOP_REL = 22.0
+TUNNEL_WALL = 3.0
+DROP_LIG = 0.8
+LEG_PIECES = ("hip_yaw_bracket", "hip_roll_bracket", "thigh_frame", "thigh_shell", "shank_frame", "shank_shell",
+              "ankle_bracket", "foot_sole")
+
+
+def _shank_boxes(links, side, ys, za):
+    """shank solids the foot can reach, as (x0, x1, zr0, zr1, |dy| max) about the ankle axis: frame walls (x prisms
+    on the servo faces, open upward), the cable tunnel, the ankle pitch servo case"""
+    sf = links[f"{side}_shank"]["parts"][f"{side}_shank_frame"]
+    out = []
+    for x in sf:
+        if x[0] != "rprism":
+            continue
+        a = x[1]
+        if a[0] == "x" and (-18.6 <= a[1] and a[2] <= -14.6 or 14.6 <= a[1] and a[2] <= 18.6):
+            out.append((a[1], a[2], min(q[1] for q in a[3]) - za, 1e9, max(abs(q[0] - ys) for q in a[3])))
+        elif a[0] == "y" and a[4] and abs(a[1] - (ys - 3.3)) < 1e-6:
+            zs_, xs_ = [q[0] for q in a[3]], [q[1] for q in a[3]]
+            out.append((min(xs_), max(xs_), min(zs_) - za, max(zs_) - za, max(abs(a[1] - ys), abs(a[2] - ys))))
+    fr = X.servo_frames(links)[f"{side}_ankle_pitch_servo_XC430"]
+    P = np.array([X.to_world(fr, np.array([cx, cy, cz]), np.zeros(3))[0] for cx in X.CASE["x"] for cy in X.CASE["y"] for cz in X.CASE["z"]])
+    out.append((P[:, 0].min(), P[:, 0].max(), P[:, 2].min() - za, 1e9, np.abs(P[:, 1] - ys).max()))
+    return out
+
+
+def _foot_clear(boxes, x, zr, dy):
+    """True if foot point (x, dy, zr) stays FIT_GAP clear of the boxes over ankle roll x pitch"""
+    ph = np.radians(np.linspace(-FOOT_ROLL, FOOT_ROLL, 11)); th = np.radians(np.arange(-52.0, FOOT_PITCH_UP + 0.01, 1.0))
+    yp = np.repeat(np.abs(dy * np.cos(ph) - zr * np.sin(ph)), len(th)); zp = np.repeat(dy * np.sin(ph) + zr * np.cos(ph), len(th))
+    T = np.tile(th, len(ph))
+    X2 = x * np.cos(T) + zp * np.sin(T); Z2 = -x * np.sin(T) + zp * np.cos(T)
+    g = FIT_GAP
+    for x0, x1, z0, z1, ym in boxes:
+        if ((X2 >= x0 - g) & (X2 <= x1 + g) & (Z2 >= z0 - g) & (Z2 <= z1 + g) & (yp <= ym + g)).any():
+            return False
+    return True
+
+
+def _foot_prof(boxes, za, x_back, z0, z1, dys, step=0.5):
+    """y-prism loop (u = z, v = x): back x_back, front as far forward as _foot_clear allows for every dy in dys
+    (0.25 steps, FOOT_CAP_X at most; each vertex takes the worst of its neighbours)"""
+    zs = list(np.arange(z0, z1, step)) + [z1]
+    xf = []
+    for z in zs:
+        best = x_back
+        for x in np.arange(x_back + 0.25, FOOT_CAP_X + 1e-6, 0.25):
+            if not all(_foot_clear(boxes, x, z - za, dy) for dy in dys):
+                break
+            best = x
+        xf.append(best)
+    xf = [min(xf[max(i - 1, 0):i + 2]) for i in range(len(xf))]
+    return [(zs[0], x_back, 0.0)] + [(float(z), float(x), 0.0) for z, x in zip(zs, xf)] + [(zs[-1], x_back, 0.0)]
+
+
+def _drop_cap(cu, cv, r, d, h=None, swap=False, n=10):
+    """teardrop loop (u, v, 0) with the point toward d * v (d * u if swap), point cut flat at h above the centre"""
+    pts = [(p[0], p[1]) for p in _drop(0.0, 0.0, r, 1, n)]
+    if h is not None and h < r * math.sqrt(2) - 1e-6:
+        w = r * math.sqrt(2) - h                   # pts: point, 135 deg ... 405 deg (ccw)
+        pts = [(w, h), (-w, h)] + pts[1:]
+    out = []
+    for a, b in pts:
+        b = d * b
+        out.append((cu + b, cv + a, 0.0) if swap else (cu + a, cv + b, 0.0))
+    return out
+
+
+def _seg_dist(P, A, B):
+    """distance of points P (N, 2) to segment AB"""
+    AB = B - A; t = np.clip(((P - A) @ AB) / max(AB @ AB, 1e-12), 0.0, 1.0)
+    return np.linalg.norm(P - (A + np.outer(t, AB)), axis=1)
+
+
+def _loop_dist(P, L):
+    L = np.asarray(L, float)
+    return min(_seg_dist(P, L[i], L[(i + 1) % len(L)]).min() for i in range(len(L)))
+
+
+def _drop_fits(sol, loop, skip_hole, lig):
+    """teardrop loop stays >= lig inside the outline and from the other holes / inner loops (or no nearer than the
+    round hole already was)"""
+    from matplotlib.path import Path
+    s = build4.sampled(sol)
+    outer = np.asarray(s[1][3])[:, :2]
+    P = np.asarray([q[:2] for q in loop], float)
+    dense = np.concatenate([np.linspace(P[i], P[(i + 1) % len(P)], 6, endpoint=False) for i in range(len(P))])
+    cu, cv, r = skip_hole
+    t = np.linspace(0, 2 * math.pi, 36, endpoint=False)
+    circ = np.c_[cu + r * np.cos(t), cv + r * np.sin(t)]
+    if not Path(outer).contains_points(dense).all():
+        return False
+    ref = lambda geo: min(lig, geo(circ))
+    if _loop_dist(dense, outer) < ref(lambda C: _loop_dist(C, outer)) - 1e-6:
+        return False
+    for h in s[1][4]:
+        if (abs(h[0] - cu) < 1e-6 and abs(h[1] - cv) < 1e-6 and abs(h[2] - r) < 1e-6):
+            continue
+        dc = lambda C, h=h: (np.hypot(C[:, 0] - h[0], C[:, 1] - h[1]) - h[2]).min()
+        if dc(dense) < ref(dc) - 1e-6:
+            return False
+    for L in (s[1][5] if s[0] == "prismh" else []):
+        L = np.asarray(L)[:, :2]
+        if _loop_dist(dense, L) < ref(lambda C, L=L: _loop_dist(C, L)) - 1e-6 or Path(L).contains_points(dense).any():
+            return False
+    return True
+
+
+def _teardrops(ss, up):
+    """round holes of the rprisms whose axis is horizontal in print orientation `up` ('+z', '-x', ...) -> teardrop inner
+    loops pointing up; flat top where the point does not fit; returns counts"""
+    ku, sg = "xyz".index(up[1]), (1 if up[0] == "+" else -1)
+    cnt = dict(drop=0, flat=0, round=0)
+    for i, x in enumerate(ss):
+        if x[0] != "rprism" or x[1][0] == up[1] or not x[1][5]:
+            continue
+        axn, a0, a1, outer, inn, holes = x[1]
+        iu, iv = UVI[axn]
+        swap = ku == iu
+        keep, new = [], list(inn)
+        for h in holes:
+            cu, cv, r = h
+            n = 16 if r > 3.0 else 10
+            done = False
+            if _inside_loop(x, cu, cv, r + 0.05):
+                hmax = r * math.sqrt(2)
+                for hh in [hmax] + list(np.arange(hmax - 0.1, r - 1e-6, -0.1)) + [r]:
+                    lp = _drop_cap(cu, cv, r, sg, None if hh >= hmax else hh, swap, n)
+                    if _drop_fits(x, lp, h, DROP_LIG):
+                        new.append(orient(lp, False)); done = True
+                        cnt["drop" if hh >= hmax else "flat"] += 1
+                        break
+            if not done:
+                keep.append(h); cnt["round"] += 1
+        ss[i] = (x[0], (axn, a0, a1, outer, new, keep), x[2])
+    return cnt
+
+
+def print_robust(links, joints):
+    J = {j["name"]: j for j in joints}
+    out = dict(foot=[], bracket=[], tunnels=[], teardrops={})
+    frames = X.servo_frames(links)
+    for side in ("R", "L"):
+        ys = -40.0 if side == "R" else 40.0
+        s = -1 if side == "R" else 1
+        za = J[f"{side}_ankle_pitch"]["point_mm"][2]
+        # ---- cable tunnels: 3 mm bar and walls around the 3.0 x 1.5 tie slot
+        for seg in ("thigh", "shank"):
+            fr_ = links[f"{side}_{seg}"]["parts"][f"{side}_{seg}_frame"]
+            for i, x in enumerate(fr_):
+                a = x[1]
+                if x[0] == "rprism" and a[0] == "y" and abs(a[1] - (ys - 3.3)) < 1e-6 and abs(a[2] - (ys + 3.2)) < 1e-6 and len(a[4]) == 1:
+                    zc = (min(q[0] for q in a[3]) + max(q[0] for q in a[3])) / 2
+                    xw = -18.5
+                    xr, xf_ = xw - 1.5 - TUNNEL_WALL, xw + 0.5
+                    # 45 deg underside on the print-down side (no support), 3.2 from the slot corner
+                    dn = 1 if FORCE[f"{seg}_frame"] == "+z" else -1
+                    zd, zu = zc - dn * (1.5 + TUNNEL_WALL), zc + dn * (1.5 + TUNNEL_WALL)
+                    zA = zd - dn * 3.5
+                    loop = [(zA, xf_, 0.0), (zu, xf_, 0.0), (zu, xr, 0.0), (zA + dn * (xf_ - xr), xr, 0.0)]
+                    fr_[i] = PROFI("y", a[1], a[2], loop, [rrect(zc - 1.5, zc + 1.5, xw - 1.5, xw + 0.2, 0.3)], x[2])
+                    out["tunnels"].append(dict(part=f"{side}_{seg}_frame", z=tuple(sorted((round(zA, 2), round(zu, 2)))), x=(xr, xf_)))
+        # ---- foot block (after the tunnels: their new outline is one of the boxes)
+        boxes = _shank_boxes(links, side, ys, za)
+        so = links[f"{side}_foot"]["parts"][f"{side}_foot_sole"]; rgb = so[0][2]
+        hp = next(x for x in so if x[0] == "rprism" and x[1][0] == "x" and abs(x[1][1] + 29.9) < 0.05 and abs(x[1][2] + 27.4) < 0.05)
+        sole_top = max(x[1][2] for x in so if x[0] == "rprism" and x[1][0] == "z" and x[1][2] < za - 15 and max(q[0] for q in x[1][3]) > 50)
+        xb, z0 = hp[1][2] - 0.05, sole_top - 0.5
+        n0 = len(so)
+        bands = [((-FOOT_SLOT - 0.05, FOOT_SLOT + 0.05), (z0, za - 11.0), (0.0, 2.0, 4.05)),
+                 ((FOOT_SLOT, 7.0), (z0, za - 3.0), (4.0, 5.5, 7.0)), ((-7.0, -FOOT_SLOT), (z0, za - 3.0), (4.0, 5.5, 7.0)),
+                 ((7.0, FOOT_HALF), (z0, za - 3.0), (7.0, 10.5, FOOT_HALF)), ((-FOOT_HALF, -7.0), (z0, za - 3.0), (7.0, 10.5, FOOT_HALF)),
+                 ((FOOT_FIN_IN, FOOT_HALF), (za - 3.05, za + 3.0), (FOOT_FIN_IN, FOOT_HALF)), ((-FOOT_HALF, -FOOT_FIN_IN), (za - 3.05, za + 3.0), (FOOT_FIN_IN, FOOT_HALF))]
+        fronts = []
+        for (d0, d1), (za_, zb_), dys in bands:
+            lp = _foot_prof(boxes, za, xb, za_, zb_, dys)
+            so.append(PROFI("y", ys + d0, ys + d1, lp, [], rgb))
+            fronts.append(dict(dy=(d0, d1), z=(round(za_, 2), round(zb_, 2)), x_front=(round(min(q[1] for q in lp[1:-1]), 2), round(max(q[1] for q in lp[1:-1]), 2))))
+        # back ring: behind the plate around the roll horn disc (r 10.25 + FIT_GAP) down to the block under the servo,
+        # FIT_GAP in front of the roll servo case face (that face is a plane normal to the roll axis: no contact in
+        # roll), up to 3 above the axis (the hole stays open upward there: no overhang)
+        frr = frames[f"{side}_ankle_roll_servo_XM430"]
+        x_case = float(frr["O"][0] + frr["Z"][0] * 17.0)
+        rr, zt = 10.25 + FIT_GAP, za + 3.0
+        bk = next(x for x in so if x[0] == "rprism" and x[1][0] == "z" and abs(max(q[0] for q in x[1][3]) - hp[1][2]) < 0.05)
+        t0 = math.degrees(math.asin((zt - za) / rr))
+        arc = [(ys + rr * math.cos(math.radians(a)), za + rr * math.sin(math.radians(a)), 0.0) for a in np.linspace(t0, -180.0 - t0, 25)]
+        ring = [(ys - FOOT_HALF, bk[1][2] - 0.05, 0.0), (ys + FOOT_HALF, bk[1][2] - 0.05, 0.0), (ys + FOOT_HALF, zt, 0.0)] + arc + [(ys - FOOT_HALF, zt, 0.0)]
+        so.append(PROFI("x", x_case + FIT_GAP, hp[1][1] + 0.05, ring, [], rgb))
+        # horn zone (between the lowest and the side horn screws the section carries most of the moment):
+        # * wings |dy| 14..17.5 from the ring back face to the plate front, 45 deg underside (prints +z), up to 1 above
+        #   the axis (the bracket side plates allow |dy| 17.5 from 13 below the axis at ankle roll 32)
+        # * front layer 1.5 on the plate over |dy| <= 14, 3 below .. 3 above the axis, side screw driver holes r 2.5
+        # * the plate's centre hole only as deep as the hub needs (front 2 mm closed; hub tip 0.7 behind it)
+        for g in (-1, 1):
+            w = [(ys + g * (FOOT_HALF - 0.05), za - 16.5, 0.0), (ys + g * 17.5, za - 13.05, 0.0), (ys + g * 17.5, za + 1.0, 0.0), (ys + g * (FOOT_HALF - 0.05), za + 1.0, 0.0)]
+            so.append(PROFI("x", x_case + FIT_GAP, hp[1][2], w, [], rgb))
+        side_sc = [h for h in hp[1][5] if abs(h[1] - za) < 0.05 and abs(abs(h[0] - ys) - 8.0) < 0.05]
+        so.append(PROFI("x", hp[1][2] - 0.05, hp[1][2] + 1.5, rrect(ys - FOOT_HALF, ys + FOOT_HALF, za - 3.0, za + 3.0, 0.0), [], rgb,
+                        [(h[0], h[1], 2.5) for h in side_sc]))
+        k7 = next(i for i, x in enumerate(so) if x is hp)
+        ctr = [h for h in hp[1][5] if abs(h[0] - ys) < 0.05 and abs(h[1] - za) < 0.05]
+        a = hp[1]
+        so[k7] = PROFI("x", a[1], a[1] + 0.55, a[3], a[4], hp[2], a[5])
+        so.insert(k7 + 1, PROFI("x", a[1] + 0.5, a[2], a[3], a[4], hp[2], [h for h in a[5] if h not in ctr]))
+        hp = so[k7 + 1]
+        # doubler: front 2 mm out where the shank tunnel would come nearer than FIT_GAP (notch through the top edge)
+        k = next(i for i, x in enumerate(so) if x[0] == "rprism" and x[1][0] == "x" and abs(x[1][1] - (hp[1][2] - 0.05)) < 0.01)
+        axn, a0, a1, outer, inn, holes = so[k][1]
+        u0, u1 = min(q[0] for q in outer), max(q[0] for q in outer); v0, v1 = min(q[1] for q in outer), max(q[1] for q in outer)
+        zn, wn = za - 8.5, 7.0
+        notch = [(u0, v0, 0.0), (u1, v0, 0.0), (u1, v1, 0.0), (ys + wn, v1, 0.0), (ys + wn, zn, 0.0),
+                 (ys - wn, zn, 0.0), (ys - wn, v1, 0.0), (u0, v1, 0.0)]
+        xn = a1 - 2.0
+        so[k] = PROFI("x", a0, xn + 0.05, outer, inn, so[k][2], holes)
+        so.insert(k + 1, PROFI("x", xn, a1, notch, [], so[k][2], [h for h in holes if not (abs(h[0] - ys) + h[2] < wn and h[1] + h[2] > zn)]))
+        out["foot"].append(dict(side=side, bands=fronts, doubler_notch=dict(x=round(xn, 2), z=round(zn, 2), half=wn), solids=len(so) - n0 + 1,
+                                shank_boxes=[tuple(round(float(v), 2) for v in bx) for bx in boxes]))
+        # ---- ankle bracket: upper row of roll servo case holes
+        ab = links[f"{side}_ankle_link"]["parts"][f"{side}_ankle_bracket"]; rgb = ab[0][2]
+        fr = frames[f"{side}_ankle_roll_servo_XM430"]
+        up_holes = []
+        for hn in range(1, 15):
+            p, nrm = X.HOLES[hn - 1]; pw, nw = X.to_world(fr, p, nrm)
+            if abs(nw[1]) > 0.9 and pw[2] > za + 20.0:
+                up_holes.append((hn, pw, nw))
+        hz = up_holes[0][1][2]; hxs = sorted({round(float(pw[0]), 3) for _, pw, _ in up_holes})
+        plates = [x for x in ab if x[0] == "rprism" and x[1][0] == "y" and abs(x[1][2] - x[1][1] - 4.0) < 0.01
+                  and min(q[1] for q in x[1][3]) < -60 and max(q[1] for q in x[1][3]) > 10]
+        spacers = [x for x in ab if x[0] == "rprism" and x[1][0] == "y" and abs(min(q[1] for q in x[1][3]) - min(q[1] for q in plates[0][1][3])) < 0.01
+                   and abs(max(q[0] for q in x[1][3]) - min(q[0] for q in x[1][3]) - 8.0) < 0.01]
+        zpt = max(q[0] for q in plates[0][1][3])
+        xh0, xh1 = hxs[0], hxs[-1]
+        x_back, z_top = xh0 - EAR_HOLE_BACK, hz + EAR_HOLE_TOP
+        zt2 = za + BR_TOP_REL
+        xc = xh1 + 1.0 + (z_top - zt2)                    # 45 deg top chamfer from above the front hole down to zt2
+        ear = [(zpt - 0.5, x_back, 0.0), (z_top, x_back, 0.0), (z_top, xh1 + 1.0, 0.0), (zt2, xc, 0.0), (zt2, -10.0, 0.0),
+               (zpt + 1.0, -10.0 + (zt2 - zpt - 1.0), 0.0), (zpt - 0.5, -10.0 + (zt2 - zpt - 1.0), 0.0)]
+        hr = B19.CASE_HOLE_D / 2
+        drops = lambda: [_drop_cap(hz, hx, hr, 1) for hx in hxs]          # (u z, v x): point toward +x (prints +x)
+        n0 = len(ab)
+        for pl in plates:
+            ab.append(PROFI("y", pl[1][1], pl[1][2], ear, drops(), rgb))
+        for sp in spacers:
+            xv = xh0 - 5.5
+            y0, y1 = sp[1][1], sp[1][2]
+            y0, y1 = (y0 - 0.5, y1) if abs(y0 - ys) > abs(y1 - ys) else (y0, y1 + 0.5)        # 0.5 into the ear
+            ab.append(PROFI("y", y0, y1, [(hz, xv, 0.0), (hz - 4.0, xv + 4.0, 0.0), (hz - 4.0, xh1 + 4.0, 0.0),
+                                                     (hz + 4.0, xh1 + 4.0, 0.0), (hz + 4.0, xv + 4.0, 0.0)], drops(), rgb))
+        # pillars under the ears on the plate band (from the bed at the back plate; inner one inside the 45 deg corner cut)
+        xbed = min(x[1][1] for x in ab if x[0] == "rprism" and x[1][0] == "x")
+        xbp = min(q[0] for x in ab if x[0] == "rprism" and x[1][0] == "z" for q in x[1][3])     # back face of the ties
+        for pl in plates:
+            y0, y1 = pl[1][1], pl[1][2]
+            outer_pl = abs((y0 + y1) / 2 - ys) > 0 and ((y0 + y1) / 2 - ys) * s > 0
+            if outer_pl:
+                poly = rrect(xbed, x_back + 0.05, y0, y1, 0.0)
+            else:
+                yc = ys - s * 19.0                                          # 45 deg inner-back corner cut (ankle_back_reinforce)
+                ya, yb_ = (y0, y1) if s < 0 else (y1, y0)                 # ya: toward the leg centre
+                poly = [(xbp + abs(ya - yc), ya, 0.0), (x_back + 0.05, ya, 0.0), (x_back + 0.05, yb_, 0.0), (xbp + abs(yb_ - yc), yb_, 0.0)]
+            ab.append(PROFI("z", zpt - 0.5, z_top, poly, [], rgb))
+        out["bracket"].append(dict(side=side, holes=[hn for hn, _, _ in up_holes], hole_z=round(hz, 2), hole_x=hxs, ear=(round(x_back, 2), round(z_top, 2)),
+                                   plate_top=round(zt2, 2), spacers=len(spacers), plates=len(plates), solids=len(ab) - n0))
+    # ---- teardrops (print directions as export_parts: FORCE)
+    for ln, L in links.items():
+        for pn, ss in L["parts"].items():
+            key = next((k for k in LEG_PIECES if pn.endswith(k) and pn[:2] in ("R_", "L_")), None)
+            if key:
+                out["teardrops"][pn] = _teardrops(ss, FORCE[key])
+    return out
+
+
 def build_model():
     links, joints, fasteners = B19.build_model()
     LOG["v19"] = {k: B19.LOG[k] for k in ("case_holes", "wall_warnings", "pockets") if k in B19.LOG}
@@ -1323,6 +1623,7 @@ def build_model():
     LOG["ankle_back"] = ankle_back_reinforce(links, X.servo_frames(links))
     LOG["fdm_joints"] = fdm_joints(links, joints)
     LOG["assembly_durability"] = assembly_durability(links)
+    LOG["print_robust"] = print_robust(links, joints)
     return links, joints, fasteners
 
 
@@ -1330,7 +1631,7 @@ def build_model():
 # horn pads touch the frames over a 0.5 mm overlap that the 1 mm voxel check of the right frames reads as a loose piece)
 FORCE = {"shank_shell": "+z", "thigh_shell": "+z", "torso_cover": "+z", "antenna": "+z", "face_plate": "+x",
          "torso_side": "+z", "foot_sole": "+z", "hip_yaw_bracket": "+z", "thigh_frame": "-z", "shank_frame": "+z",
-         "ankle_bracket": "+x"}     # +z wins on support (280 vs 324) but stands on the two disc plate edges (33 mm2 bed)
+         "hip_roll_bracket": "+z", "ankle_bracket": "+x"}     # +z wins on support (280 vs 324) but stands on the two disc plate edges (33 mm2 bed)
 
 
 def write(links, path):

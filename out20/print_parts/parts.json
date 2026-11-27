@@ -184,9 +184,9 @@
   "part": "R_thigh_frame",
   "link": "R_thigh",
   "up": "-z",
-  "size_mm": "43x49x118",
+  "size_mm": "44x49x118",
   "support_mm2": 0,
-  "volume_cm3": 40.2,
+  "volume_cm3": 40.3,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -216,9 +216,9 @@
   "part": "R_shank_frame",
   "link": "R_shank",
   "up": "+z",
-  "size_mm": "43x49x112",
+  "size_mm": "44x49x112",
   "support_mm2": 16,
-  "volume_cm3": 35.5,
+  "volume_cm3": 35.6,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -248,9 +248,9 @@
   "part": "R_ankle_bracket",
   "link": "R_ankle_link",
   "up": "+x",
-  "size_mm": "54x25x86",
-  "support_mm2": 324,
-  "volume_cm3": 26.2,
+  "size_mm": "54x43x86",
+  "support_mm2": 121,
+  "volume_cm3": 35.0,
   "note": "",
   "colours": [
    [
@@ -266,7 +266,7 @@
   "up": "+z",
   "size_mm": "134x70x41",
   "support_mm2": 0,
-  "volume_cm3": 65.1,
+  "volume_cm3": 70.6,
   "note": "발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓",
   "colours": [
    [
@@ -296,9 +296,9 @@
   "part": "L_thigh_frame",
   "link": "L_thigh",
   "up": "-z",
-  "size_mm": "43x49x118",
+  "size_mm": "44x49x118",
   "support_mm2": 16,
-  "volume_cm3": 40.2,
+  "volume_cm3": 40.3,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -328,9 +328,9 @@
   "part": "L_shank_frame",
   "link": "L_shank",
   "up": "+z",
-  "size_mm": "43x49x112",
+  "size_mm": "44x49x112",
   "support_mm2": 0,
-  "volume_cm3": 35.5,
+  "volume_cm3": 35.6,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -360,9 +360,9 @@
   "part": "L_ankle_bracket",
   "link": "L_ankle_link",
   "up": "+x",
-  "size_mm": "54x25x86",
-  "support_mm2": 324,
-  "volume_cm3": 26.2,
+  "size_mm": "54x43x86",
+  "support_mm2": 121,
+  "volume_cm3": 35.0,
   "note": "",
   "colours": [
    [
@@ -378,7 +378,7 @@
   "up": "+z",
   "size_mm": "134x70x41",
   "support_mm2": 0,
-  "volume_cm3": 65.1,
+  "volume_cm3": 70.6,
   "note": "발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓",
   "colours": [
    [
@@ -842,7 +842,7 @@
   "up": "+z",
   "size_mm": "49x35x89",
   "support_mm2": 0,
-  "volume_cm3": 32.2,
+  "volume_cm3": 32.1,
   "note": "",
   "colours": [
    [
@@ -858,7 +858,7 @@
   "up": "+z",
   "size_mm": "49x35x89",
   "support_mm2": 0,
-  "volume_cm3": 32.2,
+  "volume_cm3": 32.1,
   "note": "",
   "colours": [
    [
