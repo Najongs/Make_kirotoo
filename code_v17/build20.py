@@ -934,6 +934,10 @@ def xl_horn_fit(links):
                         for j, uvs in by.items():
                             x = ss[j]; axn, b0, b1, ou, il, hl = x[1]
                             wide = [(g[0], g[1], CB_D / 2) if any(abs(g[0] - u) < 0.05 and abs(g[1] - v) < 0.05 for u, v in uvs) and g[2] < CB_D / 2 else g for g in hl]
+                            # centre hole beyond the floor: back to its old size where it would leave < MIN_WALL to the
+                            # counterbores (idler cap r 5.65 vs bores at r 8 - 2.2; the cap ends at the plate's near face)
+                            if ctr and r_ctr + MIN_WALL > 8.0 - CB_D / 2:
+                                wide = [(g[0], g[1], min(h[2] for h in ctr)) if math.hypot(g[0] - cu, g[1] - cv) < 0.05 else g for g in wide]
                             m0, m1 = sorted((n_of(b0), n_of(b1)))
                             for u, v in uvs:
                                 if not _inside_loop(x, u, v, CB_D / 2 + 0.4):
@@ -1071,7 +1075,8 @@ def build_model():
 # export_parts print directions: the defaults of export_parts.FORCE + the leg frames as in the 2026-11-26 kit (the
 # horn pads touch the frames over a 0.5 mm overlap that the 1 mm voxel check of the right frames reads as a loose piece)
 FORCE = {"shank_shell": "+z", "thigh_shell": "+z", "torso_cover": "+z", "antenna": "+z", "face_plate": "+x",
-         "torso_side": "+z", "foot_sole": "+z", "hip_yaw_bracket": "+z", "thigh_frame": "-z", "shank_frame": "+z"}
+         "torso_side": "+z", "foot_sole": "+z", "hip_yaw_bracket": "+z", "thigh_frame": "-z", "shank_frame": "+z",
+         "ankle_bracket": "+x"}     # +z wins on support (280 vs 324) but stands on the two disc plate edges (33 mm2 bed)
 
 
 def write(links, path):

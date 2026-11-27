@@ -263,9 +263,9 @@
  {
   "part": "R_ankle_bracket",
   "link": "R_ankle_link",
-  "up": "+z",
-  "size_mm": "86x54x25",
-  "support_mm2": 289,
+  "up": "+x",
+  "size_mm": "54x25x86",
+  "support_mm2": 324,
   "volume_cm3": 26.4,
   "note": "",
   "colours": [
@@ -375,9 +375,9 @@
  {
   "part": "L_ankle_bracket",
   "link": "L_ankle_link",
-  "up": "+z",
-  "size_mm": "86x54x25",
-  "support_mm2": 289,
+  "up": "+x",
+  "size_mm": "54x25x86",
+  "support_mm2": 324,
   "volume_cm3": 26.4,
   "note": "",
   "colours": [
@@ -858,7 +858,7 @@
   "up": "+z",
   "size_mm": "49x35x89",
   "support_mm2": 0,
-  "volume_cm3": 29.8,
+  "volume_cm3": 30.0,
   "note": "",
   "colours": [
    [
@@ -874,7 +874,7 @@
   "up": "+z",
   "size_mm": "49x35x89",
   "support_mm2": 0,
-  "volume_cm3": 29.8,
+  "volume_cm3": 30.0,
   "note": "",
   "colours": [
    [
