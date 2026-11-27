@@ -45,6 +45,7 @@ LEG_STACK = [
 LEG_BESIDE = [("thigh_shell", ["R_thigh_shell"], "thigh_frame", 80.0),
               ("shank_shell", ["R_shank_shell"], "shank_frame", 95.0),
               ("ankle_roll_servo", ["R_ankle_roll_servo_XM430", "R_ankle_roll_horn", "R_ankle_roll_idler"], "ankle_bracket", 160.0)]
+BESIDE_LIFT = {"shank_shell": 55.0}   # the shank shell goes on from above: drawn above and in front of the frame
 SPLIT_AFTER = "pitch_servo"       # column A = hip .. hip pitch servo, column B = thigh .. foot
 LABEL_W = 56.0                    # label column width next to each leg column (paper mm)
 CLR = 20.0                        # mm between stacked items (model)
@@ -73,9 +74,9 @@ S_LABEL = {
 # assembly arrows between stacked items: (upper, lower, direction "up"/"down", kit step)
 ARROWS = [("yaw_servo", "bearing", "up", 9), ("bearing", "yaw_bracket", "up", 9), ("yaw_bracket", "roll_servo", "up", 10),
           ("roll_servo", "roll_bracket", "down", 8), ("roll_bracket", "pitch_servo", "up", 7),
-          ("pitch_servo", "thigh_frame", "up", 7), ("knee_servo", "shank_frame", "up", 6),
+          ("pitch_servo", "thigh_frame", "up", 7), ("thigh_frame", "knee_servo", "up", 6), ("knee_servo", "shank_frame", "up", 6),
           ("shank_frame", "ankle_pitch_servo", "up", 3), ("ankle_pitch_servo", "ankle_bracket", "up", 4),
-          ("ankle_bracket", "foot", "up", 2)]
+          ("ankle_bracket", "foot", "up", "2 (발목 롤 혼에)")]
 SIDE_ARROWS = [("thigh_shell", 6), ("shank_shell", 5), ("ankle_roll_servo", 1)]
 STEPS = ["발목 롤 서보 → 발목 브래킷", "발판 → 발목 롤 혼", "발목 피치 서보 → 정강이 프레임", "발목 브래킷 → 발목 피치 혼",
          "정강이 셸 씌우기", "무릎 서보 → 허벅지 프레임, 허벅지 셸, 정강이 → 무릎 혼", "피치 서보 → U 브래킷, 허벅지 → 피치 혼",
@@ -187,7 +188,7 @@ def leg_offsets(geom):
     for key, names, host, dx in LEG_BESIDE:
         dz[key] = dz[host]
         for n in names:
-            offs[n] = (dx, 0.0, dz[host])
+            offs[n] = (dx, 0.0, dz[host] + BESIDE_LIFT.get(key, 0.0))
     return offs, dz
 
 
@@ -407,7 +408,8 @@ def main():
             if dirn == "down":
                 qa, qb = qb, qa
             sh.arrow(qa, qb)
-            sh.text(min(qa[0], qb[0]) - 1.2, (qa[1] + qb[1]) / 2, str(step), size=7.5, bold=True, color=RED, va="center", ha="right")
+            sh.text(min(qa[0], qb[0]) - 1.2, (qa[1] + qb[1]) / 2, str(step), size=7.5, bold=True, color=RED, va="center", ha="right",
+                    bbox=dict(fc="white", ec="none", pad=0.6, alpha=0.85))
         for k, step in SIDE_ARROWS:
             if k not in keys:
                 continue
@@ -415,7 +417,9 @@ def main():
             host = dict((kk, h) for kk, _, h, _ in LEG_BESIDE)[k]
             zc = (P[:, 2].min() + P[:, 2].max()) / 2
             xmin, xh = P[:, 0].min(), part_pts(gg, set(names_of[host]))[:, 0].max()
-            q = project(pr, np.array([[xmin - 3, -40, zc], [xh + 4, -40, zc]]))
+            lift = BESIDE_LIFT.get(k, 0.0)
+            z0 = P[:, 2].min() + 5 if lift else zc        # lifted item: from its lower back corner, down and in
+            q = project(pr, np.array([[xmin - 3, -40, z0], [xh + 4, -40, z0 - 0.8 * lift]]))
             qa, qb = to_mm(q[0], rect), to_mm(q[1], rect)
             sh.arrow(qa, qb)
             sh.text((qa[0] + qb[0]) / 2, min(qa[1], qb[1]) - 0.6, str(step), size=7.5, bold=True, color=RED, ha="center", va="bottom")
