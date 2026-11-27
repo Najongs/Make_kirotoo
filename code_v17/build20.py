@@ -1012,6 +1012,93 @@ def ankle_back_reinforce(links, frames):
     return out
 
 
+# ---------------------------------------------------------------- FDM joints (owner 2026-11-27: thin bands break)
+# The thigh / shank side plates (horn ends) met the servo clamp walls only on face contacts: thigh 4 x 13.5 mm2
+# (side plate bottom on the 3.85 strip, the strip's top corners even rounded r 2), shank 2 x 13.5 mm2 at the front
+# + 2 x 1.3 x 3.85 at the back posts, all on a layer plane of the print (z).  Ranges were checked by a static sweep
+# (new solids vs the neighbour links, margin 0.3; scratch sweep 2026-11-27): numbers in the comments below
+# (knee flex is the negative rotation about +y there: the thigh box first meets the shank at -118 like the old frame).
+THIGH_BOX_TOP = -40.87             # thigh box top relative to the hip pitch axis (z 104 at axis 144.87)
+FIL = 3.0                           # inner fillet legs (45 deg triangles), >= 2 mm radius equivalent
+
+
+def _tri(p, du, dv):
+    """45 deg corner gusset loop at corner p = (u, v) with legs du, dv (signs give the direction)"""
+    u, v = p
+    return [(u, v, 0.0), (u + du, v, 0.0), (u, v + dv, 0.0)]
+
+
+def fdm_joints(links, joints):
+    J = {j["name"]: j for j in joints}
+    out = []
+    for side in ("R", "L"):
+        ys = -40.0 if side == "R" else 40.0
+        zh = J[f"{side}_hip_pitch"]["point_mm"][2]; zk = J[f"{side}_knee"]["point_mm"][2]; za = J[f"{side}_ankle_pitch"]["point_mm"][2]
+        # ---- thigh: front + back walls across the whole width (side plate to side plate) from the strip bottom up to
+        # z_hip - 40.9 (hip pitch servo corners sweep r 38.0 about the hip axis; wall corner x 14.65 at r 43.4) -> closed
+        # box 37 x 49.4 (wall 3.5 / 3.85) over 18 mm.  Sweep: hip pitch -120..+120 free.
+        tf = links[f"{side}_thigh"]["parts"][f"{side}_thigh_frame"]; rgb = tf[0][2]
+        strip = [x for x in tf if x[0] == "rprism" and x[1][0] == "x" and abs(min(q[0] for q in x[1][3]) - (ys - 24.7)) < 0.01
+                 and abs(max(q[0] for q in x[1][3]) - (ys + 24.7)) < 0.01]
+        z0 = min(q[1] for x in strip for q in x[1][3]); zs = max(q[1] for x in strip for q in x[1][3])   # 80.37, 85.87
+        zt = zh + THIGH_BOX_TOP
+        n0 = len(tf)
+        for xa, xb in ((14.65, 18.5), (-18.5, -14.65)):
+            tf.append(PROFI("x", xa, xb, rrect(ys - 24.7, ys + 24.7, z0, zt, 0.0), [], rgb))
+            # step gussets under the strip ends (wall 34 wide -> strip 49.4 wide): 4 x 4, inside r 26+ of the knee axis
+            for g in (-1, 1):
+                tf.append(PROFI("x", xa, xb, _tri((ys + g * 17.0, z0 + 0.5), g * 4.0, -4.5), [], rgb))
+            # inner fillets of the box corners (x 14.65, side plate inner faces at |y - ys| 21.2), above the knee servo
+            sx = 1 if xa > 0 else -1
+            for g in (-1, 1):
+                tf.append(PROFI("z", zs, zt, _tri((sx * 14.65, ys + g * 21.2), -sx * FIL, -g * FIL), [], rgb))
+        out.append(dict(part=f"{side}_thigh_frame", box_z=(round(z0, 2), round(zt, 2)), solids=len(tf) - n0))
+        # ---- shank: front wall across the whole width from 2 mm below the side plate bottom up to 14 above it (the
+        # shell barb groove in the old wall stays below); back bar across the whole width z +8..+18 above the knee
+        # cut-outs; back posts up to the bar (|y - ys| 18..22.5, outside it the ankle bracket plates pass).
+        # Sweep: ankle pitch first contact of the whole frame unchanged (-31; the bar alone -38), knee free.
+        sf = links[f"{side}_shank"]["parts"][f"{side}_shank_frame"]; rgb = sf[0][2]
+        zb = min(min(q[0] for q in x[1][3]) for x in sf if x[0] == "rprism" and x[1][0] == "y" and abs(max(q[1] for q in x[1][3]) - 18.5) < 0.01)
+        n0 = len(sf)
+        sf.append(PROFI("x", 14.65, 18.5, rrect(ys - 24.7, ys + 24.7, zb - 2.0, zb + 14.0, 0.0), [], rgb))
+        sf.append(PROFI("x", -18.5, -14.65, rrect(ys - 24.7, ys + 24.7, zb + 12.0, zb + 22.0, 0.0), [], rgb))
+        for g in (-1, 1):
+            sf.append(PROFI("x", -18.5, -14.65, rrect(*sorted((ys + g * 18.0, ys + g * 22.5)), zb - 4.0, zb + 12.5, 0.0), [], rgb))
+            for sx, xa in ((1, 14.65), (-1, -14.65)):
+                z_lo, z_hi = (zb, zb + 14.0) if sx > 0 else (zb + 12.0, zb + 22.0)
+                sf.append(PROFI("z", z_lo, z_hi, _tri((xa, ys + g * 21.2), -sx * FIL, -g * FIL), [], rgb))
+        out.append(dict(part=f"{side}_shank_frame", front_z=(round(zb - 2, 2), round(zb + 14, 2)), back_z=(round(zb + 12, 2), round(zb + 22, 2)), solids=len(sf) - n0))
+        # ---- hip roll U: the clamp walls (x 14.65..20.5) and the U plates (x 20.9..24.75) met only through the 3.0
+        # bottom plate (0.4 gap): blocks under the bottom plate fill the gap and reach 13 mm down, 45 deg chamfer
+        # (prints +z without support); |y - ys| <= 16 like the U plates (thigh horn / idler pads start at 17)
+        ub = links[f"{side}_hip_roll_link"]["parts"][f"{side}_hip_roll_bracket"]; rgb = ub[0][2]
+        bp = next(x for x in ub if x[0] == "rprism" and x[1][0] == "z")
+        pb, pt = bp[1][1], bp[1][2]
+        xs_ = [q[0] for q in bp[1][3]]
+        xf, xbk = max(xs_), min(xs_)
+        n0 = len(ub)
+        for xw, xo in ((20.5, xf), (-20.5, xbk)):
+            d = abs(xo - xw)
+            # y prism: profile (u = z, v = x)
+            ub.append(PROFI("y", ys - 16.0, ys + 16.0, [(pb - 4.0 - d, xw, 0.0), (pt, xw, 0.0), (pt, xo, 0.0), (pb - 4.0, xo, 0.0)], [], rgb))
+        out.append(dict(part=f"{side}_hip_roll_bracket", block_z=(round(pb - 4 - 4.25, 2), round(pt, 2)), solids=len(ub) - n0))
+        # ---- foot: the horn plate (2.5 thick, x -29.9..-27.4) carried the whole ankle pitch moment out of plane
+        # (S 29 mm3 at its root): +4.4 forward from the floor up to 4.9 below the axis (clear of the centre hole and the
+        # side screw counterbores; the lowest screw's Ø4.4 counterbore goes through it, M2 x 5 stays) and a 45 deg
+        # gusset in front of its root, |y - ys| <= 14.  Full height met the shank back wall at ankle pitch +19 (sweep);
+        # this one is free over pitch -60..+35 at roll -20 / 0 / +20.
+        so = links[f"{side}_foot"]["parts"][f"{side}_foot_sole"]; rgb = so[0][2]
+        hp = next(x for x in so if x[0] == "rprism" and x[1][0] == "x" and abs(x[1][1] + 29.9) < 0.05 and abs(x[1][2] + 27.4) < 0.05)
+        xa, xb = hp[1][2], hp[1][2] + 4.4
+        z_floor = min(q[1] for q in hp[1][3]); z_top = za - 4.9
+        u0, u1 = min(q[0] for q in hp[1][3]), max(q[0] for q in hp[1][3])
+        n0 = len(so)
+        so.append(PROFI("x", xa - 0.05, xb, rrect(u0, u1, z_floor, z_top, 0.0), [], rgb, [h for h in hp[1][5] if h[1] + h[2] < z_top - 0.3]))
+        so.append(PROFI("y", ys - 14.0, ys + 14.0, [(z_floor - 0.5, xb - 0.5, 0.0), (z_floor - 0.5, xb + 10.0, 0.0), (za - 12.4, xb - 0.5, 0.0)], [], rgb))
+        out.append(dict(part=f"{side}_foot_sole", horn_plate_x=(round(hp[1][1], 2), round(xb, 2)), gusset_z=(round(z_floor, 2), round(za - 12.4, 2)), solids=len(so) - n0))
+    return out
+
+
 def build_model():
     links, joints, fasteners = B19.build_model()
     LOG["v19"] = {k: B19.LOG[k] for k in ("case_holes", "wall_warnings", "pockets") if k in B19.LOG}
@@ -1069,6 +1156,7 @@ def build_model():
         LOG["theta_max_deg"] = B18.THETA_MAX
     LOG["xl_horn_fit"] = xl_horn_fit(links)
     LOG["ankle_back"] = ankle_back_reinforce(links, X.servo_frames(links))
+    LOG["fdm_joints"] = fdm_joints(links, joints)
     return links, joints, fasteners
 
 

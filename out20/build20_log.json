@@ -3794,5 +3794,87 @@
     -68.0
    ]
   }
+ ],
+ "fdm_joints": [
+  {
+   "part": "R_thigh_frame",
+   "box_z": [
+    79.87,
+    104.0
+   ],
+   "solids": 10
+  },
+  {
+   "part": "R_shank_frame",
+   "front_z": [
+    -6.13,
+    9.87
+   ],
+   "back_z": [
+    7.87,
+    17.87
+   ],
+   "solids": 8
+  },
+  {
+   "part": "R_hip_roll_bracket",
+   "block_z": [
+    148.17,
+    159.42
+   ],
+   "solids": 2
+  },
+  {
+   "part": "R_foot_sole",
+   "horn_plate_x": [
+    -29.9,
+    -23.0
+   ],
+   "gusset_z": [
+    -68.13,
+    -57.53
+   ],
+   "solids": 2
+  },
+  {
+   "part": "L_thigh_frame",
+   "box_z": [
+    79.87,
+    104.0
+   ],
+   "solids": 10
+  },
+  {
+   "part": "L_shank_frame",
+   "front_z": [
+    -6.13,
+    9.87
+   ],
+   "back_z": [
+    7.87,
+    17.87
+   ],
+   "solids": 8
+  },
+  {
+   "part": "L_hip_roll_bracket",
+   "block_z": [
+    148.17,
+    159.42
+   ],
+   "solids": 2
+  },
+  {
+   "part": "L_foot_sole",
+   "horn_plate_x": [
+    -29.9,
+    -23.0
+   ],
+   "gusset_z": [
+    -68.13,
+    -57.53
+   ],
+   "solids": 2
+  }
  ]
 }

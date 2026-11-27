@@ -6,6 +6,9 @@ from build import IDX, UVI
 
 mod = importlib.import_module(sys.argv[1] if len(sys.argv) > 1 else "build6")
 OUT = sys.argv[2] if len(sys.argv) > 2 else "/home/claude/biped/out6/print_parts"
+# optional 3rd argument: comma-separated part name pieces; only those parts are written and their rows replace the
+# same rows of the existing parts.json (the other STEP files and rows stay as they are)
+ONLY = [k for k in sys.argv[3].split(",") if k] if len(sys.argv) > 3 else None
 os.makedirs(OUT, exist_ok=True)
 
 # rotation taking the chosen 'up' direction to +z (proper rotations, det = +1)
@@ -60,9 +63,11 @@ def main():
     FORCE = getattr(mod, "FORCE", FORCE)
     NOTE = getattr(mod, "NOTE", NOTE)
     links, _, _ = mod.build_model()
-    rows = {(r[1]): r for r in printcheck.analyse(mod)}
+    rows = {(r[1]): r for r in printcheck.analyse(mod, only=ONLY)}
     table = []
     for ln, pn, sol in printcheck.printed_parts(links):
+        if ONLY and not any(k in pn for k in ONLY):
+            continue
         up = next((d for key, d in FORCE.items() if key in pn), rows[pn][3] if pn in rows else "+z")
         R = ROT[up]
         rs = [rot_solid(s, R) for s in sol]
@@ -83,6 +88,10 @@ def main():
         table.append(dict(part=name, link=ln, up=up, size_mm="x".join(str(round(h - l)) for l, h in zip(lo, hi)),
                           support_mm2=round(need), volume_cm3=round(vol, 1),
                           note=next((v for k, v in NOTE.items() if k in pn), ""), colours=colours))
+    if ONLY and os.path.exists(f"{OUT}/parts.json"):
+        new = {r["part"]: r for r in table}
+        old = json.load(open(f"{OUT}/parts.json"))
+        table = [new.pop(r["part"], r) for r in old] + list(new.values())
     with open(f"{OUT}/parts.json", "w") as f:
         json.dump(table, f, indent=1, ensure_ascii=False)
     for r in table:
