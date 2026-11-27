@@ -1,0 +1,162 @@
+{
+ "hooks": [
+  {
+   "flex": "+y",
+   "face_before": 54.85,
+   "face": 54.75
+  },
+  {
+   "flex": "+y",
+   "face_before": 54.85,
+   "face": 54.75
+  },
+  {
+   "flex": "-y",
+   "face_before": -54.85,
+   "face": -54.75
+  },
+  {
+   "flex": "-y",
+   "face_before": -54.85,
+   "face": -54.75
+  },
+  {
+   "flex": "+y",
+   "face_before": 98.65,
+   "face": 98.55
+  },
+  {
+   "flex": "-y",
+   "face_before": -98.65,
+   "face": -98.55
+  },
+  {
+   "flex": "-z",
+   "face_before": 366.35,
+   "face": 366.45
+  },
+  {
+   "flex": "+y",
+   "face_before": 72.0,
+   "face": 71.9
+  },
+  {
+   "flex": "-y",
+   "face_before": -72.0,
+   "face": -71.9
+  },
+  {
+   "flex": "+x",
+   "face_before": 12.0,
+   "face": 11.9
+  },
+  {
+   "flex": "-x",
+   "face_before": -12.0,
+   "face": -11.9
+  },
+  {
+   "flex": "+x",
+   "face_before": 12.0,
+   "face": 11.9
+  },
+  {
+   "flex": "-x",
+   "face_before": -12.0,
+   "face": -11.9
+  },
+  {
+   "flex": "+y",
+   "face_before": 12.0,
+   "face": 11.9
+  },
+  {
+   "flex": "+y",
+   "face_before": 12.0,
+   "face": 11.9
+  },
+  {
+   "flex": "-y",
+   "face_before": -12.0,
+   "face": -11.9
+  },
+  {
+   "flex": "-y",
+   "face_before": -12.0,
+   "face": -11.9
+  }
+ ],
+ "dovetail": [
+  {
+   "side": 1,
+   "x": 12.0,
+   "face_d": 9.1,
+   "tip_d": 12.1,
+   "flank_at_face": 2.985,
+   "flank_at_tip": 4.485
+  },
+  {
+   "side": -1,
+   "x": 12.0,
+   "face_d": 9.1,
+   "tip_d": 12.1,
+   "flank_at_face": 2.985,
+   "flank_at_tip": 4.485
+  },
+  {
+   "side": 1,
+   "x": -22.0,
+   "face_d": 9.1,
+   "tip_d": 12.1,
+   "flank_at_face": 2.985,
+   "flank_at_tip": 4.485
+  },
+  {
+   "side": -1,
+   "x": -22.0,
+   "face_d": 9.1,
+   "tip_d": 12.1,
+   "flank_at_face": 2.985,
+   "flank_at_tip": 4.485
+  }
+ ],
+ "tongue": {
+  "solids": 1,
+  "gap": [
+   0.15,
+   0.25
+  ]
+ },
+ "shorts_flange": {
+  "points": 12,
+  "gap": [
+   0.2,
+   0.3
+  ]
+ },
+ "lid_back": {
+  "points": 8,
+  "gap": [
+   0.0,
+   0.3
+  ]
+ },
+ "written": [
+  "torso_frame",
+  "lid",
+  "torso_cover_front",
+  "torso_cover_back",
+  "shorts",
+  "neck_yoke",
+  "pelvis_hatch",
+  "head_back",
+  "head_front",
+  "face_plate",
+  "crest",
+  "nod_crank",
+  "ear_L",
+  "ear_R",
+  "ear_rocker"
+ ],
+ "missing": []
+}

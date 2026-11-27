@@ -58,7 +58,7 @@
   "up": "-z",
   "size_mm": "143x130x29",
   "support_mm2": 0,
-  "volume_cm3": 57.5,
+  "volume_cm3": 57.3,
   "note": "흰색. 캡을 바닥에(걸쇠가 위로). 스위치·잭 구멍, 배기 슬롯",
   "colours": [
    [
@@ -74,7 +74,7 @@
   "up": "+z",
   "size_mm": "81x150x99",
   "support_mm2": 0,
-  "volume_cm3": 35.7,
+  "volume_cm3": 35.5,
   "note": "흰색. 세워서(어깨 라운드가 위로). 브림 권장",
   "colours": [
    [
@@ -90,7 +90,7 @@
   "up": "+z",
   "size_mm": "81x150x99",
   "support_mm2": 0,
-  "volume_cm3": 33.7,
+  "volume_cm3": 33.5,
   "note": "흰색. 세워서(어깨 라운드가 위로). 브림 권장",
   "colours": [
    [
@@ -106,7 +106,7 @@
   "up": "-z",
   "size_mm": "163x150x32",
   "support_mm2": 0,
-  "volume_cm3": 31.2,
+  "volume_cm3": 31.1,
   "note": "남색. 플랜지(윗면)를 바닥에. 아래 라운드가 위로 감",
   "colours": [
    [
