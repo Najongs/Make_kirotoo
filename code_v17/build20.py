@@ -1241,9 +1241,13 @@ def assembly_durability(links):
                 hs.append((hn, pw))
         hs = [(hn, pw) for hn, pw in hs if abs(pw[2] - max(q[2] for _, q in hs)) < 0.01]       # the row far from the horn
         zc = hs[0][1][2]
+        # the cut wall piece under it (z_hole - 1.0 .. top, no hole) would close the holes: dropped in the bar's band
+        inside_bar = lambda x: x[1][0] == "x" and x[1][2] <= -14.6 and min(q[1] for q in x[1][3]) >= zc - 3.0 - 1e-6 \
+            and max(q[1] for q in x[1][3]) <= zc + 3.8 + 1e-6
+        n_cut = _split_mid(fr_s, inside_bar, 0, ys - 9.5, ys + 9.5, (0.0, 0.0, 1.0), zc - 3.0)
         fr_s.append(PROFI("x", -18.5, -14.65, rrect(ys - 9.5, ys + 9.5, zc - 3.0, zc + 3.8, 1.0), [], fr_s[0][2],
                           [(pw[1], pw[2], B19.CASE_HOLE_D / 2) for _, pw in hs]))
-        out.setdefault("ankle_pitch_back_holes", []).append(dict(side=side, holes=[hn for hn, _ in hs], z=round(zc, 2), bar_top=round(zc + 3.8, 2)))
+        out.setdefault("ankle_pitch_back_holes", []).append(dict(side=side, holes=[hn for hn, _ in hs], z=round(zc, 2), bar_top=round(zc + 3.8, 2), wall_pieces_cut=n_cut))
         # -- yaw hub: 0.4 per side in the 6805 bore, epoxy
         yb = links[f"{side}_hip_yaw_link"]["parts"][f"{side}_hip_yaw_bracket"]
         for i, x in enumerate(yb):
