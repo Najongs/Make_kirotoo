@@ -1,0 +1,892 @@
+{
+ "rl": "kitoru_v22_rl.xml",
+ "mesh": "kitoru_v22.xml",
+ "zero": {
+  "pairs": 370,
+  "body_pairs": 116,
+  "min_mm": 4.0,
+  "closest": [
+   [
+    4.0,
+    "L_shank_low",
+    "L_foot_column"
+   ],
+   [
+    4.0,
+    "R_shank_low",
+    "R_foot_column"
+   ],
+   [
+    9.0,
+    "L_shank_main",
+    "L_foot_column"
+   ],
+   [
+    9.0,
+    "R_shank_main",
+    "R_foot_column"
+   ],
+   [
+    9.01,
+    "L_shank_servo",
+    "L_foot_rim"
+   ],
+   [
+    9.01,
+    "R_shank_servo",
+    "R_foot_rim"
+   ],
+   [
+    9.29,
+    "shorts_side_L",
+    "L_forearm_box"
+   ],
+   [
+    9.29,
+    "shorts_side_R",
+    "R_forearm_box"
+   ],
+   [
+    10.5,
+    "shorts_side_L",
+    "L_roll_upper"
+   ],
+   [
+    10.5,
+    "shorts_side_R",
+    "R_roll_upper"
+   ],
+   [
+    11.3,
+    "L_thigh_shell",
+    "L_forearm_box"
+   ],
+   [
+    11.3,
+    "R_thigh_shell",
+    "R_forearm_box"
+   ]
+  ],
+  "overlapping": []
+ },
+ "sweeps": [
+  {
+   "sweep": "hip_pitch knee 0",
+   "joint": "R_hip_pitch",
+   "dir": -1,
+   "hold": {
+    "R_knee": 0
+   },
+   "rl": {
+    "angle": -117.62,
+    "pair": [
+     "shorts_front",
+     "R_thigh_shell"
+    ]
+   },
+   "mesh": {
+    "angle": -117.31,
+    "pair": [
+     "col_shorts",
+     "col_R_thigh_shell"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_pitch knee 0",
+   "joint": "R_hip_pitch",
+   "dir": 1,
+   "hold": {
+    "R_knee": 0
+   },
+   "rl": {
+    "angle": 114.75,
+    "pair": [
+     "shorts_back",
+     "R_shank_main"
+    ]
+   },
+   "mesh": {
+    "angle": 113.94,
+    "pair": [
+     "col_shorts",
+     "col_R_thigh_frame"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_pitch knee 30",
+   "joint": "R_hip_pitch",
+   "dir": -1,
+   "hold": {
+    "R_knee": 30
+   },
+   "rl": {
+    "angle": -117.62,
+    "pair": [
+     "shorts_front",
+     "R_thigh_shell"
+    ]
+   },
+   "mesh": {
+    "angle": -117.31,
+    "pair": [
+     "col_shorts",
+     "col_R_thigh_shell"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_pitch knee 30",
+   "joint": "R_hip_pitch",
+   "dir": 1,
+   "hold": {
+    "R_knee": 30
+   },
+   "rl": {
+    "angle": 101.44,
+    "pair": [
+     "torso_box",
+     "R_ankle_back"
+    ]
+   },
+   "mesh": {
+    "angle": 101.5,
+    "pair": [
+     "col_torso_cover_back",
+     "col_R_ankle_roll_servo_XM430"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_pitch knee 60",
+   "joint": "R_hip_pitch",
+   "dir": -1,
+   "hold": {
+    "R_knee": 60
+   },
+   "rl": {
+    "angle": -117.62,
+    "pair": [
+     "shorts_front",
+     "R_thigh_shell"
+    ]
+   },
+   "mesh": {
+    "angle": -117.31,
+    "pair": [
+     "col_shorts",
+     "col_R_thigh_shell"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_pitch knee 60",
+   "joint": "R_hip_pitch",
+   "dir": 1,
+   "hold": {
+    "R_knee": 60
+   },
+   "rl": {
+    "angle": 71.28,
+    "pair": [
+     "shorts_back",
+     "R_ankle_back"
+    ]
+   },
+   "mesh": {
+    "angle": 71.34,
+    "pair": [
+     "col_shorts",
+     "col_R_ankle_bracket"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_pitch knee 90",
+   "joint": "R_hip_pitch",
+   "dir": -1,
+   "hold": {
+    "R_knee": 90
+   },
+   "rl": {
+    "angle": -117.62,
+    "pair": [
+     "shorts_front",
+     "R_thigh_shell"
+    ]
+   },
+   "mesh": {
+    "angle": -117.31,
+    "pair": [
+     "col_shorts",
+     "col_R_thigh_shell"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_pitch knee 90",
+   "joint": "R_hip_pitch",
+   "dir": 1,
+   "hold": {
+    "R_knee": 90
+   },
+   "rl": {
+    "angle": 46.78,
+    "pair": [
+     "shorts_back",
+     "R_ankle_low"
+    ]
+   },
+   "mesh": {
+    "angle": 46.66,
+    "pair": [
+     "col_shorts",
+     "col_R_ankle_bracket"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_pitch knee 110",
+   "joint": "R_hip_pitch",
+   "dir": -1,
+   "hold": {
+    "R_knee": 110
+   },
+   "rl": {
+    "angle": -117.62,
+    "pair": [
+     "shorts_front",
+     "R_thigh_shell"
+    ]
+   },
+   "mesh": {
+    "angle": -117.31,
+    "pair": [
+     "col_shorts",
+     "col_R_thigh_shell"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_pitch knee 110",
+   "joint": "R_hip_pitch",
+   "dir": 1,
+   "hold": {
+    "R_knee": 110
+   },
+   "rl": {
+    "angle": 27.0,
+    "pair": [
+     "shorts_side_R",
+     "R_foot_box"
+    ]
+   },
+   "mesh": {
+    "angle": 29.38,
+    "pair": [
+     "col_shorts",
+     "col_R_foot_sole"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_pitch knee 117",
+   "joint": "R_hip_pitch",
+   "dir": -1,
+   "hold": {
+    "R_knee": 117
+   },
+   "rl": {
+    "angle": -117.62,
+    "pair": [
+     "shorts_front",
+     "R_thigh_shell"
+    ]
+   },
+   "mesh": {
+    "angle": -117.31,
+    "pair": [
+     "col_shorts",
+     "col_R_thigh_shell"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_pitch knee 117",
+   "joint": "R_hip_pitch",
+   "dir": 1,
+   "hold": {
+    "R_knee": 117
+   },
+   "rl": {
+    "angle": 24.09,
+    "pair": [
+     "shorts_side_R",
+     "R_foot_box"
+    ]
+   },
+   "mesh": {
+    "angle": 26.69,
+    "pair": [
+     "col_shorts",
+     "col_R_foot_sole"
+    ]
+   }
+  },
+  {
+   "sweep": "knee hip_pitch -117",
+   "joint": "R_knee",
+   "dir": 1,
+   "hold": {
+    "R_hip_pitch": -117
+   },
+   "rl": {
+    "angle": 113.81,
+    "pair": [
+     "R_roll_lower",
+     "R_ankle_back"
+    ]
+   },
+   "mesh": {
+    "angle": 112.19,
+    "pair": [
+     "col_R_hip_roll_bracket",
+     "col_R_ankle_bracket"
+    ]
+   }
+  },
+  {
+   "sweep": "knee hip_pitch -110",
+   "joint": "R_knee",
+   "dir": 1,
+   "hold": {
+    "R_hip_pitch": -110
+   },
+   "rl": {
+    "angle": 111.0,
+    "pair": [
+     "R_roll_lower",
+     "R_ankle_back"
+    ]
+   },
+   "mesh": {
+    "angle": 111.34,
+    "pair": [
+     "col_R_hip_pitch_servo_XM430",
+     "col_R_ankle_bracket"
+    ]
+   }
+  },
+  {
+   "sweep": "knee hip_pitch -60",
+   "joint": "R_knee",
+   "dir": 1,
+   "hold": {
+    "R_hip_pitch": -60
+   },
+   "rl": {
+    "angle": 109.12,
+    "pair": [
+     "R_roll_lower",
+     "R_ankle_back"
+    ]
+   },
+   "mesh": {
+    "angle": 108.34,
+    "pair": [
+     "col_R_hip_pitch_servo_XM430",
+     "col_R_ankle_bracket"
+    ]
+   }
+  },
+  {
+   "sweep": "knee hip_pitch 0",
+   "joint": "R_knee",
+   "dir": 1,
+   "hold": {
+    "R_hip_pitch": 0
+   },
+   "rl": {
+    "angle": 118.0,
+    "pair": [
+     "R_roll_lower",
+     "R_ankle_back"
+    ]
+   },
+   "mesh": {
+    "angle": 116.91,
+    "pair": [
+     "col_R_hip_roll_bracket",
+     "col_R_ankle_bracket"
+    ]
+   }
+  },
+  {
+   "sweep": "knee hip_pitch 60",
+   "joint": "R_knee",
+   "dir": 1,
+   "hold": {
+    "R_hip_pitch": 60
+   },
+   "rl": {
+    "angle": 72.81,
+    "pair": [
+     "shorts_back",
+     "R_ankle_low"
+    ]
+   },
+   "mesh": {
+    "angle": 73.84,
+    "pair": [
+     "col_shorts",
+     "col_R_ankle_bracket"
+    ]
+   }
+  },
+  {
+   "sweep": "ankle_pitch roll 0",
+   "joint": "R_ankle_pitch",
+   "dir": -1,
+   "hold": {
+    "R_ankle_roll": 0
+   },
+   "rl": {
+    "angle": -75.47,
+    "pair": [
+     "R_shank_main",
+     "R_foot_rim"
+    ]
+   },
+   "mesh": {
+    "angle": -35.59,
+    "pair": [
+     "col_R_shank_shell",
+     "col_R_foot_sole"
+    ]
+   }
+  },
+  {
+   "sweep": "ankle_pitch roll 0",
+   "joint": "R_ankle_pitch",
+   "dir": 1,
+   "hold": {
+    "R_ankle_roll": 0
+   },
+   "rl": {
+    "angle": 28.53,
+    "pair": [
+     "R_shank_main",
+     "R_foot_column"
+    ]
+   },
+   "mesh": {
+    "angle": 12.88,
+    "pair": [
+     "col_R_shank_shell",
+     "col_R_foot_sole"
+    ]
+   }
+  },
+  {
+   "sweep": "ankle_pitch roll 20",
+   "joint": "R_ankle_pitch",
+   "dir": -1,
+   "hold": {
+    "R_ankle_roll": 20
+   },
+   "rl": {
+    "angle": -48.53,
+    "pair": [
+     "R_shank_main",
+     "R_foot_rim"
+    ]
+   },
+   "mesh": {
+    "angle": -26.53,
+    "pair": [
+     "col_R_shank_shell",
+     "col_R_foot_sole"
+    ]
+   }
+  },
+  {
+   "sweep": "ankle_pitch roll 20",
+   "joint": "R_ankle_pitch",
+   "dir": 1,
+   "hold": {
+    "R_ankle_roll": 20
+   },
+   "rl": {
+    "angle": 24.31,
+    "pair": [
+     "R_shank_main",
+     "R_foot_column"
+    ]
+   },
+   "mesh": {
+    "angle": 31.16,
+    "pair": [
+     "col_R_shank_shell",
+     "col_R_foot_sole"
+    ]
+   }
+  },
+  {
+   "sweep": "ankle_pitch roll -20",
+   "joint": "R_ankle_pitch",
+   "dir": -1,
+   "hold": {
+    "R_ankle_roll": -20
+   },
+   "rl": {
+    "angle": -50.81,
+    "pair": [
+     "R_shank_low",
+     "R_foot_box"
+    ]
+   },
+   "mesh": {
+    "angle": -0.03,
+    "pair": [
+     "col_R_shank_shell",
+     "col_R_foot_sole"
+    ]
+   }
+  },
+  {
+   "sweep": "ankle_pitch roll -20",
+   "joint": "R_ankle_pitch",
+   "dir": 1,
+   "hold": {
+    "R_ankle_roll": -20
+   },
+   "rl": {
+    "angle": 24.31,
+    "pair": [
+     "R_shank_main",
+     "R_foot_column"
+    ]
+   },
+   "mesh": {
+    "angle": 0.03,
+    "pair": [
+     "col_R_shank_shell",
+     "col_R_foot_sole"
+    ]
+   }
+  },
+  {
+   "sweep": "arm_swing head 0",
+   "joint": "R_arm_swing",
+   "dir": -1,
+   "hold": {},
+   "rl": {
+    "angle": -131.22,
+    "pair": [
+     "R_arm_box",
+     "head_wide"
+    ]
+   },
+   "mesh": {
+    "angle": -139.22,
+    "pair": [
+     "col_arm_R_upper_frame",
+     "col_head_front"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_roll arms 0",
+   "joint": "R_hip_roll",
+   "dir": -1,
+   "hold": {},
+   "rl": {
+    "angle": -6.28,
+    "pair": [
+     "R_thigh_frame",
+     "R_forearm_box"
+    ]
+   },
+   "mesh": {
+    "angle": -6.88,
+    "pair": [
+     "col_R_thigh_frame",
+     "col_arm_R_hand_frame"
+    ]
+   }
+  },
+  {
+   "sweep": "arm_swing head 0",
+   "joint": "R_arm_swing",
+   "dir": 1,
+   "hold": {},
+   "rl": {
+    "angle": 129.78,
+    "pair": [
+     "R_arm_box",
+     "head_wide"
+    ]
+   },
+   "mesh": {
+    "angle": 133.16,
+    "pair": [
+     "col_arm_R_upper_frame",
+     "col_head_back"
+    ]
+   }
+  },
+  {
+   "sweep": "hip_roll arms 0",
+   "joint": "R_hip_roll",
+   "dir": 1,
+   "hold": {},
+   "rl": {
+    "angle": 5.91,
+    "pair": [
+     "R_ankle_low",
+     "L_ankle_low"
+    ]
+   },
+   "mesh": {
+    "angle": 5.97,
+    "pair": [
+     "col_R_ankle_bracket",
+     "col_L_ankle_bracket"
+    ]
+   }
+  }
+ ],
+ "shape_single": {
+  "R_hip_yaw -": {
+   "limit": -25.375,
+   "first_hit": -25.5,
+   "pair": "R_ankle_link:R_ankle_bracket ↔ L_ankle_link:L_ankle_bracket"
+  },
+  "R_hip_yaw +": {
+   "limit": 56.0,
+   "first_hit": 56.125,
+   "pair": "R_foot:R_foot_sole ↔ L_foot:L_foot_sole"
+  },
+  "R_hip_roll -": {
+   "limit": -7.0,
+   "first_hit": -7.125,
+   "pair": "R_forearm:arm_R_hand_frame ↔ R_thigh:R_thigh_frame"
+  },
+  "R_hip_roll +": {
+   "limit": 6.0,
+   "first_hit": 6.125,
+   "pair": "R_ankle_link:R_ankle_bracket ↔ L_ankle_link:L_ankle_bracket"
+  },
+  "R_hip_pitch -": {
+   "limit": -117.75,
+   "first_hit": -117.875,
+   "pair": "torso:shorts ↔ R_thigh:R_thigh_shell"
+  },
+  "R_hip_pitch +": {
+   "limit": 114.75,
+   "first_hit": 114.875,
+   "pair": "torso:shorts ↔ R_thigh:R_thigh_frame"
+  },
+  "R_knee -": {
+   "limit": -36.75,
+   "first_hit": -36.875,
+   "pair": "R_thigh:R_thigh_shell ↔ R_shank:R_shank_shell"
+  },
+  "R_knee +": {
+   "limit": 117.75,
+   "first_hit": 117.875,
+   "pair": "R_thigh:R_thigh_frame ↔ R_shank:R_shank_frame"
+  },
+  "R_ankle_pitch -": {
+   "limit": -77.75,
+   "first_hit": -77.875,
+   "pair": "R_shank:R_shank_shell ↔ R_foot:R_foot_sole"
+  },
+  "R_ankle_pitch +": {
+   "limit": 31.125,
+   "first_hit": 31.25,
+   "pair": "R_shank:R_shank_frame ↔ R_foot:R_foot_sole"
+  },
+  "R_ankle_roll -": {
+   "limit": -31.625,
+   "first_hit": -31.75,
+   "pair": "R_ankle_link:R_ankle_bracket ↔ R_foot:R_foot_sole"
+  },
+  "R_ankle_roll +": {
+   "limit": 26.875,
+   "first_hit": 27.0,
+   "pair": "R_foot:R_foot_sole ↔ R_ankle_link:R_ankle_bracket"
+  },
+  "R_arm_swing -": {
+   "limit": -139.875,
+   "first_hit": -140.0,
+   "pair": "R_arm:arm_R_upper_frame ↔ head:head_front"
+  },
+  "R_arm_swing +": {
+   "limit": 134.125,
+   "first_hit": 134.25,
+   "pair": "R_arm:arm_R_upper_frame ↔ head:head_back"
+  },
+  "R_elbow -": {
+   "limit": -143.125,
+   "first_hit": -143.25,
+   "pair": "R_arm:arm_R_upper_frame ↔ R_forearm:arm_R_hand_frame"
+  },
+  "R_elbow +": {
+   "limit": 143.625,
+   "first_hit": 143.75,
+   "pair": "R_forearm:arm_R_hand_frame ↔ R_arm:arm_R_upper_frame"
+  }
+ },
+ "shape_pairs": {
+  "hip_pitch first contact per knee": {
+   "0.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "5.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "10.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "15.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "20.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "25.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "30.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "35.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "40.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "45.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "50.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "55.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "60.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "65.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "70.0": [
+    -110.0,
+    60.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "75.0": [
+    -110.0,
+    55.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "80.0": [
+    -110.0,
+    55.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "85.0": [
+    -110.0,
+    50.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "90.0": [
+    -110.0,
+    45.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "95.0": [
+    -110.0,
+    40.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "100.0": [
+    -110.0,
+    35.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "105.0": [
+    -110.0,
+    30.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "110.0": [
+    -45.0,
+    30.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "115.0": [
+    -20.0,
+    25.0,
+    "grid -110 .. 60 step 5"
+   ],
+   "120.0": null,
+   "125.0": null,
+   "130.0": null,
+   "135.0": null,
+   "140.0": null,
+   "145.0": null,
+   "150.0": null,
+   "155.0": null,
+   "160.0": null
+  },
+  "ankle_pitch free per ankle roll": {
+   "-20.0": [
+    -50.0,
+    25.0,
+    "grid step 5"
+   ],
+   "0.0": [
+    -75.0,
+    30.0,
+    "grid step 5"
+   ],
+   "20.0": [
+    -50.0,
+    25.0,
+    "grid step 5"
+   ]
+  }
+ }
+}

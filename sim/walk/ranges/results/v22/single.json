@@ -1,0 +1,478 @@
+[
+ {
+  "joint": "R_hip_yaw",
+  "dir": -1,
+  "limit": -25.375,
+  "first_hit": -25.5,
+  "pair": "R_ankle_link:R_ankle_bracket ↔ L_ankle_link:L_ankle_bracket",
+  "n_pts": 7,
+  "contact_mm": [
+   -49.2,
+   13.1,
+   -41.9
+  ],
+  "radius_mm": 72.37489205518722
+ },
+ {
+  "joint": "R_hip_yaw",
+  "dir": 1,
+  "limit": 56.0,
+  "first_hit": 56.125,
+  "pair": "R_foot:R_foot_sole ↔ L_foot:L_foot_sole",
+  "n_pts": 3,
+  "contact_mm": [
+   23.4,
+   15.0,
+   -69.9
+  ],
+  "radius_mm": 59.81743057002699
+ },
+ {
+  "joint": "R_hip_roll",
+  "dir": -1,
+  "limit": -7.0,
+  "first_hit": -7.125,
+  "pair": "R_forearm:arm_R_hand_frame ↔ R_thigh:R_thigh_frame",
+  "n_pts": 21,
+  "contact_mm": [
+   0.2,
+   -78.0,
+   92.8
+  ],
+  "radius_mm": 112.30624426094926
+ },
+ {
+  "joint": "R_hip_roll",
+  "dir": 1,
+  "limit": 6.0,
+  "first_hit": 6.125,
+  "pair": "R_ankle_link:R_ankle_bracket ↔ L_ankle_link:L_ankle_bracket",
+  "n_pts": 85,
+  "contact_mm": [
+   -30.5,
+   13.3,
+   -47.3
+  ],
+  "radius_mm": 251.49782464543128
+ },
+ {
+  "joint": "R_hip_pitch",
+  "dir": -1,
+  "limit": -117.75,
+  "first_hit": -117.875,
+  "pair": "torso:shorts ↔ R_thigh:R_thigh_shell",
+  "n_pts": 5,
+  "contact_mm": [
+   65.2,
+   -29.2,
+   205.8
+  ],
+  "radius_mm": 89.2408925325156
+ },
+ {
+  "joint": "R_hip_pitch",
+  "dir": 1,
+  "limit": 114.75,
+  "first_hit": 114.875,
+  "pair": "torso:shorts ↔ R_thigh:R_thigh_frame",
+  "n_pts": 9,
+  "contact_mm": [
+   -87.8,
+   -29.2,
+   205.8
+  ],
+  "radius_mm": 106.80092181250122
+ },
+ {
+  "joint": "R_knee",
+  "dir": -1,
+  "limit": -36.75,
+  "first_hit": -36.875,
+  "pair": "R_thigh:R_thigh_shell ↔ R_shank:R_shank_shell",
+  "n_pts": 20,
+  "contact_mm": [
+   22.8,
+   -40.5,
+   58.6
+  ],
+  "radius_mm": 24.37467948507221
+ },
+ {
+  "joint": "R_knee",
+  "dir": 1,
+  "limit": 117.75,
+  "first_hit": 117.875,
+  "pair": "R_thigh:R_thigh_frame ↔ R_shank:R_shank_frame",
+  "n_pts": 2,
+  "contact_mm": [
+   -17.8,
+   -63.2,
+   80.1
+  ],
+  "radius_mm": 35.07313786931532
+ },
+ {
+  "joint": "R_ankle_pitch",
+  "dir": -1,
+  "limit": -77.75,
+  "first_hit": -77.875,
+  "pair": "R_shank:R_shank_shell ↔ R_foot:R_foot_sole",
+  "n_pts": 1,
+  "contact_mm": [
+   21.6,
+   -16.2,
+   -35.4
+  ],
+  "radius_mm": 23.697885400735363
+ },
+ {
+  "joint": "R_ankle_pitch",
+  "dir": 1,
+  "limit": 31.125,
+  "first_hit": 31.25,
+  "pair": "R_shank:R_shank_frame ↔ R_foot:R_foot_sole",
+  "n_pts": 13,
+  "contact_mm": [
+   -17.8,
+   -40.2,
+   -20.4
+  ],
+  "radius_mm": 30.456936812489865
+ },
+ {
+  "joint": "R_ankle_roll",
+  "dir": -1,
+  "limit": -31.625,
+  "first_hit": -31.75,
+  "pair": "R_ankle_link:R_ankle_bracket ↔ R_foot:R_foot_sole",
+  "n_pts": 20,
+  "contact_mm": [
+   -42.5,
+   -63.2,
+   -52.4
+  ],
+  "radius_mm": 24.35415775591511
+ },
+ {
+  "joint": "R_ankle_roll",
+  "dir": 1,
+  "limit": 26.875,
+  "first_hit": 27.0,
+  "pair": "R_foot:R_foot_sole ↔ R_ankle_link:R_ankle_bracket",
+  "n_pts": 3,
+  "contact_mm": [
+   -37.2,
+   -13.2,
+   -53.1
+  ],
+  "radius_mm": 27.939667141897015
+ },
+ {
+  "joint": "L_hip_yaw",
+  "dir": -1,
+  "limit": -54.625,
+  "first_hit": -54.75,
+  "pair": "L_foot:L_foot_sole ↔ R_foot:R_foot_sole",
+  "n_pts": 3,
+  "contact_mm": [
+   23.9,
+   -15.0,
+   -69.9
+  ],
+  "radius_mm": 60.013540138871996
+ },
+ {
+  "joint": "L_hip_yaw",
+  "dir": 1,
+  "limit": 25.375,
+  "first_hit": 25.5,
+  "pair": "R_ankle_link:R_ankle_bracket ↔ L_ankle_link:L_ankle_bracket",
+  "n_pts": 7,
+  "contact_mm": [
+   -49.2,
+   -13.2,
+   -41.9
+  ],
+  "radius_mm": 72.53361289774556
+ },
+ {
+  "joint": "L_hip_roll",
+  "dir": -1,
+  "limit": -6.0,
+  "first_hit": -6.125,
+  "pair": "R_ankle_link:R_ankle_bracket ↔ L_ankle_link:L_ankle_bracket",
+  "n_pts": 85,
+  "contact_mm": [
+   -31.2,
+   -13.2,
+   -47.1
+  ],
+  "radius_mm": 251.26101628898667
+ },
+ {
+  "joint": "L_hip_roll",
+  "dir": 1,
+  "limit": 7.0,
+  "first_hit": 7.125,
+  "pair": "L_forearm:arm_L_hand_frame ↔ L_thigh:L_thigh_frame",
+  "n_pts": 22,
+  "contact_mm": [
+   -0.5,
+   78.0,
+   92.8
+  ],
+  "radius_mm": 112.34007521806275
+ },
+ {
+  "joint": "L_hip_pitch",
+  "dir": -1,
+  "limit": -117.75,
+  "first_hit": -117.875,
+  "pair": "torso:shorts ↔ L_thigh:L_thigh_shell",
+  "n_pts": 5,
+  "contact_mm": [
+   65.2,
+   29.2,
+   205.8
+  ],
+  "radius_mm": 89.2408925325156
+ },
+ {
+  "joint": "L_hip_pitch",
+  "dir": 1,
+  "limit": 114.75,
+  "first_hit": 114.875,
+  "pair": "torso:shorts ↔ L_thigh:L_thigh_frame",
+  "n_pts": 9,
+  "contact_mm": [
+   -87.8,
+   29.2,
+   205.8
+  ],
+  "radius_mm": 106.80092181250122
+ },
+ {
+  "joint": "L_knee",
+  "dir": -1,
+  "limit": -36.75,
+  "first_hit": -36.875,
+  "pair": "L_thigh:L_thigh_shell ↔ L_shank:L_shank_shell",
+  "n_pts": 20,
+  "contact_mm": [
+   22.8,
+   39.9,
+   58.6
+  ],
+  "radius_mm": 24.37467948507221
+ },
+ {
+  "joint": "L_knee",
+  "dir": 1,
+  "limit": 117.75,
+  "first_hit": 117.875,
+  "pair": "L_thigh:L_thigh_frame ↔ L_shank:L_shank_frame",
+  "n_pts": 2,
+  "contact_mm": [
+   -17.8,
+   63.3,
+   80.1
+  ],
+  "radius_mm": 35.07313786931532
+ },
+ {
+  "joint": "L_ankle_pitch",
+  "dir": -1,
+  "limit": -76.875,
+  "first_hit": -77.0,
+  "pair": "L_foot:L_foot_sole ↔ L_shank:L_shank_shell",
+  "n_pts": 1,
+  "contact_mm": [
+   21.8,
+   15.8,
+   -36.1
+  ],
+  "radius_mm": 23.656394484367215
+ },
+ {
+  "joint": "L_ankle_pitch",
+  "dir": 1,
+  "limit": 31.125,
+  "first_hit": 31.25,
+  "pair": "L_shank:L_shank_frame ↔ L_foot:L_foot_sole",
+  "n_pts": 13,
+  "contact_mm": [
+   -17.8,
+   39.8,
+   -20.4
+  ],
+  "radius_mm": 30.456936812489865
+ },
+ {
+  "joint": "L_ankle_roll",
+  "dir": -1,
+  "limit": -27.375,
+  "first_hit": -27.5,
+  "pair": "L_foot:L_foot_sole ↔ L_ankle_link:L_ankle_bracket",
+  "n_pts": 3,
+  "contact_mm": [
+   -38.8,
+   13.6,
+   -53.1
+  ],
+  "radius_mm": 27.57943074104322
+ },
+ {
+  "joint": "L_ankle_roll",
+  "dir": 1,
+  "limit": 32.875,
+  "first_hit": 33.0,
+  "pair": "L_ankle_link:L_ankle_bracket ↔ L_foot:L_foot_sole",
+  "n_pts": 20,
+  "contact_mm": [
+   -42.5,
+   63.8,
+   -52.4
+  ],
+  "radius_mm": 24.831935083678037
+ },
+ {
+  "joint": "R_arm_swing",
+  "dir": -1,
+  "limit": -139.875,
+  "first_hit": -140.0,
+  "pair": "R_arm:arm_R_upper_frame ↔ head:head_front",
+  "n_pts": 1,
+  "contact_mm": [
+   46.9,
+   -82.0,
+   390.5
+  ],
+  "radius_mm": 96.66731608977257
+ },
+ {
+  "joint": "R_arm_swing",
+  "dir": 1,
+  "limit": 134.125,
+  "first_hit": 134.25,
+  "pair": "R_arm:arm_R_upper_frame ↔ head:head_back",
+  "n_pts": 1,
+  "contact_mm": [
+   -59.9,
+   -82.0,
+   389.1
+  ],
+  "radius_mm": 102.44936554220335
+ },
+ {
+  "joint": "R_elbow",
+  "dir": -1,
+  "limit": -143.125,
+  "first_hit": -143.25,
+  "pair": "R_arm:arm_R_upper_frame ↔ R_forearm:arm_R_hand_frame",
+  "n_pts": 4,
+  "contact_mm": [
+   18.4,
+   -84.3,
+   248.6
+  ],
+  "radius_mm": 55.72539815918769
+ },
+ {
+  "joint": "R_elbow",
+  "dir": 1,
+  "limit": 143.625,
+  "first_hit": 143.75,
+  "pair": "R_forearm:arm_R_hand_frame ↔ R_arm:arm_R_upper_frame",
+  "n_pts": 4,
+  "contact_mm": [
+   -18.4,
+   -84.2,
+   251.1
+  ],
+  "radius_mm": 58.03124158589059
+ },
+ {
+  "joint": "L_arm_swing",
+  "dir": -1,
+  "limit": -139.75,
+  "first_hit": -139.875,
+  "pair": "head:head_front ↔ L_arm:arm_L_upper_frame",
+  "n_pts": 1,
+  "contact_mm": [
+   45.2,
+   81.7,
+   388.2
+  ],
+  "radius_mm": 93.87558255478365
+ },
+ {
+  "joint": "L_arm_swing",
+  "dir": 1,
+  "limit": 133.625,
+  "first_hit": 133.75,
+  "pair": "head:head_back ↔ L_arm:arm_L_upper_frame",
+  "n_pts": 1,
+  "contact_mm": [
+   -59.2,
+   81.7,
+   388.2
+  ],
+  "radius_mm": 101.36875751433476
+ },
+ {
+  "joint": "L_elbow",
+  "dir": -1,
+  "limit": -143.125,
+  "first_hit": -143.25,
+  "pair": "L_arm:arm_L_upper_frame ↔ L_forearm:arm_L_hand_frame",
+  "n_pts": 4,
+  "contact_mm": [
+   18.4,
+   84.4,
+   248.6
+  ],
+  "radius_mm": 55.72539815918769
+ },
+ {
+  "joint": "L_elbow",
+  "dir": 1,
+  "limit": 143.625,
+  "first_hit": 143.75,
+  "pair": "L_forearm:arm_L_hand_frame ↔ L_arm:arm_L_upper_frame",
+  "n_pts": 4,
+  "contact_mm": [
+   -18.4,
+   84.2,
+   251.1
+  ],
+  "radius_mm": 58.03124158589059
+ },
+ {
+  "joint": "head_nod",
+  "dir": -1,
+  "limit": -25.75,
+  "first_hit": -25.875,
+  "pair": "head:head_back ↔ torso:lid",
+  "n_pts": 40,
+  "contact_mm": [
+   -60.8,
+   0.0,
+   338.2
+  ],
+  "radius_mm": 61.710007292172754
+ },
+ {
+  "joint": "head_nod",
+  "dir": 1,
+  "limit": 33.0,
+  "first_hit": 33.125,
+  "pair": "head:head_front ↔ torso:lid",
+  "n_pts": 50,
+  "contact_mm": [
+   49.1,
+   0.0,
+   338.2
+  ],
+  "radius_mm": 50.18590439555714
+ }
+]

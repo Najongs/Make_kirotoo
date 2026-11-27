@@ -3,6 +3,8 @@
 Run:  cd sim && uv run python export_mjcf.py
       v21 (elbow arm, head nod -20 .. +28, all 17 servos XL430-W250-T):
       cd sim && KITORU_VER=21 KITORU_MASS=../out21_arm/mass_build21_arm_light.json .venv/bin/python export_mjcf.py
+      v22 (v21 kit after the durability passes, every link re-voxelised, joint ranges from the shape limits):
+      cd sim && KITORU_VER=22 KITORU_MASS=model/mass_kitoru_v22_light.json .venv/bin/python export_mjcf.py
 Out:  model/kitoru_v17.xml (free-floating torso), model/kitoru_v17_fixed.xml (torso welded, for later),
       model/meshes/*.obj, model/closed_loop_fit.json, model/export_log.txt
 
@@ -27,6 +29,8 @@ sys.path.insert(0, CODE)
 #   KITORU_MASS  = mass json path (default code_v17/mass_build<ver>_light.json)
 #   KITORU_TAG   = output name stem (default kitoru_v<ver>), meshes go to model/meshes (v17) or model/meshes_<tag>
 #   KITORU_VER=21 -> render21 / build21_arm, all 17 actuators XL430-W250-T (ALLXL below)
+#   KITORU_VER=22 -> render22 (= render21 on the current build21_arm), mass json already has every servo at XL430 65.2 g
+#                    (no swap), leg pitch ranges from the shape limits (RANGE_V22 below)
 import importlib
 VER = os.environ.get("KITORU_VER", "17")
 R17 = importlib.import_module(f"render{VER}")   # sets BUILD=build<ver>, imports render6 (GEOM) and fixes the chains
@@ -110,6 +114,13 @@ if ALLXL:
     cables, sim/walk/kw_common SERVO_G) as a point mass at that servo's com (parallel axis; the servo's own inertia
     change is ignored).
 """
+    if int(VER) >= 22:
+        SERVO_NOTE = SERVO_NOTE.replace("""  - mass: the mass json has the leg servos as XM430 90 g / XC430 73 g; each is swapped to XL430 65.2 g (horn +
+    cables, sim/walk/kw_common SERVO_G) as a point mass at that servo's com (parallel axis; the servo's own inertia
+    change is ignored).""", """  - mass: sim/tools/mass_v22.py voxelises every link of the current geometry (profile light; foot soles and shoulder
+    horn adapters 100 % infill as the print kit says) with every servo at XL430 65.2 g (57.2 + 8 horn / screws /
+    cable) spread over its case envelope (inertia included); no swap here.
+  - ranges: hip pitch -117 / +113, knee 0 / 117, ankle pitch -75 / +30 from the shape limits (RANGE_V22).""")
 ACT = {}            # joint -> servo name
 for j in joints:
     for s in SERVO:
@@ -133,7 +144,8 @@ if ALLXL:
         assert np.all(np.linalg.eigvalsh(I1) > 0), (p["part"], I1)
         L_.update(mass_g=m1, com_world=list(c1), inertia_gmm2=I1.tolist())
         SERVO_SWAP.append((p["link"], p["part"], round(dm, 1)))
-    assert len(SERVO_SWAP) == 10, SERVO_SWAP
+    SERVO_SWAP = [x for x in SERVO_SWAP if abs(x[2]) > 1e-9]     # v22 mass json: servos are 65.2 g already
+    assert len(SERVO_SWAP) == (0 if int(VER) >= 22 else 10), SERVO_SWAP
 
 
 def inertial(ln):
@@ -171,6 +183,19 @@ log(f"  polyfit deg4 residual: head {LOOP['max_resid_head_deg']:.2e} deg, ear {L
 log(f"  c0 head {cf_head[0]:.2e} rad, c0 ear {cf_ear[0]:.2e} rad (should be ~0: beta=0 <-> crank=0)")
 RANGE = {n: (J[n]["lower_deg"], J[n]["upper_deg"]) for n in J}
 RANGE["head_nod"] = NOD; RANGE["nod_crank"] = CRANK_RANGE; RANGE["ear_axle"] = EAR_RANGE
+# v22 (owner 2026-11-28): leg pitch ranges from the shape limits (out20/LEG_PRINT_KIT_R.md; re-run on this build in
+# sim/walk/ranges/results/v22 and sim/tests/shape_contact_v22.py: hip pitch -117.6 / +114.5 shorts <-> thigh, knee 117.6
+# thigh frame <-> shank frame (105 .. 114 with the hip forward: hip roll link <-> ankle roll servo), ankle pitch -76.4 /
+# +29.6 at roll 0) with about 1 deg margin; at ankle roll +-20 the foot reaches the shank frame at pitch -52 / +26 (the
+# rl model collides there, see kitoru-rl assets/kitoru_v22/SOURCE.md). hip yaw / hip roll / ankle roll stay at the
+# joints.csv values (shape: yaw -25.4 / +56, roll out -7.2 with the arm at 0 (forearm <-> thigh) / in 6 with the other leg
+# at 0, ankle roll -31.6 / +26.9).
+RANGE_V22 = {"hip_pitch": (-117.0, 113.0), "knee": (0.0, 117.0), "ankle_pitch": (-75.0, 30.0)}
+if int(VER) >= 22:
+    for S_ in "RL":
+        for k, v in RANGE_V22.items():
+            RANGE[f"{S_}_{k}"] = v
+    log(f"v22 ranges: {RANGE_V22} (both legs)")
 
 
 # ------------------------------------------------------------------ tessellation

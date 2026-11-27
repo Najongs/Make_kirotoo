@@ -1,0 +1,9 @@
+closed loop: crank -22.021..29.359 deg for head -20..28, ear -37.481..50.251 deg
+  polyfit deg4 residual: head 7.08e-03 deg, ear 1.06e-01 deg; dbeta/dalpha 0.8707..0.9735, dpsi/dalpha 1.5986..2.0357
+  c0 head -3.20e-05 rad, c0 ear 3.95e-04 rad (should be ~0: beta=0 <-> crank=0)
+v22 ranges: {'hip_pitch': (-117.0, 113.0), 'knee': (0.0, 117.0), 'ankle_pitch': (-75.0, 30.0)} (both legs)
+visual triangle winding: {'kept': 127376, 'flipped': 80896, 'two_sided': 8282}
+caps triangulated: {'strip': 620, 'ear': 794}; caps whose triangle area != outline-holes area: 54 [('torso', 'lid', np.float64(1721.61), np.float64(1881.25)), ('torso', 'lid', np.float64(1721.61), np.float64(1881.25)), ('torso', 'lid', np.float64(1721.61), np.float64(1881.25)), ('torso', 'lid', np.float64(1721.61), np.float64(1881.25)), ('torso', 'shorts', np.float64(4673.45), np.float64(4871.64)), ('torso', 'shorts', np.float64(4673.45), np.float64(4871.64)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-5.76), np.float64(39.76)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-5.76), np.float64(39.76)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-5.76), np.float64(39.76)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-5.76), np.float64(39.76))]
+meshes: 82 visual + 134 collision hulls, 7.85 MB
+compiled kitoru_v22.xml: nbody 21 njnt 20 nq 26 nu 17 ngeom 217 neq 2
+compiled kitoru_v22_fixed.xml: nq 19 nu 17
