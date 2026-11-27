@@ -1,10 +1,10 @@
 {
  "total_v20_g": 3150.392648778,
- "total_v21_g": 3394.01587537,
+ "total_v21_g": 3467.8211418419996,
  "com_v21": [
-  -6.090997041438997,
-  -0.14114345475342485,
-  204.3100488331265
+  -6.124025683875608,
+  -0.11908153273843775,
+  205.6183348326726
  ],
  "com_v20": [
   -6.588339336184992,
@@ -16,11 +16,11 @@
   "L": 123.485415132
  },
  "arm_v21_g": {
-  "R": 246.55084983600003,
-  "L": 247.62959032400002
+  "R": 253.48935018800003,
+  "L": 253.45344906400004
  },
  "torso_v20_g": 1087.9425928360001,
- "torso_v21_g": 1085.559780068,
+ "torso_v21_g": 1146.6026874479999,
  "parts": [
   {
    "mass": 65.2,
@@ -45,16 +45,16 @@
    ]
   },
   {
-   "mass": 53.8,
+   "mass": 58.5,
    "kind": "print",
-   "solid_cm3": 52.50712599999999,
+   "solid_cm3": 58.49144699999999,
    "struct": true,
    "link": "R_arm",
    "part": "arm_R_upper_frame",
    "com": [
-    0.1,
-    -104.0,
-    261.9
+    0.0,
+    -104.2,
+    255.5
    ]
   },
   {
@@ -64,7 +64,7 @@
    "part": "arm_R_elbow_horn",
    "com": [
     -0.0,
-    -120.8,
+    -120.0,
     196.0
    ]
   },
@@ -75,47 +75,47 @@
    "part": "arm_R_elbow_idler",
    "com": [
     -0.0,
-    -83.6,
+    -83.8,
     196.0
    ]
   },
   {
-   "mass": 12.4,
+   "mass": 13.0,
    "kind": "print",
-   "solid_cm3": 11.536804999999998,
+   "solid_cm3": 12.236181999999998,
    "struct": true,
    "link": "R_forearm",
    "part": "arm_R_elbow_bracket_out",
    "com": [
-    0.1,
-    -124.9,
-    156.0
+    0.0,
+    -124.8,
+    157.9
    ]
   },
   {
-   "mass": 12.4,
+   "mass": 12.9,
    "kind": "print",
-   "solid_cm3": 11.513823999999996,
+   "solid_cm3": 12.076343999999997,
    "struct": true,
    "link": "R_forearm",
    "part": "arm_R_elbow_bracket_in",
    "com": [
-    0.1,
-    -79.0,
-    156.8
+    0.0,
+    -79.3,
+    157.9
    ]
   },
   {
-   "mass": 30.0,
+   "mass": 31.0,
    "kind": "print",
-   "solid_cm3": 26.236755999999993,
+   "solid_cm3": 27.959301999999994,
    "struct": true,
    "link": "R_forearm",
    "part": "arm_R_hand_frame",
    "com": [
     0.0,
-    -101.6,
-    110.5
+    -101.3,
+    110.9
    ]
   },
   {
@@ -124,7 +124,7 @@
    "link": "R_forearm",
    "part": "arm_R_hand_pad",
    "com": [
-    0.1,
+    0.0,
     -101.6,
     85.3
    ]
@@ -152,16 +152,16 @@
    ]
   },
   {
-   "mass": 54.9,
+   "mass": 58.5,
    "kind": "print",
-   "solid_cm3": 53.44866099999999,
+   "solid_cm3": 58.49144699999999,
    "struct": true,
    "link": "L_arm",
    "part": "arm_L_upper_frame",
    "com": [
-    0.1,
-    104.5,
-    262.5
+    0.0,
+    104.2,
+    255.5
    ]
   },
   {
@@ -171,7 +171,7 @@
    "part": "arm_L_elbow_horn",
    "com": [
     -0.0,
-    121.1,
+    120.3,
     196.0
    ]
   },
@@ -182,47 +182,47 @@
    "part": "arm_L_elbow_idler",
    "com": [
     -0.0,
-    83.4,
+    83.6,
     196.0
    ]
   },
   {
-   "mass": 12.4,
+   "mass": 13.0,
    "kind": "print",
-   "solid_cm3": 11.536804999999998,
+   "solid_cm3": 12.236181999999998,
    "struct": true,
    "link": "L_forearm",
    "part": "arm_L_elbow_bracket_out",
    "com": [
-    0.1,
-    124.9,
-    156.0
+    0.0,
+    124.7,
+    157.9
    ]
   },
   {
-   "mass": 12.4,
+   "mass": 12.9,
    "kind": "print",
-   "solid_cm3": 11.513823999999996,
+   "solid_cm3": 12.076343999999997,
    "struct": true,
    "link": "L_forearm",
    "part": "arm_L_elbow_bracket_in",
    "com": [
-    0.1,
+    0.0,
     79.2,
-    156.8
+    157.9
    ]
   },
   {
-   "mass": 30.0,
+   "mass": 31.0,
    "kind": "print",
-   "solid_cm3": 26.229895999999993,
+   "solid_cm3": 27.929460999999993,
    "struct": true,
    "link": "L_forearm",
    "part": "arm_L_hand_frame",
    "com": [
     0.0,
-    101.3,
-    110.5
+    101.7,
+    110.9
    ]
   },
   {
@@ -237,16 +237,16 @@
    ]
   },
   {
-   "mass": 1.3,
+   "mass": 2.8,
    "kind": "print",
-   "solid_cm3": 1.0735899999999996,
+   "solid_cm3": 2.6970089999999995,
    "struct": true,
    "link": "torso",
    "part": "arm_R_horn_adapter",
    "com": [
-    -0.1,
-    -79.4,
-    305.9
+    0.0,
+    -79.1,
+    306.0
    ]
   },
   {
@@ -256,21 +256,21 @@
    "part": "arm_R_horn_XC430",
    "com": [
     -0.0,
-    -82.9,
+    -83.7,
     306.0
    ]
   },
   {
-   "mass": 1.3,
+   "mass": 2.8,
    "kind": "print",
-   "solid_cm3": 1.0735899999999996,
+   "solid_cm3": 2.6970089999999995,
    "struct": true,
    "link": "torso",
    "part": "arm_L_horn_adapter",
    "com": [
-    -0.1,
-    79.4,
-    305.9
+    0.0,
+    79.3,
+    306.0
    ]
   },
   {
@@ -280,7 +280,7 @@
    "part": "arm_L_horn_XC430",
    "com": [
     -0.0,
-    83.2,
+    84.0,
     306.0
    ]
   },
@@ -291,7 +291,7 @@
    "part": "arm_R_idler_XC430",
    "com": [
     -0.0,
-    -120.6,
+    -120.4,
     306.0
    ]
   },
@@ -302,7 +302,7 @@
    "part": "arm_L_idler_XC430",
    "com": [
     -0.0,
-    120.4,
+    120.2,
     306.0
    ]
   }
@@ -381,19 +381,19 @@
     -50.0,
     306.0
    ],
-   "mass_kg": 0.1842,
+   "mass_kg": 0.1889,
    "com_from_origin_m": [
-    9e-05,
-    -0.05249,
-    -0.0519
+    8e-05,
+    -0.05258,
+    -0.0537
    ],
    "inertia_about_com_kgm2": {
-    "Ixx": 0.0003823910103752236,
-    "Iyy": 0.00037828093164980005,
-    "Izz": 4.475852090460164e-05,
-    "Ixy": 6.5018209605498e-10,
-    "Ixz": -1.5498357022510324e-10,
-    "Iyz": 4.290065788050057e-06
+    "Ixx": 0.0004056362162492345,
+    "Iyy": 0.0004017409221119134,
+    "Izz": 4.574687001856002e-05,
+    "Ixy": -3.7712344205073085e-09,
+    "Ixz": 8.741091779566678e-09,
+    "Iyz": 3.5730521590066627e-06
    }
   },
   "R_forearm": {
@@ -403,19 +403,19 @@
     -102.0,
     196.0
    ],
-   "mass_kg": 0.0624,
+   "mass_kg": 0.0646,
    "com_from_origin_m": [
     3e-05,
-    -0.00012,
-    -0.05791
+    0.0,
+    -0.05721
    ],
    "inertia_about_com_kgm2": {
-    "Ixx": 0.00010603199496105434,
-    "Iyy": 9.099223704088926e-05,
-    "Izz": 3.0371755961855483e-05,
-    "Ixy": -1.134448968266763e-08,
-    "Ixz": 2.4302839721914724e-08,
-    "Iyz": 1.5191540897595806e-06
+    "Ixx": 0.0001104240186595774,
+    "Iyy": 9.51787111231279e-05,
+    "Izz": 3.088246394908286e-05,
+    "Ixy": -5.116518482239222e-09,
+    "Ixz": 5.0505204948067666e-08,
+    "Iyz": 1.7484172686829426e-06
    }
   },
   "L_arm": {
@@ -425,19 +425,19 @@
     50.0,
     306.0
    ],
-   "mass_kg": 0.1853,
+   "mass_kg": 0.1889,
    "com_from_origin_m": [
-    9e-05,
-    0.05284,
-    -0.05167
+    8e-05,
+    0.05279,
+    -0.0537
    ],
    "inertia_about_com_kgm2": {
-    "Ixx": 0.0003847108568634718,
-    "Iyy": 0.0003802833912690374,
-    "Izz": 4.5210291240132314e-05,
-    "Ixy": -1.3756650611070735e-09,
-    "Ixz": -3.124713258742351e-10,
-    "Iyz": -5.0525025265044144e-06
+    "Ixx": 0.0004055825258235523,
+    "Iyy": 0.0004017409221119139,
+    "Izz": 4.569317959287734e-05,
+    "Ixy": 3.2864871653257722e-09,
+    "Ixz": 8.741091779554631e-09,
+    "Iyz": -3.517487400106281e-06
    }
   },
   "L_forearm": {
@@ -447,19 +447,19 @@
     102.0,
     196.0
    ],
-   "mass_kg": 0.0624,
+   "mass_kg": 0.0646,
    "com_from_origin_m": [
-    4e-05,
-    1e-05,
-    -0.05791
+    3e-05,
+    0.00015,
+    -0.05719
    ],
    "inertia_about_com_kgm2": {
-    "Ixx": 0.00010594050428417596,
-    "Iyy": 9.096557770811283e-05,
-    "Izz": 3.0310016257610668e-05,
-    "Ixy": -5.819935406927219e-09,
-    "Ixz": 4.5036656484556657e-08,
-    "Iyz": -1.6173302104454498e-06
+    "Ixx": 0.00011040353705644937,
+    "Iyy": 9.511791219556227e-05,
+    "Izz": 3.092022453149142e-05,
+    "Ixy": 9.91489676188033e-10,
+    "Ixz": 5.837371826917323e-08,
+    "Iyz": -1.6044931087476021e-06
    }
   }
  },
@@ -482,7 +482,7 @@
   },
   "upper_frame_elbow_bay": {
    "section": "two x walls 3.85 x 41.2 at x 14.6..18.45 (servo case as web), printed -y/+y (in-layer)",
-   "W_mm3": 4717,
+   "W_mm3": 4732,
    "stress_MPa": {
     "worst": 0.74,
     "stall": 0.3
@@ -509,5 +509,193 @@
    "stress_MPa": 0.1
   },
   "reference": "v20 leg: interlayer repeat limit ~7 MPa, target 5 MPa [estimate] (LEG_PRINT_KIT_R.md 6)"
+ },
+ "strength_layers": {
+  "method": "design-solid sections in the print layer planes, 0.1 mm grid, both sides solid, wall 1.2 solid / infill 0.2 (sim/robust/strength_v20A.props), weaker axis; sigma = M / S_min",
+  "loads": {
+   "f_axial_N": 49.9,
+   "f_side_N": 15.0,
+   "shoulder": {
+    "getup": 1.8059999999999998,
+    "stall": 1.4,
+    "fall": 4.2401272500000005
+   },
+   "elbow": {
+    "getup": 1.232,
+    "stall": 1.4,
+    "fall": 1.64616705
+   },
+   "palm_N": {
+    "getup": 11.2,
+    "stall": 12.727272727272727,
+    "fall": 14.965155
+   }
+  },
+  "parts": {
+   "arm_R_upper_frame": {
+    "up": "-y",
+    "layer_axis": "y",
+    "worst": {
+     "getup": {
+      "plane": "y -123.50",
+      "area_mm2": 2157.7,
+      "S_min_mm3": 2983.3,
+      "M_Nmm": 1806,
+      "sigma_MPa": 0.61
+     },
+     "stall": {
+      "plane": "y -123.50",
+      "area_mm2": 2157.7,
+      "S_min_mm3": 2983.3,
+      "M_Nmm": 1400,
+      "sigma_MPa": 0.47
+     },
+     "fall": {
+      "plane": "y -123.50",
+      "area_mm2": 2157.7,
+      "S_min_mm3": 2983.3,
+      "M_Nmm": 4240,
+      "sigma_MPa": 1.42
+     }
+    }
+   },
+   "arm_R_elbow_bracket_out": {
+    "up": "+y",
+    "layer_axis": "y",
+    "worst": {
+     "getup": {
+      "plane": "y -122.90",
+      "area_mm2": 406.2,
+      "S_min_mm3": 824.0,
+      "M_Nmm": 1232,
+      "sigma_MPa": 1.5
+     },
+     "stall": {
+      "plane": "y -122.90",
+      "area_mm2": 406.2,
+      "S_min_mm3": 824.0,
+      "M_Nmm": 1400,
+      "sigma_MPa": 1.7
+     },
+     "fall": {
+      "plane": "y -122.90",
+      "area_mm2": 406.2,
+      "S_min_mm3": 824.0,
+      "M_Nmm": 1646,
+      "sigma_MPa": 2.0
+     }
+    }
+   },
+   "arm_R_elbow_bracket_in": {
+    "up": "-y",
+    "layer_axis": "y",
+    "worst": {
+     "getup": {
+      "plane": "y -82.70",
+      "area_mm2": 369.9,
+      "S_min_mm3": 827.6,
+      "M_Nmm": 1232,
+      "sigma_MPa": 1.49
+     },
+     "stall": {
+      "plane": "y -80.95",
+      "area_mm2": 369.9,
+      "S_min_mm3": 827.6,
+      "M_Nmm": 1400,
+      "sigma_MPa": 1.69
+     },
+     "fall": {
+      "plane": "y -82.70",
+      "area_mm2": 369.9,
+      "S_min_mm3": 827.6,
+      "M_Nmm": 1646,
+      "sigma_MPa": 1.99
+     }
+    }
+   },
+   "arm_R_hand_frame": {
+    "up": "+z",
+    "layer_axis": "z",
+    "worst": {
+     "getup": {
+      "plane": "z 145.30",
+      "area_mm2": 321.6,
+      "S_min_mm3": 876.9,
+      "M_Nmm": 664,
+      "sigma_MPa": 0.76
+     },
+     "stall": {
+      "plane": "z 145.30",
+      "area_mm2": 321.6,
+      "S_min_mm3": 876.9,
+      "M_Nmm": 755,
+      "sigma_MPa": 0.86
+     },
+     "fall": {
+      "plane": "z 145.30",
+      "area_mm2": 321.6,
+      "S_min_mm3": 876.9,
+      "M_Nmm": 887,
+      "sigma_MPa": 1.01
+     }
+    }
+   },
+   "arm_R_horn_adapter": {
+    "up": "-y",
+    "layer_axis": "y",
+    "worst": {
+     "getup": {
+      "plane": "y -80.95",
+      "area_mm2": 266.8,
+      "S_min_mm3": 625.8,
+      "M_Nmm": 1806,
+      "sigma_MPa": 2.89
+     },
+     "stall": {
+      "plane": "y -80.95",
+      "area_mm2": 266.8,
+      "S_min_mm3": 625.8,
+      "M_Nmm": 1400,
+      "sigma_MPa": 2.24
+     },
+     "fall": {
+      "plane": "y -80.95",
+      "area_mm2": 266.8,
+      "S_min_mm3": 625.8,
+      "M_Nmm": 4240,
+      "sigma_MPa": 6.78
+     }
+    }
+   }
+  },
+  "horn_adapter_infill_100": {
+   "arm_R_horn_adapter": {
+    "up": "-y",
+    "layer_axis": "y",
+    "worst": {
+     "getup": {
+      "plane": "y -80.95",
+      "area_mm2": 266.8,
+      "S_min_mm3": 883.6,
+      "M_Nmm": 1806,
+      "sigma_MPa": 2.04
+     },
+     "stall": {
+      "plane": "y -80.95",
+      "area_mm2": 266.8,
+      "S_min_mm3": 883.6,
+      "M_Nmm": 1400,
+      "sigma_MPa": 1.58
+     },
+     "fall": {
+      "plane": "y -80.95",
+      "area_mm2": 266.8,
+      "S_min_mm3": 883.6,
+      "M_Nmm": 4240,
+      "sigma_MPa": 4.8
+     }
+    }
+   }
+  }
  }
 }

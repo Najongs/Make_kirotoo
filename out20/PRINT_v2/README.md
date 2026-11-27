@@ -18,9 +18,9 @@
 | `R_foot_sole.stl` | 134x70x41 | 0 | 70.6 | 발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓 |
 | `R_hip_roll_bracket.stl` | 49x35x89 | 0 | 32.1 |  |
 | `R_hip_yaw_bracket.stl` | 38x37x68 | 0 | 23.4 |  |
-| `R_shank_frame.stl` | 44x49x112 | 16 | 35.6 | 앞면 홈 + 받침(셸 걸쇠용) |
+| `R_shank_frame.stl` | 44x49x112 | 16 | 35.6 | 앞면 홈 + 받침(셸 나사 자리 — 걸쇠는 없어짐) |
 | `R_shank_shell.stl` | 44x58x80 | 0 | 15.6 | 하늘색 |
-| `R_thigh_frame.stl` | 44x49x118 | 0 | 40.3 | 앞면 홈 + 받침(셸 걸쇠용) |
+| `R_thigh_frame.stl` | 44x49x118 | 0 | 40.3 | 앞면 홈 + 받침(셸 나사 자리 — 걸쇠는 없어짐) |
 | `R_thigh_shell.stl` | 44x55x22 | 0 | 5.6 |  |
 
 ## 다리 · 왼쪽 (8개)
@@ -31,9 +31,9 @@
 | `L_foot_sole.stl` | 134x70x41 | 0 | 70.6 | 발판을 바닥에. 발 브래킷이 한 몸. 발판 윗면 포켓 |
 | `L_hip_roll_bracket.stl` | 49x35x89 | 0 | 32.1 |  |
 | `L_hip_yaw_bracket.stl` | 38x37x68 | 0 | 23.4 |  |
-| `L_shank_frame.stl` | 44x49x112 | 0 | 35.6 | 앞면 홈 + 받침(셸 걸쇠용) |
+| `L_shank_frame.stl` | 44x49x112 | 0 | 35.6 | 앞면 홈 + 받침(셸 나사 자리 — 걸쇠는 없어짐) |
 | `L_shank_shell.stl` | 44x58x80 | 0 | 15.6 | 하늘색 |
-| `L_thigh_frame.stl` | 44x49x118 | 16 | 40.3 | 앞면 홈 + 받침(셸 걸쇠용) |
+| `L_thigh_frame.stl` | 44x49x118 | 16 | 40.3 | 앞면 홈 + 받침(셸 나사 자리 — 걸쇠는 없어짐) |
 | `L_thigh_shell.stl` | 44x55x22 | 0 | 5.6 |  |
 
 ## 몸통 · 머리 (26개)

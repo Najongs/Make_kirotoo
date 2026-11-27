@@ -44,9 +44,11 @@ ALL_ARM = set(ARM_PARTS("R") + ARM_PARTS("L"))
 
 # ======================================================================= parts
 def up_dir(pn):
-    s = "-y" if "_R_" in pn else "+y"
-    return {"upper_frame": s, "elbow_bracket_out": s, "elbow_bracket_in": s, "hand_frame": "+z",
-            "horn_adapter": "+y"}[next(k for k in BM.FORCE if k in pn)]
+    s = "-y" if "_R_" in pn else "+y"          # outward
+    o = "+y" if "_R_" in pn else "-y"          # inward
+    # plates and adapter: the face away from the horn pad on the bed (pads up, no overhang)
+    return {"upper_frame": s, "elbow_bracket_out": o, "elbow_bracket_in": s, "hand_frame": "+z",
+            "horn_adapter": s}[next(k for k in BM.FORCE if k in pn)]
 
 
 # export_parts.py runs a build at import time: its rotation helper is copied here
@@ -648,6 +650,79 @@ def strength():
         reference="v20 leg: interlayer repeat limit ~7 MPa, target 5 MPa [estimate] (LEG_PRINT_KIT_R.md 6)")
 
 
+# ======================================================================= strength, leg method (fdm_joints / print_robust)
+# Sections of the design solids in the print layer planes (normal = the part's print-up axis), 0.1 mm grid, material
+# counted only where both sides of the plane are solid (+-0.15); walls 1.2 mm solid, inside infill 20 %
+# (sim/robust/strength_v20A.props); the weaker of the two bending axes in the plane; one moment per part and load
+# (the largest joint moment that passes the part, like the legs). The hand gets M(z) = palm force x distance from the
+# palm (it carries no joint moment). Planes every 1 mm (0.25 mm for parts thinner than 10 mm).
+BODY_KG = 3.39
+FALL_K = 3.0                    # fall onto one hand: k x half the body weight along the forearm [estimate]
+FALL_MU = 0.3                   # side (y) push at the palm = 0.3 x that [estimate]
+
+
+def arm_loads():
+    """N m per part and load: getup = XL success run max (sim/getup GETUP_STUDY.md: shoulder 1.29, elbow 0.88 x stall
+    1.4), stall = 1.4 (e-manual), fall = side push at the hand x lever (+ along-arm push x the 19 mm the arm plane sits
+    outside the horn face, at the adapter)"""
+    f_ax = FALL_K * BODY_KG * 9.81 / 2
+    f_side = FALL_MU * f_ax
+    lever_ad = BM.B20.HORN_FACE                                 # arm plane |y| YC <-> horn face |y| YC - 19
+    sh = {"getup": 1.29 * 1.4, "stall": 1.4, "fall": f_side * (BM.UPPER_MM + BM.FORE_MM) / 1000 + f_ax * lever_ad / 1000}
+    el = {"getup": 0.88 * 1.4, "stall": 1.4, "fall": f_side * BM.FORE_MM / 1000}
+    palm = {"getup": el["getup"] / (BM.FORE_MM / 1000), "stall": 1.4 / (BM.FORE_MM / 1000), "fall": f_side}
+    return dict(f_axial_N=round(f_ax, 1), f_side_N=round(f_side, 1), shoulder=sh, elbow=el, palm_N=palm)
+
+
+def layer_strength(nm="R", step_grid=0.1, parts=None, infill=0.2):
+    sys.path.insert(0, os.path.join(HERE, "..", "sim", "robust"))
+    import strength_v20A as SV
+    SV.H, SV.INFILL = step_grid, infill
+    Ld = arm_loads()
+    z_palm = BM.ELZ - BM.FORE_MM
+    out = dict(method="design-solid sections in the print layer planes, 0.1 mm grid, both sides solid, wall 1.2 solid / "
+                      f"infill {infill} (sim/robust/strength_v20A.props), weaker axis; sigma = M / S_min", loads=Ld, parts={})
+    for pn in (parts or ARM_PARTS(nm)):
+        ln = next(l for l in links if pn in links[l]["parts"])
+        sol = [x for x in links[ln]["parts"][pn]]
+        up = up_dir(pn); k = "xyz".index(up[1]); ii, jj = [a for a in range(3) if a != k]
+        bbs = np.array([build4.aabb(build4.sampled(x)) for x in sol], float)
+        lo, hi = bbs[:, :, 0].min(0), bbs[:, :, 1].max(0)
+        dw = 0.25 if hi[k] - lo[k] < 10 else 1.0
+        gi = np.arange(lo[ii] + step_grid / 2, hi[ii], step_grid); gj = np.arange(lo[jj] + step_grid / 2, hi[jj], step_grid)
+        GI, GJ = np.meshgrid(gi, gj)                               # mask rows = j, cols = i
+        best = {}
+        for w in np.arange(lo[k] + 0.3, hi[k] - 0.29, dw):
+            both = None
+            for e in (-0.15, 0.15):
+                P = np.zeros((GI.size, 3)); P[:, ii] = GI.ravel(); P[:, jj] = GJ.ravel(); P[:, k] = w + e
+                m = np.zeros(GI.size, bool)
+                for x, b in zip(sol, bbs):
+                    if not (b[k, 0] < w + e < b[k, 1]):
+                        continue
+                    sel = (P[:, ii] > b[ii, 0]) & (P[:, ii] < b[ii, 1]) & (P[:, jj] > b[jj, 0]) & (P[:, jj] < b[jj, 1]) & ~m
+                    if sel.any():
+                        m[np.where(sel)[0][geom4.inside(x, P[sel])]] = True
+                both = m if both is None else both & m
+            if both.sum() < 10:
+                continue
+            pr = SV.props(both.reshape(GI.shape), (gi[0] - step_grid / 2, gj[0] - step_grid / 2))
+            if pr is None:
+                continue
+            for lc in ("getup", "stall", "fall"):
+                if "hand" in pn:
+                    M = Ld["palm_N"][lc] * abs(w - z_palm)
+                else:
+                    M = (Ld["shoulder"] if ("upper" in pn or "adapter" in pn) else Ld["elbow"])[lc] * 1000.0
+                sig = M / pr["Smin_mm3"]
+                if lc not in best or sig > best[lc]["sigma_MPa"]:
+                    best[lc] = dict(plane=f"{up[1]} {w:.2f}", area_mm2=round(pr["area_solid_mm2"], 1), S_min_mm3=round(pr["Smin_mm3"], 1),
+                                    M_Nmm=round(M), sigma_MPa=round(sig, 2))
+        out["parts"][pn] = dict(up=up, layer_axis=up[1], worst=best)
+        print("layer strength", pn, best); sys.stdout.flush()
+    return out
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     do = lambda k: "all" in STEPS or k in STEPS
@@ -657,6 +732,8 @@ if __name__ == "__main__":
     if do("mass"):
         m = mass()
         m["strength"] = strength()
+        m["strength_layers"] = layer_strength()
+        m["strength_layers"]["horn_adapter_infill_100"] = layer_strength(parts=["arm_R_horn_adapter"], infill=1.0)["parts"]
         json.dump(m, open(os.path.join(OUT, "arm21_joints_mass.json"), "w"), indent=1)
     if do("sweep"):
         t1 = time.time()
