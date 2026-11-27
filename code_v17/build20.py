@@ -26,7 +26,7 @@ from build import IDX, UVI, STEEL
 from build4 import CYL
 import build18 as B18
 from build6 import PROFI
-from shapes import rrect
+from shapes import rrect, annulus_sector, orient
 import x430_holes as X
 import servo_fit as SF
 
@@ -1099,6 +1099,167 @@ def fdm_joints(links, joints):
     return out
 
 
+# ---------------------------------------------------------------- assembly durability (owner 2026-11-27, printed parts)
+# "joints break, the small snap-together parts break while assembling".  Design rule from now on: the printer is
+# coarse (+-0.4 mm, 0.3 layers, blurred 0.4 lines) -> no snaps, no press fits, fit gaps >= 0.4 per side, features
+# >= 3 mm where they carry load, walls >= 2, side holes as teardrops, holes printed small and drilled to size.
+# * shell beam latch (beam 1.2 x 4.8, 14 long, barb 1.15; root bending across the +z layers) -> 2 M2.5 tapping screws
+#   per shell on the leg centre line: 3.0 clearance hole in the shell front, boss d 7 on the frame front face (0.4 to
+#   the shell) with a 2.2 pilot through boss + front wall (6.45 deep; an M2.5 x 8 ends 1.25 before the servo case)
+# * shell saddle (1.8 mm legs) + frame pad + latch groove dropped (the groove left 2.0 mm around case holes 1 / 2)
+# * shell walls 1.5 -> 2.0, inward (own-link gap was >= 0.9); the thigh shell's inner side moves 0.6 outward (0.3 to
+#   the shank knee plates -> 0.4)
+# * cable J-hooks (0.8 lip, 1.2 opening = a printed snap) -> closed zip-tie tunnel (3.0 x 1.5) in the old footprint
+# * yaw hub in the 6805: r 12.4 (0.1 per side) -> 12.1 (0.4), epoxy; ankle bracket 0.4 mm strips dropped (ties hold)
+SHELL_T_ADD = 0.5
+SHELL_HOLE_D = 3.0          # printed; drill 3.0
+PILOT_D = 2.2               # printed; drill 2.2-2.3 (M2.5 tapping)
+BOSS_D = 7.0
+FIT_GAP = 0.4
+SHELL_SCREW_Z = {"thigh": (63.0, 72.0), "shank": (-26.0, 2.0)}      # world z (layout A, +20 / +20 legs)
+HUB_R_FIT = 12.5 - FIT_GAP
+THIGH_SHELL_SHIFT = 0.6
+
+
+def _drop(cu, cv, r, d=1, n=10):
+    """teardrop loop (u, v, 0): circle r with a 45 deg point toward +v (d 1) or -v (d -1)"""
+    pts = [(cu, cv + d * r * math.sqrt(2))]
+    for t in np.linspace(math.radians(135), math.radians(405), n):
+        pts.append((cu + r * math.cos(t), cv + d * r * math.sin(t)))
+    if d < 0:
+        pts = pts[::-1]
+    return [(u, v, 0.0) for u, v in pts]
+
+
+def _xspan(x):
+    a = x[1]
+    if a[0] == "x":
+        return a[1], a[2]
+    k = 0 if a[0] == "z" else 1
+    xs = [q[k] for q in a[3]]
+    return min(xs), max(xs)
+
+
+def assembly_durability(links):
+    out = dict(shells=[], clips=[], hub=[], ankle_strips=0)
+    up = {"thigh": FORCE["thigh_frame"], "shank": FORCE["shank_frame"]}
+    for side in ("R", "L"):
+        ys = -40.0 if side == "R" else 40.0
+        for seg in ("thigh", "shank"):
+            P = links[f"{side}_{seg}"]["parts"]
+            sh, fr = P[f"{side}_{seg}_shell"], P[f"{side}_{seg}_frame"]
+            # -- latch parts out: shell solids between the frame face and the shell front (saddle, bar, beam, barb)
+            n_sh = len(sh)
+            sh[:] = [x for x in sh if not (x[0] == "rprism" and 17.5 <= _xspan(x)[0] and _xspan(x)[1] <= 22.01)]
+            n_latch = n_sh - len(sh)
+            pad = lambda x: x[0] == "rprism" and x[1][0] == "z" and {round(q[0], 3) for q in x[1][3]} == {18.5, 21.5}
+            n_pad = sum(1 for x in fr if pad(x)); fr[:] = [x for x in fr if not pad(x)]
+            n_gr = 0
+            for i, x in enumerate(fr):
+                a = x[1]
+                if x[0] == "rprism" and a[0] == "x" and a[4]:
+                    keep = [l for l in a[4] if sorted({round(q[0] - ys, 3) for q in l}) != [-2.6, 2.6]]
+                    n_gr += len(a[4]) - len(keep)
+                    fr[i] = (x[0], (a[0], a[1], a[2], a[3], keep, a[5]), x[2])
+            # -- thigh shell inner side (toward the other leg) sat 0.3 from the shank knee plates (y 24.7 from the leg
+            # centre): that side panel + corner move 0.6 outward (gap 0.4 after the 0.5 inner layer), front panel longer
+            if seg == "thigh":
+                sv_ = 1.0 if side == "R" else -1.0
+                for i, x in enumerate(sh):
+                    a = x[1]
+                    if x[0] != "rprism":
+                        continue
+                    if a[0] == "y" and abs(a[2] - a[1] - 1.5) < 1e-6 and abs((a[1] + a[2]) / 2) < abs(ys):
+                        sh[i] = (x[0], (a[0], a[1] + sv_ * THIGH_SHELL_SHIFT, a[2] + sv_ * THIGH_SHELL_SHIFT, a[3], a[4], a[5]), x[2])
+                    elif a[0] == "z" and min(q[0] for q in a[3]) > 11.4 and abs(sum(q[1] for q in a[3]) / len(a[3])) < abs(ys):
+                        sh[i] = (x[0], (a[0], a[1], a[2], [(q[0], q[1] + sv_ * THIGH_SHELL_SHIFT) + tuple(q[2:]) for q in a[3]], a[4], a[5]), x[2])
+                    elif a[0] == "x" and abs(a[1] - 22.0) < 1e-6:
+                        ue = max(q[0] for q in a[3]) if side == "R" else min(q[0] for q in a[3])
+                        sh[i] = (x[0], (a[0], a[1], a[2], [((q[0] + sv_ * THIGH_SHELL_SHIFT) if abs(q[0] - ue) < 1e-6 else q[0],) + tuple(q[1:]) for q in a[3]], a[4], a[5]), x[2])
+            # -- shell walls 1.5 -> 2.0 inward: an inner layer on every flat panel and corner
+            rgb = sh[0][2]; add = []
+            for x in sh:
+                a = x[1]
+                if x[0] != "rprism":
+                    continue
+                if a[0] == "x" and abs(a[1] - 22.0) < 1e-6 and abs(a[2] - 23.5) < 1e-6:
+                    add.append(PROFI("x", 22.0 - SHELL_T_ADD, 22.05, a[3], [], rgb))
+                elif a[0] == "y" and abs(a[2] - a[1] - 1.5) < 1e-6:
+                    lo, hi = (a[1] - SHELL_T_ADD, a[1] + 0.05) if a[1] > ys else (a[2] - 0.05, a[2] + SHELL_T_ADD)
+                    add.append(PROFI("y", lo, hi, a[3], [], rgb))
+            # corners: annulus sectors r 10.5..12 about (11.5, c +- (B - 12)) -> inner ring r 10.0..10.55
+            for x in [x for x in sh if x[0] == "rprism" and x[1][0] == "z" and max(q[0] for q in x[1][3]) > 23.4
+                      and min(q[0] for q in x[1][3]) > 11.4]:
+                a = x[1]; vs = [q[1] for q in a[3]]
+                pv = sum(vs) / len(vs) > ys                    # +v corner: v from its centre up
+                vc, (a0d, a1d) = (min(vs), (0, 90)) if pv else (max(vs), (270, 360))
+                ring = PROFI("z", a[1], a[2], annulus_sector(11.5, vc, 10.5 - SHELL_T_ADD, 10.55, a0d, a1d), [], rgb)
+                # the shank shell's inner corner is cut at SHANK_SHELL_IN like the shell (widen_ranges)
+                if seg == "shank":
+                    s_ = -1 if side == "R" else 1
+                    ring = _cut(ring, (0.0, -s_ * 1.0, 0.0), -s_ * (ys - s_ * SHANK_SHELL_IN))
+                if ring is not None:
+                    add.append(ring)
+            sh += add
+            # -- screws: shell hole (teardrop up, shells print +z) through both front layers; frame boss + pilot
+            d_fr = 1 if up[seg] == "+z" else -1
+            recs = []
+            for zc in SHELL_SCREW_Z[seg]:
+                for i, x in enumerate(sh):
+                    a = x[1]
+                    if x[0] == "rprism" and a[0] == "x" and a[1] >= 21.4 and _inside_loop(x, ys, zc, SHELL_HOLE_D / 2 + 1.0):
+                        sh[i] = (x[0], (a[0], a[1], a[2], a[3], list(a[4]) + [orient(_drop(ys, zc, SHELL_HOLE_D / 2, 1), False)], a[5]), x[2])
+                wall = []
+                for i, x in enumerate(fr):
+                    a = x[1]
+                    if x[0] == "rprism" and a[0] == "x" and a[1] >= 14.6 and a[2] <= 18.55 and _inside_loop(x, ys, zc, PILOT_D / 2 + 1.0):
+                        fr[i] = (x[0], (a[0], a[1], a[2], a[3], list(a[4]) + [orient(_drop(ys, zc, PILOT_D / 2, d_fr), False)], a[5]), x[2])
+                        wall.append((round(a[1], 2), round(a[2], 2)))
+                x1 = 22.0 - SHELL_T_ADD - FIT_GAP
+                fr.append(PROFI("x", 18.45, x1, _drop(ys, zc, BOSS_D / 2, -d_fr), [_drop(ys, zc, PILOT_D / 2, d_fr)], fr[0][2]))
+                x_in = min(w[0] for w in wall) if wall else 18.5
+                recs.append(dict(z=zc, wall_layers=wall, pilot_depth_mm=round(x1 - x_in, 2), thread_m25x8_mm=round(x1 - (23.5 - 8.0), 2),
+                                 tip_to_case_mm=round(23.5 - 8.0 - 14.25, 2)))
+            out["shells"].append(dict(part=f"{side}_{seg}_shell", latch_solids=n_latch, pads=n_pad, grooves=n_gr, wall_layers=len(add), screws=recs))
+            # -- cable J-hook -> closed zip-tie tunnel (y prism, profile (z, x)), same footprint
+            clip = [x for x in fr if x[0] == "rprism" and x[1][0] == "z" and _xspan(x)[1] <= -18.45 and _xspan(x)[0] >= -22.1]
+            if clip:
+                z0, z1 = clip[0][1][1], clip[0][1][2]; zc = (z0 + z1) / 2; xb = -18.5
+                fr[:] = [x for x in fr if not any(x is c for c in clip)]
+                fr.append(PROFI("y", ys - 3.3, ys + 3.2, rrect(z0, z1, xb - 3.5, xb + 0.5, 1.0),
+                                [rrect(zc - 1.5, zc + 1.5, xb - 1.5, xb + 0.2, 0.3)], fr[0][2]))
+                out["clips"].append(dict(part=f"{side}_{seg}_frame", z=(round(z0, 2), round(z1, 2)), removed=len(clip), tunnel_mm=(3.0, 1.5)))
+        # -- ankle pitch servo back holes (R 11 / 12, L 1 / 2 at z_s 28) came out with the back wall cut for ankle
+        # pitch + (wall top 1 mm above the hole centre): a bar 19 wide up to 3.8 above the hole centre on the back
+        # wall (2.5 mm of wall over the hole).  Sweep 2026-11-27: first contact foot +32 vs the frame's +30 (unchanged)
+        fr_s = links[f"{side}_shank"]["parts"][f"{side}_shank_frame"]
+        sv_ap = X.servo_frames(links)[f"{side}_ankle_pitch_servo_XC430"]
+        hs = []
+        for hn in range(1, 15):
+            p, n = X.HOLES[hn - 1]; pw, nw = X.to_world(sv_ap, p, n)
+            if nw[0] < -0.9:
+                hs.append((hn, pw))
+        hs = [(hn, pw) for hn, pw in hs if abs(pw[2] - max(q[2] for _, q in hs)) < 0.01]       # the row far from the horn
+        zc = hs[0][1][2]
+        fr_s.append(PROFI("x", -18.5, -14.65, rrect(ys - 9.5, ys + 9.5, zc - 3.0, zc + 3.8, 1.0), [], fr_s[0][2],
+                          [(pw[1], pw[2], B19.CASE_HOLE_D / 2) for _, pw in hs]))
+        out.setdefault("ankle_pitch_back_holes", []).append(dict(side=side, holes=[hn for hn, _ in hs], z=round(zc, 2), bar_top=round(zc + 3.8, 2)))
+        # -- yaw hub: 0.4 per side in the 6805 bore, epoxy
+        yb = links[f"{side}_hip_yaw_link"]["parts"][f"{side}_hip_yaw_bracket"]
+        for i, x in enumerate(yb):
+            a = x[1]
+            if x[0] == "rprism" and a[0] == "z" and a[1] >= 212.9:
+                us = [q[0] for q in a[3]]
+                if abs((max(us) - min(us)) / 2 - (12.5 - FIT_PLUS)) < 1e-6:
+                    yb[i] = (x[0], (a[0], a[1], a[2], _ring(0.0, ys, HUB_R_FIT), a[4], a[5]), x[2])
+                    out["hub"].append((side, round(a[1], 2), round(a[2], 2), HUB_R_FIT))
+        # -- ankle bracket: the 0.5 strips (x -68.4..-67.9) left from v20; the ankle_back ties cover them below the slots
+        ab = links[f"{side}_ankle_link"]["parts"][f"{side}_ankle_bracket"]
+        strip = lambda x: x[0] == "rprism" and x[1][0] == "x" and abs(x[1][1] + 68.4) < 1e-6 and abs(x[1][2] + 67.9) < 1e-6
+        out["ankle_strips"] += sum(1 for x in ab if strip(x)); ab[:] = [x for x in ab if not strip(x)]
+    return out
+
+
 def build_model():
     links, joints, fasteners = B19.build_model()
     LOG["v19"] = {k: B19.LOG[k] for k in ("case_holes", "wall_warnings", "pockets") if k in B19.LOG}
@@ -1157,6 +1318,7 @@ def build_model():
     LOG["xl_horn_fit"] = xl_horn_fit(links)
     LOG["ankle_back"] = ankle_back_reinforce(links, X.servo_frames(links))
     LOG["fdm_joints"] = fdm_joints(links, joints)
+    LOG["assembly_durability"] = assembly_durability(links)
     return links, joints, fasteners
 
 

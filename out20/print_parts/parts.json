@@ -170,7 +170,7 @@
   "up": "+z",
   "size_mm": "38x37x68",
   "support_mm2": 0,
-  "volume_cm3": 23.8,
+  "volume_cm3": 23.4,
   "note": "",
   "colours": [
    [
@@ -184,9 +184,9 @@
   "part": "R_thigh_frame",
   "link": "R_thigh",
   "up": "-z",
-  "size_mm": "44x49x118",
-  "support_mm2": 31,
-  "volume_cm3": 40.1,
+  "size_mm": "43x49x118",
+  "support_mm2": 0,
+  "volume_cm3": 40.2,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -200,9 +200,9 @@
   "part": "R_thigh_shell",
   "link": "R_thigh",
   "up": "+z",
-  "size_mm": "44x54x22",
+  "size_mm": "44x55x22",
   "support_mm2": 0,
-  "volume_cm3": 4.4,
+  "volume_cm3": 5.6,
   "note": "",
   "colours": [
    [
@@ -216,9 +216,9 @@
   "part": "R_shank_frame",
   "link": "R_shank",
   "up": "+z",
-  "size_mm": "44x49x112",
-  "support_mm2": 32,
-  "volume_cm3": 35.2,
+  "size_mm": "43x49x112",
+  "support_mm2": 16,
+  "volume_cm3": 35.8,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -234,7 +234,7 @@
   "up": "+z",
   "size_mm": "44x58x80",
   "support_mm2": 0,
-  "volume_cm3": 11.8,
+  "volume_cm3": 15.6,
   "note": "하늘색",
   "colours": [
    [
@@ -250,7 +250,7 @@
   "up": "+x",
   "size_mm": "54x25x86",
   "support_mm2": 324,
-  "volume_cm3": 26.4,
+  "volume_cm3": 26.2,
   "note": "",
   "colours": [
    [
@@ -282,7 +282,7 @@
   "up": "+z",
   "size_mm": "38x37x68",
   "support_mm2": 0,
-  "volume_cm3": 23.8,
+  "volume_cm3": 23.4,
   "note": "",
   "colours": [
    [
@@ -296,9 +296,9 @@
   "part": "L_thigh_frame",
   "link": "L_thigh",
   "up": "-z",
-  "size_mm": "44x49x118",
-  "support_mm2": 46,
-  "volume_cm3": 40.1,
+  "size_mm": "43x49x118",
+  "support_mm2": 16,
+  "volume_cm3": 40.2,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -312,9 +312,9 @@
   "part": "L_thigh_shell",
   "link": "L_thigh",
   "up": "+z",
-  "size_mm": "44x54x22",
+  "size_mm": "44x55x22",
   "support_mm2": 0,
-  "volume_cm3": 4.4,
+  "volume_cm3": 5.6,
   "note": "",
   "colours": [
    [
@@ -328,9 +328,9 @@
   "part": "L_shank_frame",
   "link": "L_shank",
   "up": "+z",
-  "size_mm": "44x49x112",
-  "support_mm2": 16,
-  "volume_cm3": 35.2,
+  "size_mm": "43x49x112",
+  "support_mm2": 0,
+  "volume_cm3": 35.8,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -346,7 +346,7 @@
   "up": "+z",
   "size_mm": "44x58x80",
   "support_mm2": 0,
-  "volume_cm3": 11.8,
+  "volume_cm3": 15.6,
   "note": "하늘색",
   "colours": [
    [
@@ -362,7 +362,7 @@
   "up": "+x",
   "size_mm": "54x25x86",
   "support_mm2": 324,
-  "volume_cm3": 26.4,
+  "volume_cm3": 26.2,
   "note": "",
   "colours": [
    [

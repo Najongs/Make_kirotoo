@@ -3876,5 +3876,262 @@
    ],
    "solids": 2
   }
- ]
+ ],
+ "assembly_durability": {
+  "shells": [
+   {
+    "part": "R_thigh_shell",
+    "latch_solids": 5,
+    "pads": 1,
+    "grooves": 1,
+    "wall_layers": 5,
+    "screws": [
+     {
+      "z": 63.0,
+      "wall_layers": [
+       [
+        14.65,
+        16.5
+       ],
+       [
+        16.5,
+        18.5
+       ]
+      ],
+      "pilot_depth_mm": 6.45,
+      "thread_m25x8_mm": 5.6,
+      "tip_to_case_mm": 1.25
+     },
+     {
+      "z": 72.0,
+      "wall_layers": [
+       [
+        14.65,
+        16.5
+       ],
+       [
+        16.5,
+        18.5
+       ]
+      ],
+      "pilot_depth_mm": 6.45,
+      "thread_m25x8_mm": 5.6,
+      "tip_to_case_mm": 1.25
+     }
+    ]
+   },
+   {
+    "part": "R_shank_shell",
+    "latch_solids": 5,
+    "pads": 1,
+    "grooves": 1,
+    "wall_layers": 4,
+    "screws": [
+     {
+      "z": -26.0,
+      "wall_layers": [
+       [
+        14.65,
+        16.5
+       ],
+       [
+        16.5,
+        18.5
+       ]
+      ],
+      "pilot_depth_mm": 6.45,
+      "thread_m25x8_mm": 5.6,
+      "tip_to_case_mm": 1.25
+     },
+     {
+      "z": 2.0,
+      "wall_layers": [
+       [
+        14.65,
+        18.5
+       ]
+      ],
+      "pilot_depth_mm": 6.45,
+      "thread_m25x8_mm": 5.6,
+      "tip_to_case_mm": 1.25
+     }
+    ]
+   },
+   {
+    "part": "L_thigh_shell",
+    "latch_solids": 5,
+    "pads": 1,
+    "grooves": 1,
+    "wall_layers": 5,
+    "screws": [
+     {
+      "z": 63.0,
+      "wall_layers": [
+       [
+        14.65,
+        16.5
+       ],
+       [
+        16.5,
+        18.5
+       ]
+      ],
+      "pilot_depth_mm": 6.45,
+      "thread_m25x8_mm": 5.6,
+      "tip_to_case_mm": 1.25
+     },
+     {
+      "z": 72.0,
+      "wall_layers": [
+       [
+        14.65,
+        16.5
+       ],
+       [
+        16.5,
+        18.5
+       ]
+      ],
+      "pilot_depth_mm": 6.45,
+      "thread_m25x8_mm": 5.6,
+      "tip_to_case_mm": 1.25
+     }
+    ]
+   },
+   {
+    "part": "L_shank_shell",
+    "latch_solids": 5,
+    "pads": 1,
+    "grooves": 1,
+    "wall_layers": 4,
+    "screws": [
+     {
+      "z": -26.0,
+      "wall_layers": [
+       [
+        14.65,
+        16.5
+       ],
+       [
+        16.5,
+        18.5
+       ]
+      ],
+      "pilot_depth_mm": 6.45,
+      "thread_m25x8_mm": 5.6,
+      "tip_to_case_mm": 1.25
+     },
+     {
+      "z": 2.0,
+      "wall_layers": [
+       [
+        14.65,
+        18.5
+       ]
+      ],
+      "pilot_depth_mm": 6.45,
+      "thread_m25x8_mm": 5.6,
+      "tip_to_case_mm": 1.25
+     }
+    ]
+   }
+  ],
+  "clips": [
+   {
+    "part": "R_thigh_frame",
+    "z": [
+     51.87,
+     57.87
+    ],
+    "removed": 3,
+    "tunnel_mm": [
+     3.0,
+     1.5
+    ]
+   },
+   {
+    "part": "R_shank_frame",
+    "z": [
+     -42.13,
+     -36.13
+    ],
+    "removed": 3,
+    "tunnel_mm": [
+     3.0,
+     1.5
+    ]
+   },
+   {
+    "part": "L_thigh_frame",
+    "z": [
+     51.87,
+     57.87
+    ],
+    "removed": 3,
+    "tunnel_mm": [
+     3.0,
+     1.5
+    ]
+   },
+   {
+    "part": "L_shank_frame",
+    "z": [
+     -42.13,
+     -36.13
+    ],
+    "removed": 3,
+    "tunnel_mm": [
+     3.0,
+     1.5
+    ]
+   }
+  ],
+  "hub": [
+   [
+    "R",
+    213.0,
+    228.0,
+    12.1
+   ],
+   [
+    "R",
+    228.0,
+    232.1,
+    12.1
+   ],
+   [
+    "L",
+    213.0,
+    228.0,
+    12.1
+   ],
+   [
+    "L",
+    228.0,
+    232.1,
+    12.1
+   ]
+  ],
+  "ankle_strips": 4,
+  "ankle_pitch_back_holes": [
+   {
+    "side": "R",
+    "holes": [
+     11,
+     12
+    ],
+    "z": -17.13,
+    "bar_top": -13.33
+   },
+   {
+    "side": "L",
+    "holes": [
+     1,
+     2
+    ],
+    "z": -17.13,
+    "bar_top": -13.33
+   }
+  ]
+ }
 }
