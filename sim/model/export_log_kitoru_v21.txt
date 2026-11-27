@@ -1,0 +1,9 @@
+closed loop: crank -22.021..29.359 deg for head -20..28, ear -37.481..50.251 deg
+  polyfit deg4 residual: head 7.08e-03 deg, ear 1.06e-01 deg; dbeta/dalpha 0.8707..0.9735, dpsi/dalpha 1.5986..2.0357
+  c0 head -3.20e-05 rad, c0 ear 3.95e-04 rad (should be ~0: beta=0 <-> crank=0)
+visual triangle winding: {'kept': 119286, 'flipped': 103634, 'two_sided': 8382}
+servo mass swap -> XL430 65.2 g: [('R_hip_yaw_link', 'R_hip_roll_servo_XM430', -24.8), ('R_thigh', 'R_knee_servo_XM430', -24.8), ('R_shank', 'R_ankle_pitch_servo_XC430', -7.8), ('R_ankle_link', 'R_ankle_roll_servo_XM430', -24.8), ('L_hip_yaw_link', 'L_hip_roll_servo_XM430', -24.8), ('L_thigh', 'L_knee_servo_XM430', -24.8), ('L_shank', 'L_ankle_pitch_servo_XC430', -7.8), ('L_ankle_link', 'L_ankle_roll_servo_XM430', -24.8), ('R_hip_roll_link', 'R_hip_pitch_servo_XM430', -24.8), ('L_hip_roll_link', 'L_hip_pitch_servo_XM430', -24.8)]; total 3180.0 g
+caps triangulated: {'strip': 488, 'ear': 782}; caps whose triangle area != outline-holes area: 50 [('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'lid', np.float64(1783.81), np.float64(1939.81)), ('torso', 'shorts', np.float64(4823.33), np.float64(5014.71)), ('torso', 'shorts', np.float64(4823.33), np.float64(5014.71)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-5.76), np.float64(39.76)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-5.76), np.float64(39.76)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-5.76), np.float64(39.76)), ('R_hip_yaw_link', 'R_hip_yaw_bracket', np.float64(-5.76), np.float64(39.76))]
+meshes: 82 visual + 134 collision hulls, 8.16 MB
+compiled kitoru_v21.xml: nbody 21 njnt 20 nq 26 nu 17 ngeom 217 neq 2
+compiled kitoru_v21_fixed.xml: nq 19 nu 17

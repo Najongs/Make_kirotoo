@@ -1,6 +1,8 @@
 """Kitoru v17 design (code_v17/build17.py) -> MuJoCo MJCF.
 
 Run:  cd sim && uv run python export_mjcf.py
+      v21 (elbow arm, head nod -20 .. +28, all 17 servos XL430-W250-T):
+      cd sim && KITORU_VER=21 KITORU_MASS=../out21_arm/mass_build21_arm_light.json .venv/bin/python export_mjcf.py
 Out:  model/kitoru_v17.xml (free-floating torso), model/kitoru_v17_fixed.xml (torso welded, for later),
       model/meshes/*.obj, model/closed_loop_fit.json, model/export_log.txt
 
@@ -8,7 +10,8 @@ Rules (see gates/ for the checks):
 - units m / kg / rad, every body frame is world-aligned (identity), body pos = child origin - parent origin,
   joint pos = joint point - body origin, meshes are world mm minus link origin with scale 0.001.
 - mass / com / inertia only from code_v17/mass_build17_light.json (inertia: g*mm^2 about the com, world axes).
-- nod_rod -> torso, ear_rod -> head, R/L_hand_flap -> R/L_arm are merged (parallel-axis) and welded.
+- nod_rod -> torso, ear_rod -> head, R/L_hand_flap -> R/L_arm are merged (parallel-axis) and welded
+  (v21: no hand flaps; R/L_forearm hang on the new R/L_elbow joints).
 - head_nod and ear_axle are passive hinges tied to nod_crank by <equality joint> polynomials fitted to the
   brentq closed-loop solution of sweep17.py / render17.py (same constants).
 """
@@ -23,6 +26,7 @@ sys.path.insert(0, CODE)
 #   KITORU_VER=18 -> render18 / build18 (KITORU_THETA picks the foot cut), mass file and output names follow
 #   KITORU_MASS  = mass json path (default code_v17/mass_build<ver>_light.json)
 #   KITORU_TAG   = output name stem (default kitoru_v<ver>), meshes go to model/meshes (v17) or model/meshes_<tag>
+#   KITORU_VER=21 -> render21 / build21_arm, all 17 actuators XL430-W250-T (ALLXL below)
 import importlib
 VER = os.environ.get("KITORU_VER", "17")
 R17 = importlib.import_module(f"render{VER}")   # sets BUILD=build<ver>, imports render6 (GEOM) and fixes the chains
@@ -30,7 +34,9 @@ r = R17.r
 TAG = os.environ.get("KITORU_TAG", f"kitoru_v{VER}")
 import shapes, geom4
 # layout A hip roll (build20): the legs reach below z 0 by LEG_EXTRA_MM, so the free model starts lifted by that much
-LIFT = float(getattr(sys.modules.get(f"build{VER}"), "LIFT_MM", 0.0))
+# (v21: there is no build21 module, the build is the one render<ver> put in BUILD -> r.build5)
+LIFT = float(getattr(sys.modules.get(f"build{VER}"), "LIFT_MM", getattr(r.build5, "LIFT_MM", 0.0)))
+ALLXL = int(VER) >= 21       # owner 2026-11-27: every servo is an XL430-W250-T (17: legs 12, shoulders 2, elbows 2, nod 1)
 from build import IDX, UVI
 
 OUT = os.path.join(HERE, "model")
@@ -48,6 +54,7 @@ MASS = json.load(open(MASSF))["links"]
 
 # ------------------------------------------------------------------ tree
 MERGE = {"nod_rod": "torso", "ear_rod": "head", "R_hand_flap": "R_arm", "L_hand_flap": "L_arm"}
+MERGE = {k: v for k, v in MERGE.items() if k in links}      # v21 elbow arm: no hand flaps
 BODIES = ["torso",
           "R_hip_yaw_link", "R_thigh", "R_shank", "R_ankle_link", "R_foot",
           "L_hip_yaw_link", "L_thigh", "L_shank", "L_ankle_link", "L_foot",
@@ -58,6 +65,8 @@ LEG_BITS = {f"{S}_{n}" for S in "RL" for n in ("shank", "ankle_link", "foot")}
 for S_ in "RL":                 # v20: hip roll link between the hip yaw link and the thigh
     if f"{S_}_hip_roll_link" in links and f"{S_}_hip_roll_link" not in BODIES:
         BODIES.insert(BODIES.index(f"{S_}_hip_yaw_link") + 1, f"{S_}_hip_roll_link")
+    if f"{S_}_forearm" in links and f"{S_}_forearm" not in BODIES:   # v21: elbow -> forearm under the upper arm
+        BODIES.insert(BODIES.index(f"{S_}_arm") + 1, f"{S_}_forearm")
 assert set(BODIES) | set(MERGE) == set(links) == set(MASS)
 
 
@@ -86,15 +95,47 @@ SERVO_NOTE = """
   - armature XC/XL [estimate]: 0.045 * (gear / 353.5)^2 with e-manual gear ratios XC 245.22, XL 258.5.
     Assumes the same rotor inertia as XM (coreless). XL430 has a cored motor (heavier rotor) -> likely low.
 """
+if ALLXL:
+    # v21: XL430-W250-T no-load 57 rpm @11.1 V = 5.97 rad/s (e-manual, sim/walk/allxl XL430e) instead of the 5.45 above
+    SERVO["XL430-W250"] = dict(SERVO["XL430-W250"], speed=round(57 * 2 * math.pi / 60, 2))
+    SERVO_NOTE = """
+  Servo model (position-control mode): native <position> actuator, forcerange = +-stall torque,
+  joint damping = stall / no-load speed, armature = reflected rotor inertia.
+  - all 17 servos XL430-W250-T (owner 2026-11-27; build20 joint table still names XM430 / XC430 on the legs).
+  - stall 1.4 N*m, no-load 57 rpm = 5.97 rad/s @11.1 V (ROBOTIS e-manual; sim/walk/allxl XL430e) -> damping 0.2345.
+  - kp 6.4 N*m/rad [estimate]: Position P gain 800 (assumed), KPP = TBL/128, PWM limit 885, 651.9 pulse/rad.
+  - armature 0.0241 [estimate]: 0.045 (menagerie robotis_op3 XM430) * (258.5 / 353.5)^2. XL430 has a cored motor
+    (heavier rotor) -> likely low; measure on the real servo.
+  - mass: the mass json has the leg servos as XM430 90 g / XC430 73 g; each is swapped to XL430 65.2 g (horn +
+    cables, sim/walk/kw_common SERVO_G) as a point mass at that servo's com (parallel axis; the servo's own inertia
+    change is ignored).
+"""
 ACT = {}            # joint -> servo name
 for j in joints:
     for s in SERVO:
         if j["actuator"].startswith(s):
-            ACT[j["name"]] = s
-assert len(ACT) >= 13, ACT
+            ACT[j["name"]] = "XL430-W250" if ALLXL else s
+assert len(ACT) >= (17 if ALLXL else 13), ACT
 
 
 # ------------------------------------------------------------------ mass
+SERVO_SWAP = []     # v21: (link, part, delta g) of the XM / XC -> XL430 mass swap
+if ALLXL:
+    G_XL = 65.2
+    for p in json.load(open(MASSF))["parts"]:
+        if p["kind"] != "servo" or p["part"].endswith("XL430"):
+            continue
+        L_ = MASS[p["link"]]; dm = G_XL - p["mass"]; pc = np.array(p["com"], float)
+        m0, c0, I0 = L_["mass_g"], np.array(L_["com_world"], float), np.array(L_["inertia_gmm2"], float)
+        m1 = m0 + dm; c1 = (m0 * c0 + dm * pc) / m1
+        d, e = c0 - c1, pc - c1
+        I1 = I0 + m0 * (d @ d * np.eye(3) - np.outer(d, d)) + dm * (e @ e * np.eye(3) - np.outer(e, e))
+        assert np.all(np.linalg.eigvalsh(I1) > 0), (p["part"], I1)
+        L_.update(mass_g=m1, com_world=list(c1), inertia_gmm2=I1.tolist())
+        SERVO_SWAP.append((p["link"], p["part"], round(dm, 1)))
+    assert len(SERVO_SWAP) == 10, SERVO_SWAP
+
+
 def inertial(ln):
     """mass (g), com (world mm), inertia (g mm^2 about com, world axes) of a body incl. merged links."""
     parts = [ln] + [k for k, v in MERGE.items() if v == ln]
@@ -108,7 +149,8 @@ def inertial(ln):
 
 
 # ------------------------------------------------------------------ closed loop (render17 = sweep17 math)
-betas = np.round(np.arange(-10.0, 20.0 + 1e-9, 0.25), 4)
+NOD = (float(J["head_nod"]["lower_deg"]), float(J["head_nod"]["upper_deg"])) if ALLXL else (-10.0, 20.0)
+betas = np.round(np.arange(NOD[0], NOD[1] + 1e-9, 0.25), 4)
 tab = [R17.nod_pose(float(b)) for b in betas]
 al = np.array([t["nod_crank"] for t in tab]); ps = np.array([t["ear_axle"] for t in tab])
 alr, br, psr = np.radians(al), np.radians(betas), np.radians(ps)
@@ -123,12 +165,12 @@ LOOP = dict(beta_deg=[float(x) for x in betas], crank_deg=[float(x) for x in al]
             dbeta_dalpha=[float(dB.min()), float(dB.max())], dpsi_dalpha=[float(dP.min()), float(dP.max())])
 json.dump(LOOP, open(os.path.join(OUT, "closed_loop_fit.json" if TAG == "kitoru_v17" else f"closed_loop_fit_{TAG}.json"), "w"), indent=1)
 CRANK_RANGE = (float(al.min()), float(al.max())); EAR_RANGE = (float(ps.min()), float(ps.max()))
-log(f"closed loop: crank {CRANK_RANGE[0]:.3f}..{CRANK_RANGE[1]:.3f} deg for head -10..20, ear {EAR_RANGE[0]:.3f}..{EAR_RANGE[1]:.3f} deg")
+log(f"closed loop: crank {CRANK_RANGE[0]:.3f}..{CRANK_RANGE[1]:.3f} deg for head {NOD[0]:g}..{NOD[1]:g}, ear {EAR_RANGE[0]:.3f}..{EAR_RANGE[1]:.3f} deg")
 log(f"  polyfit deg4 residual: head {LOOP['max_resid_head_deg']:.2e} deg, ear {LOOP['max_resid_ear_deg']:.2e} deg; "
     f"dbeta/dalpha {dB.min():.4f}..{dB.max():.4f}, dpsi/dalpha {dP.min():.4f}..{dP.max():.4f}")
 log(f"  c0 head {cf_head[0]:.2e} rad, c0 ear {cf_ear[0]:.2e} rad (should be ~0: beta=0 <-> crank=0)")
 RANGE = {n: (J[n]["lower_deg"], J[n]["upper_deg"]) for n in J}
-RANGE["head_nod"] = (-10.0, 20.0); RANGE["nod_crank"] = CRANK_RANGE; RANGE["ear_axle"] = EAR_RANGE
+RANGE["head_nod"] = NOD; RANGE["nod_crank"] = CRANK_RANGE; RANGE["ear_axle"] = EAR_RANGE
 
 
 # ------------------------------------------------------------------ tessellation
@@ -233,6 +275,8 @@ for ln, L in links.items():
             HULL.setdefault((body, ln, pn), []).append(T.reshape(-1, 3))
             VIS.setdefault((body, tuple(rgb)), []).append(orient(s, T))
 log(f"visual triangle winding: {ORIENT}")
+if SERVO_SWAP:
+    log(f"servo mass swap -> XL430 65.2 g: {SERVO_SWAP}; total {sum(L['mass_g'] for L in MASS.values()):.1f} g")
 log(f"caps triangulated: {cap_used}; caps whose triangle area != outline-holes area: {len(cap_bad)}", cap_bad[:10])
 
 
@@ -345,6 +389,10 @@ def body_xml(b, ind, free):
     return out
 
 
+FLAP_NOTE = ("hand flaps into the arms (welded at 0 deg:\n       in the real robot the flap opens with |arm angle| via a cam, 63 deg max)."
+             if "R_hand_flap" in MERGE else "no hand flaps (v21 elbow arm: mitten hand on the forearm).")
+
+
 def model_xml(free):
     cH = " ".join("%.9g" % x for x in cf_head); cE = " ".join("%.9g" % x for x in cf_ear)
     acts = []
@@ -357,10 +405,9 @@ def model_xml(free):
     meshes = "\n".join(f'    <mesh name="{n}" file="{f}"/>' for n, f in MESH_ASSETS)
     excl = "\n".join(f'    <exclude body1="{S}_shank" body2="{S}_foot"/>' for S in "RL")
     return f"""<mujoco model="{TAG}{'' if free else '_fixed'}">
-  <!-- generated by sim/export_mjcf.py from code_v17/build{VER}.py{(" (KITORU_THETA=" + os.environ["KITORU_THETA"] + ")") if "KITORU_THETA" in os.environ else ""} + {os.path.basename(MASSF)}. Do not edit by hand.
+  <!-- generated by sim/export_mjcf.py from code_v17/{r.build5.__name__}.py{(" (KITORU_THETA=" + os.environ["KITORU_THETA"] + ")") if "KITORU_THETA" in os.environ else ""} + {os.path.basename(MASSF)}. Do not edit by hand.
        units m kg rad; all body frames world-aligned; zero pose = design zero pose (origin between the feet on the floor).
-       Simplifications: nod_rod merged into torso, ear_rod into head, hand flaps into the arms (welded at 0 deg:
-       in the real robot the flap opens with |arm angle| via a cam, 63 deg max). head_nod / ear_axle follow
+       Simplifications: nod_rod merged into torso, ear_rod into head, {FLAP_NOTE} head_nod / ear_axle follow
        nod_crank through <equality joint> 4th-order polynomials (closed_loop_fit.json).
 {SERVO_NOTE}  -->
   <compiler angle="radian" inertiafromgeom="false" meshdir="{MESHSUB}" autolimits="true"/>
@@ -418,7 +465,7 @@ def model_xml(free):
   </contact>
 
   <equality>
-    <!-- head_nod = poly(nod_crank), ear_axle = poly(nod_crank), rad, fitted on beta -10..20 deg (0.25 deg grid).
+    <!-- head_nod = poly(nod_crank), ear_axle = poly(nod_crank), rad, fitted on beta {NOD[0]:g}..{NOD[1]:g} deg (0.25 deg grid).
          solref time constant 0.002 = 2 x timestep (the stiffest MuJoCo allows without refsafe clamping). -->
     <joint name="loop_head" joint1="head_nod" joint2="nod_crank" polycoef="{cH}" solref="0.002 1" solimp="0.95 0.99 0.001"/>
     <joint name="loop_ear" joint1="ear_axle" joint2="nod_crank" polycoef="{cE}" solref="0.002 1" solimp="0.95 0.99 0.001"/>

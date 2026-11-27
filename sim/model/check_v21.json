@@ -1,0 +1,424 @@
+{
+ "kitoru_v21.xml": {
+  "file": "kitoru_v21.xml",
+  "mass_g": 3180.02,
+  "mass_json_g": 3394.02,
+  "mass_json_xl_g": 3180.02,
+  "mass_minus_json_xl_g": 0.0,
+  "nbody": 21,
+  "hinge": 19,
+  "actuators": 17,
+  "passive": [
+   "ear_axle",
+   "head_nod"
+  ],
+  "neq": 2,
+  "eq": [
+   "loop_head",
+   "loop_ear"
+  ],
+  "stall": [
+   1.4
+  ],
+  "kp": [
+   6.4
+  ],
+  "damping": [
+   0.2345
+  ],
+  "armature": [
+   0.0241
+  ],
+  "ranges_deg": {
+   "R_hip_yaw": [
+    -20.0,
+    20.0
+   ],
+   "R_hip_roll": [
+    -25.0,
+    2.0
+   ],
+   "R_hip_pitch": [
+    -80.0,
+    30.0
+   ],
+   "R_knee": [
+    0.0,
+    100.0
+   ],
+   "R_ankle_pitch": [
+    -50.0,
+    22.0
+   ],
+   "R_ankle_roll": [
+    -20.0,
+    20.0
+   ],
+   "L_hip_yaw": [
+    -20.0,
+    20.0
+   ],
+   "L_hip_roll": [
+    -2.0,
+    25.0
+   ],
+   "L_hip_pitch": [
+    -80.0,
+    30.0
+   ],
+   "L_knee": [
+    0.0,
+    100.0
+   ],
+   "L_ankle_pitch": [
+    -50.0,
+    22.0
+   ],
+   "L_ankle_roll": [
+    -20.0,
+    20.0
+   ],
+   "R_arm_swing": [
+    -110.0,
+    110.0
+   ],
+   "R_elbow": [
+    -130.0,
+    130.0
+   ],
+   "L_arm_swing": [
+    -110.0,
+    110.0
+   ],
+   "L_elbow": [
+    -130.0,
+    130.0
+   ],
+   "head_nod": [
+    -20.0,
+    28.0
+   ],
+   "nod_crank": [
+    -22.02,
+    29.36
+   ],
+   "ear_axle": [
+    -37.48,
+    50.25
+   ]
+  },
+  "collision_geoms": 135,
+  "collision_pairs": 278,
+  "pair_types": {
+   "mesh-plane": 134,
+   "mesh-mesh": 144
+  },
+  "timestep": 0.001,
+  "actuator_names": [
+   "R_hip_yaw",
+   "R_hip_roll",
+   "R_hip_pitch",
+   "R_knee",
+   "R_ankle_pitch",
+   "R_ankle_roll",
+   "L_hip_yaw",
+   "L_hip_roll",
+   "L_hip_pitch",
+   "L_knee",
+   "L_ankle_pitch",
+   "L_ankle_roll",
+   "nod_crank",
+   "R_arm_swing",
+   "R_elbow",
+   "L_arm_swing",
+   "L_elbow"
+  ],
+  "stand": {
+   "1ms_kp_x1": {
+    "ok": false,
+    "dt": 0.001,
+    "kp_scale": 1.0,
+    "torso_z0_mm": 80.13,
+    "torso_z_end_mm": 89.09,
+    "torso_z_min_mm": 72.32,
+    "torso_z_max_mm": 109.44,
+    "tilt_max_deg": 91.619,
+    "xy_drift_mm": 164.99,
+    "qvel_max_2nd_half": 5.541,
+    "loop_resid_max_deg": 0.0197,
+    "ncon_mean": 6.1,
+    "ncon_end": 18,
+    "warnings": {},
+    "wall_s": 0.19,
+    "sim_x_realtime": 10.7
+   },
+   "2ms_kp_x1": {
+    "ok": false,
+    "dt": 0.002,
+    "kp_scale": 1.0,
+    "torso_z0_mm": 80.13,
+    "torso_z_end_mm": 92.68,
+    "torso_z_min_mm": 71.83,
+    "torso_z_max_mm": 109.44,
+    "tilt_max_deg": 90.416,
+    "xy_drift_mm": 164.0,
+    "qvel_max_2nd_half": 5.6929,
+    "loop_resid_max_deg": 0.041,
+    "ncon_mean": 6.2,
+    "ncon_end": 14,
+    "warnings": {},
+    "wall_s": 0.09,
+    "sim_x_realtime": 22.0
+   },
+   "1ms_kp_x2": {
+    "ok": true,
+    "dt": 0.001,
+    "kp_scale": 2.0,
+    "torso_z0_mm": 80.13,
+    "torso_z_end_mm": 79.99,
+    "torso_z_min_mm": 79.95,
+    "torso_z_max_mm": 80.13,
+    "tilt_max_deg": 2.24,
+    "xy_drift_mm": 1.13,
+    "qvel_max_2nd_half": 0.0624,
+    "loop_resid_max_deg": 0.0173,
+    "ncon_mean": 8.0,
+    "ncon_end": 8,
+    "warnings": {},
+    "wall_s": 0.18,
+    "sim_x_realtime": 10.9
+   },
+   "2ms_kp_x2": {
+    "ok": true,
+    "dt": 0.002,
+    "kp_scale": 2.0,
+    "torso_z0_mm": 80.13,
+    "torso_z_end_mm": 79.99,
+    "torso_z_min_mm": 79.95,
+    "torso_z_max_mm": 80.13,
+    "tilt_max_deg": 2.24,
+    "xy_drift_mm": 1.13,
+    "qvel_max_2nd_half": 0.0624,
+    "loop_resid_max_deg": 0.0174,
+    "ncon_mean": 8.0,
+    "ncon_end": 8,
+    "warnings": {},
+    "wall_s": 0.1,
+    "sim_x_realtime": 20.8
+   }
+  }
+ },
+ "kitoru_v21_rl.xml": {
+  "file": "kitoru_v21_rl.xml",
+  "mass_g": 3180.02,
+  "mass_json_g": 3394.02,
+  "mass_json_xl_g": 3180.02,
+  "mass_minus_json_xl_g": 0.0,
+  "nbody": 21,
+  "hinge": 19,
+  "actuators": 17,
+  "passive": [
+   "ear_axle",
+   "head_nod"
+  ],
+  "neq": 2,
+  "eq": [
+   "loop_head",
+   "loop_ear"
+  ],
+  "stall": [
+   1.4
+  ],
+  "kp": [
+   6.4
+  ],
+  "damping": [
+   0.2345
+  ],
+  "armature": [
+   0.0241
+  ],
+  "ranges_deg": {
+   "R_hip_yaw": [
+    -20.0,
+    20.0
+   ],
+   "R_hip_roll": [
+    -25.0,
+    2.0
+   ],
+   "R_hip_pitch": [
+    -80.0,
+    30.0
+   ],
+   "R_knee": [
+    0.0,
+    100.0
+   ],
+   "R_ankle_pitch": [
+    -50.0,
+    22.0
+   ],
+   "R_ankle_roll": [
+    -20.0,
+    20.0
+   ],
+   "L_hip_yaw": [
+    -20.0,
+    20.0
+   ],
+   "L_hip_roll": [
+    -2.0,
+    25.0
+   ],
+   "L_hip_pitch": [
+    -80.0,
+    30.0
+   ],
+   "L_knee": [
+    0.0,
+    100.0
+   ],
+   "L_ankle_pitch": [
+    -50.0,
+    22.0
+   ],
+   "L_ankle_roll": [
+    -20.0,
+    20.0
+   ],
+   "R_arm_swing": [
+    -110.0,
+    110.0
+   ],
+   "R_elbow": [
+    -130.0,
+    130.0
+   ],
+   "L_arm_swing": [
+    -110.0,
+    110.0
+   ],
+   "L_elbow": [
+    -130.0,
+    130.0
+   ],
+   "head_nod": [
+    -20.0,
+    28.0
+   ],
+   "nod_crank": [
+    -22.02,
+    29.36
+   ],
+   "ear_axle": [
+    -37.48,
+    50.25
+   ]
+  },
+  "collision_geoms": 29,
+  "collision_pairs": 55,
+  "pair_types": {
+   "box-plane": 10,
+   "capsule-plane": 8,
+   "plane-sphere": 10,
+   "box-capsule": 14,
+   "box-box": 9,
+   "capsule-capsule": 4
+  },
+  "timestep": 0.002,
+  "actuator_names": [
+   "R_hip_yaw",
+   "R_hip_roll",
+   "R_hip_pitch",
+   "R_knee",
+   "R_ankle_pitch",
+   "R_ankle_roll",
+   "L_hip_yaw",
+   "L_hip_roll",
+   "L_hip_pitch",
+   "L_knee",
+   "L_ankle_pitch",
+   "L_ankle_roll",
+   "nod_crank",
+   "R_arm_swing",
+   "R_elbow",
+   "L_arm_swing",
+   "L_elbow"
+  ],
+  "stand": {
+   "1ms_kp_x1": {
+    "ok": false,
+    "dt": 0.001,
+    "kp_scale": 1.0,
+    "torso_z0_mm": 80.13,
+    "torso_z_end_mm": 88.97,
+    "torso_z_min_mm": 72.56,
+    "torso_z_max_mm": 114.26,
+    "tilt_max_deg": 91.392,
+    "xy_drift_mm": 168.21,
+    "qvel_max_2nd_half": 6.2293,
+    "loop_resid_max_deg": 0.0403,
+    "ncon_mean": 7.1,
+    "ncon_end": 6,
+    "warnings": {},
+    "wall_s": 0.14,
+    "sim_x_realtime": 13.9
+   },
+   "2ms_kp_x1": {
+    "ok": false,
+    "dt": 0.002,
+    "kp_scale": 1.0,
+    "torso_z0_mm": 80.13,
+    "torso_z_end_mm": 91.67,
+    "torso_z_min_mm": 72.25,
+    "torso_z_max_mm": 114.24,
+    "tilt_max_deg": 90.904,
+    "xy_drift_mm": 168.79,
+    "qvel_max_2nd_half": 6.0871,
+    "loop_resid_max_deg": 0.0415,
+    "ncon_mean": 7.1,
+    "ncon_end": 6,
+    "warnings": {},
+    "wall_s": 0.08,
+    "sim_x_realtime": 25.2
+   },
+   "1ms_kp_x2": {
+    "ok": true,
+    "dt": 0.001,
+    "kp_scale": 2.0,
+    "torso_z0_mm": 80.13,
+    "torso_z_end_mm": 80.0,
+    "torso_z_min_mm": 79.97,
+    "torso_z_max_mm": 80.13,
+    "tilt_max_deg": 2.216,
+    "xy_drift_mm": 1.09,
+    "qvel_max_2nd_half": 0.0604,
+    "loop_resid_max_deg": 0.0213,
+    "ncon_mean": 10.0,
+    "ncon_end": 10,
+    "warnings": {},
+    "wall_s": 0.16,
+    "sim_x_realtime": 12.5
+   },
+   "2ms_kp_x2": {
+    "ok": true,
+    "dt": 0.002,
+    "kp_scale": 2.0,
+    "torso_z0_mm": 80.13,
+    "torso_z_end_mm": 80.0,
+    "torso_z_min_mm": 79.97,
+    "torso_z_max_mm": 80.13,
+    "tilt_max_deg": 2.216,
+    "xy_drift_mm": 1.09,
+    "qvel_max_2nd_half": 0.0604,
+    "loop_resid_max_deg": 0.0174,
+    "ncon_mean": 10.0,
+    "ncon_end": 10,
+    "warnings": {},
+    "wall_s": 0.08,
+    "sim_x_realtime": 24.9
+   }
+  }
+ }
+}
