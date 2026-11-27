@@ -174,42 +174,186 @@
  "dovetail": [
   {
    "side": 1,
-   "x": 12.0,
-   "face_d": 9.2,
-   "tip_d": 12.2,
-   "flank_at_face": 3.147,
-   "flank_at_tip": 4.647
+   "x": 15.5,
+   "rail": {
+    "neck_d": 7.0,
+    "tip_d": 11.5,
+    "neck_w": 7.0,
+    "tip_w": 11.5,
+    "pedestal_w": 10.0,
+    "z": [
+     270,
+     316
+    ]
+   },
+   "channel": {
+    "mouth_d": 7.5,
+    "bottom_d": 12.0,
+    "w_at_mouth": 8.62,
+    "w_at_bottom": 13.12,
+    "block_w": 20.0,
+    "side_wall_min": 3.44,
+    "behind_bottom": 1.0,
+    "z": [
+     280,
+     318
+    ],
+    "flare": [
+     [
+      280.0,
+      1.2
+     ],
+     [
+      281.0,
+      0.8
+     ],
+     [
+      282.0,
+      0.4
+     ]
+    ]
+   },
+   "gap": 0.5
   },
   {
    "side": -1,
-   "x": 12.0,
-   "face_d": 9.2,
-   "tip_d": 12.2,
-   "flank_at_face": 3.147,
-   "flank_at_tip": 4.647
+   "x": 15.5,
+   "rail": {
+    "neck_d": 7.0,
+    "tip_d": 11.5,
+    "neck_w": 7.0,
+    "tip_w": 11.5,
+    "pedestal_w": 10.0,
+    "z": [
+     270,
+     316
+    ]
+   },
+   "channel": {
+    "mouth_d": 7.5,
+    "bottom_d": 12.0,
+    "w_at_mouth": 8.62,
+    "w_at_bottom": 13.12,
+    "block_w": 20.0,
+    "side_wall_min": 3.44,
+    "behind_bottom": 1.0,
+    "z": [
+     280,
+     318
+    ],
+    "flare": [
+     [
+      280.0,
+      1.2
+     ],
+     [
+      281.0,
+      0.8
+     ],
+     [
+      282.0,
+      0.4
+     ]
+    ]
+   },
+   "gap": 0.5
   },
   {
    "side": 1,
-   "x": -22.0,
-   "face_d": 9.2,
-   "tip_d": 12.2,
-   "flank_at_face": 3.147,
-   "flank_at_tip": 4.647
+   "x": -23.5,
+   "rail": {
+    "neck_d": 7.0,
+    "tip_d": 11.5,
+    "neck_w": 7.0,
+    "tip_w": 11.5,
+    "pedestal_w": 10.0,
+    "z": [
+     270,
+     316
+    ]
+   },
+   "channel": {
+    "mouth_d": 7.5,
+    "bottom_d": 12.0,
+    "w_at_mouth": 8.62,
+    "w_at_bottom": 13.12,
+    "block_w": 20.0,
+    "side_wall_min": 3.44,
+    "behind_bottom": 1.0,
+    "z": [
+     280,
+     318
+    ],
+    "flare": [
+     [
+      280.0,
+      1.2
+     ],
+     [
+      281.0,
+      0.8
+     ],
+     [
+      282.0,
+      0.4
+     ]
+    ]
+   },
+   "gap": 0.5
   },
   {
    "side": -1,
-   "x": -22.0,
-   "face_d": 9.2,
-   "tip_d": 12.2,
-   "flank_at_face": 3.147,
-   "flank_at_tip": 4.647
+   "x": -23.5,
+   "rail": {
+    "neck_d": 7.0,
+    "tip_d": 11.5,
+    "neck_w": 7.0,
+    "tip_w": 11.5,
+    "pedestal_w": 10.0,
+    "z": [
+     270,
+     316
+    ]
+   },
+   "channel": {
+    "mouth_d": 7.5,
+    "bottom_d": 12.0,
+    "w_at_mouth": 8.62,
+    "w_at_bottom": 13.12,
+    "block_w": 20.0,
+    "side_wall_min": 3.44,
+    "behind_bottom": 1.0,
+    "z": [
+     280,
+     318
+    ],
+    "flare": [
+     [
+      280.0,
+      1.2
+     ],
+     [
+      281.0,
+      0.8
+     ],
+     [
+      282.0,
+      0.4
+     ]
+    ]
+   },
+   "gap": 0.5
   }
  ],
  "tongue": {
-  "solids": 1,
+  "solids": 2,
   "gap": [
    0.15,
    0.4
+  ],
+  "thick": [
+   0.95,
+   3.0
   ]
  },
  "shorts_flange": {
@@ -307,6 +451,79 @@
    ]
   }
  ],
+ "shell_walls": {
+  "head_back": [
+   4,
+   4
+  ],
+  "head_front": [
+   4,
+   4
+  ],
+  "rings_back": 10,
+  "rings_front": 24,
+  "windows_filled": 13,
+  "crest": [
+   4,
+   4
+  ],
+  "torso_cover_front": [
+   2,
+   3
+  ],
+  "torso_cover_back": [
+   2,
+   3
+  ],
+  "lid_plug_clip": {
+   "solids": 2,
+   "cover_inner_inset_at_top": 12.54
+  },
+  "t": [
+   1.2,
+   2.0,
+   2.83
+  ]
+ },
+ "shorts_notches": {
+  "points": 16,
+  "notch_half_w": [
+   5.3,
+   6.4
+  ]
+ },
+ "teardrops": {
+  "torso_frame": {
+   "up": "+z",
+   "teardrops": 12,
+   "kept_round": 0
+  },
+  "neck_yoke": {
+   "up": "+z",
+   "teardrops": 3,
+   "kept_round": 0
+  },
+  "head_back": {
+   "up": "+x",
+   "teardrops": 20,
+   "kept_round": 0
+  },
+  "head_front": {
+   "up": "+x",
+   "teardrops": 2,
+   "kept_round": 0
+  },
+  "ear_L": {
+   "up": "-y",
+   "teardrops": 1,
+   "kept_round": 0
+  },
+  "ear_R": {
+   "up": "+y",
+   "teardrops": 1,
+   "kept_round": 0
+  }
+ },
  "written": [
   "torso_frame",
   "electronics_shelf",

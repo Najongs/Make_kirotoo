@@ -26,17 +26,42 @@ Assembly durability (owner 2026-11-27 after the first prints: joints broke while
   * nod crank redrawn on the XL430 horn (pad to the horn face, centre 9, 4 x M2 x 5 on PCD 16 at 0 / 90 / 180 /
     270 deg, counterbores 4.4); rods' pin holes 3.2 -> 3.4
   * hip yaw servos: + the case holes 3 / 4 (13 / 14) on the outer side wall (pad over the wall window)
+
+Second pass (2026-11-27, coarse print: walls >= 2, features >= 3, gaps >= 0.4)
+  * shell walls 1.2 -> SHELL_T 2.0, grown inward, outside unchanged (shell_walls): head back / front box shell, back
+    plate, crest, ear cups (rim + lid), shirt covers (box shell + shoulder band); the 45 deg stepped rings (head back
+    chamfer, face bevel) get BEV_T 2.83 radial = 2.0 normal; the face plate is 0.2 smaller per side so the two rim rings
+    keep FACE_GAP 0.4 to it (was 0.2). Things on the old inner faces follow: seam tabs 0.8 inward, seam tongue 0.95 ->
+    3.0 thick with 0.4 under the front top wall, 684 seats r 4.5 through the new side-wall layer, amp board 0.8 up,
+    lid plug clipped to the new cover inside. Obsolete hook windows filled (ear hook slots, crest slots, seam bottom
+    window); nod rod slot y 19.5 -> 19.4 (0.4 / 0.5 to the rod). Shorts stay 1.2 (they set the hip pitch limit).
+  * shirt cover dovetail (no screws, owner): rail neck 7 at d 7 -> tip 11.5 at d 11.5 (depth 3 -> 4.5), pedestal 10
+    wide with a 1 mm root chamfer, gap 0.5 per face, channel block 20 (+ 1 mm root chamfers) with side walls >= 3.4,
+    3 mm stepped entry flare at the channel bottom; rails moved to x 15.5 / -23.5 (block clear of the shoulder slot and
+    the cover seam); shorts flange notches c +- 5.3 -> +- 6.4
+  * horizontal holes in print orientation -> teardrops pointing up (teardrops, last pass)
 """
 import os, sys, json, math
 import numpy as np
+import build, build4
 import build21_head as BH
 from build21_head import *          # noqa  (build20 names)
 import build14 as B14
 
 SNAP_EXTRA = 0.1            # (ear hooks only; build16 drops them)
 TONGUE_GAP = 0.4
+TONGUE_T = 3.0              # head seam tongue thickness (was 0.95)
 SHORTS_GAP = 0.4            # shorts flange hole -> frame wall, per side
-DOVE_GAP = 0.4              # cover channel -> frame rail, per face (a loose guide: the lid screws hold the covers)
+DOVE_GAP = 0.5              # cover channel -> frame rail, per face (a loose guide: the lid screws hold the covers)
+SHELL_T = 2.0               # head / crest / ear cup / shirt cover walls (build6.T 1.2), grown inward, outside kept
+BEV_T = SHELL_T * math.sqrt(2)   # radial width of the 45 deg stepped rings (head back chamfer, face bevel) -> normal 2.0
+FACE_GAP = 0.4              # face plate outline -> face rim, per side (was 0.2): plate 0.2 smaller per side
+# shirt cover dovetail (owner 2026-11-27: no extra screws, a bigger slide for a coarse print), d = |y| - 60
+RAIL_X = {"front": 15.5, "back": -23.5}   # was 12 / -22: the 22 mm channel block clears the shoulder slot (x <= 4) and
+                                           # the cover seam (x -11.75); the pedestal clears the wall windows (x 22, -31)
+DV_NECK_D, DV_DEPTH, DV_NECK_HW, DV_SLOPE = 7.0, 4.5, 3.5, 0.5   # neck 7 wide at d 7, tip 11.5 wide at d 11.5
+DV_BLOCK_HW = 10.0          # channel block half width (side wall 3.4 at the groove bottom)
+DV_FLARE = ((280.0, 1.2), (281.0, 0.8), (282.0, 0.4))   # channel entry flare: 1 mm steps (z0, offset of the groove)
 LID_BACK_GAP = 0.4          # lid plug back edge (x -65) -> frame back wall face / OpenCR channel
 GAP = 0.4                   # coarse print: per side for inserts / sliding parts
 TAP_R, CLR_R, CB_R = 1.1, 1.45, 2.9   # M2.5 tapping screw: printed pilot 2.2 (drill 2.2 after printing), clearance 2.9, head 5.8
@@ -61,39 +86,69 @@ def _hook(ins, flex, root, catch, face, w0, w1, rgb, t=B14.HT_, b=B14.HB):
         return _HOOK0(ins, flex, root, catch, face - sf * SNAP_EXTRA, w0, w1, rgb, t=t, b=b)
     if ins == "+x" and flex[1] == "y":       # head seam side: tab of the back part under the front part's side wall
         s = sf
-        y_out = s * (B14.HW - B14.T - GAP)
-        y_in = s * (B14.HW - B14.T - GAP - 7.0)
+        y_out = s * (B14.HW - SHELL_T - GAP)
+        y_in = s * (B14.HW - SHELL_T - GAP - 7.0)
         zc = (w0 + w1) / 2
         rec["now"] = "M2.5 x 10 through the front side wall"
-        ya, yb = sorted((y_in, s * (B14.HW - B14.T + 0.1)))
+        ya, yb = sorted((y_in, s * (B14.HW - SHELL_T + 0.1)))
         yc, yd = sorted((y_in, y_out))
         return [B14.box((-3, ya, zc - 4.5), (B14.XS, yb, zc + 4.5), rgb),
-                B14.poly("z", zc - 4.5, zc + 4.5, [B14.W(x=-3, y=y_in), B14.W(x=-3, y=s * (B14.HW - B14.T + 0.1)),   # 45 deg
-                                                   B14.W(x=-3 - abs(y_in - s * (B14.HW - B14.T + 0.1)),             # under
-                                                         y=s * (B14.HW - B14.T + 0.1))], rgb),                     # the tab
+                B14.poly("z", zc - 4.5, zc + 4.5, [B14.W(x=-3, y=y_in), B14.W(x=-3, y=s * (B14.HW - SHELL_T + 0.1)),  # 45 deg
+                                                   B14.W(x=-3 - abs(y_in - s * (B14.HW - SHELL_T + 0.1)),            # under
+                                                         y=s * (B14.HW - SHELL_T + 0.1))], rgb),                    # the tab
                 PROFI("y", yc, yd, rrect(zc - 4.5, zc + 4.5, B14.XS - 0.5, SEAM_X + 3.5, 0), [], rgb, [(zc, SEAM_X, TAP_R)])]
     rec["now"] = {"-z": "lid: M2.5 into the frame wall pads" if abs(abs(face) - 54.85) < 0.01 else "crest: glued",
                   "+x": "head seam bottom: removed", "-x": "face plate: M2.5 into head front bosses"}.get(ins, "?")
     return []
 
 
-def _cover_channel(s, c, rgb):
-    """build14.cover_channel with DOVE_GAP between the female dovetail and the frame rail on every face"""
-    W, poly, box = B14.W, B14.poly, B14.box
-    g = DOVE_GAP
+def _frame_rail(s, c):
+    """build14.frame_rail made bigger (owner 2026-11-27): pedestal 10 wide d 0 .. DV_NECK_D with a 1 mm 45 deg root
+    chamfer on the wall, dovetail neck 2 DV_NECK_HW at d DV_NECK_D -> tip at d + DV_DEPTH (flank slope DV_SLOPE),
+    z 270 .. 316 (the rail top is the covers' stop), one 45 deg wedge under it down to the wall (prints +z)"""
+    W, poly = B14.W, B14.poly
     y = lambda d: s * (60.0 + d)
-    # rail (build14.frame_rail): face d 8.8, tip d 11.8, flank |x - c| 2.5 -> 4.0 over d 8.8 -> 11.8;
-    # channel flank = rail flank moved g along its outward normal (0.894, -0.447)
-    a0, a1 = 8.8 + g, 11.8 + g
-    fx = lambda d: 2.5 + 0.894 * g + (d - 8.8 + 0.447 * g) * 0.5
-    C = [W(x=c - 7, y=y(a0)), W(x=c - fx(a0), y=y(a0)), W(x=c - fx(a1), y=y(a1)), W(x=c + fx(a1), y=y(a1)),
-         W(x=c + fx(a0), y=y(a0)), W(x=c + 7, y=y(a0)), W(x=c + 7, y=y(13.8)), W(x=c - 7, y=y(13.8))]
-    out = [poly("z", 280, 316, C, rgb),
-           box((c - 7, min(y(a0), y(13.8)), 316), (c + 7, max(y(a0), y(13.8)), 318), rgb)]
-    for x0, x1 in ((c - 7, c - 4.5), (c + 4.5, c + 7)):
-        out.append(poly("x", x0, x1, [W(y=y(a0), z=280), W(y=y(13.8), z=280), W(y=y(13.8), z=275.2 + (a0 - 9.0))], rgb))
-    LOG.setdefault("dovetail", []).append(dict(side=s, x=c, face_d=round(a0, 2), tip_d=round(a1, 2),
-                                               flank_at_face=round(fx(a0), 3), flank_at_tip=round(fx(a1), 3)))
+    n0, n1 = DV_NECK_D, DV_NECK_D + DV_DEPTH
+    w0, w1 = DV_NECK_HW, DV_NECK_HW + DV_SLOPE * DV_DEPTH
+    return [poly("z", 270, 316, [W(x=c - 6, y=y(0)), W(x=c + 6, y=y(0)), W(x=c + 5, y=y(1)), W(x=c + 5, y=y(n0)),
+                                 W(x=c - 5, y=y(n0)), W(x=c - 5, y=y(1))], PRINT),
+            poly("z", 270, 316, [W(x=c - w0, y=y(n0)), W(x=c + w0, y=y(n0)), W(x=c + w1, y=y(n1)), W(x=c - w1, y=y(n1))],
+                 PRINT),
+            poly("x", c - 6, c + 6, [W(y=y(0), z=270), W(y=y(n1), z=270), W(y=y(0), z=270 - n1)], PRINT)]
+
+
+def _cover_channel(s, c, rgb):
+    """female dovetail block for _frame_rail with DOVE_GAP on every face; the cover wall inner face is at d 15 -
+    SHELL_T = 13, the block runs 0.4 into it with a 1 mm 45 deg root chamfer. The bottom 3 mm is a stepped entry flare
+    (DV_FLARE: groove flanks out by 1.2 / 0.8 / 0.4, bottom deeper by up to 0.8) so the cover finds the rail top;
+    closed top 316 .. 318 sits on the rail top; 45 deg gussets under the side walls stay 0.4 clear of the rail"""
+    W, poly, box = B14.W, B14.poly, B14.box
+    g, hw = DOVE_GAP, DV_BLOCK_HW
+    y = lambda d: s * (60.0 + d)
+    a0, a1 = DV_NECK_D + g, DV_NECK_D + DV_DEPTH + g        # mouth face, groove bottom
+    dw = 15.0 - SHELL_T                                      # cover wall inner face (d)
+    dt = dw + 0.4
+    k = 1.0 / math.sqrt(1.0 + DV_SLOPE ** 2)                 # flank normal (k, -DV_SLOPE k)
+    fx = lambda d, e=0.0: DV_NECK_HW + (g + e) * k + (d - DV_NECK_D + (g + e) * DV_SLOPE * k) * DV_SLOPE
+
+    def loop(e):
+        b = a1 + min(e, dw - 0.2 - a1)
+        return [W(x=c - hw, y=y(a0)), W(x=c - fx(a0, e), y=y(a0)), W(x=c - fx(b, e), y=y(b)), W(x=c + fx(b, e), y=y(b)),
+                W(x=c + fx(a0, e), y=y(a0)), W(x=c + hw, y=y(a0)), W(x=c + hw, y=y(dw - 1)), W(x=c + hw + 1, y=y(dw)),
+                W(x=c + hw + 1, y=y(dt)), W(x=c - hw - 1, y=y(dt)), W(x=c - hw - 1, y=y(dw)), W(x=c - hw, y=y(dw - 1))]
+    zs = [z for z, _ in DV_FLARE] + [DV_FLARE[-1][0] + 1.0]
+    out = [poly("z", z0, z1, loop(e), rgb) for (z0, e), z1 in zip(DV_FLARE, zs[1:])]
+    out.append(poly("z", zs[-1], 316, loop(0.0), rgb))
+    out.append(box((c - hw - 1, min(y(a0), y(dt)), 316), (c + hw + 1, max(y(a0), y(dt)), 318), rgb))
+    rail_hw = DV_NECK_HW + DV_SLOPE * DV_DEPTH
+    for x0, x1 in ((c - hw, c - rail_hw - 0.65), (c + rail_hw + 0.65, c + hw)):
+        out.append(poly("x", x0, x1, [W(y=y(a0), z=280), W(y=y(dt), z=280), W(y=y(dt), z=280 - (dt - a0))], rgb))
+    LOG.setdefault("dovetail", []).append(dict(
+        side=s, x=c, rail=dict(neck_d=DV_NECK_D, tip_d=DV_NECK_D + DV_DEPTH, neck_w=2 * DV_NECK_HW, tip_w=2 * rail_hw,
+                               pedestal_w=10.0, z=(270, 316)),
+        channel=dict(mouth_d=round(a0, 2), bottom_d=round(a1, 2), w_at_mouth=round(2 * fx(a0), 2),
+                     w_at_bottom=round(2 * fx(a1), 2), block_w=2 * hw, side_wall_min=round(hw - fx(a1), 2),
+                     behind_bottom=round(dw - a1, 2), z=(280, 318), flare=[list(f) for f in DV_FLARE]), gap=g))
     return out
 
 
@@ -105,15 +160,19 @@ import build16 as B16, build19 as B19, build20 as B20, x430_holes as X
 
 
 def tongue(links):
-    """head seam tongue (back part, x XS .. XS + 6): top face TOP_IN - 0.15 -> TOP_IN - TONGUE_GAP"""
+    """head seam tongue (back part x 5 .. XS + 6, y +-10, under the top wall): 0.95 -> TONGUE_T thick; the part under
+    the front part's top wall (now SHELL_T thick, inner face ZH + HH - SHELL_T) gets its top TONGUE_GAP below it
+    (was 0.15), the back half runs 0.3 into its own top wall"""
     hb = links["head"]["parts"]["head_back"]
-    top0 = B14.TOP_IN - 0.15
+    top = B14.ZH + B14.HH - SHELL_T
     n = 0
     for i, x in enumerate(hb):
-        if x[0] == "rprism" and x[1][0] == "z" and abs(x[1][2] - top0) < 1e-6:
+        if x[0] == "rprism" and x[1][0] == "z" and abs(x[1][1] - (B14.TOP_IN - 1.35)) < 1e-6:
             a = x[1]
-            hb[i] = (x[0], (a[0], a[1], B14.TOP_IN - TONGUE_GAP, a[3], a[4], a[5]), x[2]); n += 1
-    return dict(solids=n, gap=(0.15, TONGUE_GAP))
+            hi = top + 0.3 if a[2] > B14.TOP_IN else top - TONGUE_GAP
+            hb[i] = (x[0], (a[0], top - TONGUE_GAP - TONGUE_T, hi, a[3], a[4], a[5]), x[2]); n += 1
+    assert n == 2, n
+    return dict(solids=n, gap=(0.15, TONGUE_GAP), thick=(round(1.35 - TONGUE_GAP, 2), TONGUE_T))
 
 
 def shorts_flange(links):
@@ -341,14 +400,247 @@ def yaw_side_screws(links):
     return rec
 
 
+# ---------------------------------------------------------------- shell walls 1.2 -> 2.0 (2026-11-27, second pass)
+QUAD = ((1, 1, 0, 90), (-1, 1, 90, 180), (-1, -1, 180, 270), (1, -1, 270, 360))      # build6.box_shell corners
+
+
+def _thicken_shell(ss, axis, cu, cv, A, B, R, t1=SHELL_T, t0=B14.T, layer_holes=None):
+    """build6.box_shell walls t0 -> t1 grown inward (outer surface kept): corner arcs r_in R - t0 -> R - t1, flat
+    panels get their inner face moved by t1 - t0 (outline, cut-outs, holes kept). layer_holes(panel) may return
+    holes for the added layer; then the panel stays and the layer is a separate solid with those holes"""
+    from shapes import annulus_sector
+    iu, iv = build.UVI[axis]
+    nu, nv = "xyz"[iu], "xyz"[iv]
+    corners = []
+    for fu, fv, s0, s1 in QUAD:
+        c = (cu + fu * (A - R), cv + fv * (B - R))
+        corners.append((np.asarray(annulus_sector(*c, R - t0, R, s0, s1)), annulus_sector(*c, R - t1, R, s0, s1)))
+    spans = [(nu, cu + A - t0, cu + A, cu + A - t1, cu + A), (nu, cu - A, cu - A + t0, cu - A, cu - A + t1),
+             (nv, cv + B - t0, cv + B, cv + B - t1, cv + B), (nv, cv - B, cv - B + t0, cv - B, cv - B + t1)]
+    out, nc, npn = [], 0, 0
+    for s in ss:
+        if s[0] == "rprism":
+            a = s[1]
+            if a[0] == axis and not a[4]:
+                hit = [new if np.allclose(old, np.asarray(a[3])) else new[::-1] for old, new in corners
+                       if len(old) == len(a[3]) and (np.allclose(old, np.asarray(a[3])) or np.allclose(old[::-1], np.asarray(a[3])))]
+                if hit:
+                    out.append(("rprism", (a[0], a[1], a[2], hit[0], a[4], a[5]), s[2])); nc += 1
+                    continue
+            hit = [sp for sp in spans if a[0] == sp[0] and abs(a[1] - sp[1]) < 1e-6 and abs(a[2] - sp[2]) < 1e-6]
+            if hit:
+                n_, o0, o1, b0, b1 = hit[0]
+                npn += 1
+                lh = layer_holes(s) if layer_holes else None
+                if lh is None:
+                    out.append(("rprism", (a[0], b0, b1, a[3], a[4], a[5]), s[2]))
+                else:
+                    l0, l1 = (b0, o0) if abs(b0 - o0) > 1e-9 else (o1, b1)
+                    out += [s, ("rprism", (a[0], l0, l1, a[3], a[4], lh), s[2])]
+                continue
+        out.append(s)
+    ss[:] = out
+    return nc, npn
+
+
+def _thicken_rings(ss, axis, x0, x1, t_of):
+    """build6.ring steps (rounded-rect rings along axis between x0 .. x1): inner loop offset T -> t_of(a0, a1, half_u,
+    half_v); the outside (the 45 deg stepped chamfer / bevel) is kept"""
+    from shapes import orient
+    n = 0
+    for i, s in enumerate(ss):
+        if s[0] != "rprism" or s[1][0] != axis or len(s[1][4]) != 1 or not (x0 - 1e-6 <= s[1][1] and s[1][2] <= x1 + 1e-6):
+            continue
+        a = s[1]
+        us, vs = [p[0] for p in a[3]], [p[1] for p in a[3]]
+        if len(a[3]) != 4 or abs(min(p[0] for p in a[4][0]) - min(us) - B14.T) > 1e-6:
+            continue
+        t = t_of(a[1], a[2], (max(us) - min(us)) / 2, (max(vs) - min(vs)) / 2)
+        inner = rrect(min(us) + t, max(us) - t, min(vs) + t, max(vs) - t, max(a[3][0][2] - t, 0.5))
+        ss[i] = ("rprism", (a[0], a[1], a[2], a[3], [orient(inner, False)], a[5]), s[2]); n += 1
+    return n
+
+
+def shell_walls(links):
+    """head (back / front), crest, ear cups and shirt covers: shell walls T 1.2 -> SHELL_T 2.0, inward. Stepped 45 deg
+    rings get BEV_T radial (2.0 normal), the two rings round the face plate keep FACE_GAP to it (plate 0.2 smaller);
+    obsolete hook windows in the walls are filled (ear hook slots, crest slots, seam bottom window); what sat on an
+    inner face moves with it (684 seats get their r 4.5 through the new layer, amp board 0.8 up)"""
+    H, E, T_ = links["head"]["parts"], links["ears"]["parts"], links["torso"]["parts"]
+    hb, hf = H["head_back"], H["head_front"]
+    HW, HH, HR, ZH, HD = B14.HW, B14.HH, B14.HR, B14.ZH, B14.HD
+    rec = {}
+    ex, ez = B16.EAR_C
+
+    def seat(s):        # head_back side walls: ear axle hole r 2.5 -> 684 seat r 4.5 through the added layer
+        hs = s[1][5]
+        return [(h[0], h[1], 4.5) if abs(h[0] - ez) < 1e-6 and abs(h[1] - ex) < 1e-6 else h for h in hs] \
+            if any(abs(h[0] - ez) < 1e-6 and abs(h[1] - ex) < 1e-6 for h in hs) else None
+    rec["head_back"] = _thicken_shell(hb, "x", 0.0, ZH, HW, HH, HR, layer_holes=seat)
+    rec["head_front"] = _thicken_shell(hf, "x", 0.0, ZH, HW, HH, HR)
+    assert rec["head_back"] == (4, 4) and rec["head_front"] == (4, 4), rec
+    # back plate inside the chamfer
+    n = 0
+    for i, s in enumerate(hb):
+        if s[0] == "rprism" and s[1][0] == "x" and abs(s[1][1] + HD) < 1e-6 and abs(s[1][2] - (-HD + B14.T)) < 1e-6:
+            a = s[1]; hb[i] = ("rprism", (a[0], a[1], -HD + SHELL_T, a[3], a[4], a[5]), s[2]); n += 1
+    assert n == 1
+    # face plate 0.2 smaller per side, rim rings keep FACE_GAP to it
+    fp = H["face_plate"]
+    a = fp[0][1]
+    fa, fb, fr = B14.FA - 0.2, B14.FB - 0.2, B14.FR - 0.2
+    fp[0] = PROFI("x", a[1], a[2], rrect(-fa, fa, B14.FZ - fb, B14.FZ + fb, fr), a[4], fp[0][2], a[5])
+
+    def t_front(x0, x1, hu, hv):
+        if x1 <= B14.FX + 1e-6:
+            return BEV_T
+        return max(B14.T, min(BEV_T, hu - fa - FACE_GAP, hv - fb - FACE_GAP))
+    rec["rings_back"] = _thicken_rings(hb, "x", -HD, -HD + B14.CH, lambda *a: BEV_T)
+    rec["rings_front"] = _thicken_rings(hf, "x", B14.XB, HD, t_front)
+    assert rec["rings_back"] == B14.CH and rec["rings_front"] == B14.BEV, rec
+    # obsolete windows: ear hook slots (back side walls), crest hook slots (top walls), seam bottom window (front floor);
+    # nod rod slot in the back floor y 19.5 -> 19.4 (rod y 19.8 .. 22.8: 0.4 / 0.5 per side)
+    filled = 0
+    top_z, bot_z = ZH + HH - SHELL_T, ZH - HH + SHELL_T
+    for part, ss in (("head_back", hb), ("head_front", hf)):
+        for i, s in enumerate(ss):
+            if s[0] != "rprism" or not s[1][4]:
+                continue
+            a = s[1]
+            side = a[0] == "y" and min(abs(a[1]), abs(a[2])) >= HW - SHELL_T - 1e-6 and part == "head_back"
+            top = a[0] == "z" and abs(a[1] - top_z) < 1e-6
+            floor = a[0] == "z" and abs(a[2] - bot_z) < 1e-6 and part == "head_front"
+            if side or top or floor:
+                filled += len(a[4])
+                ss[i] = ("rprism", (a[0], a[1], a[2], a[3], [], a[5]), s[2])
+            elif a[0] == "z" and abs(a[2] - bot_z) < 1e-6:
+                ss[i] = ("rprism", (a[0], a[1], a[2], a[3], [[(p[0], 19.4 if abs(p[1] - 19.5) < 1e-6 else p[1], p[2])
+                                                                for p in l] for l in a[4]], a[5]), s[2])
+    rec["windows_filled"] = filled
+    H["amp_MAX98357A"] = [B16.translate(x, (0, 0, SHELL_T - B14.T)) for x in H["amp_MAX98357A"]]
+    # crest (glued on the head top)
+    cr = H["crest"]
+    cu, A_ = (B14.XB - 45.0) / 2, (B14.XB + 45.0) / 2
+    rec["crest"] = _thicken_shell(cr, "z", cu, 0.0, A_, 27.0, 15.0)
+    for i, s in enumerate(cr):
+        if s[0] == "rprism" and s[1][0] == "z" and abs(s[1][1] - (B14.CZ1 - B14.T)) < 1e-6:
+            a = s[1]; cr[i] = ("rprism", (a[0], B14.CZ1 - SHELL_T, a[2], a[3], a[4], a[5]), s[2])
+    # ear cups: rim r 28.8 .. 30 -> 28 .. 30, lid 1.2 -> 2.0 (inward)
+    from shapes import annulus_sector
+    old = np.asarray(annulus_sector(ez, 0, 30 - B14.T, 30, 8, 352))
+    for side, sg in (("L", 1), ("R", -1)):
+        ear, n = E[f"ear_{side}"], 0
+        for i, s in enumerate(ear):
+            a = s[1]
+            if s[0] != "rprism" or a[0] != "y":
+                continue
+            if len(a[3]) == len(old) and np.allclose(old, np.asarray(a[3])):
+                ear[i] = ("rprism", (a[0], a[1], a[2], annulus_sector(ez, 0, 30 - SHELL_T, 30, 8, 352), a[4], a[5]), s[2])
+                n += 1
+            elif abs(a[2] - a[1] - B14.T) < 1e-6 and abs(max(abs(a[1]), abs(a[2])) - (HW + B14.EAR_T + 0.5)) < 1e-6:
+                lo, hi = (a[2] - SHELL_T, a[2]) if sg > 0 else (a[1], a[1] + SHELL_T)
+                ear[i] = ("rprism", (a[0], lo, hi, a[3], a[4], a[5]), s[2]); n += 1
+        assert n == 2, (side, n)
+    # shirt covers: box shell + shoulder band, lid plug clipped to the new inside at the top
+    for half in ("front", "back"):
+        rec[f"torso_cover_{half}"] = _thicken_shell(T_[f"torso_cover_{half}"], "z", B16.CU, 0.0, B16.CA, B16.CY, B16.CR_)
+        assert rec[f"torso_cover_{half}"] == (2, 3), rec
+    saved, B16.T = B16.T, SHELL_T
+    try:
+        bands = dict(zip(("front", "back"), B16.shoulder_lofts()))
+        do, di = B16.top_inset()
+    finally:
+        B16.T = saved
+    for half, band in bands.items():
+        cv = T_[f"torso_cover_{half}"]
+        k = [i for i, s in enumerate(cv) if s[0] == "loft"]
+        assert len(k) == 1
+        cv[k[0]] = band
+    clip = B16.ccw(B16.cover_outline(di + 0.5))
+    lid, n = T_["lid"], 0
+    for i, x in enumerate(lid):
+        if x[0] == "rprism" and x[1][0] == "z" and x[1][1] >= 329.9 and x[1][2] <= 336.4 and len(x[1][3]) >= 8:
+            a = x[1]
+            poly = B16.sh_clip([(p[0], p[1]) for p in a[3]], clip)
+            lid[i] = PROFI("z", a[1], a[2], [(u, v, 0) for u, v in poly], a[4], x[2], a[5]); n += 1
+    rec["lid_plug_clip"] = dict(solids=n, cover_inner_inset_at_top=round(di, 2))
+    rec["t"] = (B14.T, SHELL_T, round(BEV_T, 2))
+    return rec
+
+
+def shorts_notches(links):
+    """shorts flange notches over the rails (the shorts drop in from above before the covers): x c +- 5.3 ->
+    c +- (rail root 6 + SHORTS_GAP); depth |y| 72.2 stays (rail tip d 11.5 -> 0.7 clear)"""
+    sh = links["torso"]["parts"]["shorts"]
+    hw, n = 6.0 + SHORTS_GAP, 0
+
+    def fx(p):
+        for c in RAIL_X.values():
+            if abs(abs(p[0] - c) - 5.3) < 1e-6:
+                return c + math.copysign(hw, p[0] - c)
+        return p[0]
+    for i, x in enumerate(sh):
+        if x[0] == "rprism" and x[1][0] == "z" and x[1][4]:
+            a = x[1]
+            inn = [[(fx(p), p[1]) + tuple(p[2:]) for p in l] for l in a[4]]
+            n += sum(fx(p) != p[0] for l in a[4] for p in l)
+            sh[i] = (x[0], (a[0], a[1], a[2], a[3], inn, a[5]), x[2])
+    assert n == 16, n
+    return dict(points=n, notch_half_w=(5.3, hw))
+
+
+def teardrops(links, names):
+    """holes whose axis lies across the part's print-up axis -> teardrop loops with the 45 deg point up (coarse print:
+    no sagging roof). A hole whose point would leave the outline or come within 0.3 of another hole / cut-out stays
+    round. Runs last (earlier passes find holes by radius)."""
+    from matplotlib.path import Path
+    from shapes import orient
+    table = {r["part"]: r for r in json.load(open(os.path.join(PART_DIR, "parts.json")))}
+    rec = {}
+    for ln, L in links.items():
+        for pn, ss in L["parts"].items():
+            if pn not in names:
+                continue
+            up = UP.get(pn, (table[pn]["up"],))[0]
+            k, sg = "xyz".index(up[1]), (1 if up[0] == "+" else -1)
+            n = kept = 0
+            for i, s in enumerate(ss):
+                if s[0] != "rprism" or s[1][0] == up[1] or not s[1][5]:
+                    continue
+                a = s[1]
+                iu, iv = build.UVI[a[0]]
+                tip = (sg, 0.0) if iu == k else (0.0, sg)
+                sp = build4.sampled(s)
+                outer = Path(np.asarray(sp[1][3])[:, :2])
+                inn = [Path(np.asarray(l)[:, :2]) for l in (sp[1][5] if sp[0] == "prismh" else [])]
+                holes, loops = [], list(a[4])
+                for j, h in enumerate(a[5]):
+                    td = np.asarray(B16.teardrop(h[0], h[1], h[2], tip))[:, :2]
+                    ok = outer.contains_points(td, radius=-0.3).all() and outer.contains_points(td, radius=0.3).all()
+                    ok &= all(not p.contains_points(td, radius=0.3).any() and not p.contains_points(td, radius=-0.3).any()
+                              for p in inn)
+                    ok &= all(np.hypot(td[:, 0] - o[0], td[:, 1] - o[1]).min() > o[2] + 0.3
+                              for jj, o in enumerate(a[5]) if jj != j)
+                    if ok:
+                        loops.append(orient([(u, v, 0) for u, v in td], False)); n += 1
+                    else:
+                        holes.append(h); kept += 1
+                ss[i] = ("rprism", (a[0], a[1], a[2], a[3], loops, holes), s[2])
+            if n or kept:
+                rec[pn] = dict(up=up, teardrops=n, kept_round=kept)
+    return rec
+
+
 def build_model():
     LOG.clear()
-    saved = (B14.hook, B14.cover_channel)
-    B14.hook, B14.cover_channel = _hook, _cover_channel
+    saved = (B14.hook, B14.cover_channel, B14.frame_rail, dict(B14.RAIL_X))
+    B14.hook, B14.cover_channel, B14.frame_rail = _hook, _cover_channel, _frame_rail
+    B14.RAIL_X.update(RAIL_X)
     try:
         links, joints, fasteners = BH.build_model()
     finally:
-        B14.hook, B14.cover_channel = saved
+        B14.hook, B14.cover_channel, B14.frame_rail = saved[:3]
+        B14.RAIL_X.update(saved[3])
     LOG["tongue"] = tongue(links)
     LOG["shorts_flange"] = shorts_flange(links)
     LOG["lid_back"] = lid_back(links)
@@ -359,7 +651,16 @@ def build_model():
     LOG["yoke_screws"] = yoke(links)
     LOG["nod_crank"] = nod_crank_xl(links)
     LOG["yaw_side_screws"] = yaw_side_screws(links)
+    LOG["shell_walls"] = shell_walls(links)
+    LOG["shorts_notches"] = shorts_notches(links)
+    LOG["teardrops"] = teardrops(links, body_names())
     return links, joints, fasteners
+
+
+def body_names():
+    """torso / head printed parts this file writes (rows of out20/print_parts/parts.json)"""
+    return [r["part"] for r in json.load(open(os.path.join(PART_DIR, "parts.json")))
+            if r["link"] in BODY_LINKS and not r["part"].startswith("arm_") and r["part"] not in FROZEN + GONE]
 
 
 GONE = ("shelf_pins",)        # now steel dowels (shelf_dowels_3mm)
@@ -405,8 +706,7 @@ def export_body(links, names):
 
 if __name__ == "__main__":
     links, joints, fasteners = build_model()
-    names = [r["part"] for r in json.load(open(os.path.join(PART_DIR, "parts.json")))
-             if r["link"] in BODY_LINKS and not r["part"].startswith("arm_") and r["part"] not in FROZEN + GONE]
+    names = body_names()
     done = export_body(links, names)
     LOG["written"] = done
     LOG["missing"] = sorted(set(names) - set(done))

@@ -3,9 +3,9 @@
   "part": "torso_frame",
   "link": "torso",
   "up": "+z",
-  "size_mm": "121x144x109",
-  "support_mm2": 47,
-  "volume_cm3": 224.6,
+  "size_mm": "121x143x109",
+  "support_mm2": 104,
+  "volume_cm3": 225.7,
   "note": "골반판을 바닥에. 골반·측벽·뒷벽·레일이 한 부품. 골반판 윗면 포켓, 측벽 창",
   "colours": [
    [
@@ -42,7 +42,7 @@
   "up": "-z",
   "size_mm": "143x130x8",
   "support_mm2": 0,
-  "volume_cm3": 57.1,
+  "volume_cm3": 56.9,
   "note": "흰색. 캡을 바닥에(걸쇠가 위로). 스위치·잭 구멍, 배기 슬롯",
   "colours": [
    [
@@ -57,8 +57,8 @@
   "link": "torso",
   "up": "+z",
   "size_mm": "81x150x99",
-  "support_mm2": 0,
-  "volume_cm3": 35.3,
+  "support_mm2": 31,
+  "volume_cm3": 58.9,
   "note": "흰색. 세워서(어깨 라운드가 위로). 브림 권장",
   "colours": [
    [
@@ -73,8 +73,8 @@
   "link": "torso",
   "up": "+z",
   "size_mm": "81x150x99",
-  "support_mm2": 0,
-  "volume_cm3": 33.3,
+  "support_mm2": 30,
+  "volume_cm3": 55.6,
   "note": "흰색. 세워서(어깨 라운드가 위로). 브림 권장",
   "colours": [
    [
@@ -90,7 +90,7 @@
   "up": "-z",
   "size_mm": "163x150x32",
   "support_mm2": 0,
-  "volume_cm3": 31.1,
+  "volume_cm3": 30.9,
   "note": "남색. 플랜지(윗면)를 바닥에. 아래 라운드가 위로 감",
   "colours": [
    [
@@ -106,7 +106,7 @@
   "up": "+z",
   "size_mm": "31x35x22",
   "support_mm2": 0,
-  "volume_cm3": 4.8,
+  "volume_cm3": 4.7,
   "note": "남색. 688 베어링 2개 손으로 밀어 넣고 고정제, M2.5 x 10 네 개로 뚜껑에",
   "colours": [
    [
@@ -394,7 +394,7 @@
   "up": "+x",
   "size_mm": "200x196x92",
   "support_mm2": 0,
-  "volume_cm3": 125.2,
+  "volume_cm3": 189.4,
   "note": "뒷면을 바닥에. 목 축 판·보강판·서보 패드·이음 걸쇠 포함",
   "colours": [
    [
@@ -410,7 +410,7 @@
   "up": "+x",
   "size_mm": "200x170x57",
   "support_mm2": 14,
-  "volume_cm3": 58.0,
+  "volume_cm3": 93.7,
   "note": "자른 면(뒤)을 바닥에, 브림 권장. 얼굴 테두리 경사, 얼굴판 걸림 바",
   "colours": [
    [
@@ -426,7 +426,7 @@
   "up": "-x",
   "size_mm": "149x119x12",
   "support_mm2": 0,
-  "volume_cm3": 31.9,
+  "volume_cm3": 31.7,
   "note": "앞면을 바닥에(걸쇠·카메라 핀이 위로)",
   "colours": [
    [
@@ -506,7 +506,7 @@
   "up": "-z",
   "size_mm": "91x54x18",
   "support_mm2": 0,
-  "volume_cm3": 10.9,
+  "volume_cm3": 18.1,
   "note": "지붕을 바닥에(걸쇠가 위로)",
   "colours": [
    [
@@ -682,7 +682,7 @@
   "up": "-y",
   "size_mm": "60x60x22",
   "support_mm2": 0,
-  "volume_cm3": 14.5,
+  "volume_cm3": 19.4,
   "note": "덮개를 바닥에(걸쇠가 위로)",
   "colours": [
    [
@@ -730,7 +730,7 @@
   "up": "+y",
   "size_mm": "60x60x22",
   "support_mm2": 0,
-  "volume_cm3": 14.5,
+  "volume_cm3": 19.4,
   "note": "덮개를 바닥에(걸쇠가 위로)",
   "colours": [
    [
