@@ -496,32 +496,44 @@
   "torso_frame": {
    "up": "+z",
    "teardrops": 12,
-   "kept_round": 0
+   "flat_top": 2,
+   "kept_round": 0,
+   "min_wall": 1.65
   },
   "neck_yoke": {
    "up": "+z",
    "teardrops": 3,
-   "kept_round": 0
+   "flat_top": 2,
+   "kept_round": 0,
+   "min_wall": 2.0
   },
   "head_back": {
    "up": "+x",
-   "teardrops": 20,
-   "kept_round": 0
+   "teardrops": 16,
+   "flat_top": 2,
+   "kept_round": 4,
+   "min_wall": 2.04
   },
   "head_front": {
    "up": "+x",
    "teardrops": 2,
-   "kept_round": 0
+   "flat_top": 0,
+   "kept_round": 0,
+   "min_wall": 3.55
   },
   "ear_L": {
    "up": "-y",
    "teardrops": 1,
-   "kept_round": 0
+   "flat_top": 1,
+   "kept_round": 0,
+   "min_wall": 2.08
   },
   "ear_R": {
    "up": "+y",
    "teardrops": 1,
-   "kept_round": 0
+   "flat_top": 1,
+   "kept_round": 0,
+   "min_wall": 2.08
   }
  },
  "written": [

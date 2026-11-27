@@ -589,10 +589,23 @@ def shorts_notches(links):
     return dict(points=n, notch_half_w=(5.3, hw))
 
 
+def _seg_dist(P, Q):
+    """min distance from the points P (n, 2) to the closed polyline Q (m, 2)"""
+    A, B = Q, np.roll(Q, -1, axis=0)
+    d = B - A
+    t = np.clip(((P[:, None, :] - A[None]) * d[None]).sum(-1) / np.maximum((d * d).sum(-1), 1e-12)[None], 0, 1)
+    return float(np.linalg.norm(P[:, None, :] - (A[None] + t[..., None] * d[None]), axis=-1).min())
+
+
+def _loop_gap(P, Q):
+    return min(_seg_dist(P, Q), _seg_dist(Q, P))
+
+
 def teardrops(links, names):
     """holes whose axis lies across the part's print-up axis -> teardrop loops with the 45 deg point up (coarse print:
-    no sagging roof). A hole whose point would leave the outline or come within 0.3 of another hole / cut-out stays
-    round. Runs last (earlier passes find holes by radius)."""
+    no sagging roof). The point must leave min(SHELL_T, wall of the round hole) to the outline, to the cut-outs and to
+    the other holes; if the full point does not, it is cut flat at the highest level that does (flat top >= r + 0.3
+    above the centre, a short bridge); otherwise the hole stays round. Runs last (earlier passes find holes by radius)."""
     from matplotlib.path import Path
     from shapes import orient
     table = {r["part"]: r for r in json.load(open(os.path.join(PART_DIR, "parts.json")))}
@@ -603,31 +616,49 @@ def teardrops(links, names):
                 continue
             up = UP.get(pn, (table[pn]["up"],))[0]
             k, sg = "xyz".index(up[1]), (1 if up[0] == "+" else -1)
-            n = kept = 0
+            n = flat = kept = 0
+            walls = []
             for i, s in enumerate(ss):
                 if s[0] != "rprism" or s[1][0] == up[1] or not s[1][5]:
                     continue
                 a = s[1]
                 iu, iv = build.UVI[a[0]]
-                tip = (sg, 0.0) if iu == k else (0.0, sg)
+                tip = np.array((sg, 0.0) if iu == k else (0.0, sg))
                 sp = build4.sampled(s)
-                outer = Path(np.asarray(sp[1][3])[:, :2])
-                inn = [Path(np.asarray(l)[:, :2]) for l in (sp[1][5] if sp[0] == "prismh" else [])]
+                outer = np.asarray(sp[1][3])[:, :2]
+                inn = [np.asarray(l)[:, :2] for l in (sp[1][5] if sp[0] == "prismh" else [])]
                 holes, loops = [], list(a[4])
                 for j, h in enumerate(a[5]):
-                    td = np.asarray(B16.teardrop(h[0], h[1], h[2], tip))[:, :2]
-                    ok = outer.contains_points(td, radius=-0.3).all() and outer.contains_points(td, radius=0.3).all()
-                    ok &= all(not p.contains_points(td, radius=0.3).any() and not p.contains_points(td, radius=-0.3).any()
-                              for p in inn)
-                    ok &= all(np.hypot(td[:, 0] - o[0], td[:, 1] - o[1]).min() > o[2] + 0.3
-                              for jj, o in enumerate(a[5]) if jj != j)
-                    if ok:
-                        loops.append(orient([(u, v, 0) for u, v in td], False)); n += 1
-                    else:
-                        holes.append(h); kept += 1
+                    c, r = np.array(h[:2]), h[2]
+                    ring = np.c_[c[0] + r * np.cos(np.linspace(0, 2 * np.pi, 48, endpoint=False)),
+                                 c[1] + r * np.sin(np.linspace(0, 2 * np.pi, 48, endpoint=False))]
+                    others = [o for jj, o in enumerate(a[5]) if jj != j]
+
+                    def wall(P):
+                        w = [_loop_gap(P, outer)] + [_loop_gap(P, q) for q in inn]
+                        w += [float(np.hypot(P[:, 0] - o[0], P[:, 1] - o[1]).min() - o[2]) for o in others]
+                        return min(w)
+                    if not Path(outer).contains_points(ring).all():
+                        holes.append(h); kept += 1; continue
+                    need = min(SHELL_T, wall(ring))
+                    td = np.asarray(B16.teardrop(h[0], h[1], r, tuple(tip)))[:, :2]
+                    best = None
+                    for hh in np.arange(r * math.sqrt(2), r + 0.3 - 1e-9, -0.1):
+                        nrm = np.array((-tip[1], tip[0]))
+                        box = B16.ccw([tuple(c + tip * hh + nrm * 3 * r), tuple(c + tip * hh - nrm * 3 * r),
+                                       tuple(c - tip * 3 * r - nrm * 3 * r), tuple(c - tip * 3 * r + nrm * 3 * r)])
+                        P = np.asarray(B16.sh_clip([tuple(p) for p in td], box))
+                        if Path(outer).contains_points(P).all() and not any(Path(q).contains_points(P).any() for q in inn) \
+                                and wall(P) >= need - 1e-6:
+                            best = (hh, P); break
+                    if best is None:
+                        holes.append(h); kept += 1; continue
+                    loops.append(orient([(u, v, 0) for u, v in best[1]], False))
+                    n += 1; flat += best[0] < r * math.sqrt(2) - 1e-6
+                    walls.append(round(wall(best[1]), 2))
                 ss[i] = ("rprism", (a[0], a[1], a[2], a[3], loops, holes), s[2])
             if n or kept:
-                rec[pn] = dict(up=up, teardrops=n, kept_round=kept)
+                rec[pn] = dict(up=up, teardrops=n, flat_top=int(flat), kept_round=kept, min_wall=min(walls) if walls else None)
     return rec
 
 
