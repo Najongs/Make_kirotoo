@@ -47,7 +47,8 @@ KIRO 마스코트 모양의 2족보행 로봇(키 633 mm, v20 에서 다리를 �
 
 ## 출력하기 (다리)
 
-- STL: [`out20/print_parts_stl/`](out20/print_parts_stl/) — 오른 다리 `R_*.stl` 8개, 왼 다리 `L_*.stl` 8개. 출력 방향이 이미 반영돼 있습니다.
+- **출력은 [`out20/PRINT_v2/`](out20/PRINT_v2/) 하나만** — 다리 오른쪽 8 · 왼쪽 8 · 몸통 · 머리 26 · 팔 10, 모두 52개(2026-11-28 내구 보강 2차 판). 폴더마다 모아 보기 그림, 파일마다 놓는 법은 그 폴더 `README.md`. 출력 방향이 이미 반영돼 있습니다.
+- STL 원본: [`out20/print_parts_stl/`](out20/print_parts_stl/)(다리 · 몸통 · 머리), [`out21_arm/print_parts_stl/`](out21_arm/print_parts_stl/)(팔)
 - 출력 설정 · 방향 · 서포트 · 조립 순서: [`out20/LEG_PRINT_KIT_R.md`](out20/LEG_PRINT_KIT_R.md)
 - 사야 할 것: [`out20/BUY_LIST_v20.md`](out20/BUY_LIST_v20.md)
 - 프린터는 큐비콘 Style Neo, 재료는 PLA 입니다. 슬라이서가 STEP 을 못 읽어 STL 로 냅니다.

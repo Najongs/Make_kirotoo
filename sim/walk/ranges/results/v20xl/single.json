@@ -1,0 +1,338 @@
+[
+ {
+  "joint": "R_hip_yaw",
+  "dir": -1,
+  "limit": -25.375,
+  "first_hit": -25.5,
+  "pair": "R_ankle_link:R_ankle_bracket ↔ L_ankle_link:L_ankle_bracket",
+  "n_pts": 7,
+  "contact_mm": [
+   -49.2,
+   13.1,
+   -41.9
+  ],
+  "radius_mm": 72.37489205518722
+ },
+ {
+  "joint": "R_hip_yaw",
+  "dir": 1,
+  "limit": 56.0,
+  "first_hit": 56.125,
+  "pair": "R_foot:R_foot_sole ↔ L_foot:L_foot_sole",
+  "n_pts": 3,
+  "contact_mm": [
+   23.4,
+   15.0,
+   -69.9
+  ],
+  "radius_mm": 59.81743057002699
+ },
+ {
+  "joint": "R_hip_roll",
+  "dir": -1,
+  "limit": -33.625,
+  "first_hit": -33.75,
+  "pair": "R_thigh:R_thigh_frame ↔ R_hand_flap:arm_R_flap",
+  "n_pts": 7,
+  "contact_mm": [
+   4.8,
+   -83.7,
+   176.1
+  ],
+  "radius_mm": 49.07149274273199
+ },
+ {
+  "joint": "R_hip_roll",
+  "dir": 1,
+  "limit": 6.0,
+  "first_hit": 6.125,
+  "pair": "R_ankle_link:R_ankle_bracket ↔ L_ankle_link:L_ankle_bracket",
+  "n_pts": 84,
+  "contact_mm": [
+   -30.8,
+   13.3,
+   -47.3
+  ],
+  "radius_mm": 251.48884227795503
+ },
+ {
+  "joint": "R_hip_pitch",
+  "dir": -1,
+  "limit": -117.75,
+  "first_hit": -117.875,
+  "pair": "torso:shorts ↔ R_thigh:R_thigh_shell",
+  "n_pts": 5,
+  "contact_mm": [
+   65.2,
+   -29.2,
+   205.8
+  ],
+  "radius_mm": 89.2408925325156
+ },
+ {
+  "joint": "R_hip_pitch",
+  "dir": 1,
+  "limit": 114.75,
+  "first_hit": 114.875,
+  "pair": "torso:shorts ↔ R_thigh:R_thigh_frame",
+  "n_pts": 9,
+  "contact_mm": [
+   -87.8,
+   -29.2,
+   205.8
+  ],
+  "radius_mm": 106.80092181250122
+ },
+ {
+  "joint": "R_knee",
+  "dir": -1,
+  "limit": -36.75,
+  "first_hit": -36.875,
+  "pair": "R_thigh:R_thigh_shell ↔ R_shank:R_shank_shell",
+  "n_pts": 20,
+  "contact_mm": [
+   22.8,
+   -40.5,
+   58.6
+  ],
+  "radius_mm": 24.37467948507221
+ },
+ {
+  "joint": "R_knee",
+  "dir": 1,
+  "limit": 117.75,
+  "first_hit": 117.875,
+  "pair": "R_thigh:R_thigh_frame ↔ R_shank:R_shank_frame",
+  "n_pts": 2,
+  "contact_mm": [
+   -17.8,
+   -63.2,
+   80.1
+  ],
+  "radius_mm": 35.07313786931532
+ },
+ {
+  "joint": "R_ankle_pitch",
+  "dir": -1,
+  "limit": -77.75,
+  "first_hit": -77.875,
+  "pair": "R_shank:R_shank_shell ↔ R_foot:R_foot_sole",
+  "n_pts": 1,
+  "contact_mm": [
+   21.6,
+   -16.2,
+   -35.4
+  ],
+  "radius_mm": 23.697885400735363
+ },
+ {
+  "joint": "R_ankle_pitch",
+  "dir": 1,
+  "limit": 30.25,
+  "first_hit": 30.375,
+  "pair": "R_foot:R_foot_sole ↔ R_shank:R_shank_frame",
+  "n_pts": 17,
+  "contact_mm": [
+   -18.4,
+   -39.8,
+   -21.9
+  ],
+  "radius_mm": 29.66622658849622
+ },
+ {
+  "joint": "R_ankle_roll",
+  "dir": -1,
+  "limit": -31.625,
+  "first_hit": -31.75,
+  "pair": "R_ankle_link:R_ankle_bracket ↔ R_foot:R_foot_sole",
+  "n_pts": 20,
+  "contact_mm": [
+   -42.5,
+   -63.2,
+   -52.4
+  ],
+  "radius_mm": 24.35415775591511
+ },
+ {
+  "joint": "R_ankle_roll",
+  "dir": 1,
+  "limit": 26.875,
+  "first_hit": 27.0,
+  "pair": "R_foot:R_foot_sole ↔ R_ankle_link:R_ankle_bracket",
+  "n_pts": 3,
+  "contact_mm": [
+   -37.2,
+   -13.2,
+   -53.1
+  ],
+  "radius_mm": 27.939667141897015
+ },
+ {
+  "joint": "L_hip_yaw",
+  "dir": -1,
+  "limit": -54.625,
+  "first_hit": -54.75,
+  "pair": "L_foot:L_foot_sole ↔ R_foot:R_foot_sole",
+  "n_pts": 3,
+  "contact_mm": [
+   23.9,
+   -15.0,
+   -69.9
+  ],
+  "radius_mm": 60.013540138871996
+ },
+ {
+  "joint": "L_hip_yaw",
+  "dir": 1,
+  "limit": 25.375,
+  "first_hit": 25.5,
+  "pair": "R_ankle_link:R_ankle_bracket ↔ L_ankle_link:L_ankle_bracket",
+  "n_pts": 7,
+  "contact_mm": [
+   -49.2,
+   -13.2,
+   -41.9
+  ],
+  "radius_mm": 72.53361289774556
+ },
+ {
+  "joint": "L_hip_roll",
+  "dir": -1,
+  "limit": -6.0,
+  "first_hit": -6.125,
+  "pair": "R_ankle_link:R_ankle_bracket ↔ L_ankle_link:L_ankle_bracket",
+  "n_pts": 85,
+  "contact_mm": [
+   -31.2,
+   -13.2,
+   -47.1
+  ],
+  "radius_mm": 251.26101628898667
+ },
+ {
+  "joint": "L_hip_roll",
+  "dir": 1,
+  "limit": 33.875,
+  "first_hit": 34.0,
+  "pair": "L_thigh:L_thigh_frame ↔ L_hand_flap:arm_L_flap",
+  "n_pts": 7,
+  "contact_mm": [
+   4.8,
+   83.4,
+   176.1
+  ],
+  "radius_mm": 48.82941121905936
+ },
+ {
+  "joint": "L_hip_pitch",
+  "dir": -1,
+  "limit": -117.75,
+  "first_hit": -117.875,
+  "pair": "torso:shorts ↔ L_thigh:L_thigh_shell",
+  "n_pts": 5,
+  "contact_mm": [
+   65.2,
+   29.2,
+   205.8
+  ],
+  "radius_mm": 89.2408925325156
+ },
+ {
+  "joint": "L_hip_pitch",
+  "dir": 1,
+  "limit": 114.75,
+  "first_hit": 114.875,
+  "pair": "torso:shorts ↔ L_thigh:L_thigh_frame",
+  "n_pts": 9,
+  "contact_mm": [
+   -87.8,
+   29.2,
+   205.8
+  ],
+  "radius_mm": 106.80092181250122
+ },
+ {
+  "joint": "L_knee",
+  "dir": -1,
+  "limit": -36.75,
+  "first_hit": -36.875,
+  "pair": "L_thigh:L_thigh_shell ↔ L_shank:L_shank_shell",
+  "n_pts": 20,
+  "contact_mm": [
+   22.8,
+   40.5,
+   58.6
+  ],
+  "radius_mm": 24.37467948507221
+ },
+ {
+  "joint": "L_knee",
+  "dir": 1,
+  "limit": 117.75,
+  "first_hit": 117.875,
+  "pair": "L_thigh:L_thigh_frame ↔ L_shank:L_shank_frame",
+  "n_pts": 2,
+  "contact_mm": [
+   -17.8,
+   63.3,
+   80.1
+  ],
+  "radius_mm": 35.07313786931532
+ },
+ {
+  "joint": "L_ankle_pitch",
+  "dir": -1,
+  "limit": -76.875,
+  "first_hit": -77.0,
+  "pair": "L_foot:L_foot_sole ↔ L_shank:L_shank_shell",
+  "n_pts": 1,
+  "contact_mm": [
+   21.8,
+   15.8,
+   -36.1
+  ],
+  "radius_mm": 23.656394484367215
+ },
+ {
+  "joint": "L_ankle_pitch",
+  "dir": 1,
+  "limit": 30.25,
+  "first_hit": 30.375,
+  "pair": "L_foot:L_foot_sole ↔ L_shank:L_shank_frame",
+  "n_pts": 17,
+  "contact_mm": [
+   -18.4,
+   40.2,
+   -21.9
+  ],
+  "radius_mm": 29.66622658849622
+ },
+ {
+  "joint": "L_ankle_roll",
+  "dir": -1,
+  "limit": -27.375,
+  "first_hit": -27.5,
+  "pair": "L_foot:L_foot_sole ↔ L_ankle_link:L_ankle_bracket",
+  "n_pts": 3,
+  "contact_mm": [
+   -38.8,
+   13.6,
+   -53.1
+  ],
+  "radius_mm": 27.57943074104322
+ },
+ {
+  "joint": "L_ankle_roll",
+  "dir": 1,
+  "limit": 32.875,
+  "first_hit": 33.0,
+  "pair": "L_ankle_link:L_ankle_bracket ↔ L_foot:L_foot_sole",
+  "n_pts": 20,
+  "contact_mm": [
+   -42.5,
+   63.8,
+   -52.4
+  ],
+  "radius_mm": 24.831935083678037
+ }
+]

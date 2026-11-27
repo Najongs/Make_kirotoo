@@ -42,3 +42,5 @@ __pycache__/
 !/out20/print_parts_stl/ear_rocker.stl
 !/out20/print_parts_stl/ear_rod.stl
 /out20/PRINT_v2/**/*.stl
+# STL 변환 기록(stl_parallel.sh 가 남김)
+stl_parallel.log
