@@ -867,7 +867,12 @@ def build_model():
     return links, joints, fasteners
 
 
-write = B19.write
+SERVO_STEP_XL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "references", "XL-430_new.stp")
+
+
+def write(links, path):
+    """build19 write with the XL430 STEP as the servo model (v19 reproduction keeps XC-430_idle.stp)"""
+    return B19.write(links, path, servo_step=SERVO_STEP_XL)
 servo_step_parts = B19.servo_step_parts
 
 if __name__ == "__main__":

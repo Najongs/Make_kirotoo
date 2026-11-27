@@ -346,13 +346,13 @@ def _official(w, path=SERVO_STEP):
     return {"pd": new[pd], "rep": new[rep], "origin": new[org], "name": "ROBOTIS_X430"}, len(keep)
 
 
-def write(links, path):
+def write(links, path, servo_step=SERVO_STEP):
     from stepwriter import StepWriter
     skip, frames = servo_step_parts(links)
     w = StepWriter(os.path.basename(path))
     saved = build.to_local; build.to_local = build4.to_local
     try:
-        servo, n_off = _official(w)
+        servo, n_off = _official(w, servo_step)
         subs = []
         for lname, L in links.items():
             o = np.array(L["origin"], float)
