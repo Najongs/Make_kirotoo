@@ -4,8 +4,8 @@
   "link": "torso",
   "up": "+z",
   "size_mm": "121x143x109",
-  "support_mm2": 104,
-  "volume_cm3": 225.7,
+  "support_mm2": 0,
+  "volume_cm3": 225.9,
   "note": "골반판을 바닥에. 골반·측벽·뒷벽·레일이 한 부품. 골반판 윗면 포켓, 측벽 창",
   "colours": [
    [
@@ -249,8 +249,8 @@
   "link": "R_ankle_link",
   "up": "+x",
   "size_mm": "54x43x86",
-  "support_mm2": 121,
-  "volume_cm3": 35.0,
+  "support_mm2": 19,
+  "volume_cm3": 35.9,
   "note": "",
   "colours": [
    [
@@ -361,8 +361,8 @@
   "link": "L_ankle_link",
   "up": "+x",
   "size_mm": "54x43x86",
-  "support_mm2": 121,
-  "volume_cm3": 35.0,
+  "support_mm2": 19,
+  "volume_cm3": 35.9,
   "note": "",
   "colours": [
    [
@@ -409,8 +409,8 @@
   "link": "head",
   "up": "+x",
   "size_mm": "200x170x57",
-  "support_mm2": 14,
-  "volume_cm3": 93.7,
+  "support_mm2": 0,
+  "volume_cm3": 96.4,
   "note": "자른 면(뒤)을 바닥에, 브림 권장. 얼굴 테두리 경사, 얼굴판 걸림 바",
   "colours": [
    [

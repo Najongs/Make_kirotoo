@@ -492,11 +492,98 @@
    6.4
   ]
  },
+ "no_support": {
+  "head_front_web": [
+   {
+    "side": 1,
+    "old": [
+     [
+      40.0,
+      67.0
+     ],
+     [
+      40.0,
+      72.15
+     ],
+     [
+      34.85,
+      72.15
+     ]
+    ],
+    "bed": [
+     13.0,
+     94.0
+    ],
+    "corner": [
+     40.0,
+     67.0
+    ],
+    "wall_y": 98.4
+   },
+   {
+    "side": -1,
+    "old": [
+     [
+      34.85,
+      -72.15
+     ],
+     [
+      40.0,
+      -72.15
+     ],
+     [
+      40.0,
+      -67.0
+     ]
+    ],
+    "bed": [
+     13.0,
+     -94.0
+    ],
+    "corner": [
+     40.0,
+     -67.0
+    ],
+    "wall_y": -98.4
+   }
+  ],
+  "shelf_lip": [
+   {
+    "x": [
+     20,
+     38
+    ],
+    "y": [
+     -55.0,
+     -52.0
+    ],
+    "chamfer_z": [
+     264.6,
+     268.05
+    ]
+   }
+  ],
+  "opencr_posts_overlap": 2,
+  "shoulder_boss": [
+   {
+    "y": 1,
+    "point_z": 296.1,
+    "free_face_flat_z": 298.1,
+    "shaft_hole_kept": 1
+   },
+   {
+    "y": -1,
+    "point_z": 296.1,
+    "free_face_flat_z": 298.1,
+    "shaft_hole_kept": 1
+   }
+  ]
+ },
  "teardrops": {
   "torso_frame": {
    "up": "+z",
-   "teardrops": 12,
-   "flat_top": 2,
+   "teardrops": 14,
+   "flat_top": 4,
    "kept_round": 0,
    "min_wall": 1.65
   },

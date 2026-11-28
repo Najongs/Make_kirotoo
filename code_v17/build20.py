@@ -1564,6 +1564,61 @@ def print_robust(links, joints):
     return out
 
 
+# ---------------------------------------------------------------- no support (owner 2026-11-28: "support under a joint
+# breaks the joint when it is pulled off").  export_parts voxel check, ankle bracket (prints +x, back plate on the bed):
+# * the 1.5 mm back extension stops 16 from the leg centre, the layer above reaches the 45 deg inner corner cut (3 mm
+#   ledge, 65 mm2): wedge on the bed from the extension's edge to the cut plane (the plane continued 1.5 mm back)
+# * the inner side plate's back end (x -68, 4 mm thick, r 10 corners) sat on the tie / back plate only along its
+#   servo-side face (4 mm ledge, 26 mm2): fill under it from the bed, bounded by the 45 deg line through the plate's
+#   own back corner (the corner already reaches that line, so hip yaw keeps its first contact), only over the plate's
+#   flat back face +- 3.5 (the r 10 corners rise steeper than 45 deg beyond it)
+# * the inner ear pillar starts on the cut plane at x -68 above the back plate (its edge hung in the air, 11 mm2):
+#   column on the bed behind the servo up to the plane (servo-side face 0.25 off the case side plane, x <= -68: the
+#   case cable slots open at x > -68 and stay free)
+# Left as they are: the spacers' 45 deg V tips (8.4 mm lines across the cable gaps, 2 x 9.4 mm2): supporting them
+# would close the gap between the case and the side plates that the cables use.
+NS_FILL_HALF = 5.0          # fill band: plate back face centre +- (flat 1.5 + 3.5)
+NS_COL_CASE = 14.5          # column face from the leg centre (case side at 14.25)
+
+
+def no_support(links):
+    out = []
+    for i, side in enumerate(("R", "L")):
+        s = -1 if side == "R" else 1
+        ys = 40.0 * s
+        ab = links[f"{side}_ankle_link"]["parts"][f"{side}_ankle_bracket"]; rgb = ab[0][2]
+        lb = LOG["ankle_back"][i]; lr = LOG["print_robust"]["bracket"][i]
+        xb, a0 = lb["back_extra_x"]                      # bed (back extension) and the back plate's back face
+        y_cut, xp = lb["inner_cut"]                      # cut plane at the back face; x where it meets the plate
+        ext = next(x for x in ab if x[0] == "rprism" and x[1][0] == "x" and abs(x[1][1] - xb) < 0.01)
+        zbot, ztop = min(q[1] for q in ext[1][3]), max(q[1] for q in ext[1][3])
+        z_ear = lr["ear"][1]
+        y_pl, y_face = ys - s * 23.0, ys - s * 27.0       # inner plate: servo-side face, outer face
+        yP = lambda x: y_cut - s * (x - a0)              # 45 deg cut plane (ankle_back_reinforce / widen_ranges)
+        yC = lambda x: yP(x) - s * 4.0                   # parallel line through the plate's back corner (xp, y_face)
+        y16 = ys - s * (16.0 - 0.05)                     # 0.05 into the back extension
+        y_lo = ys - s * NS_COL_CASE
+        n0 = len(ab)
+        # wedge (whole back plate height)
+        ab.append(PROFI("z", zbot, ztop, [(xb, y16, 0.0), (xb, yP(xb), 0.0), (a0, yP(a0), 0.0), (a0 + 0.05, yP(a0), 0.0),
+                                          (a0 + 0.05, y16, 0.0)], [], rgb))
+        # fill under the plate end: between the cut plane (0.1 into the wedge / back plate / tie) and the corner line,
+        # 0.05 into the plate band
+        zc = (zbot + ztop) / 2
+        zf = (zc - NS_FILL_HALF, zc + NS_FILL_HALF)
+        ab.append(PROFI("z", zf[0], zf[1], [(xb, yP(xb) + s * 0.1, 0.0), (xb, yC(xb), 0.0), (xp, y_face, 0.0), (xp + 0.05, y_face, 0.0),
+                                            (xp + 0.05, y_pl, 0.0), (xp, y_pl + s * 0.1, 0.0)], [], rgb))
+        # column under the ear pillar's edge (from the back plate top - 0.5 like the pillar), 0.1 into the pillar
+        zc0 = ztop - 0.5
+        ab.append(PROFI("z", zc0, z_ear, [(xb, y_lo, 0.0), (xb, yP(xb), 0.0), (xp, y_pl, 0.0), (xp + 0.1, y_pl - s * 0.05, 0.0),
+                                          (xp + 0.1, y_lo, 0.0)], [], rgb))
+        out.append(dict(side=side, wedge=dict(x=(xb, a0), y=(round(y16, 2), round(yP(xb), 2)), z=(round(zbot, 2), round(ztop, 2))),
+                        fill=dict(x=(xb, xp), y_corner=(round(yC(xb), 2), y_face), z=tuple(round(v, 2) for v in zf)),
+                        column=dict(x=(xb, xp), y=(round(y_lo, 2), round(yP(xb), 2), y_pl), z=(round(zc0, 2), round(z_ear, 2))),
+                        solids=len(ab) - n0))
+    return out
+
+
 def build_model():
     links, joints, fasteners = B19.build_model()
     LOG["v19"] = {k: B19.LOG[k] for k in ("case_holes", "wall_warnings", "pockets") if k in B19.LOG}
@@ -1624,6 +1679,7 @@ def build_model():
     LOG["fdm_joints"] = fdm_joints(links, joints)
     LOG["assembly_durability"] = assembly_durability(links)
     LOG["print_robust"] = print_robust(links, joints)
+    LOG["no_support"] = no_support(links)
     return links, joints, fasteners
 
 

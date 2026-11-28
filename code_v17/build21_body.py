@@ -662,6 +662,73 @@ def teardrops(links, names):
     return rec
 
 
+# no support (owner 2026-11-28: support under a joint breaks it when pulled off), export_parts voxel check:
+# * head_front (prints +x): the 45 deg gusset under each face plate screw boss (x 34.85..40) started in the air, 8 mm
+#   from the web under the boss row (an island until x 40): web widened so its 45 deg underside runs from the bed
+#   (seam plane x 13) to the boss corner, inside the boss height
+# * torso_frame right shelf lip (3 mm flat ledge, no gusset like the left ledge has): 45 deg chamfer under it
+# * torso_frame OpenCR posts: base (z ..227.5) and slotted post (227.5..) met on one plane, which the 1 mm voxel grid
+#   read as an empty layer (2 x 22 mm2): the post reaches 0.05 into the base (shape unchanged, the board slot keeps its floor)
+# * torso_frame shoulder bosses: teardrop point line 5 mm out of the wall -> flat 2 above the point on the free 2 mm
+# Left as it is: torso cover dovetail stop (a 12.5 mm roof anchored on three sides: a bridge).
+def no_support(links):
+    out = {}
+    hf = links["head"]["parts"]["head_front"]
+    x_bed = min(build4.aabb(build4.sampled(x))[0][0] for x in hf)
+    rec = []
+    for i, x in enumerate(hf):
+        a = x[1]
+        if x[0] == "rprism" and a[0] == "z" and len(a[3]) == 3 and abs(a[1] - 446.5) < 0.01 and abs(a[2] - 453.5) < 0.01:
+            xs = [q[0] for q in a[3]]; ys_ = [q[1] for q in a[3]]
+            xt = max(xs)                                         # boss back face
+            g = 1 if sum(ys_) > 0 else -1
+            yt = min(ys_, key=abs)                               # boss corner toward the head centre
+            web = next(w for w in hf if w[0] == "rprism" and w[1][0] == "z" and abs(w[1][1] - 445.0) < 0.01 and len(w[1][3]) == 3
+                       and sum(q[1] for q in w[1][3]) * g > 0)     # the web under the boss row (45 deg underside)
+            wx = max(q[0] for q in web[1][3])
+            yw_c = g * min(abs(q[1]) for q in web[1][3] if abs(q[0] - wx) < 1e-6)    # its corner at the boss back face
+            y0 = g * (max(abs(q[1]) for q in web[1][3]) - 0.4)   # 0.4 into the side wall layer (the web goes 0.8 in)
+            yb = yt + g * (xt - x_bed)                            # 45 deg line through the boss corner, at the bed
+            # the band between that line and the web's underside (0.1 into the web), 0.05 into the boss
+            yh = lambda xx: yw_c + g * (wx - xx) + g * 0.1
+            x_h0 = wx + 0.1 - (y0 - yw_c) / g
+            hf[i] = PROFI("z", a[1], a[2], [(x_bed, y0, 0.0), (x_bed, yb, 0.0), (xt, yt, 0.0), (xt + 0.05, yt, 0.0),
+                                            (xt + 0.05, yh(xt + 0.05), 0.0), (x_h0, y0, 0.0)], [], x[2])
+            rec.append(dict(side=g, old=[(round(q[0], 2), round(q[1], 2)) for q in a[3]], bed=(round(x_bed, 2), round(yb, 2)), corner=(xt, yt), wall_y=round(y0, 2)))
+    out["head_front_web"] = rec
+    tf = links["torso"]["parts"]["torso_frame"]; rgb = tf[0][2]
+    lips = [x for x in tf if x[0] == "rprism" and x[1][0] == "z" and abs(x[1][1] - 268.0) < 0.01 and abs(x[1][2] - 272.0) < 0.01
+            and abs(max(abs(q[1]) for q in x[1][3]) - 55.0) < 0.01 and max(abs(q[1]) for q in x[1][3]) - min(abs(q[1]) for q in x[1][3]) < 3.01]
+    out["shelf_lip"] = []
+    for x in lips:
+        xs = [q[0] for q in x[1][3]]; g = 1 if x[1][3][0][1] > 0 else -1
+        yw, yt = g * 55.0, g * 52.0
+        tf.append(PROFI("x", min(xs), max(xs), [(yw + g * 0.4, 268.05, 0.0), (yt, 268.05, 0.0), (yw + g * 0.4, 268.05 - 3.45, 0.0)], [], rgb))
+        out["shelf_lip"].append(dict(x=(min(xs), max(xs)), y=(yw, yt), chamfer_z=(round(268.05 - 3.45, 2), 268.05)))
+    n = 0
+    for i, x in enumerate(tf):
+        a = x[1]
+        if x[0] == "rprism" and a[0] == "z" and abs(a[1] - 227.5) < 1e-6 and len(a[3]) == 8 and min(q[0] for q in a[3]) < -70:
+            tf[i] = (x[0], (a[0], a[1] - 0.05, a[2], a[3], a[4], a[5]), x[2]); n += 1
+    out["opencr_posts_overlap"] = n
+    # shoulder bosses (y 50..55 inside the side walls, teardrop point down at z 296.1): the point line ran 5 mm from the
+    # wall; the 2 mm next to the free face is cut flat 2 above the point (a 2 mm ledge on the rest of the boss, the round
+    # part and the shaft hole untouched), the wall side reaches 0.05 into the wall (one solid on the voxel grid)
+    out["shoulder_boss"] = []
+    for i, x in enumerate(list(tf)):
+        a = x[1]
+        if x[0] == "rprism" and a[0] == "y" and abs(abs(a[1] + a[2]) / 2 - 52.5) < 0.01 and abs(a[2] - a[1] - 5.0) < 0.01 and len(a[3]) == 20:
+            zt = min(q[0] for q in a[3])
+            g = 1 if a[1] > 0 else -1
+            k = tf.index(x)
+            wall_side = (g * 52.0, g * 55.05); free = (g * 50.0, g * 52.05)
+            tf[k] = PROFI("y", *wall_side, a[3], a[4], x[2], a[5])
+            cut = B20._cut(PROFI("y", *free, a[3], a[4], x[2], a[5]), (0.0, 0.0, -1.0), -(zt + 2.0))
+            tf.append(cut)
+            out["shoulder_boss"].append(dict(y=g, point_z=round(zt, 2), free_face_flat_z=round(zt + 2.0, 2), shaft_hole_kept=len(cut[1][4]) + len(cut[1][5])))
+    return out
+
+
 def build_model():
     LOG.clear()
     saved = (B14.hook, B14.cover_channel, B14.frame_rail, dict(B14.RAIL_X))
@@ -684,6 +751,7 @@ def build_model():
     LOG["yaw_side_screws"] = yaw_side_screws(links)
     LOG["shell_walls"] = shell_walls(links)
     LOG["shorts_notches"] = shorts_notches(links)
+    LOG["no_support"] = no_support(links)
     LOG["teardrops"] = teardrops(links, body_names())
     return links, joints, fasteners
 
