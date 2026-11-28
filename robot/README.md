@@ -15,7 +15,9 @@ PC 나 Jetson Nano 에서 OpenCR(USB) 을 거쳐 Dynamixel X430 서보(XL430 · 
 | `kitoru_hw/joints.py` | 관절 표(YAML) 읽기, 각도 ↔ tick 변환, 영점 오프셋을 YAML 에 다시 쓰기 |
 | `kitoru_hw/safety.py` | 한계로 자르기, 짝 관절 제한, 넘어짐 감지 → PWM 낮추기, 저전압 정지, 온도 감시 |
 | `kitoru_hw/robot.py` | 관절 이름 · 라디안으로 쓰는 로봇 전체. 토크 켜기 전 점검(원본과 같음), 비상정지 |
-| `kitoru_hw/policy_io.py` | 정책 연결 자리: 관측(관절 각 · 속도 · IMU 자리) 읽기, 목표 각 쓰기 |
+| `kitoru_hw/policy_io.py` | 정책 연결 자리: 관측(관절 각 · 속도 · IMU) 읽기, 목표 각 쓰기, 서보 읽기 · IMU 읽기 시간 기록 |
+| `kitoru_hw/opencr_imu.py` | OpenCR 보드 IMU 를 가상 ID 200 으로 읽어 몸통 기준 중력 방향 · 각속도로 바꿈(3.1절) |
+| `firmware/opencr_bridge_imu/` | OpenCR 펌웨어: 서보 패킷은 그대로 넘기고, ID 200 만 IMU 값으로 직접 답함(3.1절) |
 | `kitoru_hw/timing.py` | 제어 주기 계산식 |
 | `config/joints_v20.yaml` | v20 관절 15개: 이름 · ID · 모델 · 단자 · 방향 · 영점 · 한계 |
 | `config/bench_legacy.yaml` | 원본 시험대와 똑같은 설정(XL430 ID 6 · 7 · 12) |
@@ -24,6 +26,7 @@ PC 나 Jetson Nano 에서 OpenCR(USB) 을 거쳐 Dynamixel X430 서보(XL430 · 
 | `tools/record_zero.py` | 영점 자세에서 현재 값을 읽어 `zero_offset` 을 YAML 에 저장 |
 | `tools/range_check.py` | 한 관절씩 느린 속도 · 낮은 PWM 으로 범위 확인 |
 | `tools/bus_timing.py` | 통신 속도별 제어 주기 표 출력(하드웨어 필요 없음) |
+| `tools/imu_check.py` | IMU 펌웨어 확인: PING 200, 몸통 · 칩 축 값 실시간 출력, 서보 읽기 · IMU 읽기 시간(토크는 안 건드림) |
 | `legacy/XL430_robot_base.py` | 원본(내용 그대로) |
 | `tests/` | 가짜 서보로 도는 pytest |
 
@@ -66,7 +69,107 @@ python tools/scan_ids.py --port /dev/ttyACM0             # Linux
   - 공식 문서에는 「서보 전원이 어디서 오는지」 문장이 없습니다 [확인 필요].
   - OpenCR 입력 퓨즈는 10 A(LittleFuse 0453010, 공식 문서)입니다. 넘어질 때 순간 14.5 A(시뮬, `HIPROLL_STUDY`)가 이 퓨즈에 걸리는지는 [확인 필요].
 - **TTL 단자 셋:** 공식 문서에 Dynamixel 포트는 `Serial3` 하나로 나옵니다. 그래서 TTL1(오른다리) · TTL2(왼다리) · TTL3(팔 + 머리)는 한 버스에 나란히 붙은 것으로 보고, YAML 의 `connector` 는 배선 이름으로만 씁니다 [확인 필요: 「나란히 붙는다」는 문장은 문서에 없음]. 그래서 **ID 15개는 모두 달라야 합니다.**
-- **IMU:** OpenCR 에는 ICM-20648 IMU 가 있지만, 다리 모드에서는 PC 가 Dynamixel 버스만 봅니다. IMU 를 쓰려면 IMU 도 같이 보내는 펌웨어나 Jetson 에 따로 붙인 IMU 가 필요합니다 [확인 필요].
+- **IMU:** OpenCR 보드의 ICM-20648 을 쓰려면 `usb_to_dxl` 대신 `firmware/opencr_bridge_imu` 를 올립니다(3.1절, 소유자 결정 2026-11-28 「A. OpenCR 펌웨어」). 안 되면 Jetson I2C 에 따로 붙인 IMU 가 대비책(B)입니다.
+
+### 3.1 IMU 펌웨어 `firmware/opencr_bridge_imu`
+
+**하는 일:** OpenCR 이 지금처럼 서보 패킷을 그대로 넘기면서, **ID 200 앞으로 온 패킷만 버스에 안 보내고 직접 답합니다.** 예: Jetson 이 `READ ID 200, 32 번지, 64 바이트` 를 보내면 OpenCR 이 USB 로 IMU 한 표본(시각 · 쿼터니언 · 중력 방향 · 각속도 · 가속도)을 돌려줍니다. 서보 버스에는 아무것도 안 나갑니다.
+
+- **무엇이 아닌가:** OpenCR 이 서보를 제어하는 것이 아닙니다. 서보 패킷은 앞 5 바이트(`FF FF FD 00 ID`)만 보고 바로 넘깁니다. 브로드캐스트(ID 254, 비상정지 토크 끄기)는 붙잡지 않습니다. 앞머리가 반쯤 온 채 300 µs 멈추면 잡아 둔 바이트도 그대로 넘깁니다.
+- **읽는 법은 따로 READ 입니다.** 서보 Sync Read 목록에 200 을 넣지 마세요. 펌웨어가 Sync Read · Bulk Read · 브로드캐스트 PING 에는 답하지 않습니다.
+  - 이유: Sync Read 는 모든 ID 가 같은 번지 · 길이를 읽고(서보 126 번지 10 바이트 창에 IMU 가 안 들어감), SDK 가 목록 순서대로만 답을 받으며, 서보가 앞 ID 의 답을 기다리는지 모릅니다 [확인 필요].
+  - 그래서 `scan_ids.py` 에도 ID 200 은 안 나옵니다.
+  - 값: 한 주기에 USB 왕복 한 번이 더 듭니다(약 1–2 ms [추정], 50 Hz 한 주기 20 ms 안).
+- **IMU 갱신:** ROBOTIS `IMU` 라이브러리(`cIMU`, ICM-20648 + Madgwick 필터, 200 Hz)를 그대로 씁니다. 양쪽 포트에 기다리는 바이트가 없을 때만 갱신하고, 2 ms 넘게 밀리면 그냥 갱신합니다. 갱신 한 번이 막는 시간은 `imu_update_max_us` 로 보입니다.
+- **전원을 켠 뒤 약 3 초 가만히 둡니다.** `IMU.begin()` 이 자이로 영점(512 표본, 최대 5 초)을 재는 동안 다리도 답하지 않습니다. USB 포트를 열 때 보드가 다시 시작하는지는 [확인 필요]입니다(그렇다면 프로그램을 띄울 때마다 3 초).
+- **라이브러리 값의 성질:** 자이로는 영점을 빼고 3 표본 이동 평균을 낸 뒤 ±3 LSB(±0.18 °/s)를 0 으로 자른 값입니다. 시뮬과 다른 점으로 남습니다. 지자기는 없어서 쿼터니언의 yaw 는 흐릅니다(정책은 중력 방향 · 각속도만 씀).
+
+**가상 ID 200 의 control table** (리틀 엔디언, `bridge_core.h`)
+
+| 번지 | 크기 | 이름 | 읽기/쓰기 | 뜻 · 단위 |
+| --- | --- | --- | --- | --- |
+| 0 | 2 | MODEL_NUMBER | R | `0x4B49`(19273). ROBOTIS 모델 번호가 아님 |
+| 6 | 1 | FIRMWARE_VERSION | R | 1 |
+| 7 | 1 | ID | R | 200(펌웨어 `VIRTUAL_ID`, 컴파일 때 정함) |
+| 8 | 1 | TABLE_VERSION | R | 1 |
+| 10 | 2 | IMU_RATE_HZ | R | 200 |
+| 12 | 2 | GYRO_FS_DPS | R | 2000(칩 설정 ±2000 °/s) |
+| 14 | 1 | ACC_FS_G | R | 2(칩 설정 ±2 g) |
+| **32** | 4 | TIMESTAMP_US | R | 표본을 잰 `micros()`. 약 71.6 분마다 0 으로 돌아감 |
+| 36 | 4 | SAMPLE_COUNT | R | 표본마다 +1. 두 번 같으면 새 값이 아님 |
+| 40 | 1 | STATUS | R | bit0 IMU 찾음, bit1 자이로 영점 끝 |
+| 44 | 16 | QUAT_W..Z | R | float32 ×4, Madgwick 쿼터니언(칩 축 → 세계, yaw 흐름) |
+| 60 | 12 | GRAVITY_X..Z | R | float32 ×3, 칩 축 중력 방향 단위벡터. **아래를 가리킴**(칩 z 가 위면 (0, 0, −1)) |
+| 72 | 12 | GYRO_X..Z | R | float32 ×3, 칩 축 각속도 rad/s |
+| 84 | 12 | ACC_X..Z | R | float32 ×3, 칩 축 가속도 m/s². 가만히 있으면 **위쪽**으로 +9.8 |
+| 100 | 4 | LOOP_MAX_US | R | `loop()` 한 바퀴 최장 시간(중계가 멈춘 최장 시간) |
+| 104 | 4 | IMU_UPDATE_MAX_US | R | IMU 갱신 한 번 최장 시간 |
+| 108 | 4 | VIRTUAL_PACKETS | R | ID 200 이 답한 패킷 수 |
+| 112 | 4 | HOLD_TIMEOUTS | R | 잡아 둔 앞머리를 시간 초과로 넘긴 횟수 |
+| 116 | 1 | RESET_DIAG | W | 1 을 쓰면 100–115 를 0 으로 |
+| 117 | 1 | GYRO_CALIBRATE | RW | 1 을 쓰면 자이로 영점을 다시 잼(약 3 초 가만히), 재는 동안 1 |
+
+- 한 표본은 **32 번지부터 64 바이트를 한 번 READ** 합니다(답 75 바이트 안팎).
+- 답하는 명령: PING, READ, WRITE(116 · 117 만, 나머지는 Access Error 0x07). 표 밖 READ 는 Data Range Error 0x04, CRC 가 틀리면 CRC Error 0x03, 그 밖의 명령은 Instruction Error 0x02.
+- 값은 float32 라 바이트 스터핑이 실제로 생깁니다(예: 1.984 rad/s 의 바이트가 `FF FF FD 3F`). 펌웨어 답도 규격대로 스터핑합니다.
+- 가속도 눈금은 칩 설정 ±2 g → 16384 LSB/g 로 펌웨어가 계산합니다 [확인 필요: 실물에서 가만히 놓고 9.8 이 나오는지]. 라이브러리의 `imu.ax` 는 ±8 g 눈금으로 계산해서 4배 작게 나오므로 쓰지 않습니다.
+
+**축(좌표)** — `config/joints_v20.yaml` 의 `imu:`
+
+```
+v_몸통 = r_body_board · r_board_chip · v_칩
+r_body_board = [[0, 0, -1], [1, 0, 0], [0, -1, 0]]   # 보드 x → 몸통 +y, 보드 y → 몸통 −z, 보드 z(부품 면) → 몸통 −x
+r_board_chip = 단위행렬                                # [확인 필요] 아래 ②③ 에서 정함
+```
+
+- `r_body_board` 는 설계 형상(`code_v17/build17.py` `oc_box`, 보드 중심 몸통 좌표 약 (−0.070, 0, 0.280) m)에서 왔습니다. 몸통 축은 MuJoCo `torso` body 와 같은 축(x 앞, z 위)으로 봅니다(MJCF `torso` 에 회전 없음).
+- 똑바로 서면 중력은 보드 +y 쪽이라 `gravity_b` ≈ (0, 0, −1) 이어야 합니다. 정책 `meas_gravity_b` 와 같은 뜻입니다.
+- det 가 −1 인 행렬(거울)이나 직교가 아닌 행렬은 `OpenCRImu` 가 거부합니다.
+
+**펌웨어 올리기** (OpenCR 보드 패키지 1.5.3 으로 컴파일 확인. 컴파일러가 x86 용이라 Jetson 이 아니라 PC 에서 올립니다)
+
+- Arduino IDE: 환경설정 「추가 보드 관리자 URL」에 `https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json` → 보드 관리자에서 OpenCR 설치 → 보드 「OpenCR Board」, 포트 선택 → `firmware/opencr_bridge_imu/opencr_bridge_imu.ino` 를 열고 업로드.
+- arduino-cli:
+
+  ```bash
+  arduino-cli core update-index --additional-urls https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
+  arduino-cli core install OpenCR:OpenCR --additional-urls https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
+  arduino-cli compile --fqbn OpenCR:OpenCR:OpenCR robot/firmware/opencr_bridge_imu
+  arduino-cli upload  --fqbn OpenCR:OpenCR:OpenCR -p /dev/ttyACM0 robot/firmware/opencr_bridge_imu   # Windows 는 -p COM3
+  ```
+
+- 올리기가 안 되면 OpenCR 을 부트로더로 띄운 뒤 다시 합니다(PUSH SW2 를 누른 채 RESET) [확인 필요: ROBOTIS e-manual 「OpenCR Arduino IDE」 절]. Linux 는 e-manual 의 udev 규칙도 필요할 수 있습니다 [확인 필요].
+- 원래대로 돌리려면 예제 `10. Etc/usb_to_dxl` 을 다시 올립니다.
+
+**실물 첫 확인 순서** — 서보 토크는 끈 채로 합니다. `imu_check.py` 는 토크 레지스터를 건드리지 않고, `arm()` 을 부르지 않습니다. 비상정지(전원 스위치)는 손이 닿는 곳에 둡니다(6절).
+
+0. 펌웨어를 올리고 전원을 켠 뒤 **3 초 가만히** 둡니다. 서보 전원 없이 USB 만으로 ①–③ 을 해도 됩니다(`--no-servos`).
+1. **PING 200:** `python tools/imu_check.py --port /dev/kitoru_opencr --no-servos --seconds 0`. `ID 200: OpenCR IMU firmware 1` 이 나와야 합니다. 「Is robot/firmware/opencr_bridge_imu on the OpenCR?」가 나오면 펌웨어가 안 올라간 것입니다.
+2. **중력 축 부호:** `--no-servos --seconds 60` 으로 띄우고 값을 봅니다.
+   - 보드만 책상에 부품 면을 위로 놓으면 `g_chip` ≈ (0, 0, −1) 이어야 합니다(칩 z = 보드 z 인지).
+   - 몸통에 단 채 똑바로 세우면 `g_body` ≈ (0, 0, −1).
+   - 앞으로 숙이면 `g_body` x 가 + 로, `pitch` 가 + 로. 오른쪽으로 기울이면 `g_body` y 가 − 로, `roll` 이 + 로.
+   - 다르면 `g_chip` 이 어느 축으로 움직였는지 보고 `r_board_chip` 을 고칩니다(열 = 칩 축을 보드 좌표로 쓴 것).
+3. **각속도 축:** 똑바로 든 채 손으로 돌립니다. 위에서 볼 때 반시계(왼쪽으로 돌기)면 `w_body` z 가 +, 앞으로 숙이는 동안 y 가 +, 오른쪽으로 기우는 동안 x 가 + 이어야 합니다(오른손 법칙). 중력 축을 고친 행렬로 각속도도 맞아야 합니다. 안 맞으면 칩 축이 왼손계라는 뜻이니 멈추고 알려 주세요.
+4. **서보 중계 지연 전 · 후:** 서보 전원을 켜고(토크는 끈 채) 같은 포트에서 잽니다.
+   - 전: `usb_to_dxl` 을 올린 상태에서 `python tools/read_demo.py --config config/joints_v20.yaml --rate 500`.
+   - 후: 이 펌웨어로 바꾸고 같은 명령, 그리고 `python tools/imu_check.py --timing 500 --seconds 0`.
+   - 서보 읽기 ms 가 거의 같아야 하고, `loop_max_us` 가 수십 µs 대여야 합니다 [추정]. IMU 읽기 ms 가 한 주기 시간에 더해집니다.
+
+**Jetson 쪽 코드**
+
+```python
+from kitoru_hw.opencr_imu import OpenCRImu
+with Robot(config) as robot:                       # 포트는 서보와 같이 한 번만 엽니다
+    imu = OpenCRImu.from_config(robot.buses["opencr"], config.imu).open()   # PING 200 + 상태 확인
+    io = PolicyIO(robot, imu=imu)
+    obs = io.observe()     # obs["imu"]["gravity_b"], obs["imu"]["ang_vel_b"], obs["timing"]
+    print(io.timing.summary())   # 서보 읽기 · IMU 읽기 시간 평균 · 최대(ms)
+```
+
+- `read()` 키: `gravity_b`(몸통 중력 방향, 단위벡터) · `ang_vel_b`(rad/s) · `acc_b`(m/s²) · `quat`(몸통 w,x,y,z) · `gyro`(= `ang_vel_b`) · `roll_pitch`(rad, `safety.tilt_deg` 용) · `stale` · `read_s` · `gravity_chip` · `gyro_chip`.
+- 자이로 영점이 안 끝났으면 `read()` 가 거부합니다(`calibrate_gyro()` 로 다시 잴 수 있음).
+- 정책 학습 때 지연 10–30 ms 를 흔들었습니다. 실물 지연(표본 시각 → 정책 입력)은 `timestamp_us` 와 `read_s` 로 잴 수 있습니다.
 
 ## 4. Jetson: 고정 포트 이름과 권한
 
@@ -219,7 +322,8 @@ with Robot(load_config("config/joints_v20.yaml")) as robot:
   - 명령마다 5° 상한(7절)은 그 밖의 두 번째 울타리입니다.
 - **관절 순서는 YAML `joints:` 순서입니다.** 시뮬도 같은 순서로 맞추면 됩니다.
 - **각도는 로봇 기준 라디안입니다(방향 · 영점 적용 뒤).** MuJoCo 관절 각과 같은 뜻이 되게 방향 · 영점을 맞춥니다.
-- **IMU 는 자리만 있습니다(`NullImu`).** `read()` 가 `{"quat": …, "gyro": …, "roll_pitch": …}` 를 돌려주는 객체를 넘기면 됩니다.
+- **IMU 는 `OpenCRImu`(3.1절)를 넘깁니다.** 넘기지 않으면 `NullImu` 라 `obs["imu"]` 가 None 입니다. 넘어짐 감시에는 `tilt_deg(*obs["imu"]["roll_pitch"])` 를 씁니다.
+- `obs["timing"]` 에 그 주기의 서보 읽기 · IMU 읽기 초가, `io.timing.summary()` 에 평균 · 최대가 남습니다.
 
 ## 9. 원본(`legacy/XL430_robot_base.py`)과 비교
 
@@ -256,6 +360,9 @@ rm -rf tmp && find . -name __pycache__ -prune -exec rm -rf {} +
   - 답하는 명령: PING, READ, WRITE, SYNC READ, SYNC WRITE, 브로드캐스트.
   - 토크가 켜져 있으면 EEPROM 쓰기를 거부합니다.
 - 원본 스크립트도 같은 가짜 서보에 붙여서 새 도구와 출력 · 패킷을 비교합니다.
+- `tests/test_opencr_imu.py` 는 펌웨어의 보드와 무관한 부분(`bridge_core.cpp`)을 PC 의 g++ 로 공유 라이브러리로 빌드해(`--basetemp` 안), 진짜 dynamixel-sdk → 펌웨어 코어 → 가짜 서보로 패킷을 왕복시킵니다(`tests/fake_opencr.py`). g++ 가 없으면 그 시험은 건너뜁니다.
+  - 확인하는 것: CRC · 스터핑이 SDK 와 같음, PING · READ 200 이 버스에 안 나감, 스터핑된 답, 오류 답, 서보 패킷이 바이트 하나 안 바뀌고 넘어감, 브로드캐스트가 바로 넘어감, 멈춘 앞머리를 시간 초과로 넘김, 회전행렬 부호, `PolicyIO` 시간 기록.
+- 펌웨어 전체(`.ino`)는 `arduino-cli compile --fqbn OpenCR:OpenCR:OpenCR` 로 컴파일만 확인했습니다(2026-11-28, 보드 패키지 1.5.3, 128,992 바이트). 실물 보드에서는 안 돌렸습니다.
 
 ## 11. [확인 필요] 모음
 
@@ -273,3 +380,4 @@ rm -rf tmp && find . -name __pycache__ -prune -exec rm -rf {} +
 - Bus Watchdog 이 발동할 때 토크가 켜진 채 붙잡는지(e-manual 에 없음), XL430 에서 Sync Write 가 시계를 되돌리는지.
 - 저전압 경고 11.1 V, 온도 여유 10 · 3 °C 는 정한 값이 아니라 출발점입니다.
 - 제어 주기 표의 USB 2 ms · 컴퓨터 0.1 ms/서보는 추정입니다. `read_demo.py --rate` 로 실측해야 합니다.
+- IMU 펌웨어(3.1절): 칩 축 ↔ 보드 축(`r_board_chip`), 가속도 눈금 16384 LSB/g, 서보가 Sync Read 에서 앞 ID 답을 기다리는지, USB 포트를 열 때 OpenCR 이 다시 시작하는지, 업로드에 부트로더 모드 · udev 규칙이 필요한지, 실물 중계 지연(`loop_max_us`)과 IMU 읽기 시간, 몸통 축이 MuJoCo `torso` 축과 같은지.

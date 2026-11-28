@@ -31,6 +31,19 @@ safety:
   temp_warn_margin_c: 10   # Temperature Limit(31) − 10 °C 에서 경고 (XL430 72 → 62 °C)
   temp_stop_margin_c: 3    # 한계 − 3 °C 에서 정지 (서보가 스스로 꺼지기 전에)
 
+# OpenCR 보드 IMU(ICM-20648). 펌웨어 robot/firmware/opencr_bridge_imu 가 가상 ID 로 답한다(README 3절).
+# 회전행렬은 v_몸통 = r_body_board · r_board_chip · v_칩. 열이 「보드(칩) 축을 몸통(보드) 좌표로 쓴 것」이다.
+imu:
+  virtual_id: 200            # 펌웨어 VIRTUAL_ID 와 같아야 하고, 서보 ID 와 겹치면 안 된다
+  r_body_board:              # 설계(code_v17/build17.py oc_box): 보드 x → 몸통 +y, 보드 y → 몸통 −z, 보드 z → 몸통 −x
+    - [0.0, 0.0, -1.0]
+    - [1.0, 0.0, 0.0]
+    - [0.0, -1.0, 0.0]
+  r_board_chip:              # [확인 필요] 칩 축 ↔ 보드 축. 실물 첫 확인 ②③ 에서 정한다
+    - [1.0, 0.0, 0.0]
+    - [0.0, 1.0, 0.0]
+    - [0.0, 0.0, 1.0]
+
 # 짝 관절 제한: lo <= coef[0]·q[a] + coef[1]·q[b] <= hi. 관절 하나 한계로는 못 거는 충돌용.
 pair_limits:
   - name: hip_yaw_pair

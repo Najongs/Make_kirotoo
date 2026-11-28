@@ -73,6 +73,7 @@ class RobotConfig:
     pair_limits: List[PairLimit] = field(default_factory=list)
     safety: Dict = field(default_factory=dict)
     require_soft_limits: bool = True
+    imu: Dict = field(default_factory=dict)   # OpenCR IMU settings (opencr_imu.OpenCRImu.from_config)
 
 
 def _limits(value, label) -> Limits:
@@ -108,7 +109,8 @@ def load_config(path: str) -> RobotConfig:
              for p in raw.get("pair_limits") or []]
     config = RobotConfig(path=path, buses=buses, joints=joints, pair_limits=pairs,
                          safety=raw.get("safety") or {},
-                         require_soft_limits=bool(raw.get("require_soft_limits", True)))
+                         require_soft_limits=bool(raw.get("require_soft_limits", True)),
+                         imu=raw.get("imu") or {})
     validate(config)
     return config
 
