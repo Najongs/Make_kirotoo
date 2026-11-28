@@ -9,6 +9,7 @@ v20 다리 · v21 몸통 · 머리를 실물 출력 · 조립에서 부러지지
 - 현황판 10번 「남음」 ①–⑥: 발판 혼 나사 자리(채움 100 % 권고 7c28e7f, 금 가면 혼 판 분리) · 반바지 벽 1.2 · Jetson B01 · 범위 sweep · 조립도 · 옛 이음 필렛.
 
 ## 3. 도는 것
+- 서브에이전트(11-28): 새 조립도 `code_v17/assembly_drawing21.py` → `out20/assembly_drawing/kitoru_v21_assembly*.png · .pdf`(다리 · 몸통 머리 · 팔 + 전체, A3 장마다). 끝나면 메인이 장마다 판독 · 소유자에게 보냄.
 - 없음. 서포트 없애기 끝(220db8f · 8dd1d5e), STL 4개 · PRINT_v2 갱신. 남은 것: build20 `__main__` 산출물(`build20_log.json` · `biped_robot_v20.stp` · `model.json`)은 서포트 없애기 전 판 — 조립도 다시 만들 때 같이.
 - 없음. v22 모델 끝(aa0c1cd · kitoru-rl 8c1c728), DGX_2 에 넘김 — 그쪽 할 일: Warp 불러 보기, 일어나기 시작 자세 다시(17.8 % 겹침), 비트에 기댄 스크립트 둘.
 - DGX_2 RC 세션 「DGX_2 설치 작업 지시」: kitoru-rl 갈래 넷을 스스로 계속 돌림(소유자 「끝」까지). 메인에는 좋은 결과(영상) · 설계 결정만 보냄 → 영상은 `project_media_put(project="kitoru-rl")` + SendUserFile.
