@@ -40,6 +40,10 @@ Second pass (2026-11-27, coarse print: walls >= 2, features >= 3, gaps >= 0.4)
     3 mm stepped entry flare at the channel bottom; rails moved to x 15.5 / -23.5 (block clear of the shoulder slot and
     the cover seam); shorts flange notches c +- 5.3 -> +- 6.4
   * horizontal holes in print orientation -> teardrops pointing up (teardrops, last pass)
+
+Fix (2026-11-28): the shorts flange hole corners (-86, +-60.4) sat outside the flange outline since build17, so the
+STEP carried the hole as an extra solid (flange printed closed); the 2 corners -> chamfers SHORTS_RIM inside the
+outline arcs (shorts_hole_corners)
 """
 import os, sys, json, math
 import numpy as np
@@ -52,6 +56,7 @@ SNAP_EXTRA = 0.1            # (ear hooks only; build16 drops them)
 TONGUE_GAP = 0.4
 TONGUE_T = 3.0              # head seam tongue thickness (was 0.95)
 SHORTS_GAP = 0.4            # shorts flange hole -> frame wall, per side
+SHORTS_RIM = 3.0            # shorts flange hole back corners -> flange outline arc, least rim (shorts_hole_corners)
 DOVE_GAP = 0.5              # cover channel -> frame rail, per face (a loose guide: the lid screws hold the covers)
 SHELL_T = 2.0               # head / crest / ear cup / shirt cover walls (build6.T 1.2), grown inward, outside kept
 BEV_T = SHELL_T * math.sqrt(2)   # radial width of the 45 deg stepped rings (head back chamfer, face bevel) -> normal 2.0
@@ -589,6 +594,60 @@ def shorts_notches(links):
     return dict(points=n, notch_half_w=(5.3, hw))
 
 
+def shorts_hole_corners(links):
+    """shorts flange hole back corners: build17 moved the hole's back edge x -72 -> -86 (OpenCR USB plug from below),
+    which put the corners (-86, +-60.4) outside the flange outline's R 49.4 back corner arcs (89.6 mm2 of hole outside
+    the outline). The hole loop then crossed the outline and OCC read it as a separate solid added to the plate: every
+    shorts STEP since out18 printed with the flange hole closed. Each hole point outside the outline -> a chamfer
+    between the two points where its edges cross the arc offset SHORTS_RIM inward (the hole keeps x -86 at the USB
+    plug, y -2 .. 6)"""
+    sh = links["torso"]["parts"]["shorts"]
+    n, cut = 0, []
+    for i, x in enumerate(sh):
+        if not (x[0] == "rprism" and x[1][0] == "z" and x[1][4]):
+            continue
+        a = x[1]
+        mu = sum(p[0] for p in a[3]) / len(a[3])
+        mv = sum(p[1] for p in a[3]) / len(a[3])
+        arcs = [(c[0] + c[2] * math.copysign(1, mu - c[0]), c[1] + c[2] * math.copysign(1, mv - c[1]), c[2])
+                for c in a[3] if c[2] > SHORTS_RIM]
+
+        def outside(p):
+            for cu, cv, R in arcs:
+                # p lies in this corner's quadrant (beyond the arc centre towards the corner) and outside the arc
+                if (p[0] - cu) * (cu - mu) > 0 and (p[1] - cv) * (cv - mv) > 0 and math.hypot(p[0] - cu, p[1] - cv) > R:
+                    return cu, cv, R
+            return None
+
+        def cross(p, q, arc):
+            """first point of the segment p -> q (p outside the outline) on the arc offset SHORTS_RIM inward"""
+            cu, cv, R = arc
+            R -= SHORTS_RIM
+            du, dv = q[0] - p[0], q[1] - p[1]
+            fu, fv = p[0] - cu, p[1] - cv
+            A, B, C = du * du + dv * dv, 2 * (fu * du + fv * dv), fu * fu + fv * fv - R * R
+            t = (-B - math.sqrt(B * B - 4 * A * C)) / (2 * A)
+            r = (p[0] + t * du, p[1] + t * dv)
+            assert 0 < t < 1 and (r[0] - cu) * (cu - mu) >= 0 and (r[1] - cv) * (cv - mv) >= 0, (p, q, t)
+            return (round(r[0], 3), round(r[1], 3), 0)
+        inn = []
+        for l in a[4]:
+            nl = []
+            for j, p in enumerate(l):
+                arc = outside(p)
+                if arc is None:
+                    nl.append(p)
+                    continue
+                assert p[2] == 0
+                nl += [cross(p, l[j - 1], arc), cross(p, l[(j + 1) % len(l)], arc)]
+                cut.append((p[:2], nl[-2][:2], nl[-1][:2]))
+                n += 1
+            inn.append(nl)
+        sh[i] = (x[0], (a[0], a[1], a[2], a[3], inn, a[5]), x[2])
+    assert n == 2, n
+    return dict(corners=n, rim=SHORTS_RIM, chamfers=cut)
+
+
 def _seg_dist(P, Q):
     """min distance from the points P (n, 2) to the closed polyline Q (m, 2)"""
     A, B = Q, np.roll(Q, -1, axis=0)
@@ -751,6 +810,7 @@ def build_model():
     LOG["yaw_side_screws"] = yaw_side_screws(links)
     LOG["shell_walls"] = shell_walls(links)
     LOG["shorts_notches"] = shorts_notches(links)
+    LOG["shorts_hole_corners"] = shorts_hole_corners(links)
     LOG["no_support"] = no_support(links)
     LOG["teardrops"] = teardrops(links, body_names())
     return links, joints, fasteners
