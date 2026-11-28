@@ -39,11 +39,18 @@ KIRO 마스코트 모양의 2족보행 로봇(키 633 mm, v20 에서 다리를 �
 - 모두 XL430 으로는 초속 약 0.04 m 로 짧게 걷고 쉬는 식이 됩니다(시뮬 + 열 추정, [`sim/walk/allxl/ALLXL_v20A.md`](sim/walk/allxl/ALLXL_v20A.md)). 실물 발열 시험 뒤 다시 정합니다.
 - 달리기(두 발이 모두 뜨는 걸음)는 X430 계열 서보로는 안 됩니다. 무릎 서보가 충분히 빠르지 않습니다([`sim/walk/speed/SPEED_STUDY.md`](sim/walk/speed/SPEED_STUDY.md)).
 
-## 조립도 (A3 한 장)
+## 조립도 (A3 네 장, 2026-11-28 · `PRINT_v2` 52개 판)
 
-부품 이름 · 파일 이름 · 나사 · 서보 ID 가 그림 안에 적혀 있습니다. 인쇄용은 [PDF](out20/assembly_drawing/kitoru_v20_assembly.pdf) 입니다.
+부품 이름 · `PRINT_v2` STL 이름 · 서보 ID · 나사(종류 × 개수) · 조립 단계 · 조립 주의가 그림 안에 적혀 있습니다. 인쇄용은 네 장을 묶은 [PDF](out20/assembly_drawing/kitoru_v21_assembly.pdf) 입니다(만드는 코드 `code_v17/assembly_drawing21.py`).
 
-![키토루 v20 조립도](out20/assembly_drawing/kitoru_v20_assembly.png)
+1. [다리 (오른쪽, 왼쪽은 대칭)](out20/assembly_drawing/kitoru_v21_assembly_p1_leg.png) — 분해도 · 조립 13단계 · 조립 뒤 범위 확인 · 드릴 표
+2. [몸통](out20/assembly_drawing/kitoru_v21_assembly_p2_torso.png) — 안쪽 · 바깥(덮개 도브테일) 분해도 · 단계 1–8
+3. [머리](out20/assembly_drawing/kitoru_v21_assembly_p3_head.png) — 분해도 · 단계 9–14
+4. [팔꿈치 팔 · 전체](out20/assembly_drawing/kitoru_v21_assembly_p4_arm_total.png) — 팔 분해도 · 완성 정면 · 옆 · 서보 17개 표 · 나사 · 구매품 합계
+
+![키토루 v21 조립도 1 다리](out20/assembly_drawing/kitoru_v21_assembly_p1_leg.png)
+
+- 옛 판: [v20 한 장 조립도](out20/assembly_drawing/kitoru_v20_assembly.png)(2026-11-27, 2차 보강 · 팔꿈치 팔 전 — 지금 출력 묶음과 다름)
 
 ## 출력하기 (다리)
 
