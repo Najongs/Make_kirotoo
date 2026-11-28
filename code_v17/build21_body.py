@@ -44,6 +44,10 @@ Second pass (2026-11-27, coarse print: walls >= 2, features >= 3, gaps >= 0.4)
 Fix (2026-11-28): the shorts flange hole corners (-86, +-60.4) sat outside the flange outline since build17, so the
 STEP carried the hole as an extra solid (flange printed closed); the 2 corners -> chamfers SHORTS_RIM inside the
 outline arcs (shorts_hole_corners)
+
+Fix (2026-11-28, STEP solid audit print_tests/tools/step_audit.py): antenna loop -> arc + chord (its fillets overlapped,
+solid inside out); lid plug U band split into its simple pieces (outline crossed itself at the back corners,
+lid_plug_split); camera FFC slots in the head floor / lid cap 16 -> 20 wide, r 1 (camera_cable_slots)
 """
 import os, sys, json, math
 import numpy as np
@@ -160,7 +164,7 @@ def _cover_channel(s, c, rgb):
 _HOOK0 = B14.hook
 SEAM_X = 18.7                # head seam side screw: x of its axis (the old window x 17 .. 20.4)
 from build6 import PROFI
-from shapes import rrect, circle_loop
+from shapes import rrect, circle_loop, circle_cap
 import build16 as B16, build19 as B19, build20 as B20, x430_holes as X
 
 
@@ -301,7 +305,11 @@ def inserts(links):
         d[1] = ("cyl", (c, ax, r - GAP, h), d[1][2])
         c, ax, r, h = E[f"antenna_{side}"][0][1]
         rgb = E[f"antenna_{side}"][0][2]
-        loop = [(max(p[0], c[0] - 3.2),) + tuple(p[1:]) for p in circle_loop(c[0], c[1], r)]
+        # round rod with a flat at x c - 3.2 (bed when printed lying): the arc from -t to +t through +x, closed by the
+        # chord (was the r 4 square loop clipped to width 7.2 with its r 4 fillets kept: the fillets overlapped and
+        # the STEP solid came out inside out, gmsh -2.63 cm3; fixed 2026-11-28)
+        t = math.degrees(math.acos(-3.2 / r))
+        loop = circle_cap(c[0], c[1], r, -t, t)
         E[f"antenna_{side}"] = [PROFI("z", c[2], c[2] + h, loop, [], rgb)]
         ear = E[f"ear_{side}"]
         for i, x in enumerate(ear):
@@ -648,6 +656,82 @@ def shorts_hole_corners(links):
     return dict(corners=n, rim=SHORTS_RIM, chamfers=cut)
 
 
+CAM_SLOT_HALF_W = 10.0      # camera FFC (16 wide) + servo cable slots, head floor and lid cap: y half width (was 8)
+CAM_SLOT_R = 1.0            # their corner radius (was 3: the flat width was 10, the FFC is 16)
+
+
+def camera_cable_slots(links):
+    """head floor slot (build16 rrect(-58, -46, -8, 8, 3), head_back z 365-367) and lid cap slot (build16 CABLE
+    (-58, -44, -8, 8) r 3, z 336.3-338.3): 16 wide like the camera FFC (15 pin, 1 mm pitch, 16 mm) with r 3 corners
+    (flat 10), a printed -0.4 slot does not pass it -> y +-CAM_SLOT_HALF_W, corners CAM_SLOT_R (flat 18; x lengths 12 /
+    14 kept: the nod servo plug EHR-3 about 8 x 5 passes first, then plug wire + FFC side by side)"""
+    from shapes import rrect
+    rec = []
+    for ln, pn, x0, x1, z0 in (("head", "head_back", -58.0, -46.0, 365.0), ("torso", "lid", -58.0, -44.0, 336.3)):
+        ss, n = links[ln]["parts"][pn], 0
+        for i, x in enumerate(ss):
+            if not (x[0] == "rprism" and x[1][0] == "z" and abs(x[1][1] - z0) < 0.05):
+                continue
+            a = x[1]
+            inn = []
+            for l in a[4]:
+                us, vs = sorted({round(p[0], 6) for p in l}), sorted({round(p[1], 6) for p in l})
+                if len(l) == 4 and us == [x0, x1] and vs == [-8.0, 8.0]:
+                    inn.append(orient(rrect(x0, x1, -CAM_SLOT_HALF_W, CAM_SLOT_HALF_W, CAM_SLOT_R), False)); n += 1
+                else:
+                    inn.append(l)
+            ss[i] = (x[0], (a[0], a[1], a[2], a[3], inn, a[5]), x[2])
+        assert n == 1, (pn, n)
+        rec.append(dict(part=pn, x=(x0, x1), y=(-8.0, 8.0, -CAM_SLOT_HALF_W, CAM_SLOT_HALF_W), r=(3.0, CAM_SLOT_R)))
+    return rec
+
+
+def _split_loop(P):
+    """polygon [(u, v)] crossing itself -> simple loops, split at each proper crossing"""
+    n = len(P)
+    for i in range(n):
+        a, b = P[i], P[(i + 1) % n]
+        for j in range(i + 2, n):
+            if (j + 1) % n == i:
+                continue
+            c, d = P[j], P[(j + 1) % n]
+            den = (b[0] - a[0]) * (d[1] - c[1]) - (b[1] - a[1]) * (d[0] - c[0])
+            if abs(den) < 1e-12:
+                continue
+            t = ((c[0] - a[0]) * (d[1] - c[1]) - (c[1] - a[1]) * (d[0] - c[0])) / den
+            u = ((c[0] - a[0]) * (b[1] - a[1]) - (c[1] - a[1]) * (b[0] - a[0])) / den
+            if 1e-9 < t < 1 - 1e-9 and 1e-9 < u < 1 - 1e-9:
+                X = (a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1]))
+                return _split_loop(P[:i + 1] + [X] + P[j + 1:]) + _split_loop([X] + P[i + 1:j + 1])
+    return [P]
+
+
+def lid_plug_split(links):
+    """lid plug U band (build17 plugU, clipped): its inner back corners (-58, +-53) lie beyond the outer back chamfers
+    (-45, +-60) -> (-65, +-40), so the band's two arms and its back bar meet only at points and the outline crossed
+    itself (STEP read with 4 open edges, 2026-11-28). The loop -> its simple pieces: the 2 arms and the back bar keep
+    their outlines (no material added or moved), the 2 inside-out triangles beyond the chamfers are dropped. The
+    pieces still hang from the lid cap (z 336.3 up) as before."""
+    from shapes import area
+    lid = links["torso"]["parts"]["lid"]
+    out, rec = [], []
+    for x in lid:
+        if not (x[0] == "rprism" and x[1][0] == "z" and x[1][1] >= 329.9 and x[1][2] <= 336.4 and len(x[1][3]) >= 8):
+            out.append(x); continue
+        a = x[1]
+        assert all(p[2] == 0 for p in a[3]) and not a[4] and not a[5], "lid plug: polygon without loops / holes"
+        pieces = _split_loop([(p[0], p[1]) for p in a[3]])
+        A = [area(q) for q in pieces]
+        sg = math.copysign(1, max(A, key=abs))
+        keep = [q for q, ar in zip(pieces, A) if ar * sg > 0.01]
+        out += [PROFI("z", a[1], a[2], [(u, v, 0) for u, v in q], [], x[2]) for q in keep]
+        rec.append(dict(z=(a[1], a[2]), pieces=len(pieces), kept=len(keep), kept_area_mm2=round(sum(abs(area(q)) for q in keep), 1),
+                        dropped_area_mm2=round(sum(abs(ar) for ar in A if ar * sg <= 0.01), 1)))
+    assert len(rec) == 2 and all(r["kept"] == 3 for r in rec), rec
+    lid[:] = out
+    return rec
+
+
 def _seg_dist(P, Q):
     """min distance from the points P (n, 2) to the closed polyline Q (m, 2)"""
     A, B = Q, np.roll(Q, -1, axis=0)
@@ -811,6 +895,8 @@ def build_model():
     LOG["shell_walls"] = shell_walls(links)
     LOG["shorts_notches"] = shorts_notches(links)
     LOG["shorts_hole_corners"] = shorts_hole_corners(links)
+    LOG["lid_plug_split"] = lid_plug_split(links)
+    LOG["camera_cable_slots"] = camera_cable_slots(links)
     LOG["no_support"] = no_support(links)
     LOG["teardrops"] = teardrops(links, body_names())
     return links, joints, fasteners

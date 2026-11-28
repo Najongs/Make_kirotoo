@@ -42,7 +42,7 @@
   "up": "-z",
   "size_mm": "143x130x8",
   "support_mm2": 0,
-  "volume_cm3": 56.9,
+  "volume_cm3": 57.1,
   "note": "흰색. 캡을 바닥에(걸쇠가 위로). 스위치·잭 구멍, 배기 슬롯",
   "colours": [
    [
@@ -170,7 +170,7 @@
   "up": "+z",
   "size_mm": "38x37x68",
   "support_mm2": 0,
-  "volume_cm3": 23.4,
+  "volume_cm3": 23.6,
   "note": "",
   "colours": [
    [
@@ -186,7 +186,7 @@
   "up": "-z",
   "size_mm": "44x49x118",
   "support_mm2": 0,
-  "volume_cm3": 40.3,
+  "volume_cm3": 40.4,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -218,7 +218,7 @@
   "up": "+z",
   "size_mm": "44x49x112",
   "support_mm2": 16,
-  "volume_cm3": 35.6,
+  "volume_cm3": 35.7,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -250,7 +250,7 @@
   "up": "+x",
   "size_mm": "54x43x86",
   "support_mm2": 19,
-  "volume_cm3": 35.9,
+  "volume_cm3": 35.8,
   "note": "",
   "colours": [
    [
@@ -282,7 +282,7 @@
   "up": "+z",
   "size_mm": "38x37x68",
   "support_mm2": 0,
-  "volume_cm3": 23.4,
+  "volume_cm3": 23.6,
   "note": "",
   "colours": [
    [
@@ -298,7 +298,7 @@
   "up": "-z",
   "size_mm": "44x49x118",
   "support_mm2": 16,
-  "volume_cm3": 40.3,
+  "volume_cm3": 40.4,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -330,7 +330,7 @@
   "up": "+z",
   "size_mm": "44x49x112",
   "support_mm2": 0,
-  "volume_cm3": 35.6,
+  "volume_cm3": 35.7,
   "note": "앞면 홈 + 받침(셸 걸쇠용)",
   "colours": [
    [
@@ -362,7 +362,7 @@
   "up": "+x",
   "size_mm": "54x43x86",
   "support_mm2": 19,
-  "volume_cm3": 35.9,
+  "volume_cm3": 35.8,
   "note": "",
   "colours": [
    [
@@ -394,7 +394,7 @@
   "up": "+x",
   "size_mm": "200x196x92",
   "support_mm2": 0,
-  "volume_cm3": 189.4,
+  "volume_cm3": 189.3,
   "note": "뒷면을 바닥에. 목 축 판·보강판·서보 패드·이음 걸쇠 포함",
   "colours": [
    [
@@ -714,7 +714,7 @@
   "up": "+x",
   "size_mm": "8x60x7",
   "support_mm2": 0,
-  "volume_cm3": 2.6,
+  "volume_cm3": 2.9,
   "note": "주황색. 납작한 면을 바닥에 눕혀서. 귀 구멍에 접착",
   "colours": [
    [
@@ -762,7 +762,7 @@
   "up": "+x",
   "size_mm": "8x60x7",
   "support_mm2": 0,
-  "volume_cm3": 2.6,
+  "volume_cm3": 2.9,
   "note": "주황색. 납작한 면을 바닥에 눕혀서. 귀 구멍에 접착",
   "colours": [
    [
@@ -842,7 +842,7 @@
   "up": "+z",
   "size_mm": "49x35x89",
   "support_mm2": 0,
-  "volume_cm3": 32.1,
+  "volume_cm3": 32.3,
   "note": "",
   "colours": [
    [
@@ -858,7 +858,7 @@
   "up": "+z",
   "size_mm": "49x35x89",
   "support_mm2": 0,
-  "volume_cm3": 32.1,
+  "volume_cm3": 32.3,
   "note": "",
   "colours": [
    [

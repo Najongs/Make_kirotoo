@@ -462,7 +462,10 @@ def entry_relief(links, frames, mp, entries):
         else:
             b1 += ENTRY_RELIEF * (1 if nw[k] > 0 else -1)
         ss[r["solid_index"]] = ("rprism", (axn, a0, a1, main_loop, inn, holes), s[2])
-        ss.append(("rprism", (axn, min(b0, b1), max(b0, b1), strip_loop, [], [h for h in holes]), s[2]))
+        # the 0.5 mm strip carries no holes: copied holes lay outside its outline, and OCC read each such circle as a
+        # loose cylinder solid that filled the case hole of the plate next to it (60 leg case holes closed in the STEP,
+        # fixed 2026-11-28; the main solid keeps the holes)
+        ss.append(("rprism", (axn, min(b0, b1), max(b0, b1), strip_loop, [], []), s[2]))
         done.add(key)
         out.append(dict(servo=r["servo"], part=r["part"], solid=r["solid_index"], entry_axis="xyz"[ek] + ("+" if esg > 0 else "-"), edge=round(end, 2)))
     return out
@@ -1574,11 +1577,16 @@ def print_robust(links, joints):
 #   flat back face +- 3.5 (the r 10 corners rise steeper than 45 deg beyond it)
 # * the inner ear pillar starts on the cut plane at x -68 above the back plate (its edge hung in the air, 11 mm2):
 #   column on the bed behind the servo up to the plane (servo-side face 0.25 off the case side plane, x <= -68: the
-#   case cable slots open at x > -68 and stay free)
+#   case cable slots open at x > -68 and stay free); servo-side face moved to 17.4 from the leg centre (NS_COL_CASE,
+#   2026-11-28: the column took the knee's first contact from the ankle roll servo)
 # Left as they are: the spacers' 45 deg V tips (8.4 mm lines across the cable gaps, 2 x 9.4 mm2): supporting them
 # would close the gap between the case and the side plates that the cables use.
 NS_FILL_HALF = 5.0          # fill band: plate back face centre +- (flat 1.5 + 3.5)
-NS_COL_CASE = 14.5          # column face from the leg centre (case side at 14.25)
+NS_COL_CASE = 17.4          # column face from the leg centre: 14.5 (case side 14.25) -> 17.4 (2026-11-28): at full knee
+                            # the hip pitch servo (|y - c| >= 23.0 world) and the hip roll bracket pass behind the ankle
+                            # roll servo through |y - c| 14.5 .. 17.4 of the column and hit it first (knee first contact
+                            # at hip pitch -117: 113.84 -> 112.5, at -60: 109.72 -> 108.69); 0.4 clear of the servo now.
+                            # The pillar edge strip left above the plane (2.9 mm, one side joined) is under the 3 mm ledge
 
 
 def no_support(links):

@@ -356,8 +356,84 @@ def build_model():
     return links, joints, fasteners
 
 
-def write(links, path):
+def _crossings(A, B, C, D, same):
+    """proper crossings between the segments A[i]->B[i] and C[j]->D[j] (same polyline: neighbours left out)"""
+    out = []
+    for i in range(len(A)):
+        p, r = A[i], B[i] - A[i]
+        s = D - C
+        den = r[0] * s[:, 1] - r[1] * s[:, 0]
+        ok = abs(den) > 1e-12
+        den = [d if o else 1.0 for d, o in zip(den, ok)]
+        qp = C - p
+        t = (qp[:, 0] * s[:, 1] - qp[:, 1] * s[:, 0]) / den
+        u = (qp[:, 0] * r[1] - qp[:, 1] * r[0]) / den
+        for j in range(len(C)):
+            if same and (j - i) % len(A) in (0, 1, len(A) - 1):
+                continue
+            if ok[j] and 1e-9 < t[j] < 1 - 1e-9 and 1e-9 < u[j] < 1 - 1e-9:
+                out.append((round(float(p[0] + t[j] * r[0]), 2), round(float(p[1] + t[j] * r[1]), 2)))
+    return out
+
+
+def check_profile(s):
+    """an rprism as OCC will read it from the STEP: holes fully outside the outline (or inside an inner loop) are
+    dropped (they cut nothing; written, OCC makes each a loose cylinder solid that can fill a hole of the plate next
+    to it: 60 leg case holes, 2026-11-28); returns (solid, problems) where problems are the faults that need a design
+    fix: a hole circle crossing a loop, a loop crossing itself (overlapping fillets too), an inner loop crossing or
+    outside the outline (2026-11-28: antenna fillets, lid plug, shorts flange hole)"""
+    import numpy as np
+    from matplotlib.path import Path
+    if s[0] != "rprism":
+        return s, []
+    axis, a0, a1, outer, inners, holes = s[1]
+    seg = lambda L: (np.asarray(L, float)[:, :2], np.roll(np.asarray(L, float)[:, :2], -1, axis=0))
+    def dist(p, A, B):
+        d = B - A
+        t = np.clip(((p - A) * d).sum(1) / np.maximum((d * d).sum(1), 1e-12), 0, 1)
+        return float(np.min(np.hypot(*(A + t[:, None] * d - p).T)))
+    probs = []
+    O = sample(outer); AO, BO = seg(O); PO = Path(AO)
+    I = [sample(l) for l in inners]; SI = [seg(l) for l in I]; PI = [Path(x[0]) for x in SI]
+    for nm, (A, B) in [("outline", (AO, BO))] + [(f"inner loop {k}", x) for k, x in enumerate(SI)]:
+        x = _crossings(A, B, A, B, True)
+        if x:
+            probs.append(f"{nm} crosses itself at {x[:2]}")
+    for k, (A, B) in enumerate(SI):
+        if _crossings(A, B, AO, BO, False):
+            probs.append(f"inner loop {k} crosses the outline")
+        elif not PO.contains_point(A[0]):
+            probs.append(f"inner loop {k} lies outside the outline")
+    keep = []
+    for h in holes:
+        p = np.array(h[:2], float); r = h[2]
+        if dist(p, AO, BO) < r - 1e-6:
+            probs.append(f"hole {tuple(round(v, 2) for v in h)} crosses the outline"); keep.append(h); continue
+        if not PO.contains_point(p):
+            continue                                   # fully outside: cuts nothing
+        cut = [dist(p, A, B) < r - 1e-6 for A, B in SI]
+        if any(cut):
+            probs.append(f"hole {tuple(round(v, 2) for v in h)} crosses an inner loop"); keep.append(h); continue
+        if any(P.contains_point(p) for P in PI):
+            continue                                   # fully inside an opening: cuts nothing
+        keep.append(h)
+    return ("rprism", (axis, a0, a1, outer, inners, keep), s[2]), probs
+
+
+def write(links, path, check=True):
+    """write_step through to_local; check: every rprism through check_profile (holes that cut nothing dropped, any
+    remaining fault raises ValueError naming the part, so a broken STEP is not written)"""
     import build
+    if check:
+        bad = []
+        links = {ln: dict(L, parts={pn: list(ss) for pn, ss in L["parts"].items()}) for ln, L in links.items()}
+        for ln, L in links.items():
+            for pn, ss in L["parts"].items():
+                for i, x in enumerate(ss):
+                    ss[i], probs = check_profile(x)
+                    bad += [f"{pn} solid {i}: {m}" for m in probs]
+        if bad:
+            raise ValueError(f"{path}: profile faults (fix the design, OCC misreads these):\n  " + "\n  ".join(bad))
     saved = build.to_local
     build.to_local = to_local          # write_step localises solids through build.to_local
     try:

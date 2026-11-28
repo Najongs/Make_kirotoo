@@ -1,0 +1,292 @@
+{
+ "r_bend": 8.0,
+ "width": 16.0,
+ "margin": 30.0,
+ "poses": [
+  {
+   "nod": -20.0,
+   "floor_slot": [
+    -54.8,
+    0.0,
+    347.2
+   ],
+   "slot_gap_mm": 10.6,
+   "neck_len_mm": 10.7,
+   "neck_least_radius_mm": 8.9,
+   "neck_clear_torso": [
+    8.0,
+    null
+   ],
+   "neck_clear_head": [
+    8.0,
+    null
+   ]
+  },
+  {
+   "nod": -14.0,
+   "floor_slot": [
+    -54.7,
+    0.0,
+    352.9
+   ],
+   "slot_gap_mm": 16.0,
+   "neck_len_mm": 16.1,
+   "neck_least_radius_mm": 23.0,
+   "neck_clear_torso": [
+    8.0,
+    null
+   ],
+   "neck_clear_head": [
+    8.0,
+    null
+   ]
+  },
+  {
+   "nod": -7.0,
+   "floor_slot": [
+    -53.7,
+    0.0,
+    359.5
+   ],
+   "slot_gap_mm": 22.4,
+   "neck_len_mm": 22.4,
+   "neck_least_radius_mm": 59.7,
+   "neck_clear_torso": [
+    8.0,
+    null
+   ],
+   "neck_clear_head": [
+    8.0,
+    null
+   ]
+  },
+  {
+   "nod": 0.0,
+   "floor_slot": [
+    -52.0,
+    0.0,
+    366.0
+   ],
+   "slot_gap_mm": 28.7,
+   "neck_len_mm": 28.7,
+   "neck_least_radius_mm": 186.2,
+   "neck_clear_torso": [
+    8.0,
+    null
+   ],
+   "neck_clear_head": [
+    8.0,
+    null
+   ]
+  },
+  {
+   "nod": 7.0,
+   "floor_slot": [
+    -49.5,
+    0.0,
+    372.2
+   ],
+   "slot_gap_mm": 34.9,
+   "neck_len_mm": 35.0,
+   "neck_least_radius_mm": 183.4,
+   "neck_clear_torso": [
+    8.0,
+    null
+   ],
+   "neck_clear_head": [
+    8.0,
+    null
+   ]
+  },
+  {
+   "nod": 14.0,
+   "floor_slot": [
+    -46.2,
+    0.0,
+    378.1
+   ],
+   "slot_gap_mm": 41.0,
+   "neck_len_mm": 41.1,
+   "neck_least_radius_mm": 151.1,
+   "neck_clear_torso": [
+    8.0,
+    null
+   ],
+   "neck_clear_head": [
+    8.0,
+    null
+   ]
+  },
+  {
+   "nod": 21.0,
+   "floor_slot": [
+    -42.3,
+    0.0,
+    383.5
+   ],
+   "slot_gap_mm": 47.0,
+   "neck_len_mm": 47.3,
+   "neck_least_radius_mm": 118.4,
+   "neck_clear_torso": [
+    8.0,
+    null
+   ],
+   "neck_clear_head": [
+    8.0,
+    null
+   ]
+  },
+  {
+   "nod": 28.0,
+   "floor_slot": [
+    -37.7,
+    0.0,
+    388.4
+   ],
+   "slot_gap_mm": 52.8,
+   "neck_len_mm": 53.3,
+   "neck_least_radius_mm": 99.7,
+   "neck_clear_torso": [
+    8.0,
+    null
+   ],
+   "neck_clear_head": [
+    8.0,
+    null
+   ]
+  }
+ ],
+ "head_run": {
+  "waypoints": [
+   [
+    62.0,
+    37.5,
+    438.6
+   ],
+   [
+    60.0,
+    37.5,
+    425.0
+   ],
+   [
+    42.0,
+    37.5,
+    418.0
+   ],
+   [
+    28.0,
+    0.0,
+    418.0
+   ],
+   [
+    -52.0,
+    0.0,
+    418.0
+   ],
+   [
+    -52.0,
+    0.0,
+    367.0
+   ]
+  ],
+  "length_mm": 197.9,
+  "least_radius_mm": 8.0,
+  "ribbon_clear_to_head_parts_mm": 6.5,
+  "nearest": "eye_L",
+  "mover_y_bands": {
+   "nod_crank": [
+    13.3,
+    23.0
+   ],
+   "ear_rod": [
+    19.9,
+    22.9
+   ],
+   "nod_rod": [
+    19.8,
+    22.8
+   ],
+   "ears": [
+    -124.0,
+    124.0
+   ]
+  },
+  "ribbon_y_band": [
+   -8.0,
+   45.5
+  ],
+  "ribbon_y_band_behind_x28": [
+   -8.0,
+   8.0
+  ],
+  "clear_to_crank_ears_over_range": {
+   "link": "nod_crank",
+   "angle": -22.0,
+   "mm": 12.0,
+   "solid": null
+  }
+ },
+ "torso_run": {
+  "near (back edge)": {
+   "waypoints": [
+    [
+     -51.0,
+     0.0,
+     330.0
+    ],
+    [
+     -52.0,
+     0.0,
+     300.0
+    ],
+    [
+     -46.0,
+     0.0,
+     292.0
+    ]
+   ],
+   "length_mm": 47.1,
+   "least_radius_mm": 8.0,
+   "total_longest_pose_mm": 298.3,
+   "buy_mm": 328.3
+  },
+  "far (front edge)": {
+   "waypoints": [
+    [
+     -51.0,
+     0.0,
+     330.0
+    ],
+    [
+     -40.0,
+     0.0,
+     326.0
+    ],
+    [
+     52.0,
+     0.0,
+     326.0
+    ],
+    [
+     53.0,
+     0.0,
+     300.0
+    ],
+    [
+     46.0,
+     0.0,
+     292.0
+    ]
+   ],
+   "length_mm": 143.2,
+   "least_radius_mm": 5.2,
+   "total_longest_pose_mm": 394.4,
+   "buy_mm": 424.4
+  }
+ },
+ "torso_run_clear_mm": [
+  5.5,
+  "jetson_fan_40mm_5V"
+ ],
+ "slack_in_head_mm": 42.6
+}
