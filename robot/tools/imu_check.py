@@ -6,7 +6,8 @@
   python tools/imu_check.py --port /dev/kitoru_opencr --calibrate     # re-measure gyro bias (keep still)
 
 Each line shows gravity and angular velocity in the body frame (what the policy gets) and,
-in brackets, the raw chip-frame values (to fix imu.r_board_chip in the YAML). README 3절.
+in brackets, the chip-frame values (to fix imu.r_board_chip in the YAML): g_chip from the filter,
+a_chip = accelerometer direction (points UP, no filter lag). README 3절.
 """
 
 from __future__ import annotations
@@ -20,6 +21,11 @@ from kitoru_hw.opencr_imu import OpenCRImu
 
 def fmt(v, digits=2):
     return "(" + ", ".join(f"{x:+.{digits}f}" for x in v) + ")"
+
+
+def unit(v):
+    n = math.sqrt(sum(x * x for x in v)) or 1.0
+    return [x / n for x in v]
 
 
 def main(argv=None, **robot_kwargs):
@@ -61,7 +67,7 @@ def main(argv=None, **robot_kwargs):
                 roll, pitch = (math.degrees(a) for a in s["roll_pitch"])
                 print(f"g_body {fmt(s['gravity_b'])} w_body {fmt(s['ang_vel_b'])} rad/s "
                       f"roll {roll:+6.1f} pitch {pitch:+6.1f} deg "
-                      f"[g_chip {fmt(s['gravity_chip'])} w_chip {fmt(s['gyro_chip'])}]"
+                      f"[g_chip {fmt(s['gravity_chip'])} a_chip {fmt(unit(s['acc_chip']))} w_chip {fmt(s['gyro_chip'])}]"
                       f"{' STALE' if s['stale'] else ''}", flush=True)
                 time.sleep(max(0.0, 1.0 / args.hz - s["read_s"]))
         finally:

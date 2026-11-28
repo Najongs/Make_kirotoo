@@ -53,8 +53,8 @@ enum Address : uint16_t {
   // ---- one READ of 32..95 (64 bytes) gives a whole sample -------------------
   ADDR_TIMESTAMP_US = 32,       // u32  R  micros() when the sample was taken (wraps ~71.6 min)
   ADDR_SAMPLE_COUNT = 36,       // u32  R  +1 per IMU sample (same value twice = stale)
-  ADDR_STATUS = 40,             // u8   R  bit0 IMU found, bit1 gyro bias calibrated
-  ADDR_QUAT_W = 44,             // f32 x4 R  Madgwick quaternion w,x,y,z (chip axes, yaw drifts)
+  ADDR_STATUS = 40,             // u8   R  bit0 IMU found, bit1 gyro bias calibrated, bit2 attitude started
+  ADDR_QUAT_W = 44,             // f32 x4 R  Madgwick quaternion w,x,y,z (chip -> world, yaw drifts)
   ADDR_GRAVITY_X = 60,          // f32 x3 R  gravity direction in chip axes, unit vector, points DOWN
   ADDR_GYRO_X = 72,             // f32 x3 R  angular velocity in chip axes, rad/s
   ADDR_ACC_X = 84,              // f32 x3 R  acceleration in chip axes, m/s^2 (reads +9.8 UP at rest)
@@ -73,6 +73,7 @@ const uint16_t kSampleBlockLen = 64;
 
 const uint8_t kStatusImuFound = 0x01;
 const uint8_t kStatusGyroCalibrated = 0x02;
+const uint8_t kStatusAttitudeReady = 0x04;  // filter started from the measured gravity
 
 const uint32_t kHoldTimeoutUs = 300;      // release a stalled 1..4 byte header
 const uint32_t kPacketTimeoutUs = 3000;   // give up a packet whose body stopped arriving
@@ -85,6 +86,10 @@ size_t add_stuffing(const uint8_t* packet, size_t size, uint8_t* out, size_t out
 size_t remove_stuffing(const uint8_t* packet, size_t size, uint8_t* out, size_t out_cap);
 // Gravity direction (points down, unit) in sensor axes from a Madgwick quaternion w,x,y,z.
 void gravity_from_quat(const float q[4], float g[3]);
+// Starting quaternion (yaw 0) whose gravity_from_quat() equals -a/|a| (a = accelerometer, any scale).
+// Returns false for a zero vector. Without this the filter starts at (1,0,0,0) and needs ~23 s
+// (beta 0.1, 200 Hz) to turn 90 deg, and never leaves an exact 180 deg start.
+bool quat_from_accel(const float a[3], float q[4]);
 
 struct ImuSample {
   uint32_t timestamp_us;

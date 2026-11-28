@@ -9,12 +9,17 @@
 //   READ (see robot/README.md 3절).
 // - IMU.begin() blocks for up to ~5 s at power-up (gyro bias, keep the robot still);
 //   the bridge does not answer during that time.
+// - Attitude: our own Madgwick (same class and gain as cIMU) seeded from the first accel
+//   sample after the gyro bias is known. cIMU's filter starts at (1,0,0,0) and would need
+//   ~23 s to turn the 90 deg of the Kitoru mounting (measured on a PC, 200 Hz, beta 0.1).
 //
 // Build: Arduino IDE or arduino-cli with the OpenCR board package (FQBN OpenCR:OpenCR:OpenCR,
 // checked with package 1.5.3). Upload steps: robot/README.md 3절.
 
 #include <DynamixelSDK.h>  // kept from usb_to_dxl (board drivers, drv_dxl_tx_enable)
 #include <IMU.h>           // ROBOTIS cIMU (ICM-20648 on OpenCR 1.0, Madgwick filter)
+
+#include <MadgwickAHRS.h>  // same filter class cIMU uses; ours can be seeded
 
 #include "bridge_core.h"
 
@@ -36,6 +41,9 @@ static const float GYRO_RAD_S_PER_LSB = (2000.0f / 32768.0f) * 0.01745329252f;
 static const float ACC_M_S2_PER_LSB = 9.80665f / 16384.0f;  // [확인 필요] +-2 g -> 16384 LSB/g
 
 cIMU imu;
+Madgwick attitude;  // cIMU's own filter is private and starts at (1,0,0,0); this one starts from gravity
+static bool attitude_ready = false;
+static uint32_t attitude_prev_us = 0;
 kbridge::Bridge bridge(VIRTUAL_ID);
 
 static uint8_t usb_rx[256];
@@ -67,13 +75,34 @@ static void update_imu() {
   kbridge::ImuSample s;
   s.timestamp_us = t0;
   s.sample_count = ++sample_count;
-  s.status = (imu.bConnected ? kbridge::kStatusImuFound : 0) |
-             (imu.SEN.gyro_cali_get_done() ? kbridge::kStatusGyroCalibrated : 0);
-  for (int i = 0; i < 4; i++) s.quat[i] = imu.quat[i];
   for (int i = 0; i < 3; i++) {
     s.gyro_rad_s[i] = imu.gyroData[i] * GYRO_RAD_S_PER_LSB;
     s.acc_m_s2[i] = imu.accData[i] * ACC_M_S2_PER_LSB;
   }
+  bool calibrated = imu.SEN.gyro_cali_get_done();
+  if (!calibrated) {
+    attitude_ready = false;  // (re)start from gravity once the gyro bias is known
+  } else if (!attitude_ready) {
+    float q[4];
+    if (kbridge::quat_from_accel(s.acc_m_s2, q)) {
+      attitude.q0 = q[0];
+      attitude.q1 = q[1];
+      attitude.q2 = q[2];
+      attitude.q3 = q[3];
+      attitude_ready = true;
+    }
+  } else {
+    // imu.gx..gz: deg/s (bias removed), what Madgwick::updateIMU expects; accel scale does not matter
+    attitude.invSampleFreq = (t0 - attitude_prev_us) * 1e-6f;
+    attitude.updateIMU(imu.gx, imu.gy, imu.gz, s.acc_m_s2[0], s.acc_m_s2[1], s.acc_m_s2[2]);
+  }
+  attitude_prev_us = t0;
+  s.quat[0] = attitude.q0;
+  s.quat[1] = attitude.q1;
+  s.quat[2] = attitude.q2;
+  s.quat[3] = attitude.q3;
+  s.status = (imu.bConnected ? kbridge::kStatusImuFound : 0) | (calibrated ? kbridge::kStatusGyroCalibrated : 0) |
+             (attitude_ready ? kbridge::kStatusAttitudeReady : 0);
   bridge.set_imu(s);
 }
 

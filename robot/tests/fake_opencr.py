@@ -45,6 +45,7 @@ def build_core(out_dir) -> ctypes.CDLL:
     so.kb_crc16.restype, so.kb_crc16.argtypes = ctypes.c_uint16, [u8p, sz]
     so.kb_add_stuffing.restype, so.kb_add_stuffing.argtypes = sz, [u8p, sz, u8p, sz]
     so.kb_gravity_from_quat.argtypes = [f32p, f32p]
+    so.kb_quat_from_accel.restype, so.kb_quat_from_accel.argtypes = ctypes.c_int, [f32p, f32p]
     return so
 
 
@@ -88,7 +89,7 @@ class Core:
     def take_host(self):
         return self._take(self.so.kb_take_host)
 
-    def set_imu(self, timestamp_us=0, count=0, status=0x03, quat=(1, 0, 0, 0), gyro=(0, 0, 0), acc=(0, 0, 9.80665)):
+    def set_imu(self, timestamp_us=0, count=0, status=0x07, quat=(1, 0, 0, 0), gyro=(0, 0, 0), acc=(0, 0, 9.80665)):
         self.so.kb_set_imu(self.h, timestamp_us, count, status, f32(quat), f32(gyro), f32(acc))
 
 

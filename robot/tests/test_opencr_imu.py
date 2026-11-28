@@ -85,11 +85,27 @@ def test_gravity_from_quat_points_down_in_sensor_axes(so):
         assert g_of(q) == pytest.approx(oi.matvec(oi.transpose(r), [0, 0, -1]), abs=1e-5)
 
 
+@needs_cxx
+def test_filter_start_from_accel(so):
+    """The firmware starts its Madgwick filter here; gravity must equal -accel direction at once."""
+    rng = random.Random(2)
+    cases = [[0, 0, 9.8], [0, -9.8, 0], [9.8, 0, 0], [0, 0, -9.8], [0.001, 0, -9.8]]
+    cases += [[rng.gauss(0, 5) for _ in range(3)] for _ in range(50)]
+    for a in cases:
+        q, g = f32([0, 0, 0, 0]), f32([0, 0, 0])
+        assert so.kb_quat_from_accel(f32(a), q) == 1
+        assert sum(c * c for c in q) == pytest.approx(1.0, abs=1e-5)
+        so.kb_gravity_from_quat(q, g)
+        n = math.sqrt(sum(c * c for c in a))
+        assert list(g) == pytest.approx([-c / n for c in a], abs=2e-3)  # within 0.1 deg (upside-down snap)
+    assert so.kb_quat_from_accel(f32([0, 0, 0]), f32([0, 0, 0, 0])) == 0
+
+
 # ---- firmware core: the virtual ID through the real SDK -------------------------------
 @needs_cxx
 def test_ping_and_read_virtual_id_never_touch_the_bus(so):
     quat = [0.9238795, 0.3826834, 0.0, 0.0]  # 45 deg about chip x
-    core, port = bridge_bus(so, [FakeServo(1)], timestamp_us=123456, count=7, status=0x03, quat=quat,
+    core, port = bridge_bus(so, [FakeServo(1)], timestamp_us=123456, count=7, status=0x07, quat=quat,
                             gyro=[0.1, -0.2, 0.3], acc=[0.0, 6.9, 6.9])
     port.setBaudRate(1_000_000)
     ph = PacketHandler(2.0)
@@ -98,7 +114,7 @@ def test_ping_and_read_virtual_id_never_touch_the_bus(so):
     data, result, error = ph.readTxRx(port, 200, oi.SAMPLE_ADDR, oi.SAMPLE_LEN)
     assert result == COMM_SUCCESS and error == 0
     s = oi.decode_sample(bytes(data))
-    assert (s["timestamp_us"], s["sample_count"], s["status"]) == (123456, 7, 0x03)
+    assert (s["timestamp_us"], s["sample_count"], s["status"]) == (123456, 7, 0x07)
     assert s["quat_chip"] == pytest.approx(quat)
     assert s["gyro_chip"] == pytest.approx([0.1, -0.2, 0.3])
     assert s["gravity_chip"] == pytest.approx([0, -math.sin(math.pi / 4), -math.cos(math.pi / 4)], abs=1e-6)
@@ -265,7 +281,7 @@ def test_opencr_imu_reads_body_frame_values(so):
     # a chip quaternion whose gravity matches g_chip: world <- chip = (world <- body)(body <- chip)
     q_body = [math.cos(a / 2), 0.0, math.sin(a / 2), 0.0]
     q_chip = oi.matrix_to_quat(oi.matmul(oi.quat_to_matrix(q_body), r))
-    core, port = bridge_bus(so, [FakeServo(4)], timestamp_us=10, count=3, status=0x03, quat=q_chip,
+    core, port = bridge_bus(so, [FakeServo(4)], timestamp_us=10, count=3, status=0x07, quat=q_chip,
                             gyro=w_chip, acc=acc_chip)
     bus = DxlBus("fake", 1_000_000, {"R_knee": (4, "XL430-W250")}, port_handler=port, settle_s=0)
     with bus:
@@ -284,13 +300,28 @@ def test_opencr_imu_reads_body_frame_values(so):
 
 
 @needs_cxx
-def test_uncalibrated_gyro_is_refused(so):
-    core, port = bridge_bus(so, [FakeServo(4)], status=0x01)
+def test_not_ready_imu_is_refused(so):
+    core, port = bridge_bus(so, [FakeServo(4)], status=0x03)  # gyro calibrated, filter not started
     bus = DxlBus("fake", 1_000_000, {"R_knee": (4, "XL430-W250")}, port_handler=port, settle_s=0)
     with bus:
-        imu = oi.OpenCRImu(bus).open()
-        with pytest.raises(DxlError, match="not calibrated"):
-            imu.read()
+        with pytest.raises(DxlError, match="not ready"):
+            oi.OpenCRImu(bus).open(wait_s=0.1)
+        imu = oi.OpenCRImu(bus, require_calibrated=False).open()
+        with pytest.raises(DxlError, match="not ready"):
+            oi.OpenCRImu(bus).read()
+        assert imu.read_raw()["status"] == 0x03
+
+
+@needs_cxx
+def test_filter_disagreeing_with_accel_is_refused(so):
+    # filter says chip z up, accelerometer says chip -y up (the Kitoru mounting): not converged
+    core, port = bridge_bus(so, [FakeServo(4)], status=0x07, quat=[1, 0, 0, 0], acc=[0, -9.8, 0])
+    bus = DxlBus("fake", 1_000_000, {"R_knee": (4, "XL430-W250")}, port_handler=port, settle_s=0)
+    with bus:
+        with pytest.raises(DxlError, match="filter vs accel 1.41"):
+            oi.OpenCRImu(bus).open(wait_s=0.1)
+        core.set_imu(status=0x07, quat=oi.matrix_to_quat(oi.R_BODY_BOARD_V17), acc=[0, -9.8, 0])
+        oi.OpenCRImu(bus).open(wait_s=0.1)  # agrees: board y down -> upright robot
 
 
 @needs_cxx

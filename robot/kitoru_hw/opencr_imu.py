@@ -42,6 +42,8 @@ ADDR_RESET_DIAG = 116
 ADDR_GYRO_CALIBRATE = 117
 STATUS_IMU_FOUND = 0x01
 STATUS_GYRO_CALIBRATED = 0x02
+STATUS_ATTITUDE_READY = 0x04
+READY = STATUS_IMU_FOUND | STATUS_GYRO_CALIBRATED | STATUS_ATTITUDE_READY
 # timestamp u32, count u32, status u8, pad x3, quat f32x4, gravity f32x3, gyro f32x3, acc f32x3
 _SAMPLE = struct.Struct("<IIB3x4f3f3f3f")
 assert _SAMPLE.size == SAMPLE_LEN
@@ -120,6 +122,15 @@ def roll_pitch_from_gravity(g: Sequence[float]) -> List[float]:
     return [math.atan2(-gy, -gz), math.atan2(gx, math.hypot(gy, gz))]
 
 
+def gravity_mismatch(sample: Mapping) -> float:
+    """|filter gravity - (-accel direction)|; near 0 while still and converged."""
+    acc = sample["acc_chip"]
+    n = math.sqrt(sum(a * a for a in acc))
+    if n == 0:
+        return 2.0
+    return math.sqrt(sum((g + a / n) ** 2 for g, a in zip(sample["gravity_chip"], acc)))
+
+
 def decode_sample(data: bytes) -> Dict[str, object]:
     ts, count, status, *rest = _SAMPLE.unpack(bytes(data))
     return {"timestamp_us": ts, "sample_count": count, "status": status,
@@ -138,7 +149,7 @@ class OpenCRImu:
       gyro       [3]  same as ang_vel_b (key kept from the NullImu comment)
       roll_pitch [2]  rad, for safety.tilt_deg
       timestamp_us, sample_count, status, stale (same sample as last read), read_s (seconds)
-      gravity_chip, gyro_chip  the same values before rotation (to find r_board_chip on the real board)
+      gravity_chip, gyro_chip, acc_chip  the same values before rotation (to find r_board_chip on the real board)
     """
 
     def __init__(self, bus: DxlBus, virtual_id: int = DEFAULT_VIRTUAL_ID,
@@ -183,8 +194,12 @@ class OpenCRImu:
         self.bus._check(result, error, f"Write {what} of OpenCR IMU (ID {self.virtual_id})")
 
     # ----- public ---------------------------------------------------------
-    def open(self) -> "OpenCRImu":
-        """PING the virtual ID and check the firmware. The bus must already be open."""
+    def open(self, wait_s: float = 3.0, max_mismatch: float = 0.1) -> "OpenCRImu":
+        """PING the virtual ID, check the firmware and wait until the attitude is usable.
+
+        Usable: gyro bias measured, filter started, and the filter's gravity agrees with the
+        accelerometer within `max_mismatch` (unit-vector distance, 0.1 ~ 5.7 deg) while still.
+        Skipped when require_calibrated is False. The bus must already be open."""
         number, result, error = self.bus._io(self.bus.packet.ping, self.bus.port, self.virtual_id)
         try:
             self.bus._check(result, error, f"Ping OpenCR IMU (ID {self.virtual_id})")
@@ -199,7 +214,18 @@ class OpenCRImu:
         sample = decode_sample(self._read(SAMPLE_ADDR, SAMPLE_LEN, "sample"))
         if not sample["status"] & STATUS_IMU_FOUND:
             raise DxlError("OpenCR firmware runs, but its IMU did not start (cIMU::begin found no chip)")
-        return self
+        if not self.require_calibrated:
+            return self
+        deadline = time.monotonic() + wait_s
+        while True:
+            mismatch = gravity_mismatch(sample)
+            if sample["status"] & READY == READY and mismatch <= max_mismatch:
+                return self
+            if time.monotonic() >= deadline:
+                raise DxlError(f"OpenCR IMU not ready after {wait_s:.1f} s (status 0x{sample['status']:02x}, "
+                               f"filter vs accel {mismatch:.2f}): keep the robot still after power-up and retry")
+            time.sleep(0.05)
+            sample = decode_sample(self._read(SAMPLE_ADDR, SAMPLE_LEN, "sample"))
 
     def read_raw(self) -> Dict[str, object]:
         start = time.perf_counter()
@@ -210,9 +236,9 @@ class OpenCRImu:
 
     def read(self) -> Dict[str, object]:
         s = self.read_raw()
-        if self.require_calibrated and not s["status"] & STATUS_GYRO_CALIBRATED:
-            raise DxlError("OpenCR IMU gyro bias is not calibrated yet (keep the robot still after power-up, "
-                           "or call calibrate_gyro())")
+        if self.require_calibrated and s["status"] & READY != READY:
+            raise DxlError(f"OpenCR IMU is not ready (status 0x{s['status']:02x}: gyro bias not calibrated or "
+                           f"filter not started). Keep the robot still after power-up, or call calibrate_gyro()")
         r = self.r_body_chip
         gravity_b = matvec(r, s["gravity_chip"])
         ang_vel_b = matvec(r, s["gyro_chip"])
@@ -226,7 +252,7 @@ class OpenCRImu:
             "roll_pitch": roll_pitch_from_gravity(gravity_b),
             "timestamp_us": s["timestamp_us"], "sample_count": s["sample_count"], "status": s["status"],
             "stale": stale, "read_s": s["read_s"],
-            "gravity_chip": s["gravity_chip"], "gyro_chip": s["gyro_chip"],
+            "gravity_chip": s["gravity_chip"], "gyro_chip": s["gyro_chip"], "acc_chip": s["acc_chip"],
         }
 
     def calibrate_gyro(self, wait_s: float = 6.0, poll_s: float = 0.1) -> bool:

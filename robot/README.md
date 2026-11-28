@@ -80,9 +80,12 @@ python tools/scan_ids.py --port /dev/ttyACM0             # Linux
   - 이유: Sync Read 는 모든 ID 가 같은 번지 · 길이를 읽고(서보 126 번지 10 바이트 창에 IMU 가 안 들어감), SDK 가 목록 순서대로만 답을 받으며, 서보가 앞 ID 의 답을 기다리는지 모릅니다 [확인 필요].
   - 그래서 `scan_ids.py` 에도 ID 200 은 안 나옵니다.
   - 값: 한 주기에 USB 왕복 한 번이 더 듭니다(약 1–2 ms [추정], 50 Hz 한 주기 20 ms 안).
-- **IMU 갱신:** ROBOTIS `IMU` 라이브러리(`cIMU`, ICM-20648 + Madgwick 필터, 200 Hz)를 그대로 씁니다. 양쪽 포트에 기다리는 바이트가 없을 때만 갱신하고, 2 ms 넘게 밀리면 그냥 갱신합니다. 갱신 한 번이 막는 시간은 `imu_update_max_us` 로 보입니다.
+- **IMU 갱신:** ROBOTIS `IMU` 라이브러리(`cIMU`, ICM-20648, 200 Hz)로 칩 값을 읽습니다. 양쪽 포트에 기다리는 바이트가 없을 때만 갱신하고, 2 ms 넘게 밀리면 그냥 갱신합니다. 갱신 한 번이 막는 시간은 `imu_update_max_us` 로 보입니다.
+- **자세 필터는 펌웨어가 따로 돌립니다.** 같은 Madgwick 클래스 · 같은 이득(beta 0.1)이지만, 자이로 영점이 끝난 뒤 첫 가속도 값으로 시작 자세를 잡습니다.
+  - 이유: `cIMU` 안의 필터는 (1, 0, 0, 0)(칩 z 가 위)에서 시작합니다. 키토루는 보드를 세워 달아서 실제와 90° 어긋나고, PC 에서 같은 코드로 재 보니 5° 안에 들기까지 **23.5 초**(200 Hz), 180° 어긋나면 2 분 안에 못 돌아왔습니다.
+  - 첫 가속도로 시작하면 가만히 둔 10 초 동안 중력 방향 오차가 0.25° 이하였습니다(PC 측정, 자이로 0).
 - **전원을 켠 뒤 약 3 초 가만히 둡니다.** `IMU.begin()` 이 자이로 영점(512 표본, 최대 5 초)을 재는 동안 다리도 답하지 않습니다. USB 포트를 열 때 보드가 다시 시작하는지는 [확인 필요]입니다(그렇다면 프로그램을 띄울 때마다 3 초).
-- **라이브러리 값의 성질:** 자이로는 영점을 빼고 3 표본 이동 평균을 낸 뒤 ±3 LSB(±0.18 °/s)를 0 으로 자른 값입니다. 시뮬과 다른 점으로 남습니다. 지자기는 없어서 쿼터니언의 yaw 는 흐릅니다(정책은 중력 방향 · 각속도만 씀).
+- **라이브러리 값의 성질:** 자이로는 영점을 빼고 3 표본 이동 평균을 낸 뒤 ±3 LSB(±0.18 °/s)를 0 으로 자른 값입니다. 이동 평균(200 Hz 에서 평균 약 5 ms)과 칩 저역 필터(51 Hz)로 자이로가 몇 ms 늦습니다 [추정]. 학습 때 흔든 지연 10–30 ms 안이지만 시뮬과 다른 점으로 남습니다. 지자기는 없어서 쿼터니언의 yaw 는 흐릅니다(정책은 중력 방향 · 각속도만 씀).
 
 **가상 ID 200 의 control table** (리틀 엔디언, `bridge_core.h`)
 
@@ -97,8 +100,8 @@ python tools/scan_ids.py --port /dev/ttyACM0             # Linux
 | 14 | 1 | ACC_FS_G | R | 2(칩 설정 ±2 g) |
 | **32** | 4 | TIMESTAMP_US | R | 표본을 잰 `micros()`. 약 71.6 분마다 0 으로 돌아감 |
 | 36 | 4 | SAMPLE_COUNT | R | 표본마다 +1. 두 번 같으면 새 값이 아님 |
-| 40 | 1 | STATUS | R | bit0 IMU 찾음, bit1 자이로 영점 끝 |
-| 44 | 16 | QUAT_W..Z | R | float32 ×4, Madgwick 쿼터니언(칩 축 → 세계, yaw 흐름) |
+| 40 | 1 | STATUS | R | bit0 IMU 찾음, bit1 자이로 영점 끝, bit2 자세 필터 시작됨 |
+| 44 | 16 | QUAT_W..Z | R | float32 ×4, 펌웨어 Madgwick 쿼터니언(칩 축 → 세계, yaw 흐름) |
 | 60 | 12 | GRAVITY_X..Z | R | float32 ×3, 칩 축 중력 방향 단위벡터. **아래를 가리킴**(칩 z 가 위면 (0, 0, −1)) |
 | 72 | 12 | GYRO_X..Z | R | float32 ×3, 칩 축 각속도 rad/s |
 | 84 | 12 | ACC_X..Z | R | float32 ×3, 칩 축 가속도 m/s². 가만히 있으면 **위쪽**으로 +9.8 |
@@ -145,11 +148,11 @@ r_board_chip = 단위행렬                                # [확인 필요] 아
 
 0. 펌웨어를 올리고 전원을 켠 뒤 **3 초 가만히** 둡니다. 서보 전원 없이 USB 만으로 ①–③ 을 해도 됩니다(`--no-servos`).
 1. **PING 200:** `python tools/imu_check.py --port /dev/kitoru_opencr --no-servos --seconds 0`. `ID 200: OpenCR IMU firmware 1` 이 나와야 합니다. 「Is robot/firmware/opencr_bridge_imu on the OpenCR?」가 나오면 펌웨어가 안 올라간 것입니다.
-2. **중력 축 부호:** `--no-servos --seconds 60` 으로 띄우고 값을 봅니다.
-   - 보드만 책상에 부품 면을 위로 놓으면 `g_chip` ≈ (0, 0, −1) 이어야 합니다(칩 z = 보드 z 인지).
+2. **중력 축 부호:** `--no-servos --seconds 60` 으로 띄우고 값을 봅니다. 축 판정은 필터를 거치지 않는 `a_chip`(가속도 방향, **위**를 가리킴)으로 하고, `g_chip`(필터, 아래를 가리킴)은 그 반대가 되는지만 봅니다.
+   - 보드만 책상에 부품 면을 위로 놓으면 `a_chip` ≈ (0, 0, +1), `g_chip` ≈ (0, 0, −1) 이어야 합니다(칩 z = 보드 z 인지).
    - 몸통에 단 채 똑바로 세우면 `g_body` ≈ (0, 0, −1).
    - 앞으로 숙이면 `g_body` x 가 + 로, `pitch` 가 + 로. 오른쪽으로 기울이면 `g_body` y 가 − 로, `roll` 이 + 로.
-   - 다르면 `g_chip` 이 어느 축으로 움직였는지 보고 `r_board_chip` 을 고칩니다(열 = 칩 축을 보드 좌표로 쓴 것).
+   - 다르면 `a_chip` 이 어느 축으로 움직였는지 보고 `r_board_chip` 을 고칩니다(열 = 칩 축을 보드 좌표로 쓴 것).
 3. **각속도 축:** 똑바로 든 채 손으로 돌립니다. 위에서 볼 때 반시계(왼쪽으로 돌기)면 `w_body` z 가 +, 앞으로 숙이는 동안 y 가 +, 오른쪽으로 기우는 동안 x 가 + 이어야 합니다(오른손 법칙). 중력 축을 고친 행렬로 각속도도 맞아야 합니다. 안 맞으면 칩 축이 왼손계라는 뜻이니 멈추고 알려 주세요.
 4. **서보 중계 지연 전 · 후:** 서보 전원을 켜고(토크는 끈 채) 같은 포트에서 잽니다.
    - 전: `usb_to_dxl` 을 올린 상태에서 `python tools/read_demo.py --config config/joints_v20.yaml --rate 500`.
@@ -167,8 +170,8 @@ with Robot(config) as robot:                       # 포트는 서보와 같이 
     print(io.timing.summary())   # 서보 읽기 · IMU 읽기 시간 평균 · 최대(ms)
 ```
 
-- `read()` 키: `gravity_b`(몸통 중력 방향, 단위벡터) · `ang_vel_b`(rad/s) · `acc_b`(m/s²) · `quat`(몸통 w,x,y,z) · `gyro`(= `ang_vel_b`) · `roll_pitch`(rad, `safety.tilt_deg` 용) · `stale` · `read_s` · `gravity_chip` · `gyro_chip`.
-- 자이로 영점이 안 끝났으면 `read()` 가 거부합니다(`calibrate_gyro()` 로 다시 잴 수 있음).
+- `read()` 키: `gravity_b`(몸통 중력 방향, 단위벡터) · `ang_vel_b`(rad/s) · `acc_b`(m/s²) · `quat`(몸통 w,x,y,z) · `gyro`(= `ang_vel_b`) · `roll_pitch`(rad, `safety.tilt_deg` 용) · `stale` · `read_s` · `gravity_chip` · `gyro_chip` · `acc_chip`.
+- `open()` 은 「자이로 영점 끝 + 자세 필터 시작 + 필터 중력과 가속도 방향의 차이 0.1(약 5.7°) 이하」가 될 때까지 최대 3 초 기다리고, 안 되면 「가만히 두고 다시」 오류를 냅니다. 준비가 안 된 상태(STATUS bit1 · bit2)면 `read()` 도 거부합니다(`calibrate_gyro()` 로 영점을 다시 잴 수 있음).
 - 정책 학습 때 지연 10–30 ms 를 흔들었습니다. 실물 지연(표본 시각 → 정책 입력)은 `timestamp_us` 와 `read_s` 로 잴 수 있습니다.
 
 ## 4. Jetson: 고정 포트 이름과 권한
@@ -361,8 +364,8 @@ rm -rf tmp && find . -name __pycache__ -prune -exec rm -rf {} +
   - 토크가 켜져 있으면 EEPROM 쓰기를 거부합니다.
 - 원본 스크립트도 같은 가짜 서보에 붙여서 새 도구와 출력 · 패킷을 비교합니다.
 - `tests/test_opencr_imu.py` 는 펌웨어의 보드와 무관한 부분(`bridge_core.cpp`)을 PC 의 g++ 로 공유 라이브러리로 빌드해(`--basetemp` 안), 진짜 dynamixel-sdk → 펌웨어 코어 → 가짜 서보로 패킷을 왕복시킵니다(`tests/fake_opencr.py`). g++ 가 없으면 그 시험은 건너뜁니다.
-  - 확인하는 것: CRC · 스터핑이 SDK 와 같음, PING · READ 200 이 버스에 안 나감, 스터핑된 답, 오류 답, 서보 패킷이 바이트 하나 안 바뀌고 넘어감, 브로드캐스트가 바로 넘어감, 멈춘 앞머리를 시간 초과로 넘김, 회전행렬 부호, `PolicyIO` 시간 기록.
-- 펌웨어 전체(`.ino`)는 `arduino-cli compile --fqbn OpenCR:OpenCR:OpenCR` 로 컴파일만 확인했습니다(2026-11-28, 보드 패키지 1.5.3, 128,992 바이트). 실물 보드에서는 안 돌렸습니다.
+  - 확인하는 것: CRC · 스터핑이 SDK 와 같음, PING · READ 200 이 버스에 안 나감, 스터핑된 답, 오류 답, 서보 패킷이 바이트 하나 안 바뀌고 넘어감, 브로드캐스트가 바로 넘어감, 멈춘 앞머리를 시간 초과로 넘김, 필터 시작 자세가 가속도와 같음, 준비 안 된 IMU 거부, 회전행렬 부호, `PolicyIO` 시간 기록.
+- 펌웨어 전체(`.ino`)는 `arduino-cli compile --fqbn OpenCR:OpenCR:OpenCR` 로 컴파일만 확인했습니다(2026-11-28, 보드 패키지 1.5.3, 129,640 바이트). 실물 보드에서는 안 돌렸습니다.
 
 ## 11. [확인 필요] 모음
 
@@ -380,4 +383,4 @@ rm -rf tmp && find . -name __pycache__ -prune -exec rm -rf {} +
 - Bus Watchdog 이 발동할 때 토크가 켜진 채 붙잡는지(e-manual 에 없음), XL430 에서 Sync Write 가 시계를 되돌리는지.
 - 저전압 경고 11.1 V, 온도 여유 10 · 3 °C 는 정한 값이 아니라 출발점입니다.
 - 제어 주기 표의 USB 2 ms · 컴퓨터 0.1 ms/서보는 추정입니다. `read_demo.py --rate` 로 실측해야 합니다.
-- IMU 펌웨어(3.1절): 칩 축 ↔ 보드 축(`r_board_chip`), 가속도 눈금 16384 LSB/g, 서보가 Sync Read 에서 앞 ID 답을 기다리는지, USB 포트를 열 때 OpenCR 이 다시 시작하는지, 업로드에 부트로더 모드 · udev 규칙이 필요한지, 실물 중계 지연(`loop_max_us`)과 IMU 읽기 시간, 몸통 축이 MuJoCo `torso` 축과 같은지.
+- IMU 펌웨어(3.1절): 칩 축 ↔ 보드 축(`r_board_chip`), 가속도 눈금 16384 LSB/g, 서보가 Sync Read 에서 앞 ID 답을 기다리는지, USB 포트를 열 때 OpenCR 이 다시 시작하는지, 업로드에 부트로더 모드 · udev 규칙이 필요한지, 실물 중계 지연(`loop_max_us`)과 IMU 읽기 시간, 몸통 축이 MuJoCo `torso` 축과 같은지, 보드에 ICM-20648 대신 MPU9250 이 달린 초기 판이면 칩 축 배치가 다를 수 있음(라이브러리는 찾은 칩을 쓰고, 눈금은 둘 다 ±2000 °/s · ±2 g 로 같음), 자이로가 늦는 정도.

@@ -2,6 +2,7 @@
 
 #include "bridge_core.h"
 
+#include <math.h>
 #include <string.h>
 
 namespace kbridge {
@@ -60,6 +61,21 @@ void gravity_from_quat(const float q[4], float g[3]) {
   g[0] = -2.0f * (q[1] * q[3] - q[0] * q[2]);
   g[1] = -2.0f * (q[0] * q[1] + q[2] * q[3]);
   g[2] = -(1.0f - 2.0f * (q[1] * q[1] + q[2] * q[2]));
+}
+
+bool quat_from_accel(const float a[3], float q[4]) {
+  float n = sqrtf(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
+  if (n <= 0.0f) return false;
+  float x = a[0] / n, y = a[1] / n, z = a[2] / n;
+  // Shortest rotation taking the measured "up" (chip axes) onto world +z: q = [1 + a.z, a x z].
+  if (z < -0.999999f) {
+    q[0] = 0.0f; q[1] = 1.0f; q[2] = 0.0f; q[3] = 0.0f;  // upside down: 180 deg about x
+    return true;
+  }
+  float w = 1.0f + z, qx = y, qy = -x;
+  float m = sqrtf(w * w + qx * qx + qy * qy);
+  q[0] = w / m; q[1] = qx / m; q[2] = qy / m; q[3] = 0.0f;
+  return true;
 }
 
 Bridge::Bridge(uint8_t virtual_id)
@@ -412,5 +428,6 @@ size_t kb_add_stuffing(const uint8_t* p, size_t n, uint8_t* out, size_t cap) {
   return kbridge::add_stuffing(p, n, out, cap);
 }
 void kb_gravity_from_quat(const float* q, float* g) { kbridge::gravity_from_quat(q, g); }
+int kb_quat_from_accel(const float* a, float* q) { return kbridge::quat_from_accel(a, q); }
 }
 #endif
